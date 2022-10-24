@@ -1,0 +1,159 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace KzBot.UI
+{
+    public partial class Healer : Form
+    {
+        public Healer()
+        {
+            InitializeComponent();
+
+            this.TopLevel = false;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.Dock = DockStyle.Fill;
+            this.Show();
+        }
+
+        private void Healer_Load(object sender, EventArgs e)
+        {
+            comboBox1.Items.AddRange(Enum.GetNames(typeof(HealType)).Select(type => type.Replace("_", " ")).ToArray());
+            comboBox1.SelectedIndex = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            HealRule HealRule = new HealRule() { HpMin = 0, HpMax = 80, MpMax = 30, MpMin = 5, Delay = 500, Type = HealType.Nothing};
+            Globals.Config.Healer.Add(HealRule);
+            listView1.Items.Add(HealRule.ListViewItem());
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+            {
+                button1.Enabled = false;
+                textBox1.Enabled = false;
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+                textBox5.Enabled = false;
+                comboBox1.Enabled = false;
+            }
+            else
+            {
+                HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+
+                button1.Text = rule.Key.ToString();
+                textBox1.Text = rule.HpMin.ToString();
+                textBox2.Text = rule.HpMax.ToString();
+                textBox3.Text = rule.MpMin.ToString();
+                textBox4.Text = rule.MpMax.ToString();
+                textBox5.Text = rule.Delay.ToString();
+
+                comboBox1.Text = rule.Type.ToString();
+
+                button1.Enabled = true;
+                textBox1.Enabled = true;
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
+                textBox4.Enabled = true;
+                textBox5.Enabled = true;
+                comboBox1.Enabled = true;
+            }
+        }
+
+        private void button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.Key = e.KeyCode;
+            listView1.SelectedItems[0].SubItems[4].Text = e.KeyCode.ToString();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.Type = (HealType)Enum.Parse(typeof(HealType), comboBox1.Text);
+            listView1.SelectedItems[0].SubItems[1].Text = rule.Type.ToString();
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.Delay = Convert.ToInt32(textBox5.Text);
+            listView1.SelectedItems[0].SubItems[5].Text = rule.Delay.ToString();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.HpMin = Convert.ToInt32(textBox1.Text);
+            listView1.SelectedItems[0].SubItems[2].Text = String.Format("{0} to {1}", rule.HpMin, rule.HpMax);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.HpMax = Convert.ToInt32(textBox2.Text);
+            listView1.SelectedItems[0].SubItems[2].Text = String.Format("{0} to {1}", rule.HpMin, rule.HpMax);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.MpMin = Convert.ToInt32(textBox3.Text);
+            listView1.SelectedItems[0].SubItems[3].Text = String.Format("{0} to {1}", rule.MpMin, rule.MpMax);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            rule.MpMax = Convert.ToInt32(textBox4.Text);
+            listView1.SelectedItems[0].SubItems[3].Text = String.Format("{0} to {1}", rule.MpMin, rule.MpMax);
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Globals.Config.Healer.Clear();
+            listView1.Items.Clear();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            Globals.Config.Healer.RemoveAt(listView1.SelectedIndices[0]);
+            listView1.Items.Remove(listView1.SelectedItems[0]);
+        }
+    }
+}

@@ -15,6 +15,7 @@ namespace KzBot
         public UI.Alerts Alerts;
         public UI.Settings Settings;
 
+        public UI.CavebotLite CavebotLite = new UI.CavebotLite();
 
         public Main()
         {
@@ -250,34 +251,11 @@ namespace KzBot
             }
         }
 
-
-        private void testeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            {
-                for (int tries = 0; tries < 5; tries++)
-                {
-                    for (int x = -1; x <= 1; x++)
-                    {
-                        for (int y = -1; y <= 1; y++)
-                        {
-                            Point sqmPosition = new Point();
-                            sqmPosition.X = Objects.ClientData.GameMapCenter.X + x * Objects.ClientData.SqmSize.Width;
-                            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + y * Objects.ClientData.SqmSize.Height;
-                            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
-                            //Debug.WriteLine(sqmPosition.ToString());
-                            System.Threading.Thread.Sleep(10);
-                        }
-                    }
-                }
-            }
-            //    MessageBox.Show(String.Format("Heal: {0} | Support: {1} | Attack: {2} | Diamond Arrow: {3}", Objects.Client.hasCooldown(CooldownGroup.Heal), Objects.Client.hasCooldown(CooldownGroup.Support), Objects.Client.hasCooldown(CooldownGroup.Attack), Objects.Client.getItemCount(-29635)));
+             CavebotLite.Show();
         }
-
-        private void alertaEsteBotãoFazCoisasEstranhasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Globals.WaypointId.ToString());
-        }
-    }   
+    }
 
     public static class ControlExtensions
     {

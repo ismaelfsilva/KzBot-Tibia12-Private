@@ -56,6 +56,11 @@ namespace KzBot.Threads
                     case WaypointType.Node:
                     case WaypointType.Use:
                     case WaypointType.Use_On:
+                        if (playerPos.Z != waypoint.Z)
+                        {
+                            Globals.WaypointId++;
+                            return;
+                        }
                         break;
                     case WaypointType.Not_Location_Goto_Label:
                     case WaypointType.Not_Location_Goback:

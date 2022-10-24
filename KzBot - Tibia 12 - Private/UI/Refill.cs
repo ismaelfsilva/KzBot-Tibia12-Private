@@ -107,5 +107,23 @@ namespace KzBot.UI
                 textBox4.Enabled = true;
             }
         }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            Globals.Config.Refill.Clear();
+            listView1.Items.Clear();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            Globals.Config.Refill.RemoveAt(listView1.SelectedIndices[0]);
+            listView1.Items.Remove(listView1.SelectedItems[0]);
+        }
     }
 }

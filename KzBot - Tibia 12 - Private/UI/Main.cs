@@ -26,6 +26,9 @@ namespace KzBot
 
         private void Main_Load(object sender, EventArgs e)
         {
+            this.Location = KzBot.Properties.Settings.Default.Location;
+            this.Size = KzBot.Properties.Settings.Default.Size;
+
             Globals.Main = this;
 
             Globals.exeOtLocation = Properties.Settings.Default.ExeLocation;
@@ -84,6 +87,26 @@ namespace KzBot
             Threads.ClientData.Thread.Change(100, Timeout.Infinite);
 
             refreshToolStripMenuItem.PerformClick();
+        }
+
+        private bool canCloseForm = false;
+
+        private void Main_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            if (!canCloseForm && MessageBox.Show("Are you sure you want to close KzBot?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            canCloseForm = true;
+
+            KzBot.Properties.Settings.Default.Location = this.Location;
+            KzBot.Properties.Settings.Default.Size = this.Size;
+
+            KzBot.Properties.Settings.Default.Save();
+
+            Application.Exit(e);
         }
 
         private void comboBox1_Clicked(object sender, EventArgs e)

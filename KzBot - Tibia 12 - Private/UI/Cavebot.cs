@@ -92,6 +92,9 @@ namespace KzBot.UI
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
             Globals.Config.Waypoints.Clear();
             listView1.Items.Clear();
             Globals.WaypointId = 0;            

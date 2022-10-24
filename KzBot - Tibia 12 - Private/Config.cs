@@ -58,6 +58,9 @@ namespace KzBot
         // Targeting Rules
         public List<TargetRule> Targeting { get; set; } = new List<TargetRule>();
 
+        public List<RefillRule> Refill { get; set; } = new List<RefillRule>();
+
+
         public int client_Data_Update_Rate { get; set; } = 100;
         public bool auto_Haste { get; set; } = true;
         public bool auto_Utito { get; set; } = true;
@@ -67,6 +70,37 @@ namespace KzBot
         public bool CavebotStatus { get; set; } = false;
         public bool TargetingStatus { get; set; } = false;
         public bool AlarmStatus { get; set; } = false;
+    }
+
+
+    public class RefillRule
+    {
+        [XmlAttribute]
+        public string Type { get; set; } = "trade";
+        [XmlAttribute]
+        public string Name { get; set; } = string.Empty;
+        [XmlAttribute]
+        public int Id { get; set; } = 0;
+        [XmlAttribute]
+        public int ToBuy { get; set; } = 0;
+        [XmlAttribute]
+        public int ToLeave { get; set; } = 0;
+
+        public RefillRule()
+        {
+        }
+        public ListViewItem ListViewItem()
+        {
+            ListViewItem item = new ListViewItem();
+
+            item.SubItems.Add(Type.ToString());
+            item.SubItems.Add(Id.ToString());
+            item.SubItems.Add(Name.ToString());
+            item.SubItems.Add(ToBuy.ToString());
+            item.SubItems.Add(ToLeave.ToString());
+
+            return item;
+        }
     }
 
     public enum AlarmType

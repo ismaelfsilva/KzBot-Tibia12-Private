@@ -178,18 +178,26 @@ namespace KzBot.UI
         #region "Labels"
         private void button13_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Nothing, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
+            Waypoint waypoint = GenerateWaypoint(WaypointType.Enable_Targeting, 5, 5);
             waypoint.Label = button13.Text.Replace(" ", "_");
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Enable_Alerts, 5, 5);
+            Globals.Config.Waypoints.Add(waypoint2);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Nothing, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
+            Waypoint waypoint = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Disable_Targeting, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
             waypoint.Label = button14.Text.Replace(" ", "_");
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+
+            Waypoint waypoint2 = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Disable_Alerts, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
+            Globals.Config.Waypoints.Add(waypoint2);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -202,14 +210,10 @@ namespace KzBot.UI
 
         private void button16_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Disable_Targeting, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
+            Waypoint waypoint = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Nothing, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
             waypoint.Label = button16.Text.Replace(" ", "_");
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
-
-            Waypoint waypoint2 = new Waypoint() { X = 0, Y = 0, Z = 0, Type = WaypointType.Disable_Alerts, rangeX = Convert.ToInt32(numericUpDown1.Value), rangeY = Convert.ToInt32(numericUpDown2.Value) };
-            Globals.Config.Waypoints.Add(waypoint2);
-            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
         }
 
         private void button17_Click(object sender, EventArgs e)

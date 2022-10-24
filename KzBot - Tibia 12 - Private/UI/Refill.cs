@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace KzBot.UI
+{
+    public partial class Refill : Form
+    {
+        public Refill()
+        {
+            InitializeComponent();
+
+            this.TopLevel = false;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.Dock = DockStyle.Fill;
+            this.Show();
+        }
+
+        private void Refill_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 0;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RefillRule rule = new RefillRule();
+            Globals.Config.Refill.Add(rule);
+            listView1.Items.Add(rule.ListViewItem());
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+
+            RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+            rule.Type = comboBox1.Text.ToString();
+            listView1.SelectedItems[0].SubItems[1].Text = comboBox1.Text.ToString();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+
+            RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+            rule.Id = int.Parse(textBox1.Text.ToString());
+            listView1.SelectedItems[0].SubItems[2].Text = textBox1.Text.ToString();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+            RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+            rule.Name = textBox2.Text.ToString();
+            listView1.SelectedItems[0].SubItems[3].Text = textBox2.Text.ToString();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+
+            RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+            rule.ToBuy = int.Parse(textBox3.Text.ToString());
+            listView1.SelectedItems[0].SubItems[4].Text = textBox3.Text.ToString();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+                return;
+
+
+            RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+            rule.ToLeave = int.Parse(textBox4.Text.ToString());
+            listView1.SelectedItems[0].SubItems[5].Text = textBox4.Text.ToString();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+            {
+                comboBox1.Enabled = false;
+                textBox1.Enabled = false;
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+            }
+            else
+            {
+                comboBox1.Enabled = true;
+                textBox1.Enabled = true;
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
+                textBox4.Enabled = true;
+            }
+        }
+    }
+}

@@ -12,8 +12,10 @@ namespace KzBot
         public UI.Cavebot Cavebot;
         public UI.Healer Healer;
         public UI.Targeting Targeting;
-        public UI.Alerts Alerts;
+        public UI.Alerts Alerts; 
+        public UI.Refill Refill;
         public UI.Settings Settings;
+
 
         public UI.CavebotLite CavebotLite = new UI.CavebotLite();
 
@@ -40,6 +42,7 @@ namespace KzBot
             Healer = new UI.Healer();
             Targeting = new UI.Targeting();
             Alerts = new UI.Alerts();
+            Refill = new UI.Refill();
             Settings = new UI.Settings();
 
             TabPage cavebotPage = new TabPage(Cavebot.Text);
@@ -54,6 +57,9 @@ namespace KzBot
             TabPage alertsPage = new TabPage(Alerts.Text);
             alertsPage.Controls.Add(Alerts);
 
+            TabPage refillPage = new TabPage(Refill.Text);
+            refillPage.Controls.Add(Refill);
+
             TabPage settingsPage = new TabPage(Settings.Text);
             settingsPage.Controls.Add(Settings);
 
@@ -61,6 +67,7 @@ namespace KzBot
             tabControl1.Controls.Add(healerPage);
             tabControl1.Controls.Add(targetingPage);
             tabControl1.Controls.Add(alertsPage);
+            tabControl1.Controls.Add(refillPage);
             tabControl1.Controls.Add(settingsPage);
 
             listView1.DoubleBuffering(true);

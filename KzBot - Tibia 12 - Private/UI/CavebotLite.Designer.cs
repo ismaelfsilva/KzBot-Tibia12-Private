@@ -499,6 +499,7 @@
             this.button9.TabIndex = 15;
             this.button9.Text = "Not Location GoBack";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // groupBox1
             // 

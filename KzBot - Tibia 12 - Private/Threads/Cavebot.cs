@@ -188,8 +188,17 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Refill:
-                        if (Objects.Client.getItemCount(int.Parse(extraData[0])) < int.Parse(extraData[1]))
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[2].Trim());
+                        bool needRefill = false;
+                        foreach (RefillRule refill in Globals.Config.Refill)
+                        {
+                            if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
+                            {
+                                needRefill = true;
+                                break;
+                            }
+                        }
+                        if (needRefill)
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;
@@ -244,54 +253,60 @@ namespace KzBot.Threads
                             break;
                         }
                     case WaypointType.Buy_Refill:
-                        {   
-                            int itemCount = Objects.Client.getItemCount(int.Parse(extraData[3].Trim()));
-
-                            if (itemCount >= int.Parse(extraData[2]))
+                        {
+                            bool saidHi = false;
+                            foreach (RefillRule refill in Globals.Config.Refill)
                             {
-                                Globals.WaypointId++;
-                                break;
+                                int itemCount = Objects.Client.getItemCount(refill.Id);
+
+                                if (itemCount >= refill.ToBuy)
+                                {
+                                    continue;
+                                }
+
+                                Keyboard.PressKey(Keys.Escape);
+                                System.Threading.Thread.Sleep(100);
+
+                                if (!saidHi)
+                                {
+                                    Client.Say("#s hi");
+                                    System.Threading.Thread.Sleep(3000);
+                                    saidHi = true;
+                                }
+
+                                Client.Say(refill.Type);
+                                System.Threading.Thread.Sleep(300);
+                                Point tradeWindow = Objects.ClientData.FindTrade();
+                                if (tradeWindow.X <= 0)
+                                {
+                                    Globals.WaypointId++;
+                                    return;
+                                }
+
+                                // Click Buy
+                                Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
+                                System.Threading.Thread.Sleep(500);
+
+                                // Search Item
+                                Client.leftClick(tradeWindow.X + 35, tradeWindow.Y + 105);
+                                System.Threading.Thread.Sleep(500);
+                                Keyboard.Write(refill.Name);
+                                System.Threading.Thread.Sleep(500);
+
+                                // Select Item
+                                Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
+                                System.Threading.Thread.Sleep(500);
+
+                                // Set Count
+                                Client.leftClick(tradeWindow.X + 70, tradeWindow.Y + 140);
+                                System.Threading.Thread.Sleep(500);
+                                Keyboard.Write((refill.ToBuy).ToString());
+                                System.Threading.Thread.Sleep(500);
+
+                                // Buy
+                                Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
+                                System.Threading.Thread.Sleep(100);
                             }
-
-                            Keyboard.PressKey(Keys.Escape);
-
-                            System.Threading.Thread.Sleep(1000);
-
-                            Client.Say("hi");
-                            System.Threading.Thread.Sleep(300);
-                            Client.Say(extraData[0].Trim());
-                            System.Threading.Thread.Sleep(300);
-                            Point tradeWindow = Objects.ClientData.FindTrade();
-                            if (tradeWindow.X <= 0)
-                            {
-                                Globals.WaypointId++;
-                                return;
-                            }
-
-                            // Click Buy
-                            Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
-                            System.Threading.Thread.Sleep(300);
-
-                            // Search Item
-                            Client.leftClick(tradeWindow.X + 35, tradeWindow.Y + 105);
-                            System.Threading.Thread.Sleep(500);
-                            Keyboard.Write(extraData[1].Trim());
-                            System.Threading.Thread.Sleep(500);
-
-                            // Select Item
-                            Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                            System.Threading.Thread.Sleep(100);
-
-                            // Set Count
-                            Client.leftClick(tradeWindow.X + 70, tradeWindow.Y + 140);
-                            System.Threading.Thread.Sleep(500);
-                            Keyboard.Write((int.Parse(extraData[2].Trim()) - itemCount).ToString());
-                            System.Threading.Thread.Sleep(500);
-
-                            // Buy
-                            Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
-                            System.Threading.Thread.Sleep(100);
-
                             Globals.WaypointId++;
                             break;
                         }

@@ -173,6 +173,13 @@ namespace KzBot.UI
             Globals.Config.Waypoints.Add(waypoint3);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Waypoint waypoint = GenerateWaypoint(WaypointType.Not_Location_Goback);
+            Globals.Config.Waypoints.Add(waypoint);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+        }
         #endregion
 
         #region "Labels"

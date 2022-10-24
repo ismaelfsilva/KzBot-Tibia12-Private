@@ -65,11 +65,13 @@ namespace KzBot
                 Globals.Config.Waypoints.Clear();
                 Globals.Config.Targeting.Clear();
                 Globals.Config.Healer.Clear();
+                Globals.Config.Refill.Clear();
 
                 Globals.Main.Invoke((MethodInvoker)delegate {
                     Main.Cavebot.listView1.Items.Clear();
                     Main.Targeting.listView1.Items.Clear();
                     Main.Healer.listView1.Items.Clear();
+                    Main.Refill.listView1.Items.Clear();
                 });                
 
                 Globals.Config = (Config)writer.Deserialize(file);
@@ -83,6 +85,9 @@ namespace KzBot
 
                     foreach (HealRule healRule in Globals.Config.Healer)
                         Main.Healer.listView1.Items.Add(healRule.ListViewItem());
+
+                    foreach (RefillRule refillRule in Globals.Config.Refill)
+                        Main.Refill.listView1.Items.Add(refillRule.ListViewItem());
 
                     Main.Alerts.AddAlarms();
                     Main.Settings.Reload();

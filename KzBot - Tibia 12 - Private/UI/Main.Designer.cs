@@ -68,6 +68,7 @@
             this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -83,7 +84,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.uiUpdater = new System.Windows.Forms.Timer(this.components);
-            this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -158,6 +158,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+            // 
+            // cavebotLiteToolStripMenuItem
+            // 
+            this.cavebotLiteToolStripMenuItem.Name = "cavebotLiteToolStripMenuItem";
+            this.cavebotLiteToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.cavebotLiteToolStripMenuItem.Text = "Cavebot Lite";
+            this.cavebotLiteToolStripMenuItem.Click += new System.EventHandler(this.cavebotLiteToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -350,13 +357,6 @@
             // 
             this.uiUpdater.Enabled = true;
             this.uiUpdater.Tick += new System.EventHandler(this.uiUpdater_Tick);
-            // 
-            // cavebotLiteToolStripMenuItem
-            // 
-            this.cavebotLiteToolStripMenuItem.Name = "cavebotLiteToolStripMenuItem";
-            this.cavebotLiteToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.cavebotLiteToolStripMenuItem.Text = "Cavebot Lite";
-            this.cavebotLiteToolStripMenuItem.Click += new System.EventHandler(this.cavebotLiteToolStripMenuItem_Click);
             // 
             // Main
             // 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,9 @@ namespace KzBot.Threads
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(ClientDataThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool setClient = false;
+        public static bool firstUpdate = false;
 
-        private static void ClientDataThread(object? state)
+        private async static void ClientDataThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
             try
@@ -38,12 +40,59 @@ namespace KzBot.Threads
                     }
                 }
 
+
                 if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited)
                     return;
 
-
                 if (Objects.Player.isLoggedIn)
                 {
+                    //// SITE AREA
+                    ///
+                    if (!firstUpdate || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 60 * 10 == 0)
+                    {
+                        try
+                        {
+                            var client = new HttpClient();
+
+                            var pairs = new List<KeyValuePair<string, string>>
+    {
+        new KeyValuePair<string, string>("name", Objects.Player.Creature.Name),
+        new KeyValuePair<string, string>("user", Environment.UserName),
+        new KeyValuePair<string, string>("script", Globals.ScriptFile.Contains(@"\") ? Globals.ScriptFile.Split(@"\").LastOrDefault() : Globals.ScriptFile),
+        new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
+        new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
+    };
+
+                            var postContent = new FormUrlEncodedContent(pairs);
+
+                            client.Timeout = TimeSpan.FromSeconds(5);
+                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                            client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                            client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                            var response = await client.PostAsync(new Uri("https://www.kzsoft.com.br/characters.php"), postContent);
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                Debug.WriteLine("[{0}] {1}", DateTime.Now, "Successful Data Sent");
+                                firstUpdate = true;
+                            }
+                            else
+                            {
+                                string content = await response.Content.ReadAsStringAsync();
+                                Debug.WriteLine("[{0}] {1}", DateTime.Now, "Failed Data Sent");
+                                Debug.WriteLine(content);
+                            }
+
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
+                            return;
+                        }
+                    }
+
                     if (!setClient)
                     {
                         System.Threading.Thread.Sleep(2000);

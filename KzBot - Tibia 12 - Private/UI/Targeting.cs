@@ -116,7 +116,7 @@ namespace KzBot.UI
 
             TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
             rule.PlayerOnCenter = comboBox2.Text == "Player";
-            listView1.SelectedItems[0].SubItems[3].Text = rule.PlayerOnCenter.ToString();
+            listView1.SelectedItems[0].SubItems[3].Text = comboBox2.Text;
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)

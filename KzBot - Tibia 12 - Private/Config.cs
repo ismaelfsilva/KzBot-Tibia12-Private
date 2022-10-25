@@ -165,10 +165,12 @@ namespace KzBot
 
             item.SubItems.Add(Type.ToString());
             item.SubItems.Add(Key.ToString());
-            item.SubItems.Add(PlayerOnCenter.ToString());
+            item.SubItems.Add(PlayerOnCenter ? "Player" : "Target");
             item.SubItems.Add(Range.ToString());
             item.SubItems.Add(CreatureCount.ToString());
             item.SubItems.Add(Mana.ToString());
+            item.SubItems.Add(Level.ToString());
+            item.SubItems.Add(Delay.ToString());
 
             return item;
         }
@@ -208,6 +210,7 @@ namespace KzBot
             item.SubItems.Add(String.Format("{0} to {1}", MpMin, MpMax));
             item.SubItems.Add(Key.ToString());
             item.SubItems.Add(Delay.ToString());
+            item.SubItems.Add(Level.ToString());
 
             return item;
         }
@@ -246,7 +249,8 @@ namespace KzBot
 
             item.SubItems.Add(Label);
             item.SubItems.Add(Type.ToString());
-            item.SubItems.Add(String.Format("x:{0}, y:{1}, z:{2}", X,Y,Z));
+            item.SubItems.Add(String.Format("x:{0}, y:{1}, z:{2}", X, Y, Z));
+            item.SubItems.Add(String.Format("{0}x{1}", rangeX,rangeY));
             item.SubItems.Add(Extra);
 
             return item;

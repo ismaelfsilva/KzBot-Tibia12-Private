@@ -87,6 +87,68 @@ namespace KzBot
             Threads.ClientData.Thread.Change(100, Timeout.Infinite);
 
             refreshToolStripMenuItem.PerformClick();
+            Main_ResizeEnd(sender, e);
+        }
+        private void Main_ResizeEnd(object sender, EventArgs e)
+        {
+            decimal pixelPercent = (this.Size.Width - 160 - System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) / 100;
+
+            Refill.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 20);
+            Refill.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 15);
+            Refill.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 35);
+            Refill.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 15);
+            Refill.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 15);
+
+            if  (this.Size.Width > 700)
+            {
+                Healer.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 20);
+                Healer.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 20);
+                Healer.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 20);
+                Healer.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 20);
+                Healer.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 10);
+                Healer.listView1.Columns[6].Width = (int)Math.Floor(pixelPercent * 10);
+
+                Cavebot.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 15);
+                Cavebot.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 15);
+                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 25);
+                Cavebot.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 10);
+                Cavebot.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 35);
+
+                Targeting.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 20);
+                Targeting.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 10);
+                Targeting.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 20);
+                Targeting.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 10);
+                Targeting.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 10);
+                Targeting.listView1.Columns[6].Width = (int)Math.Floor(pixelPercent * 10);
+                Targeting.listView1.Columns[7].Width = (int)Math.Floor(pixelPercent * 10);
+                Targeting.listView1.Columns[8].Width = (int)Math.Floor(pixelPercent * 10);
+            }
+            else
+            {
+                Healer.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 20);
+                Healer.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 25);
+                Healer.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 25);
+                Healer.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 15);
+                Healer.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 15);
+                Healer.listView1.Columns[6].Width = 0;
+
+                Cavebot.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 15);
+                Cavebot.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 20);
+                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 40);
+                Cavebot.listView1.Columns[4].Width = 0;
+                Cavebot.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 25);
+
+                Targeting.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 15);
+                Targeting.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 15);
+                Targeting.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 20);
+                Targeting.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 15);
+                Targeting.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 15);
+                Targeting.listView1.Columns[6].Width = (int)Math.Floor(pixelPercent * 15);
+                Targeting.listView1.Columns[7].Width = 0;
+                Targeting.listView1.Columns[8].Width = 0;
+            }
+
+            Debug.WriteLine(pixelPercent.ToString());
         }
 
         private bool canCloseForm = false;

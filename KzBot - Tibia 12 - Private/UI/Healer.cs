@@ -79,6 +79,7 @@ namespace KzBot.UI
             HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
             rule.Key = e.KeyCode;
             listView1.SelectedItems[0].SubItems[4].Text = e.KeyCode.ToString();
+            button1.Text = e.KeyCode.ToString();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -157,6 +158,52 @@ namespace KzBot.UI
 
             Globals.Config.Healer.RemoveAt(listView1.SelectedIndices[0]);
             listView1.Items.Remove(listView1.SelectedItems[0]);
+        }
+
+        private void knightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // SUPREME HEALTH POTION
+            HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 0, MpMax = 100, Type = HealType.Item };
+            Globals.Config.Healer.Add(HealRule1);
+            listView1.Items.Add(HealRule1.ListViewItem());
+
+            // EXURA GRAN ICO
+            HealRule HealRule2 = new HealRule() { HpMin = 0, HpMax = 30, MpMin = 200, MpMax = 99999, Delay = 600000, Type = HealType.Spell, Level = 80 };
+            Globals.Config.Healer.Add(HealRule2);
+            listView1.Items.Add(HealRule2.ListViewItem());
+
+            // EXURA MED ICO / EXURA ICO
+            HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 90, MpMin = 40, MpMax = 99999, Type = HealType.Spell, Level = 10 };
+            Globals.Config.Healer.Add(HealRule3);
+            listView1.Items.Add(HealRule3.ListViewItem());
+
+            // STRONG MANA POTION
+            HealRule HealRule4 = new HealRule() { HpMin = 50, HpMax = 100, MpMin = 0, MpMax = 80, Type = HealType.Item };
+            Globals.Config.Healer.Add(HealRule4);
+            listView1.Items.Add(HealRule4.ListViewItem());
+        }
+
+        private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // ULTIMATE SPIRIT POTION
+            HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 60, MpMin = 0, MpMax = 100, Type = HealType.Item };
+            Globals.Config.Healer.Add(HealRule1);
+            listView1.Items.Add(HealRule1.ListViewItem());
+
+            // EXURA GRAN SAN
+            HealRule HealRule2 = new HealRule() { HpMin = 0, HpMax = 90, MpMin = 210, MpMax = 99999, Type = HealType.Spell, Level = 60 };
+            Globals.Config.Healer.Add(HealRule2);
+            listView1.Items.Add(HealRule2.ListViewItem());
+
+            // ENERGY RING
+            HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 20, MpMax = 100, Type = HealType.EnergyRing };
+            Globals.Config.Healer.Add(HealRule3);
+            listView1.Items.Add(HealRule3.ListViewItem());
+
+            // GREAT MANA POTION
+            HealRule HealRule4 = new HealRule() { HpMin = 60, HpMax = 100, MpMin = 0, MpMax = 90, Type = HealType.Item };
+            Globals.Config.Healer.Add(HealRule4);
+            listView1.Items.Add(HealRule4.ListViewItem());
         }
     }
 }

@@ -243,12 +243,14 @@
             this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
             this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.knightToolStripMenuItem.Text = "Knight";
+            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
             // 
             // paladinToolStripMenuItem
             // 
             this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
             this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.paladinToolStripMenuItem.Text = "Paladin";
+            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
             // Healer
             // 

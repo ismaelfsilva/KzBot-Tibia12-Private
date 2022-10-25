@@ -288,6 +288,11 @@ namespace KzBot
         {
              CavebotLite.Show();
         }
+
+        private void testeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Objects.Client.getItemCount(3031);
+        }
     }
 
     public static class ControlExtensions

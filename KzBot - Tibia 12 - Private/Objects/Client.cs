@@ -180,7 +180,7 @@ namespace KzBot.Objects
 
                 foreach (uint item in collection)
                 {
-                    long id = WinApi.ReadInt16(Globals.Handle, item + 0x10);
+                    long id = WinApi.ReadInt32(Globals.Handle, item + 0x10);
 
                     Debug.WriteLine("Id: {0} | Count: {1}", id, WinApi.ReadInt16(Globals.Handle, item + 0x24));
 

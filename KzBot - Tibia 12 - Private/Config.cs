@@ -181,6 +181,7 @@ namespace KzBot
         Nothing,
         Item,
         Spell,
+        Support,
     }
     public class HealRule
     {

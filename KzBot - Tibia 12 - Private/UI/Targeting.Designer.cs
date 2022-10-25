@@ -37,6 +37,8 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,8 +50,13 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exetaResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exetaAmpResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,25 +128,44 @@
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader4.Width = 50;
             // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Level";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader8.Width = 0;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Delay";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader9.Width = 0;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.knightToolStripMenuItem,
+            this.paladinToolStripMenuItem,
+            this.mageToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.exetaResToolStripMenuItem,
+            this.exetaAmpResToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 192);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -235,17 +261,50 @@
             this.textBox4.Size = new System.Drawing.Size(77, 23);
             this.textBox4.TabIndex = 11;
             // 
-            // columnHeader8
+            // toolStripSeparator1
             // 
-            this.columnHeader8.Text = "Level";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 0;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // columnHeader9
+            // knightToolStripMenuItem
             // 
-            this.columnHeader9.Text = "Delay";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader9.Width = 0;
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
+            // 
+            // paladinToolStripMenuItem
+            // 
+            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paladinToolStripMenuItem.Text = "Paladin";
+            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
+            // 
+            // mageToolStripMenuItem
+            // 
+            this.mageToolStripMenuItem.Enabled = false;
+            this.mageToolStripMenuItem.Name = "mageToolStripMenuItem";
+            this.mageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mageToolStripMenuItem.Text = "Mage";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exetaResToolStripMenuItem
+            // 
+            this.exetaResToolStripMenuItem.Name = "exetaResToolStripMenuItem";
+            this.exetaResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exetaResToolStripMenuItem.Text = "Exeta Res";
+            this.exetaResToolStripMenuItem.Click += new System.EventHandler(this.exetaResToolStripMenuItem_Click);
+            // 
+            // exetaAmpResToolStripMenuItem
+            // 
+            this.exetaAmpResToolStripMenuItem.Name = "exetaAmpResToolStripMenuItem";
+            this.exetaAmpResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exetaAmpResToolStripMenuItem.Text = "Exeta Amp Res";
+            this.exetaAmpResToolStripMenuItem.Click += new System.EventHandler(this.exetaAmpResToolStripMenuItem_Click);
             // 
             // Targeting
             // 
@@ -294,5 +353,12 @@
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ColumnHeader columnHeader8;
         private ColumnHeader columnHeader9;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem knightToolStripMenuItem;
+        private ToolStripMenuItem paladinToolStripMenuItem;
+        private ToolStripMenuItem mageToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem exetaResToolStripMenuItem;
+        private ToolStripMenuItem exetaAmpResToolStripMenuItem;
     }
 }

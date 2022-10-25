@@ -146,5 +146,57 @@ namespace KzBot.UI
             Globals.Config.Targeting.RemoveAt(listView1.SelectedIndices[0]);
             listView1.Items.Remove(listView1.SelectedItems[0]);
         }
+
+        private void knightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // EXORI GRAN
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell,  Mana = 340, Level = 90};
+            Globals.Config.Targeting.Add(TargetRule1);
+            listView1.Items.Add(TargetRule1.ListViewItem());
+
+            // EXORI MAS - MUITOS MOBS
+            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, CreatureCount = 10, Range = 3 };
+            Globals.Config.Targeting.Add(TargetRule2);
+            listView1.Items.Add(TargetRule2.ListViewItem());
+
+            // EXORI
+            TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Spell, Mana = 115, Level = 35 };
+            Globals.Config.Targeting.Add(TargetRule3);
+            listView1.Items.Add(TargetRule3.ListViewItem());
+
+            // EXORI MAS
+            TargetRule TargetRule4 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, Range = 3 };
+            Globals.Config.Targeting.Add(TargetRule4);
+            listView1.Items.Add(TargetRule4.ListViewItem());
+        }
+
+        private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // EXEVO MAS SAN
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 50, Range = 3 };
+            Globals.Config.Targeting.Add(TargetRule1);
+            listView1.Items.Add(TargetRule1.ListViewItem());
+
+            // RUNE
+            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = false };
+            Globals.Config.Targeting.Add(TargetRule2);
+            listView1.Items.Add(TargetRule2.ListViewItem());
+        }
+
+        private void exetaResToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // EXETA RES
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 40, Level = 20, Delay = 4000 };
+            Globals.Config.Targeting.Add(TargetRule1);
+            listView1.Items.Add(TargetRule1.ListViewItem());
+        }
+
+        private void exetaAmpResToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // EXETA AMP RES
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 80, Level = 150, Delay = 5000 };
+            Globals.Config.Targeting.Add(TargetRule1);
+            listView1.Items.Add(TargetRule1.ListViewItem());
+        }
     }
 }

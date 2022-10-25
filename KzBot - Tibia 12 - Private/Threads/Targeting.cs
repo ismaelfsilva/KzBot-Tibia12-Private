@@ -89,8 +89,8 @@ namespace KzBot.Threads
                     return;
 
                 // Spell Caster Area
-                if (!Objects.Client.hasCooldown(CooldownGroup.Attack))
-                    return;
+
+                bool hasAttackCooldown = Objects.Client.hasCooldown(CooldownGroup.Attack);
 
                 List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0);
                 Position playerPos = Player.Position;
@@ -104,6 +104,11 @@ namespace KzBot.Threads
 
                 foreach (TargetRule rule in Globals.Config.Targeting)
                 {
+                    if (rule.Type == TargetType.Support && !Objects.Client.hasCooldown(CooldownGroup.Support))
+                        continue;
+                    else if (!hasAttackCooldown)
+                        continue;
+
                     if (rule.Delay > 0 && (DateTime.Now - rule.LastUse).TotalMilliseconds <= rule.Delay)
                         continue;
 

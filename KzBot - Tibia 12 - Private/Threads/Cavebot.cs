@@ -318,7 +318,7 @@ namespace KzBot.Threads
                                 // Set Count
                                 Client.leftClick(tradeWindow.X + 70, tradeWindow.Y + 140);
                                 System.Threading.Thread.Sleep(500);
-                                Keyboard.Write((refill.ToBuy).ToString());
+                                Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 System.Threading.Thread.Sleep(500);
 
                                 // Buy

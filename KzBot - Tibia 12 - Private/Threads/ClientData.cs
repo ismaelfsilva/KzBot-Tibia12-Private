@@ -104,12 +104,10 @@ namespace KzBot.Threads
                         setClient = true;
                     }
 
-                    int playerLevel = Objects.Player.Level;
-
-                    if (Globals.Config.auto_Haste && !Globals.ComboStatus && !Objects.ClientData.isHasted && playerLevel >= 14 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                    if (Globals.Config.auto_Haste && !Globals.ComboStatus && !Objects.ClientData.isHasted && Objects.Player.Level >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support))
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Haste_Key);
 
-                    if (Globals.Config.auto_Utito && Globals.ComboStatus && !Objects.ClientData.isBuffed && playerLevel >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                    if (Globals.Config.auto_Utito && Globals.ComboStatus && !Objects.ClientData.isBuffed && Objects.Player.Level >= 60 && Objects.Player.Mana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Utito_Key);
 
                     Objects.ClientData.UpdateStatus();

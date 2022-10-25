@@ -105,6 +105,14 @@ namespace KzBot.UI
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
                 textBox4.Enabled = true;
+
+                RefillRule rule = Globals.Config.Refill[listView1.SelectedIndices[0]];
+
+                comboBox1.Text = rule.Type;
+                textBox1.Text = rule.Id.ToString();
+                textBox2.Text = rule.Name;
+                textBox3.Text = rule.ToBuy.ToString();
+                textBox4.Text = rule.ToLeave.ToString();
             }
         }
 

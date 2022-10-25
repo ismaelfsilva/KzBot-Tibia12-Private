@@ -100,6 +100,13 @@ namespace KzBot
 
                 });
 
+                Globals.Main.CavebotLite.doorId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Door"));
+                Globals.Main.CavebotLite.exaniTeraId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("ExaniTera"));
+                Globals.Main.CavebotLite.holeId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Hole"));
+                Globals.Main.CavebotLite.ladderId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Ladder"));
+                Globals.Main.CavebotLite.stairsId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Stairs"));
+                Globals.Main.CavebotLite.teleportId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Teleport"));
+
                 /*
                 if (Globals.Config.CavebotStatus) Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
                 if (Globals.Config.HealerStatus) Threads.Healer.Thread.Change(100, Timeout.Infinite);

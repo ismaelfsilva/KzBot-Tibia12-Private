@@ -42,6 +42,13 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exetaResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exetaAmpResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -50,13 +57,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exetaResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exetaAmpResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,21 +153,66 @@
             this.exetaResToolStripMenuItem,
             this.exetaAmpResToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 192);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 170);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // knightToolStripMenuItem
+            // 
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
+            // 
+            // paladinToolStripMenuItem
+            // 
+            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.paladinToolStripMenuItem.Text = "Paladin";
+            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
+            // 
+            // mageToolStripMenuItem
+            // 
+            this.mageToolStripMenuItem.Enabled = false;
+            this.mageToolStripMenuItem.Name = "mageToolStripMenuItem";
+            this.mageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mageToolStripMenuItem.Text = "Mage";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // exetaResToolStripMenuItem
+            // 
+            this.exetaResToolStripMenuItem.Name = "exetaResToolStripMenuItem";
+            this.exetaResToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exetaResToolStripMenuItem.Text = "Exeta Res";
+            this.exetaResToolStripMenuItem.Click += new System.EventHandler(this.exetaResToolStripMenuItem_Click);
+            // 
+            // exetaAmpResToolStripMenuItem
+            // 
+            this.exetaAmpResToolStripMenuItem.Name = "exetaAmpResToolStripMenuItem";
+            this.exetaAmpResToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exetaAmpResToolStripMenuItem.Text = "Exeta Amp Res";
+            this.exetaAmpResToolStripMenuItem.Click += new System.EventHandler(this.exetaAmpResToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -255,56 +300,12 @@
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(102, 166);
             this.textBox4.Name = "textBox4";
             this.textBox4.PlaceholderText = "Creatures";
             this.textBox4.Size = new System.Drawing.Size(77, 23);
             this.textBox4.TabIndex = 11;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // knightToolStripMenuItem
-            // 
-            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
-            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.knightToolStripMenuItem.Text = "Knight";
-            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
-            // 
-            // paladinToolStripMenuItem
-            // 
-            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
-            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.paladinToolStripMenuItem.Text = "Paladin";
-            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
-            // 
-            // mageToolStripMenuItem
-            // 
-            this.mageToolStripMenuItem.Enabled = false;
-            this.mageToolStripMenuItem.Name = "mageToolStripMenuItem";
-            this.mageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mageToolStripMenuItem.Text = "Mage";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // exetaResToolStripMenuItem
-            // 
-            this.exetaResToolStripMenuItem.Name = "exetaResToolStripMenuItem";
-            this.exetaResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exetaResToolStripMenuItem.Text = "Exeta Res";
-            this.exetaResToolStripMenuItem.Click += new System.EventHandler(this.exetaResToolStripMenuItem_Click);
-            // 
-            // exetaAmpResToolStripMenuItem
-            // 
-            this.exetaAmpResToolStripMenuItem.Name = "exetaAmpResToolStripMenuItem";
-            this.exetaAmpResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exetaAmpResToolStripMenuItem.Text = "Exeta Amp Res";
-            this.exetaAmpResToolStripMenuItem.Click += new System.EventHandler(this.exetaAmpResToolStripMenuItem_Click);
             // 
             // Targeting
             // 

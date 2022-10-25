@@ -45,6 +45,7 @@ namespace KzBot.UI
                 textBox1.Enabled = false;
                 textBox2.Enabled = false;
                 textBox3.Enabled = false;
+                textBox4.Enabled = false;
                 comboBox1.Enabled = false;
                 comboBox2.Enabled = false;
             }
@@ -63,6 +64,7 @@ namespace KzBot.UI
                 textBox1.Enabled = true;
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
+                //textBox4.Enabled = true;
                 comboBox1.Enabled = true;
                 comboBox2.Enabled = true;
             }

@@ -349,11 +349,11 @@ namespace KzBot
         private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
              CavebotLite.Show();
-        }
+        }   
 
-        private void testeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Objects.Client.getItemCount(3031);
+            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
         }
     }
 

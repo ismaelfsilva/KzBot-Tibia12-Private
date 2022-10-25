@@ -41,6 +41,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -68,7 +69,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -224,6 +225,16 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hunt / Outros";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(6, 283);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(122, 23);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Wait PZ";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button19
             // 
@@ -484,9 +495,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(6, 46);
+            this.button4.Location = new System.Drawing.Point(71, 46);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(122, 23);
+            this.button4.Size = new System.Drawing.Size(57, 23);
             this.button4.TabIndex = 14;
             this.button4.Text = "Lure";
             this.button4.UseVisualStyleBackColor = true;
@@ -505,6 +516,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button25);
             this.groupBox1.Controls.Add(this.radioButton11);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.radioButton10);
@@ -545,15 +557,15 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(280, 616);
             this.flowLayoutPanel1.TabIndex = 17;
             // 
-            // button7
+            // button25
             // 
-            this.button7.Location = new System.Drawing.Point(6, 283);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(122, 23);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Wait PZ";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button25.Location = new System.Drawing.Point(6, 46);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(59, 23);
+            this.button25.TabIndex = 16;
+            this.button25.Text = "Use";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
             // CavebotLite
             // 
@@ -622,5 +634,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button19;
         private Button button7;
+        private Button button25;
     }
 }

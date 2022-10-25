@@ -304,6 +304,7 @@ namespace KzBot.UI
         public int exaniTeraId = 0;
         public int holeId = 0;
         public int stairsId = 0;
+        public int teleportId = 0;
         private void button20_Click(object sender, EventArgs e)
         {
             Position playerPos = Objects.Player.Position;
@@ -410,8 +411,6 @@ namespace KzBot.UI
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
         }
-        #endregion
-
         private void button5_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
@@ -434,27 +433,25 @@ namespace KzBot.UI
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
 
-            Position playerPos = Objects.Player.Position;
-            Waypoint waypoint2 = new Waypoint() { X = playerPos.X + xDiff * 2, Y = playerPos.Y + yDiff * 2, Z = playerPos.Z - 1, Type = WaypointType.Not_Location_Goback, rangeX = 3, rangeY = 3, Extra = "Stairs" + ++stairsId };
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.If_Location_Goback, 3, 3);
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
 
             radioButton11.Checked = true;
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button19_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
-            waypoint.Label = "Stairs" + ++stairsId;
+            waypoint.Label = "Teleport" + ++teleportId;
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
 
-            Position playerPos = Objects.Player.Position;
-            Waypoint waypoint2 = new Waypoint() { X = playerPos.X + xDiff * 2, Y = playerPos.Y + yDiff * 2, Z = playerPos.Z + 1, Type = WaypointType.Not_Location_Goback, rangeX = 3, rangeY = 3, Extra = "Stairs" + ++stairsId };
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.If_Location_Goback, 2, 2);
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
-
-            radioButton11.Checked = true;
         }
+        #endregion
+
     }
 }

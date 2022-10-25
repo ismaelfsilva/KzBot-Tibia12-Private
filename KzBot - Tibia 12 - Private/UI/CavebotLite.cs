@@ -481,6 +481,13 @@ namespace KzBot.UI
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
         }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Waypoint waypoint = GenerateWaypoint(WaypointType.Wait_PZ, 2, 2);
+            waypoint.Label = "Wait_PZ";
+            Globals.Config.Waypoints.Add(waypoint);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+        }
         #endregion
 
     }

@@ -68,6 +68,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button7 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -207,6 +208,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button7);
             this.groupBox4.Controls.Add(this.button19);
             this.groupBox4.Controls.Add(this.button8);
             this.groupBox4.Controls.Add(this.button6);
@@ -218,7 +220,7 @@
             this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Location = new System.Drawing.Point(143, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(134, 289);
+            this.groupBox4.Size = new System.Drawing.Size(134, 318);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hunt / Outros";
@@ -543,6 +545,16 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(280, 616);
             this.flowLayoutPanel1.TabIndex = 17;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(6, 283);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(122, 23);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Wait PZ";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // CavebotLite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -609,5 +621,6 @@
         private GroupBox groupBox1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button19;
+        private Button button7;
     }
 }

@@ -257,20 +257,18 @@ namespace KzBot.Threads
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 10)
+                            while (itemSoldWithoutCapChange <= 2)
                             {
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
                                 System.Threading.Thread.Sleep(50);
                                 Client.leftClick(okButton.X - 20, okButton.Y - 35);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(300);
                                 Client.leftClick(okButton.X + 5, okButton.Y + 5);
                                 System.Threading.Thread.Sleep(50);
 
-                                Keyboard.PressKey(Keys.Enter);
-
                                 itemSoldWithoutCapChange++;
 
-                                if (itemSoldWithoutCapChange == 5 || itemSoldWithoutCapChange == 10)
+                                if (itemSoldWithoutCapChange == 2)
                                 {
                                     int playerCap = Objects.Player.Cap;
                                     if (lastCap != playerCap)

@@ -355,6 +355,11 @@ namespace KzBot
         {
             System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
         }
+
+        private void testeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Objects.ClientData.FindTrade().ToString());
+        }
     }
 
     public static class ControlExtensions

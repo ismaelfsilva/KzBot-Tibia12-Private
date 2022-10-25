@@ -69,6 +69,7 @@
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.charactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -84,7 +85,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.uiUpdater = new System.Windows.Forms.Timer(this.components);
-            this.charactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -97,7 +98,8 @@
             this.fileToolStripMenuItem,
             this.accountsToolStripMenuItem,
             this.cavebotLiteToolStripMenuItem,
-            this.charactersToolStripMenuItem});
+            this.charactersToolStripMenuItem,
+            this.testeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(478, 24);
@@ -118,26 +120,26 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // accountsToolStripMenuItem
@@ -167,6 +169,13 @@
             this.cavebotLiteToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.cavebotLiteToolStripMenuItem.Text = "Cavebot Lite";
             this.cavebotLiteToolStripMenuItem.Click += new System.EventHandler(this.cavebotLiteToolStripMenuItem_Click);
+            // 
+            // charactersToolStripMenuItem
+            // 
+            this.charactersToolStripMenuItem.Name = "charactersToolStripMenuItem";
+            this.charactersToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.charactersToolStripMenuItem.Text = "Characters";
+            this.charactersToolStripMenuItem.Click += new System.EventHandler(this.charactersToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -360,12 +369,12 @@
             this.uiUpdater.Enabled = true;
             this.uiUpdater.Tick += new System.EventHandler(this.uiUpdater_Tick);
             // 
-            // charactersToolStripMenuItem
+            // testeToolStripMenuItem
             // 
-            this.charactersToolStripMenuItem.Name = "charactersToolStripMenuItem";
-            this.charactersToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.charactersToolStripMenuItem.Text = "Characters";
-            this.charactersToolStripMenuItem.Click += new System.EventHandler(this.charactersToolStripMenuItem_Click);
+            this.testeToolStripMenuItem.Name = "testeToolStripMenuItem";
+            this.testeToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.testeToolStripMenuItem.Text = "Teste";
+            this.testeToolStripMenuItem.Click += new System.EventHandler(this.testeToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -425,5 +434,6 @@
         public ComboBox comboBox1;
         private ToolStripMenuItem cavebotLiteToolStripMenuItem;
         private ToolStripMenuItem charactersToolStripMenuItem;
+        private ToolStripMenuItem testeToolStripMenuItem;
     }
 }

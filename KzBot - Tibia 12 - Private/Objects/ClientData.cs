@@ -486,9 +486,9 @@ namespace KzBot.Objects
                 new Point(23,12),
                 };
 
-                for (int x = 0; x < clientImage.Width + 25; x++)
+                for (int x = clientImage.Width - 25; x > 0 ; x--)
                 {
-                    for (int y = 0; y < clientImage.Height - 25; y++)
+                    for (int y = clientImage.Height - 25; y > 0; y--)
                     {
                         Color p = clientImage.GetPixel(x, y);
 
@@ -532,9 +532,9 @@ namespace KzBot.Objects
                 new Point(56,-1),
                 };
 
-                for (int x = 0; x < clientImage.Width; x++)
+                for (int x = clientImage.Width - 60; x > 0 ; x--)
                 {
-                    for (int y = 0; y < clientImage.Height; y++)
+                    for (int y = clientImage.Height - 60; y > 0 ; y--)
                     {
                         Color p = clientImage.GetPixel(x, y);
 
@@ -554,8 +554,12 @@ namespace KzBot.Objects
 
                             if (!wrongColor)
                             {
-                                TradeWindowPoint = new Point(x, y);
-                                return TradeWindowPoint;
+                                Color goldCoinColor = clientImage.GetPixel(x + 83, y + 33);
+                                if (goldCoinColor.R == 181 && goldCoinColor.G == 98 && goldCoinColor.B == 16)
+                                {
+                                    TradeWindowPoint = new Point(x, y);
+                                    return TradeWindowPoint;
+                                }
                             }
                         }
                     }

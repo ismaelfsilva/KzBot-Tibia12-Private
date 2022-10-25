@@ -155,6 +155,8 @@ namespace KzBot.Threads
                         {
                             if (!Objects.Player.isLoggedIn)
                                 System.Threading.Thread.Sleep(100);
+                            else
+                                break;
                         }
 
                         Point buttonPoint = Objects.ClientData.FindOkButton();

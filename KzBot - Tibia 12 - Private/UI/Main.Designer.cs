@@ -384,6 +384,7 @@
             this.Name = "Main";
             this.Text = "KzBot";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

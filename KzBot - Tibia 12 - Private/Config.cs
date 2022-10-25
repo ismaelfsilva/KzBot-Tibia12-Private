@@ -279,6 +279,8 @@ namespace KzBot
         Use_On,
         Not_Location_Goto_Label,
         Not_Location_Goback,
+        If_Location_Goto_Label,
+        If_Location_Goback,
         Press,
         Click_Ok,
         Login_Next,

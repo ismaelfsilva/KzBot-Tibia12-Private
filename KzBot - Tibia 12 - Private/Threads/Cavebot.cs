@@ -64,6 +64,8 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Not_Location_Goto_Label:
                     case WaypointType.Not_Location_Goback:
+                    case WaypointType.If_Location_Goto_Label:
+                    case WaypointType.If_Location_Goback:
                         if (Math.Abs(playerPos.X - waypoint.X) >= 200 && Math.Abs(playerPos.Y - waypoint.Y) >= 200)
                         {
                             Globals.WaypointId++;
@@ -436,12 +438,26 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Not_Location_Goback:
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == playerPos.Z))
-                            Globals.WaypointId++;   
+                            Globals.WaypointId++;
                         else if (Globals.WaypointId <= 0)
                             Globals.WaypointId = Globals.Config.Waypoints.Count - 1;
                         else
-                            Globals.WaypointId--;                            
-                        break;  
+                            Globals.WaypointId--;
+                        break;
+                    case WaypointType.If_Location_Goto_Label:
+                        if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
+                            Globals.WaypointId++;
+                        else
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
+                        break;
+                    case WaypointType.If_Location_Goback:
+                        if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
+                            Globals.WaypointId++;
+                        else if (Globals.WaypointId <= 0)
+                            Globals.WaypointId = Globals.Config.Waypoints.Count - 1;
+                        else
+                            Globals.WaypointId--;
+                        break;
                     default:
                         Globals.WaypointId++;
                         break;

@@ -199,7 +199,10 @@ namespace KzBot.Threads
                     case WaypointType.Check_Imbue:
                         if (true == false && waypoint.Extra.Trim().ToLower() == "audio")
                             using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
+                            {
                                 soundPlayer.Play();
+                                System.Threading.Thread.Sleep(1000);
+                            }
                         else if (true == false)
                             Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else

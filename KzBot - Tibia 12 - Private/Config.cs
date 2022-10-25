@@ -272,6 +272,7 @@ namespace KzBot
         Check_Refill,
         Check_Safe,
         Check_Imbue,
+        Go_Near,
         Sell_All,
         Buy_Refill,
         Deposit_All,

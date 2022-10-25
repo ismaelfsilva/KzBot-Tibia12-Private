@@ -57,6 +57,7 @@ namespace KzBot.Threads
                     case WaypointType.Node:
                     case WaypointType.Use:
                     case WaypointType.Use_On:
+                    case WaypointType.Go_Near:
                         if (playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
@@ -115,38 +116,41 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Lure:
-                        List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0);
-                        if (Globals.Config.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                         {
-                            if (!didWaitBecauseOfPlayerOnCombo)
+                            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0);
+                            if (Globals.Config.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                             {
-                                System.Threading.Thread.Sleep(Globals.Config.time_To_Wait_Before_Checking_Creatures_If_Player_on_Screen);
-                                didWaitBecauseOfPlayerOnCombo = true;
+                                if (!didWaitBecauseOfPlayerOnCombo)
+                                {
+                                    System.Threading.Thread.Sleep(Globals.Config.time_To_Wait_Before_Checking_Creatures_If_Player_on_Screen);
+                                    didWaitBecauseOfPlayerOnCombo = true;
+                                }
+
+                                playerPos = Objects.Player.Position;
+                                creatures.RemoveAll(c => Math.Abs(c.X - playerPos.X) > 1 || Math.Abs(c.Y - playerPos.Y) > 1);
                             }
 
-                            playerPos = Objects.Player.Position;
-                            creatures.RemoveAll(c => Math.Abs(c.X - playerPos.X) > 1 || Math.Abs(c.Y - playerPos.Y) > 1);
-                        }
+                            creatures.RemoveAll(c => c.Type != CreatureType.Monster);
 
-                        creatures.RemoveAll(c => c.Type != CreatureType.Monster);
-
-                        if (!Globals.ComboStatus && creatures.Count >= Globals.Config.creature_Count_To_Skip_Lure)
-                            Globals.ComboStatus = true;
-                        else if (Globals.ComboStatus && creatures.Count <= Globals.Config.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.Config.creatures_Left_Health_To_End_Lure).Count())
-                        {
-                            Globals.ComboStatus = false;
-                            didWaitBecauseOfPlayerOnCombo = false;
-                            Globals.WaypointId++;
-                        }
-                        else if (!Globals.ComboStatus)
-                        {
-                            Globals.WaypointId++;
-                            didWaitBecauseOfPlayerOnCombo = false;
-                            if (Globals.Config.Waypoints[Globals.WaypointId].Type == WaypointType.Loot)
+                            if (!Globals.ComboStatus && creatures.Count >= Globals.Config.creature_Count_To_Skip_Lure)
+                                Globals.ComboStatus = true;
+                            else if (Globals.ComboStatus && creatures.Count <= Globals.Config.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.Config.creatures_Left_Health_To_End_Lure).Count())
+                            {
+                                Globals.ComboStatus = false;
+                                didWaitBecauseOfPlayerOnCombo = false;
                                 Globals.WaypointId++;
-                        }
+                            }
+                            else if (!Globals.ComboStatus)
+                            {
+                                Globals.WaypointId++;
+                                didWaitBecauseOfPlayerOnCombo = false;
+                                if (Globals.Config.Waypoints[Globals.WaypointId].Type == WaypointType.Loot)
+                                    Globals.WaypointId++;
+                            }
 
-                        break;
+                            break;
+
+                        }
                     case WaypointType.Loot:
                         if (Globals.Config.manual_Looting)
                         {
@@ -220,6 +224,13 @@ namespace KzBot.Threads
                         }
                         if (needRefill)
                             Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
+                    case WaypointType.Go_Near:
+                        Creature cr = Objects.Battlelist.getCreaturesOnScreen().Find(c => c.Name.ToLower() == waypoint.Extra.Trim().ToLower());
+                        if (cr != null && cr.Position.distanceTo(playerPos) > 1)
+                            Objects.Player.Goto(cr.Position);
                         else
                             Globals.WaypointId++;
                         break;

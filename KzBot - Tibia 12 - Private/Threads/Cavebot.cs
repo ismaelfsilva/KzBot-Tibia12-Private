@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -189,7 +190,22 @@ namespace KzBot.Threads
                         else
                             Globals.WaypointId++;
                         break;
-                    case WaypointType.Check_Refill:
+                    case WaypointType.Check_Safe:
+                        if (Threads.Alarms.safeMode)
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
+                    case WaypointType.Check_Imbue:
+                        if (true == false && waypoint.Extra.Trim().ToLower() == "audio")
+                            using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
+                                soundPlayer.Play();
+                        else if (true == false)
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
+                    case WaypointType.Check_Refill: 
                         bool needRefill = false;
                         foreach (RefillRule refill in Globals.Config.Refill)
                         {

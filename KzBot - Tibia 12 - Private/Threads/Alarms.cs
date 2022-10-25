@@ -21,6 +21,8 @@ namespace KzBot.Threads
 
         private static DateTime lastTelegramMessage = DateTime.MinValue;
 
+        public static bool safeMode = false;
+
         private static async void AlarmThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -98,6 +100,9 @@ namespace KzBot.Threads
                                         p.Kill(true);
                                     }
                                     Globals.Process = null;
+                                    break;
+                                case "safe":
+                                    safeMode = true;
                                     break;
                                 default:
                                     break;

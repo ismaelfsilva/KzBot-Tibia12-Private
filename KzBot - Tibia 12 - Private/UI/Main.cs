@@ -124,6 +124,8 @@ namespace KzBot
             Process p = Process.GetProcessesByName("client").FirstOrDefault(p => p.MainWindowTitle == "Tibia - " + comboBox1.Text);
             if (p != null)
                 Globals.Process = p;
+
+            Threads.Alarms.safeMode = false;
             Addresses.Version.HadesOt(Globals.Process);
             Threads.ClientData.setClient = false;
         }   
@@ -204,6 +206,7 @@ namespace KzBot
 
             if (Globals.Config.GeneralStatus)
             {
+                Threads.Alarms.safeMode = false;
                 //Threads.ClientData.Thread.Change(100, Timeout.Infinite);
                 Threads.Alarms.Thread.Change(100, Timeout.Infinite);
 

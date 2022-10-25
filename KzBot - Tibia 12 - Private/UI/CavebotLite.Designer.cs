@@ -41,6 +41,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button19 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -67,7 +68,6 @@
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button19 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -181,7 +181,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(122, 23);
             this.button12.TabIndex = 2;
-            this.button12.Text = "Checar Stamina";
+            this.button12.Text = "Checks Finais";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
@@ -222,6 +222,16 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hunt / Outros";
+            // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(6, 196);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(122, 23);
+            this.button19.TabIndex = 9;
+            this.button19.Text = "Teleport";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // button8
             // 
@@ -532,16 +542,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(280, 616);
             this.flowLayoutPanel1.TabIndex = 17;
-            // 
-            // button19
-            // 
-            this.button19.Location = new System.Drawing.Point(6, 196);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(122, 23);
-            this.button19.TabIndex = 9;
-            this.button19.Text = "Teleport";
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // CavebotLite
             // 

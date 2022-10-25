@@ -266,6 +266,8 @@ namespace KzBot
         Check_Stamina,
         Check_Level,
         Check_Refill,
+        Check_Safe,
+        Check_Imbue,
         Sell_All,
         Buy_Refill,
         Deposit_All,

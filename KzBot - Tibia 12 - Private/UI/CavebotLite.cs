@@ -289,6 +289,16 @@ namespace KzBot.UI
             waypoint.Label = "Check_Stamina";
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Check_Safe, "Exit_Trainer", 3, 3);
+            waypoint2.Label = "Check_Safe";
+            Globals.Config.Waypoints.Add(waypoint2);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
+
+            Waypoint waypoint3 = GenerateWaypoint(WaypointType.Check_Imbue, "Exit_Trainer", 3, 3);
+            waypoint3.Label = "Check_Safe_Imbue";
+            Globals.Config.Waypoints.Add(waypoint3);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -399,9 +409,29 @@ namespace KzBot.UI
         private void button23_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Check_Refill, "Goto_Refill", 5, 5);
-            waypoint.Label = "Check_Refill";
+            waypoint.Label = "Hunt_Check_Refill";
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Check_Cap, "500;Goto_Refill", 5, 5);
+            waypoint2.Label = "Hunt_Check_Cap";
+            Globals.Config.Waypoints.Add(waypoint2);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
+
+            Waypoint waypoint3 = GenerateWaypoint(WaypointType.Check_Stamina, "14;Goto_Refill", 5, 5);
+            waypoint3.Label = "Hunt_Check_Stamina";
+            Globals.Config.Waypoints.Add(waypoint3);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
+
+            Waypoint waypoint4 = GenerateWaypoint(WaypointType.Check_Safe, "Goto_Refill", 5, 5);
+            waypoint4.Label = "Hunt_Check_Safe";
+            Globals.Config.Waypoints.Add(waypoint4);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint4.ListViewItem());
+
+            Waypoint waypoint5 = GenerateWaypoint(WaypointType.Check_Imbue, "Goto_Refill", 5, 5);
+            waypoint5.Label = "Hunt_Check_Imbue";
+            Globals.Config.Waypoints.Add(waypoint5);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint5.ListViewItem());
         }
 
         private void button24_Click(object sender, EventArgs e)

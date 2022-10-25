@@ -135,6 +135,7 @@ namespace KzBot
                 using (var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { Indent = true }))
                 {
                     configSerializer.Serialize(xmlWriter, Globals.Config);
+                    ScriptFile = filePath;
                 }
             }
         }

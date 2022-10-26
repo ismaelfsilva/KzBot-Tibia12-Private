@@ -29,13 +29,24 @@ namespace KzBot.Threads
 
                 if (waypoint.Type == WaypointType.Login_Next)
                 {
-                    Globals.Process?.Kill();
-                    Globals.WaypointId++;
 
-                    new System.Threading.Thread(() => {
-                        Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
-                    }).Start();
-                    return;
+                    if (!Objects.Player.isLoggedIn || (waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) || (Math.Abs(Objects.Player.Position.X - waypoint.X) < waypoint.rangeX && Math.Abs(Objects.Player.Position.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == Objects.Player.Position.Z)))
+                    {
+                        Globals.Process?.Kill();
+
+                        new System.Threading.Thread(() => {
+                            Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
+                            System.Threading.Thread.Sleep(5000);
+                            Globals.WaypointId = 0;
+                        }).Start();
+                        return;
+                    }
+                    else
+                    {
+                        Globals.WaypointId++;
+                        return;
+                    }
+
                 }
 
                 if (!Globals.Config.GeneralStatus || !Globals.Config.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn)
@@ -466,7 +477,8 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Load:
                         Globals.Load(@".\Scripts\" + @waypoint.Extra);
-                        System.Threading.Thread.Sleep(500);
+                        Globals.WaypointId = 0;
+                        System.Threading.Thread.Sleep(5000);
                         break;
                     case WaypointType.Alert:
                         WinApi.FlashWindow(Globals.Process.MainWindowHandle, true);

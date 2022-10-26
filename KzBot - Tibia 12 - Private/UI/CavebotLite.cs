@@ -326,6 +326,7 @@ namespace KzBot.UI
         {
             Position playerPos = Objects.Player.Position;
             Waypoint waypoint = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.Stand, rangeX = 1, rangeY = 1 };
+            waypoint.Label = "Door" + ++doorId;
 
             while (Globals.Config.Waypoints.Exists(w=> w.Label == waypoint.Label))
                 waypoint.Label = "Door" + ++doorId;
@@ -348,6 +349,7 @@ namespace KzBot.UI
         {
             Position playerPos = Objects.Player.Position;
             Waypoint waypoint = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.Stand, rangeX = 1, rangeY = 1 };
+            waypoint.Label = "Door" + ++doorId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "Door" + ++doorId;
@@ -382,6 +384,7 @@ namespace KzBot.UI
         private void button21_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 2, 2);
+            waypoint.Label = "Ladder" + ++ladderId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "Ladder" + ++ladderId;
@@ -404,6 +407,7 @@ namespace KzBot.UI
         private void button22_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
+            waypoint.Label = "ExaniTera" + ++exaniTeraId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "ExaniTera" + ++exaniTeraId;
@@ -461,6 +465,7 @@ namespace KzBot.UI
         private void button5_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
+            waypoint.Label = "Hole" + ++holeId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "Hole" + ++holeId;
@@ -479,6 +484,8 @@ namespace KzBot.UI
         private void button6_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
+            waypoint.Label = "Stairs" + ++stairsId;
+
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "Stairs" + ++stairsId;
 
@@ -494,17 +501,23 @@ namespace KzBot.UI
 
         private void button19_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
+            Position playerPos = Objects.Player.Position;
+            Waypoint waypoint = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.Stand, rangeX = 1, rangeY = 1 };
+            waypoint.Label = "Teleport" + ++teleportId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
                 waypoint.Label = "Teleport" + ++teleportId;
 
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
-
-            Waypoint waypoint2 = GenerateWaypoint(WaypointType.If_Location_Goback, 2, 2);
+                    
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Teleport, 1, 1);
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
+
+            Waypoint waypoint3 = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.If_Location_Goto_Label, rangeX = 2, rangeY = 2, Extra = "Teleport" + teleportId };
+            Globals.Config.Waypoints.Add(waypoint3);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
         }
         private void button7_Click(object sender, EventArgs e)
         {

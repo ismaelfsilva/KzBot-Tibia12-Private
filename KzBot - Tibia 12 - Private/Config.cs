@@ -285,6 +285,7 @@ namespace KzBot
         Enable_Alerts,
         Use,
         Use_On,
+        Teleport,
         Not_Location_Goto_Label,
         Not_Location_Goback,
         If_Location_Goto_Label,

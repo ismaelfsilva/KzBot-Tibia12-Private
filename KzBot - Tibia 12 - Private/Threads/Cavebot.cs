@@ -58,6 +58,7 @@ namespace KzBot.Threads
                     case WaypointType.Use:
                     case WaypointType.Use_On:
                     case WaypointType.Go_Near:
+                    case WaypointType.Teleport:
                         if (playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
@@ -257,18 +258,19 @@ namespace KzBot.Threads
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 2)
+                            while (itemSoldWithoutCapChange <= 5)
                             {
+                                // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
                                 System.Threading.Thread.Sleep(50);
-                                Client.leftClick(okButton.X - 20, okButton.Y - 35);
-                                System.Threading.Thread.Sleep(300);
+                                //Client.leftClick(okButton.X - 20, okButton.Y - 35);
+                                //System.Threading.Thread.Sleep(300);
                                 Client.leftClick(okButton.X + 5, okButton.Y + 5);
                                 System.Threading.Thread.Sleep(50);
 
                                 itemSoldWithoutCapChange++;
 
-                                if (itemSoldWithoutCapChange == 2)
+                                if (itemSoldWithoutCapChange == 5)
                                 {
                                     int playerCap = Objects.Player.Cap;
                                     if (lastCap != playerCap)
@@ -372,6 +374,12 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(1000);
                         }
                         Globals.WaypointId++;
+                        break;
+                    case WaypointType.Teleport:
+                        if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)
+                            Globals.WaypointId++;
+                        else
+                            Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
                         break;
                     case WaypointType.Wait_PZ:
                         if (!Objects.ClientData.isPzLocked)

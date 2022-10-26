@@ -361,16 +361,7 @@ namespace KzBot.UI
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
 
-            Waypoint waypoint3 = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.Press, rangeX = 1, rangeY = 1 };
-            if (radioButton3.Checked)
-                waypoint3.Extra = Keys.Up.ToString();
-            else if (radioButton5.Checked)
-                waypoint3.Extra = Keys.Left.ToString();
-            else if (radioButton7.Checked)
-                waypoint3.Extra = Keys.Down.ToString();
-            else if (radioButton9.Checked)
-                waypoint3.Extra = Keys.Left.ToString();
-
+            Waypoint waypoint3 = GenerateWaypoint(WaypointType.Step, 1, 1);
             Globals.Config.Waypoints.Add(waypoint3);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
 

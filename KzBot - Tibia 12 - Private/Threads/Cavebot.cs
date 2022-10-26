@@ -59,6 +59,7 @@ namespace KzBot.Threads
                     case WaypointType.Use_On:
                     case WaypointType.Go_Near:
                     case WaypointType.Teleport:
+                    case WaypointType.Step:
                         if (playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
@@ -380,6 +381,10 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         else
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
+                        break;
+                    case WaypointType.Step:
+                        Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
+                        Globals.WaypointId++;
                         break;
                     case WaypointType.Wait_PZ:
                         if (!Objects.ClientData.isPzLocked)

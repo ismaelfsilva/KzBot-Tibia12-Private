@@ -270,7 +270,7 @@ namespace KzBot.Threads
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 5)
+                            while (itemSoldWithoutCapChange <= 10)
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
@@ -282,7 +282,7 @@ namespace KzBot.Threads
 
                                 itemSoldWithoutCapChange++;
 
-                                if (itemSoldWithoutCapChange == 5)
+                                if (itemSoldWithoutCapChange == 10)
                                 {
                                     int playerCap = Objects.Player.Cap;
                                     if (lastCap != playerCap)
@@ -331,27 +331,27 @@ namespace KzBot.Threads
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Search Item
                                 Client.leftClick(okButton.X - 65, okButton.Y - 50);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
                                 Keyboard.Write(refill.Name);
                                 System.Threading.Thread.Sleep(500);
 
                                 // Select Item
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Set Count
                                 Client.leftClick(okButton.X - 20, okButton.Y - 20);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 System.Threading.Thread.Sleep(500);
 
                                 // Buy
                                 Client.leftClick(okButton.X + 5, okButton.Y + 5);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
                             }
                             Globals.WaypointId++;
                             break;

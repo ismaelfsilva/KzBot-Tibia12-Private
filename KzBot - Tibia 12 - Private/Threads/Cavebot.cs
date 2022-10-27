@@ -36,9 +36,14 @@ namespace KzBot.Threads
 
                         new System.Threading.Thread(() => {
                             Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
-                            System.Threading.Thread.Sleep(5000);
-                            Globals.WaypointId = 0;
-                        }).Start();
+                      }).Start();
+
+                        Globals.WaypointId = 0;
+                        Globals.Config.GeneralStatus = false;
+                        Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
+                            Globals.Main.checkBox1.Checked = false;
+                        });
+
                         return;
                     }
                     else
@@ -249,8 +254,9 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Sell_All:
                         {
+                            System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(500);
 
                             Client.Say("#s hi");
                             System.Threading.Thread.Sleep(3000);
@@ -309,8 +315,9 @@ namespace KzBot.Threads
                                     continue;
                                 }
 
+                                System.Threading.Thread.Sleep(500);
                                 Keyboard.PressKey(Keys.Escape);
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
 
                                 if (!saidHi)
                                 {

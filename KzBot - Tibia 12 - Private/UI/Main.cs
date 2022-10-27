@@ -74,6 +74,7 @@ namespace KzBot
             tabControl1.Controls.Add(settingsPage);
 
             listView1.DoubleBuffering(true);
+            Cavebot.listView1.DoubleBuffering(true);
             comboBox2.SelectedIndex = 0;
             button1.Text = ((Keys)Properties.Settings.Default[comboBox2.Text.Replace(" ", "_")]).ToString();
 
@@ -108,9 +109,10 @@ namespace KzBot
                 Healer.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 10);
                 Healer.listView1.Columns[6].Width = (int)Math.Floor(pixelPercent * 10);
 
+                Cavebot.listView1.Columns[0].Width = 15;
                 Cavebot.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 15);
                 Cavebot.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 15);
-                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 25);
+                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 20);
                 Cavebot.listView1.Columns[4].Width = (int)Math.Floor(pixelPercent * 10);
                 Cavebot.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 35);
 
@@ -132,9 +134,10 @@ namespace KzBot
                 Healer.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 15);
                 Healer.listView1.Columns[6].Width = 0;
 
+                Cavebot.listView1.Columns[0].Width = 15;
                 Cavebot.listView1.Columns[1].Width = (int)Math.Floor(pixelPercent * 15);
                 Cavebot.listView1.Columns[2].Width = (int)Math.Floor(pixelPercent * 20);
-                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 40);
+                Cavebot.listView1.Columns[3].Width = (int)Math.Floor(pixelPercent * 35);
                 Cavebot.listView1.Columns[4].Width = 0;
                 Cavebot.listView1.Columns[5].Width = (int)Math.Floor(pixelPercent * 25);
 
@@ -230,21 +233,39 @@ namespace KzBot
         {
             try
             {
-                if (Globals.Process != null && !Globals.Process.HasExited && WinApi.GetForegroundWindow() == this.Handle)
+                if (Globals.Process != null && !Globals.Process.HasExited)
                 {
                     Position playerPos = Objects.Player.Position;
 
-                    listView1.Items[0].SubItems[1].Text = String.Format("{0}.{1} ({2})", Objects.Player.Level, Objects.Player.LevelPc, Objects.Player.Experience);
-                    listView1.Items[1].SubItems[1].Text = String.Format("{0} / {1}", Objects.Player.Health, Objects.Player.HealthMax);
-                    listView1.Items[2].SubItems[1].Text = String.Format("{0} / {1}", Objects.Player.Mana, Objects.Player.ManaMax);
-                    listView1.Items[3].SubItems[1].Text = String.Format("{0} / {1}", 0, 0);
-                    listView1.Items[4].SubItems[1].Text = String.Format("{0}", Objects.Player.Cap);
-                    listView1.Items[5].SubItems[1].Text = String.Format("{0}", Objects.Player.Soul);
-                    listView1.Items[6].SubItems[1].Text = String.Format("{0}", playerPos);
-                    listView1.Items[7].SubItems[1].Text = String.Format("{0}", Objects.Player.Stamina);
-                    listView1.Items[8].SubItems[1].Text = String.Format("{0}", (DateTime.Now - Globals.Process.StartTime));
+                    if (WinApi.GetForegroundWindow() == this.Handle)
+                    {
+                        listView1.Items[0].SubItems[1].Text = String.Format("{0}.{1} ({2})", Objects.Player.Level, Objects.Player.LevelPc, Objects.Player.Experience);
+                        listView1.Items[1].SubItems[1].Text = String.Format("{0} / {1}", Objects.Player.Health, Objects.Player.HealthMax);
+                        listView1.Items[2].SubItems[1].Text = String.Format("{0} / {1}", Objects.Player.Mana, Objects.Player.ManaMax);
+                        listView1.Items[3].SubItems[1].Text = String.Format("{0} / {1}", 0, 0);
+                        listView1.Items[4].SubItems[1].Text = String.Format("{0}", Objects.Player.Cap);
+                        listView1.Items[5].SubItems[1].Text = String.Format("{0}", Objects.Player.Soul);
+                        listView1.Items[6].SubItems[1].Text = String.Format("{0}", playerPos);
+                        listView1.Items[7].SubItems[1].Text = String.Format("{0}", Objects.Player.Stamina);
+                        listView1.Items[8].SubItems[1].Text = String.Format("{0}", (DateTime.Now - Globals.Process.StartTime));
 
-                    this.Text = "KzBot - " + Objects.Player.Creature.Name;
+                        this.Text = "KzBot - " + Objects.Player.Creature.Name;
+                    }
+
+                    if  (Globals.Config.GeneralStatus && Globals.Config.CavebotStatus)
+                    {
+                        if (Globals.Config.Waypoints.Count > 0 && Globals.WaypointId >= 0 && Globals.WaypointId < Globals.Config.Waypoints.Count)
+                        {
+                            int lvItemId = 0;
+                            foreach (ListViewItem lvItem in Cavebot.listView1.Items)
+                            {
+                                if (lvItemId++ == Globals.WaypointId)
+                                    lvItem.Text = ">";
+                                else
+                                    lvItem.Text = "";
+                            }
+                        }
+                    }
 
                     if (Cavebot.updatedPosition != playerPos)
                     {

@@ -34,15 +34,16 @@ namespace KzBot.Threads
                     {
                         Globals.Process?.Kill();
 
-                        new System.Threading.Thread(() => {
-                            Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
-                      }).Start();
-
                         Globals.WaypointId = 0;
                         Globals.Config.GeneralStatus = false;
                         Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox1.Checked = false;
                         });
+
+                        new System.Threading.Thread(() => {
+                            Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
+                      }).Start();
+
 
                         return;
                     }
@@ -102,8 +103,8 @@ namespace KzBot.Threads
                 }
 
 
-                if (Player.isWalking && (Math.Abs(Player.GotoX - waypoint.X) < waypoint.rangeX && Math.Abs(Player.GotoY - waypoint.Y) < waypoint.rangeY && Player.GotoZ == waypoint.Z))
-                    return;
+                //if (Player.isWalking && (Math.Abs(Player.GotoX - waypoint.X) < waypoint.rangeX && Math.Abs(Player.GotoY - waypoint.Y) < waypoint.rangeY && Player.GotoZ == waypoint.Z))
+                //    return;
 
                 string[] extraData = waypoint.Extra.Split(";");
 

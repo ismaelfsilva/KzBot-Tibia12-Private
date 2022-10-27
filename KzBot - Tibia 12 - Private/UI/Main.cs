@@ -172,6 +172,7 @@ namespace KzBot
             KzBot.Properties.Settings.Default.Save();
 
             Application.Exit(e);
+            this.Close();
         }
 
         private void comboBox1_Clicked(object sender, EventArgs e)

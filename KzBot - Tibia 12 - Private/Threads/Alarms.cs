@@ -39,7 +39,7 @@ namespace KzBot.Threads
                 {
                     Position playerPos = Objects.Player.Position;
                     Waypoint waypoint = Globals.Config.Waypoints[Globals.WaypointId];
-                    if (Globals.Config.CavebotStatus && playerPos == lastCheckPosition && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && ++ticksStuck >= 30)
+                    if (Globals.Config.CavebotStatus && (playerPos.Z != 0 && playerPos == lastCheckPosition) && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && ++ticksStuck >= 30)
                         alarmsRequested.Add(AlarmType.Stuck);
                     else if (playerPos != lastCheckPosition)
                     {

@@ -22,7 +22,7 @@ namespace KzBot.Objects
 
             foreach (uint creaturePointer in creatureList)
             {
-                if (creaturePointer < Addresses.Player.Pointer || !WinApi.IsValidAddress(Globals.Process, creaturePointer))
+                if (creaturePointer < Addresses.Player.Pointer)
                     continue;
 
                 uint creatureAddress = WinApi.ReadUInt32(Globals.Handle, creaturePointer + Addresses.Battlelist.creaturePointer);
@@ -43,7 +43,7 @@ namespace KzBot.Objects
 
             foreach (uint creaturePointer in creatureList)
             {
-                if (!WinApi.IsValidAddress(Globals.Process, creaturePointer))
+                if (creaturePointer < Addresses.Player.Pointer)
                     continue;
 
                 uint creatureAddress = WinApi.ReadUInt32(Globals.Handle, creaturePointer + Addresses.Battlelist.creaturePointer);

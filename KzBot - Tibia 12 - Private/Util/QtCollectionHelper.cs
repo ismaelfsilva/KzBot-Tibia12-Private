@@ -11,22 +11,22 @@ namespace KzBot.Util
 
         public static List<uint> Read(uint listAddress)
         {
-            List<uint> list = new List<uint>();
+            Dictionary<uint, uint> list = new Dictionary<uint, uint>();
 
             readChildrenRecursive(ref list, listAddress);
 
-            return list;
+            return list.Keys.ToList();
         }
         public static List<uint> Read(uint listAddress, uint objectAddress)
         {
-            List<uint> list = new List<uint>();
+            Dictionary<uint, uint> list = new Dictionary<uint, uint>();
 
             readChildrenRecursive(ref list, listAddress, objectAddress);
 
-            return list;
+            return list.Keys.ToList();
         }
 
-        public static void readChildrenRecursive(ref List<uint> list, long parent = 0, uint objectAddress = 0x0)
+        public static void readChildrenRecursive(ref Dictionary<uint, uint> list, long parent = 0, uint objectAddress = 0x0)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -34,21 +34,18 @@ namespace KzBot.Util
                 {
                     uint cTreeAddress = WinApi.ReadUInt32(Globals.Handle, parent + 0x4 * i);
 
-                    if (cTreeAddress == 0x0)
+                    if (cTreeAddress <= 0x0)
                         continue;
 
-                    if (list.Exists(c => c == cTreeAddress))
+                    if (list.ContainsKey(cTreeAddress))
                         continue;
 
-                    list.Add((uint)cTreeAddress);
+                    list.Add(cTreeAddress, cTreeAddress);
 
                     readChildrenRecursive(ref list, cTreeAddress);
                 }
                 catch (Exception e)
-                { }
-
-
-                
+                { }                                
             }
         }
     }

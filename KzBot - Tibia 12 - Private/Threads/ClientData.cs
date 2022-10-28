@@ -115,7 +115,6 @@ namespace KzBot.Threads
                     if (Globals.Config.auto_Utito && Globals.ComboStatus && !Objects.ClientData.isBuffed && Objects.Player.Level >= 60 && Objects.Player.Mana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Utito_Key);
 
-                    Objects.ClientData.UpdateStatus();
                     Objects.ClientData.Update();
                 }
                 else

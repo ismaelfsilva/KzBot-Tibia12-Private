@@ -359,9 +359,7 @@ namespace KzBot.Threads
 
                                 // Set Count
                                 Client.leftClick(okButton.X - 20, okButton.Y - 20);
-                                System.Threading.Thread.Sleep(500);
-                                Client.leftClick(okButton.X - 20, okButton.Y - 20);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(1000);
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 System.Threading.Thread.Sleep(1000);
 

@@ -206,15 +206,6 @@ namespace KzBot.Objects
                 // Has Message Local Chat
                 Color messageLocalChat = clientImage.GetPixel(_hasMessageLocalChat.X, _hasMessageLocalChat.Y);
                 hasMessageLocalChat = messageLocalChat.R != 127;
-            }
-        }
-
-        public static void UpdateStatus()
-        {
-            using (Bitmap clientImage = (Bitmap)ScreenCapture.CaptureWindow(Globals.Process.MainWindowHandle))
-            {
-                if (clientImage == null)
-                    return;
 
                 bool _isHasted = false;
                 bool _isParalyzed = false;
@@ -265,12 +256,11 @@ namespace KzBot.Objects
                 }
 
                 isManaShielded = _isManaShielded;
-                isHasted = _isHasted;
+                isHasted = _isHasted && !_isParalyzed;
                 isParalyzed = _isParalyzed;
                 isHungry = _isHungry;
                 isPzLocked = _isPzLocked;
                 isBuffed = _isBuffed;
-
             }
         }
 

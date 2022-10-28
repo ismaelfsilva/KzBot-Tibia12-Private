@@ -31,6 +31,9 @@ namespace KzBot.Threads
                 {
                     bool takeOutItem = false;
 
+                    if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))
+                        continue;
+
                     // Check Hp % or Flat
                     if (rule.HpMax <= 100 && (playerHpPc < rule.HpMin || playerHpPc > rule.HpMax))
                     {
@@ -82,9 +85,7 @@ namespace KzBot.Threads
                         continue;
 
                     Keyboard.PressKey(rule.Key);
-
-                    if (rule.Type == HealType.SSA || rule.Type == HealType.EnergyRing)
-                        System.Threading.Thread.Sleep(500);
+                    rule.LastUse = DateTime.Now;
                 }
             }
             catch (Exception ex)

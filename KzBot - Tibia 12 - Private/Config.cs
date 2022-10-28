@@ -201,6 +201,8 @@ namespace KzBot
         public Keys Key { get; set; } = Keys.None;
         [XmlAttribute]
         public HealType Type { get; set; } = HealType.Nothing;
+        [XmlIgnore]
+        public DateTime LastUse { get; set; } = DateTime.MinValue;
 
         public ListViewItem ListViewItem()
         {

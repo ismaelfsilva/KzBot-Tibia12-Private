@@ -14,6 +14,8 @@ namespace KzBot.Threads
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(CavebotThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool didWaitBecauseOfPlayerOnCombo = false;
+        public static DateTime lastBalanceUpdate = DateTime.MinValue;
+
         private static void CavebotThread(object state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -365,6 +367,16 @@ namespace KzBot.Threads
                             break;
                         }
                     case WaypointType.Deposit_All:
+                        if ((DateTime.Now  - lastBalanceUpdate).TotalMilliseconds > 5 * 60 * 1000)
+                        {
+                            int goldCount = Objects.Client.getItemCount(3031);
+                            int platCount = Objects.Client.getItemCount(3035) * 100;
+                            int crystalCount = Objects.Client.getItemCount(3043) * 10000;
+
+                            Threads.ClientData.amountToAdd += goldCount + platCount + crystalCount;
+                            lastBalanceUpdate = DateTime.Now;
+                        }
+
                         System.Threading.Thread.Sleep(2000);
                         Client.Say("#s hi");
                         System.Threading.Thread.Sleep(3000);

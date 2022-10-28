@@ -12,6 +12,7 @@ namespace KzBot.Threads
         public static System.Threading.Timer Thread = new System.Threading.Timer(ClientDataThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool setClient = false;
         public static bool firstUpdate = false;
+        public static int amountToAdd = 0;
 
         private async static void ClientDataThread(object? state)
         {
@@ -48,7 +49,7 @@ namespace KzBot.Threads
                 {
                     //// SITE AREA
                     ///
-                    if (!firstUpdate || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 60 * 10 == 0)
+                    if (!firstUpdate || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
                     {
                         try
                         {
@@ -61,7 +62,11 @@ namespace KzBot.Threads
         new KeyValuePair<string, string>("script", Globals.ScriptFile.Contains(@"\") ? Globals.ScriptFile.Split(@"\").LastOrDefault() : Globals.ScriptFile),
         new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
         new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
+        new KeyValuePair<string, string>("generated", amountToAdd.ToString()),
     };
+
+                            if (!firstUpdate)
+                                pairs.Add(new KeyValuePair<string, string>("first", "1"));
 
                             var postContent = new FormUrlEncodedContent(pairs);
 
@@ -71,17 +76,17 @@ namespace KzBot.Threads
                             client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
                             var response = await client.PostAsync(new Uri("https://www.kzsoft.com.br/characters.php"), postContent);
+                            string content = await response.Content.ReadAsStringAsync();
 
-                            if (response.IsSuccessStatusCode)
+                            if (response.IsSuccessStatusCode && content == "1")
                             {
-                                Debug.WriteLine("[{0}] {1}", DateTime.Now, "Successful Data Sent");
+                                Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
+                                amountToAdd = 0;
                                 firstUpdate = true;
                             }
                             else
                             {
-                                string content = await response.Content.ReadAsStringAsync();
-                                Debug.WriteLine("[{0}] {1}", DateTime.Now, "Failed Data Sent");
-                                Debug.WriteLine(content);
+                                Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Failed Data Sent", content);
                             }
 
                             System.Threading.Thread.Sleep(1000);

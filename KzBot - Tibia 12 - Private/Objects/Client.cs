@@ -72,14 +72,14 @@ namespace KzBot.Objects
         public static void Say(string text)
         {
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(5);
+            System.Threading.Thread.Sleep(200);
             foreach (byte b in ASCIIEncoding.Default.GetBytes(text))
             {
                 Keyboard.PressChar(b);
             }
-            System.Threading.Thread.Sleep(5);
+            System.Threading.Thread.Sleep(200);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(5);
+            System.Threading.Thread.Sleep(200);
         }
 
         public static Bitmap CaptureApplication()

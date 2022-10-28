@@ -121,6 +121,7 @@ namespace KzBot.Threads
                 else
                 {
                     setClient = false;
+                    Threads.Alarms.safeMode = false;
 
                     System.Threading.Thread.Sleep(5000);
 
@@ -163,6 +164,8 @@ namespace KzBot.Threads
                             else
                                 break;
                         }
+
+                        System.Threading.Thread.Sleep(2000);
 
                         Point buttonPoint = Objects.ClientData.FindOkButton();
                         if (buttonPoint.X > 0)

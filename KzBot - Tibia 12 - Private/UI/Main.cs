@@ -391,6 +391,11 @@ namespace KzBot
         {
             new AccCreator().Show();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public static class ControlExtensions

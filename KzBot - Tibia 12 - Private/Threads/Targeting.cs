@@ -66,7 +66,7 @@ namespace KzBot.Threads
                 if (Globals.Config.follow_Target && Objects.Player.isAttacking)
                 {
                     Creature creatureToFollow = creatures.Find(c => c.Id == Player.TargetId);
-                    if (creatureToFollow != null)
+                    if (creatureToFollow != null && creatureToFollow.Position.distanceTo(playerPos) > 1)
                         Objects.Player.Goto(creatureToFollow.Position);
                 }
             }

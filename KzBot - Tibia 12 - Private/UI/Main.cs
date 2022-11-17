@@ -171,7 +171,7 @@ namespace KzBot
 
             KzBot.Properties.Settings.Default.Save();
 
-            Application.Exit(e);
+            Application.Exit();
             this.Close();
         }
 

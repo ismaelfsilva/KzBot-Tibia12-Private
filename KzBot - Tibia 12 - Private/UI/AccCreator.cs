@@ -303,5 +303,21 @@ namespace KzBot.UI
                     break;
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+
+            foreach (string dir in System.IO.Directory.GetDirectories(@"C:\Users\Ismael\Downloads\HadesOT\characterdata"))
+            {
+                try
+                {
+                    File.Copy(openFileDialog.FileName, dir + @"\" + openFileDialog.SafeFileName, true);
+                }
+                catch
+                { }
+            }
+        }
     }
 }

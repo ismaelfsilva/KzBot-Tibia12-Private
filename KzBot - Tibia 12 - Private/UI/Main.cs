@@ -164,16 +164,19 @@ namespace KzBot
                 e.Cancel = true;
                 return;
             }
+            else if (!canCloseForm)
+            {
+                canCloseForm = true;
 
-            canCloseForm = true;
+                KzBot.Properties.Settings.Default.Location = this.Location;
+                KzBot.Properties.Settings.Default.Size = this.Size;
 
-            KzBot.Properties.Settings.Default.Location = this.Location;
-            KzBot.Properties.Settings.Default.Size = this.Size;
+                KzBot.Properties.Settings.Default.Save();
 
-            KzBot.Properties.Settings.Default.Save();
+                this.Close();
+            }
 
             Application.Exit();
-            this.Close();
         }
 
         private void comboBox1_Clicked(object sender, EventArgs e)

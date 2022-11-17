@@ -1,4 +1,5 @@
 using KzBot.Objects;
+using KzBot.UI;
 using System.Diagnostics;
 using System.Reflection;
 using System.Xml;
@@ -381,6 +382,11 @@ namespace KzBot
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Threads.Alarms.safeMode = true;
+        }
+
+        private void accountCreatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AccCreator().Show();
         }
     }
 

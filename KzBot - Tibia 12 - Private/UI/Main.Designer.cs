@@ -29,34 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Character", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Session", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Others", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Character", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Session", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Others", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "Level",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "Health",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "Mana",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "Magic Shield",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "Cap",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "Soul Points",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem(new string[] {
             "Position",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem(new string[] {
             "Stamina",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem(new string[] {
             "Time",
             ""}, -1);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -70,6 +70,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.charactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendToSafeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -85,7 +86,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.uiUpdater = new System.Windows.Forms.Timer(this.components);
-            this.sendToSafeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountCreatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -99,7 +100,8 @@
             this.accountsToolStripMenuItem,
             this.cavebotLiteToolStripMenuItem,
             this.charactersToolStripMenuItem,
-            this.sendToSafeToolStripMenuItem});
+            this.sendToSafeToolStripMenuItem,
+            this.accountCreatorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(478, 24);
@@ -120,26 +122,26 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // accountsToolStripMenuItem
@@ -176,6 +178,13 @@
             this.charactersToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.charactersToolStripMenuItem.Text = "Characters";
             this.charactersToolStripMenuItem.Click += new System.EventHandler(this.charactersToolStripMenuItem_Click);
+            // 
+            // sendToSafeToolStripMenuItem
+            // 
+            this.sendToSafeToolStripMenuItem.Name = "sendToSafeToolStripMenuItem";
+            this.sendToSafeToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.sendToSafeToolStripMenuItem.Text = "Send to Safe";
+            this.sendToSafeToolStripMenuItem.Click += new System.EventHandler(this.sendToSafeToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -279,35 +288,35 @@
             this.columnHeader2});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
-            listViewGroup1.Header = "Character";
-            listViewGroup1.Name = "listViewGroup1";
-            listViewGroup2.Header = "Session";
-            listViewGroup2.Name = "listViewGroup2";
-            listViewGroup3.Header = "Others";
-            listViewGroup3.Name = "listViewGroup3";
+            listViewGroup4.Header = "Character";
+            listViewGroup4.Name = "listViewGroup1";
+            listViewGroup5.Header = "Session";
+            listViewGroup5.Name = "listViewGroup2";
+            listViewGroup6.Header = "Others";
+            listViewGroup6.Name = "listViewGroup3";
             this.listView1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
-            listViewItem1.Group = listViewGroup1;
-            listViewItem2.Group = listViewGroup1;
-            listViewItem3.Group = listViewGroup1;
-            listViewItem4.Group = listViewGroup1;
-            listViewItem5.Group = listViewGroup1;
-            listViewItem6.Group = listViewGroup1;
-            listViewItem7.Group = listViewGroup1;
-            listViewItem8.Group = listViewGroup1;
-            listViewItem9.Group = listViewGroup2;
+            listViewGroup4,
+            listViewGroup5,
+            listViewGroup6});
+            listViewItem10.Group = listViewGroup4;
+            listViewItem11.Group = listViewGroup4;
+            listViewItem12.Group = listViewGroup4;
+            listViewItem13.Group = listViewGroup4;
+            listViewItem14.Group = listViewGroup4;
+            listViewItem15.Group = listViewGroup4;
+            listViewItem16.Group = listViewGroup4;
+            listViewItem17.Group = listViewGroup4;
+            listViewItem18.Group = listViewGroup5;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15,
+            listViewItem16,
+            listViewItem17,
+            listViewItem18});
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -369,12 +378,12 @@
             this.uiUpdater.Enabled = true;
             this.uiUpdater.Tick += new System.EventHandler(this.uiUpdater_Tick);
             // 
-            // sendToSafeToolStripMenuItem
+            // accountCreatorToolStripMenuItem
             // 
-            this.sendToSafeToolStripMenuItem.Name = "sendToSafeToolStripMenuItem";
-            this.sendToSafeToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
-            this.sendToSafeToolStripMenuItem.Text = "Send to Safe";
-            this.sendToSafeToolStripMenuItem.Click += new System.EventHandler(this.sendToSafeToolStripMenuItem_Click);
+            this.accountCreatorToolStripMenuItem.Name = "accountCreatorToolStripMenuItem";
+            this.accountCreatorToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.accountCreatorToolStripMenuItem.Text = "Account Creator";
+            this.accountCreatorToolStripMenuItem.Click += new System.EventHandler(this.accountCreatorToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -435,5 +444,6 @@
         private ToolStripMenuItem cavebotLiteToolStripMenuItem;
         private ToolStripMenuItem charactersToolStripMenuItem;
         private ToolStripMenuItem sendToSafeToolStripMenuItem;
+        private ToolStripMenuItem accountCreatorToolStripMenuItem;
     }
 }

@@ -38,6 +38,9 @@ namespace KzBot.Threads
                 {
                     foreach (Creature cr in creatures)
                     {
+                        if (cr.Name == "Ghost")
+                            continue;
+
                         int distToCreature = cr.Position.distanceTo(playerPos);
 
                         if (distToCreature < distToTarget)

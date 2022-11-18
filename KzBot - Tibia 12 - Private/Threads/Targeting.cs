@@ -32,6 +32,9 @@ namespace KzBot.Threads
 
                 Position playerPos = Objects.Player.Position;
                 Creature playerTarget = creatures.Find(c => c.Id == Player.TargetId);
+                if (playerTarget?.Name == "Ghost")
+                    playerTarget = null;
+
                 int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos) : 50;
                 Creature creatureToTarget = null;
                 if (distToTarget > 1)
@@ -58,7 +61,10 @@ namespace KzBot.Threads
                         for (int i = 0; i < 50; i++)
                         {
                             if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos) <= distToTarget))
-                                break;
+                            {
+                                if (creatures.Find(c => c.Id == Player.TargetId)?.Name != "Ghost")
+                                    break;
+                            }
 
                             Keyboard.PressKey((Keys)Properties.Settings.Default.Target_Next_Key);
                             System.Threading.Thread.Sleep(25);

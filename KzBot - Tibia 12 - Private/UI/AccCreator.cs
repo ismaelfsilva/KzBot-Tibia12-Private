@@ -47,7 +47,7 @@ namespace KzBot.UI
             else
                 email += ".com";
 
-            bool male = Convert.ToBoolean(r.Next(0, 1));
+            bool male = r.Next(100) < 50;
             string flag = "br";
             string character = string.Empty;
 
@@ -167,7 +167,7 @@ namespace KzBot.UI
         new KeyValuePair<string, string>("password", password),
         new KeyValuePair<string, string>("password2", password),
         new KeyValuePair<string, string>("name", character),
-        new KeyValuePair<string, string>("sex", male.ToString()),
+        new KeyValuePair<string, string>("sex", Convert.ToInt32(male).ToString()),
         new KeyValuePair<string, string>("world", "0"),
         new KeyValuePair<string, string>("accept_rules", "true"),
         new KeyValuePair<string, string>("save", "1"),

@@ -309,8 +309,8 @@ namespace KzBot.UI
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
 
-            foreach (string dir in System.IO.Directory.GetDirectories(@"C:\Users\Ismael\Downloads\HadesOT\characterdata"))
-            {
+            foreach (string dir in System.IO.Directory.GetParent(Globals.exeOtLocation).Parent.GetDirectories().Select(d=> d.FullName))
+            {                
                 try
                 {
                     File.Copy(openFileDialog.FileName, dir + @"\" + openFileDialog.SafeFileName, true);

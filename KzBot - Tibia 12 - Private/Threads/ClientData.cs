@@ -51,51 +51,7 @@ namespace KzBot.Threads
                     ///
                     if (!firstUpdate || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
                     {
-                        try
-                        {
-                            var client = new HttpClient();
-
-                            var pairs = new List<KeyValuePair<string, string>>
-    {
-        new KeyValuePair<string, string>("name", Objects.Player.Creature.Name),
-        new KeyValuePair<string, string>("user", Environment.UserName),
-        new KeyValuePair<string, string>("script", Globals.ScriptFile.Contains(@"\") ? Globals.ScriptFile.Split(@"\").LastOrDefault() : Globals.ScriptFile),
-        new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
-        new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
-        new KeyValuePair<string, string>("generated", amountToAdd.ToString()),
-    };
-
-                            if (!firstUpdate)
-                                pairs.Add(new KeyValuePair<string, string>("first", "1"));
-
-                            var postContent = new FormUrlEncodedContent(pairs);
-
-                            client.Timeout = TimeSpan.FromSeconds(5);
-                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
-                            client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
-                            client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
-
-                            var response = await client.PostAsync(new Uri("https://www.kzsoft.com.br/characters.php"), postContent);
-                            string content = await response.Content.ReadAsStringAsync();
-
-                            if (response.IsSuccessStatusCode && content == "1")
-                            {
-                                Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
-                                amountToAdd = 0;
-                                firstUpdate = true;
-                            }
-                            else
-                            {
-                                Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Failed Data Sent", content);
-                            }
-
-                            System.Threading.Thread.Sleep(1000);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
-                            return;
-                        }
+                        UpdateCharacter();
                     }
 
                     if (!setClient)
@@ -182,6 +138,55 @@ namespace KzBot.Threads
             finally
             {
                 Thread.Change(Globals.Config.client_Data_Update_Rate, Timeout.Infinite);
+            }
+        }
+
+        public static async void UpdateCharacter()
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                var pairs = new List<KeyValuePair<string, string>>
+    {
+        new KeyValuePair<string, string>("name", Objects.Player.Creature.Name),
+        new KeyValuePair<string, string>("user", Environment.UserName),
+        new KeyValuePair<string, string>("script", Globals.ScriptFile.Contains(@"\") ? Globals.ScriptFile.Split(@"\").LastOrDefault() : Globals.ScriptFile),
+        new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
+        new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
+        new KeyValuePair<string, string>("generated", amountToAdd.ToString()),
+    };
+
+                if (!firstUpdate)
+                    pairs.Add(new KeyValuePair<string, string>("first", "1"));
+
+                var postContent = new FormUrlEncodedContent(pairs);
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                var response = await client.PostAsync(new Uri("https://www.kzsoft.com.br/characters.php"), postContent);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode && content == "1")
+                {
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
+                    amountToAdd = 0;
+                    firstUpdate = true;
+                }
+                else
+                {
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Failed Data Sent", content);
+                }
+
+                System.Threading.Thread.Sleep(1000);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
+                return;
             }
         }
     }

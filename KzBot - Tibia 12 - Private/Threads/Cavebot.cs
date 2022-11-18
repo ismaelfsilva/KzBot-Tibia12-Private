@@ -31,7 +31,7 @@ namespace KzBot.Threads
 
                 if (waypoint.Type == WaypointType.Login_Next)
                 {
-
+                    Threads.ClientData.UpdateCharacter();
                     if (!Objects.Player.isLoggedIn || (waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) || (Math.Abs(Objects.Player.Position.X - waypoint.X) < waypoint.rangeX && Math.Abs(Objects.Player.Position.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == Objects.Player.Position.Z)))
                     {
                         Globals.Process?.Kill();
@@ -494,6 +494,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Exit:
+                        Threads.ClientData.UpdateCharacter();
                         Globals.Process.Kill(true);
                         Globals.Process = null;
                         break;

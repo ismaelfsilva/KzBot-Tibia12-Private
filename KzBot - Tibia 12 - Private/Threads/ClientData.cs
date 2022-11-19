@@ -78,7 +78,7 @@ namespace KzBot.Threads
                     setClient = false;
                     Threads.Alarms.safeMode = false;
 
-                    System.Threading.Thread.Sleep(5000);
+                    System.Threading.Thread.Sleep(1000);
 
                     if (Globals.AccountId != -1)
                     {
@@ -90,8 +90,10 @@ namespace KzBot.Threads
 
                         Accounts.Account account = Globals.Accounts.List[Globals.AccountId];
 
+                        Objects.Client.leftClick(50, 50);
                         Keyboard.Write(account.AccountName);
                         System.Threading.Thread.Sleep(100);
+                        Objects.Client.leftClick(50, 50);
                         Keyboard.PressKey(Keys.Tab);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.Password);
@@ -120,7 +122,7 @@ namespace KzBot.Threads
                                 break;
                         }
 
-                        System.Threading.Thread.Sleep(2000);
+                        System.Threading.Thread.Sleep(5000);
 
                         Point buttonPoint = Objects.ClientData.FindOkButton();
                         if (buttonPoint.X > 0)

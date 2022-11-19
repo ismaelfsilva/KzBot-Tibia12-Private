@@ -57,7 +57,7 @@ namespace KzBot.Threads
 
                 }
 
-                if (!Globals.Config.GeneralStatus || !Globals.Config.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn)
+                if (!Globals.Config.GeneralStatus || !Globals.Config.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
 

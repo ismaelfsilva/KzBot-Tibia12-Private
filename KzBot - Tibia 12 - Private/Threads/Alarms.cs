@@ -101,6 +101,9 @@ namespace KzBot.Threads
                                     }
                                     Globals.Process = null;
                                     break;
+                                case "resetwpt":
+                                    Globals.WaypointId = 0;
+                                    break;
                                 case "safe":
                                     safeMode = true;
                                     break;

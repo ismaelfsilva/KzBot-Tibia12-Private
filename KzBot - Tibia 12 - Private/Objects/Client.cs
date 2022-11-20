@@ -31,7 +31,7 @@ namespace KzBot.Objects
 
         public static void targetNear()
         {
-            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0);
+            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
             if (creatures.Count <= 0)
                 return;
 
@@ -56,9 +56,6 @@ namespace KzBot.Objects
                 {
                     foreach (Creature cr in creatures)
                     {
-                        if (Globals.Config.ignore_List.Contains( cr.Name ))
-                            continue;
-
                         int distToCreature = cr.Position.distanceTo(playerPos);
 
                         if (distToCreature < distToTarget)

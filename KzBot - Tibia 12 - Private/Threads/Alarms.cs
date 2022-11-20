@@ -14,6 +14,7 @@ namespace KzBot.Threads
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(AlarmThread, null, Timeout.Infinite, Timeout.Infinite);
         private static DateTime lastScreenshot = DateTime.MinValue;
+        private static DateTime lastTarget = DateTime.MinValue;
 
         private static List<string> gmNames = new List<string>() { "Lucas", "worthdavi", "Shivas"};
         private static int ticksStuck = 0;
@@ -104,6 +105,13 @@ namespace KzBot.Threads
                                 case "resetwpt":
                                     Globals.WaypointId = 0;
                                     break;
+                                case "target":
+                                    if ((DateTime.Now - lastTarget).TotalMilliseconds > 5000)
+                                    {
+                                        Objects.Client.targetNear();
+                                        lastTarget = DateTime.Now;
+                                    }
+                                    break;
                                 case "safe":
                                     safeMode = true;
                                     break;
@@ -192,5 +200,7 @@ namespace KzBot.Threads
                        
             return alarmsRequested;
         }
+
+
     }
 }

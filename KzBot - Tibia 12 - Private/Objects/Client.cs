@@ -28,6 +28,60 @@ namespace KzBot.Objects
             return false;
         }
 
+        public static void targetNear()
+        {
+            try
+            {
+                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0);
+
+                if (creatures.Count <= 0)
+                    return;
+
+                Position playerPos = Objects.Player.Position;
+                Creature playerTarget = creatures.Find(c => c.Id == Player.TargetId);
+                if (Globals.Config.ignore_List.Contains(playerTarget?.Name))
+                    playerTarget = null;
+
+                int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos) : 50;
+                Creature creatureToTarget = null;
+                if (distToTarget > 1)
+                {
+                    foreach (Creature cr in creatures)
+                    {
+                        if (Globals.Config.ignore_List.Contains( cr.Name ))
+                            continue;
+
+                        int distToCreature = cr.Position.distanceTo(playerPos);
+
+                        if (distToCreature < distToTarget)
+                        {
+                            distToTarget = distToCreature;
+                            creatureToTarget = cr;
+                        }
+                    }
+
+                    if (creatureToTarget != null && creatureToTarget.Id != Player.TargetId && distToTarget <= Globals.Config.max_Distance_To_Target)
+                    {
+                        for (int i = 0; i < 50; i++)
+                        {
+                            if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos) <= distToTarget))
+                            {
+                                if (!Globals.Config.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
+                                    break;
+                            }
+
+                            Keyboard.PressKey((Keys)Properties.Settings.Default.Target_Next_Key);
+                            System.Threading.Thread.Sleep(25);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }            
+        }
+
         public static bool HasHealCooldown
         {
             get

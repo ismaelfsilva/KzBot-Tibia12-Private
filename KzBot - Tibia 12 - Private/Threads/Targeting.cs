@@ -32,7 +32,7 @@ namespace KzBot.Threads
 
                 Position playerPos = Objects.Player.Position;
                 Creature playerTarget = creatures.Find(c => c.Id == Player.TargetId);
-                if (playerTarget?.Name == "Ghost")
+                if (Globals.Config.ignore_List.Contains(playerTarget?.Name))
                     playerTarget = null;
 
                 int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos) : 50;
@@ -41,7 +41,7 @@ namespace KzBot.Threads
                 {
                     foreach (Creature cr in creatures)
                     {
-                        if (cr.Name == "Ghost")
+                        if (Globals.Config.ignore_List.Contains(cr.Name))
                             continue;
 
                         int distToCreature = cr.Position.distanceTo(playerPos);
@@ -62,7 +62,7 @@ namespace KzBot.Threads
                         {
                             if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos) <= distToTarget))
                             {
-                                if (creatures.Find(c => c.Id == Player.TargetId)?.Name != "Ghost")
+                                if (!Globals.Config.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
                                     break;
                             }
 

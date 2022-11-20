@@ -54,6 +54,7 @@ namespace KzBot
         public bool stop_Walking_on_Target { get; set; } = false;
         public int max_Distance_To_Target { get; set; } = 99;
         public bool follow_Target { get; set; } = false;
+        public List<string> ignore_List { get; set; } = new List<string>();
 
         // Targeting Rules
         public List<TargetRule> Targeting { get; set; } = new List<TargetRule>();

@@ -61,7 +61,7 @@ namespace KzBot.Threads
 
                 bool hasAttackCooldown = Objects.Client.hasCooldown(CooldownGroup.Attack);
 
-                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && Globals.Config.ignore_List.Contains(cr.Name));
+                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
                 Position playerPos = Player.Position;
 
                 int playerMana = Objects.Player.Mana;

@@ -35,7 +35,7 @@ namespace KzBot.UI
         public async Task<bool> Create()
         {
             Random r = new Random();
-            string account = GenerateName(r.Next(6, 12));
+            string account = GenerateName(r.Next(6, 12)).ToLower();
             string password = new Util.PasswordGenerator().Generate();
 
             string email = account + "@" + GenerateName(r.Next(3, 5));

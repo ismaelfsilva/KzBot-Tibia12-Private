@@ -30,7 +30,7 @@ namespace KzBot.Threads
                 if (creatures.Count <= 0)
                     return;
 
-                Objects.Client.targetNear();
+                Objects.Client.targetNear(creatures);
 
                 if (Globals.Config.follow_Target && Objects.Player.isAttacking)
                 {

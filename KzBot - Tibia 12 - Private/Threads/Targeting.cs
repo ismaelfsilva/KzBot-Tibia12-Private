@@ -30,47 +30,7 @@ namespace KzBot.Threads
                 if (creatures.Count <= 0)
                     return;
 
-                Position playerPos = Objects.Player.Position;
-                Creature playerTarget = creatures.Find(c => c.Id == Player.TargetId);
-                if (Globals.Config.ignore_List.Contains(playerTarget?.Name))
-                    playerTarget = null;
-
-                int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos) : 50;
-                Creature creatureToTarget = null;
-                if (distToTarget > 1)
-                {
-                    foreach (Creature cr in creatures)
-                    {
-                        if (Globals.Config.ignore_List.Contains(cr.Name))
-                            continue;
-
-                        int distToCreature = cr.Position.distanceTo(playerPos);
-
-                        if (distToCreature < distToTarget)
-                        {
-                            distToTarget = distToCreature;
-                            creatureToTarget = cr;
-                        }
-                    }
-
-                    if (creatureToTarget != null && creatureToTarget.Id != Player.TargetId && distToTarget <= Globals.Config.max_Distance_To_Target)
-                    {
-                        //if (Globals.Config.stop_Walking_on_Target)
-                        //    Objects.Player.isWalking = false;   
-
-                        for (int i = 0; i < 50; i++)
-                        {
-                            if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos) <= distToTarget))
-                            {
-                                if (!Globals.Config.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
-                                    break;
-                            }
-
-                            Keyboard.PressKey((Keys)Properties.Settings.Default.Target_Next_Key);
-                            System.Threading.Thread.Sleep(25);
-                        }
-                    }
-                }
+                Objects.Client.targetNear();
 
                 if (Globals.Config.follow_Target && Objects.Player.isAttacking)
                 {

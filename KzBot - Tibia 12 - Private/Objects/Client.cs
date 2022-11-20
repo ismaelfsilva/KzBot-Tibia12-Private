@@ -27,13 +27,18 @@ namespace KzBot.Objects
 
             return false;
         }
+        
 
         public static void targetNear()
         {
+            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0);
+            targetNear(creatures);
+        }
+
+        public static void targetNear(List<Creature> creatures)
+        {
             try
             {
-                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0);
-
                 if (creatures.Count <= 0)
                     return;
 

@@ -13,6 +13,7 @@ namespace KzBot.Threads
         public static bool setClient = false;
         public static bool firstUpdate = false;
         public static int amountToAdd = 0;
+        public static string lastUpdatedCharacter = string.Empty;
 
         private async static void ClientDataThread(object? state)
         {
@@ -49,8 +50,9 @@ namespace KzBot.Threads
                 {
                     //// SITE AREA
                     ///
-                    if (!firstUpdate || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
+                    if (!firstUpdate || lastUpdatedCharacter != Objects.Player.Creature.Name || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
                     {
+                        lastUpdatedCharacter = Objects.Player.Creature.Name;
                         UpdateCharacter();
                     }
 
@@ -73,7 +75,7 @@ namespace KzBot.Threads
 
                     Objects.ClientData.Update();
                 }
-                else
+                else if (Globals.Config.auto_Reconnect)
                 {
                     setClient = false;
                     Threads.Alarms.safeMode = false;

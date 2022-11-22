@@ -76,6 +76,12 @@ namespace KzBot
 
                 Globals.Config = (Config)writer.Deserialize(file);
 
+                foreach (AlarmType type in Enum.GetValues(typeof(AlarmType)))
+                {
+                    if (!Globals.Config.Alarms.Exists(rule=> rule.Type == type))
+                        Globals.Config.Alarms.Add(new AlarmRule(type));
+                }
+
                 Globals.Main.Invoke((MethodInvoker)delegate {
                     foreach (Waypoint waypoint in Globals.Config.Waypoints)
                         Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());

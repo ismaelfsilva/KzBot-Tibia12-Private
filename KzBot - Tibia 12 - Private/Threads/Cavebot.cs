@@ -271,21 +271,21 @@ namespace KzBot.Threads
 
                             Client.Say("hi");
                             System.Threading.Thread.Sleep(500);
-                            Client.Say("trade");
-                            System.Threading.Thread.Sleep(500);
-
 
                             WinApi.RECT clientRect;
-                            WinApi.GetWindowRect(Globals.Handle, out clientRect);
-                            Point closeWindow = new Point(clientRect.right - 8, 410);
+                            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+                            Point closeWindow = new Point(clientRect.right - 16, 510);
 
                             for (int i = 0; i < 10; i++)
                             {
                                 Client.leftClick(closeWindow.X, closeWindow.Y);
-                                System.Threading.Thread.Sleep(200);
+                                System.Threading.Thread.Sleep(100);
                             }
 
-                            Point tradeWindow = new Point(clientRect.right - 155, 507);
+                            Client.Say("trade");
+                            System.Threading.Thread.Sleep(500);
+
+                            Point tradeWindow = new Point(clientRect.right - 163, 507);
 
                             Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
                             System.Threading.Thread.Sleep(200);
@@ -320,6 +320,18 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Buy_Refill:
                         {
+                            WinApi.RECT clientRect;
+                            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+                            Point closeWindow = new Point(clientRect.right - 16, 510);
+
+                            for (int i = 0; i < 10; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(100);
+                            }
+
+                            Point tradeWindow = new Point(clientRect.right - 163, 507);
+
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
                                 int itemCount = Objects.Client.getItemCount(refill.Id);
@@ -341,18 +353,6 @@ namespace KzBot.Threads
 
                                 Client.Say(refill.Type);
                                 System.Threading.Thread.Sleep(500);
-
-                                WinApi.RECT clientRect;
-                                WinApi.GetWindowRect(Globals.Handle, out clientRect);
-                                Point closeWindow = new Point(clientRect.right - 8, 410);
-
-                                for (int i = 0; i < 10; i++)
-                                {
-                                    Client.leftClick(closeWindow.X, closeWindow.Y);
-                                    System.Threading.Thread.Sleep(200);
-                                }
-
-                                Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
@@ -383,7 +383,7 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Buy
-                                Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
+                                Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
                                 System.Threading.Thread.Sleep(1000);
 
                                 if (!Globals.Config.GeneralStatus)

@@ -13,7 +13,8 @@ namespace KzBot.Threads
         public static System.Threading.Timer Target = new System.Threading.Timer(TargetThread, null, Timeout.Infinite, Timeout.Infinite);
         public static System.Threading.Timer SpellCaster = new System.Threading.Timer(SpellCasterThread, null, Timeout.Infinite, Timeout.Infinite);
 
-        public  static DateTime lastTargetSkillTime = DateTime.MinValue;
+        public static DateTime lastTargetSkillTime = DateTime.MinValue;
+        public static DateTime lastUtitoTime = DateTime.MinValue;
 
         private static void TargetThread(object? state)
         {
@@ -73,6 +74,12 @@ namespace KzBot.Threads
                 Position targetPos = target !=null ? target.Position : new Position() { X = 0, Y = 0, Z = 0};
 
                 bool didCastSkill = false;
+
+                if (Globals.Config.auto_Utito && Globals.ComboStatus && (DateTime.Now - lastUtitoTime).TotalMilliseconds > 10000 && playerLevel >= 60 && playerMana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                {
+                    Keyboard.PressKey((Keys)Properties.Settings.Default.Utito_Key);
+                    lastUtitoTime = DateTime.Now;
+                }
 
                 foreach (TargetRule rule in Globals.Config.Targeting)
                 {

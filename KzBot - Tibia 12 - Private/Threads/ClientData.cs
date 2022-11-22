@@ -144,7 +144,7 @@ namespace KzBot.Threads
             }
             finally
             {
-                Thread.Change(Globals.Config.client_Data_Update_Rate, Timeout.Infinite);
+                Thread.Change(100, Timeout.Infinite);
             }
         }
 

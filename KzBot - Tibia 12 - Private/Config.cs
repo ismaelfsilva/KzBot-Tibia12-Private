@@ -65,7 +65,7 @@ namespace KzBot
 
         //public int client_Data_Update_Rate { get; set; } = 100;
         public bool auto_Haste { get; set; } = true;
-        //public bool auto_Utito { get; set; } = true;
+        public bool auto_Utito { get; set; } = true;
 
         public bool GeneralStatus { get; set; } = false;
         public bool HealerStatus { get; set; } = false;

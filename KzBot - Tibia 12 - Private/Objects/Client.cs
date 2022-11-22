@@ -27,7 +27,30 @@ namespace KzBot.Objects
 
             return false;
         }
-        
+
+
+        public static List<string> getServerLogMessages()
+        {
+            object clipboard = Clipboard.GetDataObject();
+            List<string> messages = new List<string>();
+
+            Keyboard.PressKey(Keys.F22);
+            Keyboard.PressKey(Keys.F23);
+            Keyboard.PressKey(Keys.F24);
+
+            using (StringReader reader = new StringReader(Clipboard.GetText()))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    messages.Add(line);
+                }
+            }
+
+            Clipboard.SetDataObject(clipboard);
+            return messages;
+        }
+
 
         public static void targetNear()
         {

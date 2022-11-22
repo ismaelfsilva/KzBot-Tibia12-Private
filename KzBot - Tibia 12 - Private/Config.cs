@@ -50,6 +50,7 @@ namespace KzBot
 
 
         // Targeting Options
+        public bool only_target_on_lures { get; set; } = false;
         public bool ignore_Creature_Count_on_Combo { get; set; } = true;
         public bool stop_Walking_on_Target { get; set; } = false;
         public int max_Distance_To_Target { get; set; } = 99;

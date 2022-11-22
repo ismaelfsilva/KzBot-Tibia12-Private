@@ -25,6 +25,9 @@ namespace KzBot.Threads
 
                 // Auto Target Area
 
+                if (Globals.Config.only_target_on_lures && !Globals.ComboStatus)
+                    return;
+
                 List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
 
                 if (creatures.Count <= 0)

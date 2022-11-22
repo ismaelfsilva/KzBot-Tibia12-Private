@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="Loot_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">116</Value>
     </Setting>
     <Setting Name="Target_Next_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">35</Value>
     </Setting>
     <Setting Name="Haste_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">121</Value>
     </Setting>
     <Setting Name="Utito_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">123</Value>
     </Setting>
     <Setting Name="ExeLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

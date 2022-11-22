@@ -19,6 +19,7 @@ namespace KzBot.Threads
         private static void CavebotThread(object state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
+            int startWaypointId = Globals.WaypointId;
             try
             {
                 if (Globals.Config.Waypoints.Count <= 0)
@@ -27,6 +28,7 @@ namespace KzBot.Threads
                 if (Globals.Config.Waypoints.Count > 0 && Globals.WaypointId >= Globals.Config.Waypoints.Count)
                     Globals.WaypointId = 0;
 
+                startWaypointId = Globals.WaypointId;
                 Waypoint waypoint = Globals.Config.Waypoints[Globals.WaypointId];
 
                 if (waypoint.Type == WaypointType.Login_Next)
@@ -114,11 +116,18 @@ namespace KzBot.Threads
                 {
                     case WaypointType.Stand:
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
+                        {
                             Globals.WaypointId++;
+                            Keyboard.PressKey(Keys.Escape);
+                        }
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
                             Globals.WaypointId++;
                         else
-                            Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
+                        {
+                            Position gotoPosition = Objects.Player.Goto();
+                            if (gotoPosition.X != waypoint.X || gotoPosition.Y != waypoint.Y || gotoPosition.Z != waypoint.Z)
+                                Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
+                        }
                         break;
                     case WaypointType.Node:
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
@@ -550,7 +559,12 @@ namespace KzBot.Threads
             finally
             {
                 if (Globals.Config.GeneralStatus && Globals.Config.CavebotStatus)
-                    Thread.Change(100, Timeout.Infinite);
+                {
+                    if (Globals.WaypointId != startWaypointId)
+                        Thread.Change(0, Timeout.Infinite);
+                    else
+                        Thread.Change(100, Timeout.Infinite);
+                }
             }
         }
     }

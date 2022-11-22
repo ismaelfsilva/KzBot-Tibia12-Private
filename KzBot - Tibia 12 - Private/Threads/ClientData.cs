@@ -95,27 +95,41 @@ namespace KzBot.Threads
 
                         Accounts.Account account = Globals.Accounts.List[Globals.AccountId];
 
-                        Objects.Client.leftClick(50, 50);
+                        WinApi.RECT clientRect;
+                        WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+
+                        Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 60);
+                        System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.AccountName);
                         System.Threading.Thread.Sleep(100);
-                        Objects.Client.leftClick(50, 50);
-                        Keyboard.PressKey(Keys.Tab);
+
+                        Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 30);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.Password);
                         System.Threading.Thread.Sleep(100);
+
                         Keyboard.PressKey(Keys.Enter);
                         System.Threading.Thread.Sleep(5000);
+
+                        if (!Globals.Config.GeneralStatus)
+                            return;
 
                         for (int i = 0; i < 30; i++)
                         {
                             Keyboard.PressKey(Keys.Up);
                             System.Threading.Thread.Sleep(20);
+
+                            if (!Globals.Config.GeneralStatus)
+                                return;
                         }
 
                         for (int i = 0; i < account.Index - 1; i++)
                         {
                             Keyboard.PressKey(Keys.Down);
                             System.Threading.Thread.Sleep(50);
+
+                            if (!Globals.Config.GeneralStatus)
+                                return;
                         }
 
                         Keyboard.PressKey(Keys.Enter);
@@ -123,17 +137,10 @@ namespace KzBot.Threads
                         {
                             if (!Objects.Player.isLoggedIn)
                                 System.Threading.Thread.Sleep(100);
+                            else if (!Globals.Config.GeneralStatus)
+                                return;
                             else
                                 break;
-                        }
-
-                        System.Threading.Thread.Sleep(5000);
-
-                        Point buttonPoint = Objects.ClientData.FindOkButton();
-                        if (buttonPoint.X > 0)
-                        {
-                            Objects.Client.leftClick(buttonPoint.X, buttonPoint.Y);
-                            Keyboard.PressKey(Keys.Escape);
                         }
                     }
                 }

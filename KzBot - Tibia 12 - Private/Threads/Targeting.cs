@@ -76,6 +76,9 @@ namespace KzBot.Threads
 
                 foreach (TargetRule rule in Globals.Config.Targeting)
                 {
+                    if (rule.ComboOnly && !Globals.ComboStatus)
+                        continue;
+
                     if (rule.Type == TargetType.Support && !Objects.Client.hasCooldown(CooldownGroup.Support))
                         continue;
                     else if (!hasAttackCooldown)

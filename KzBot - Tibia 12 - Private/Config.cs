@@ -151,6 +151,8 @@ namespace KzBot
         [XmlAttribute]
         public bool PlayerOnCenter { get; set; } = true;
         [XmlAttribute]
+        public bool ComboOnly { get; set; } = false;
+        [XmlAttribute]
         public int Range { get; set; } = 1;
         [XmlAttribute]
         public int Mana { get; set; } = 0;

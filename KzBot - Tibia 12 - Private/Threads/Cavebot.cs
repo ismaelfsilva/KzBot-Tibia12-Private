@@ -427,7 +427,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Wait_PZ:
-                        if (!Objects.ClientData.isPzLocked && Objects.Player.Creature.Skull != PlayerSkulls.White)
+                        if (Objects.Player.Creature.Skull != PlayerSkulls.White)
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Disable_Targeting:

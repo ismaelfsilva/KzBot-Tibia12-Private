@@ -200,5 +200,13 @@ namespace KzBot.UI
             Globals.Config.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
+
+        private void utitoTempoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // UTITO TEMPO
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 290, Level = 60, Delay = 10000, ComboOnly = true };
+            Globals.Config.Targeting.Add(TargetRule1);
+            listView1.Items.Add(TargetRule1.ListViewItem());
+        }
     }
 }

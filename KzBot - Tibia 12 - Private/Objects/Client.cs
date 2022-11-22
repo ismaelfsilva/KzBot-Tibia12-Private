@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +57,12 @@ namespace KzBot.Objects
         public static List<string> getServerLogMessages()
         {
             string clipboard = Clipboard.GetText();
+            Globals.Main.Invoke((MethodInvoker)delegate
+            {
+                clipboard = Clipboard.GetText();
+            });
+
+            string serverLogText = string.Empty;
             List<string> messages = new List<string>();
 
             Keyboard.PressKey(Keys.F22);
@@ -64,7 +71,21 @@ namespace KzBot.Objects
             Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(100);
 
-            using (StringReader reader = new StringReader(Clipboard.GetText()))
+
+            Globals.Main.Invoke((MethodInvoker)delegate
+            {
+                serverLogText = Clipboard.GetText();
+
+                Clipboard.Clear();
+                if (clipboard != String.Empty)
+                    Clipboard.SetText(clipboard);
+            });
+
+
+            System.Threading.Thread.Sleep(1000);
+
+
+            using (StringReader reader = new StringReader(serverLogText))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -73,9 +94,6 @@ namespace KzBot.Objects
                 }
             }
 
-            Clipboard.Clear();
-            if (clipboard != String.Empty)
-                Clipboard.SetText(clipboard);
             return messages;
         }
 

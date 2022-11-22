@@ -118,6 +118,7 @@ namespace KzBot
         Low_Stamina,
         Low_Cap,
         Stuck,
+        No_Imbue,
     }
 
     public class AlarmRule

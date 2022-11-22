@@ -399,6 +399,14 @@ namespace KzBot
         [DllImport("kernel32.dll")]
         private static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
 
+
+        [DllImport("user32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        internal static extern int AttachThreadInput(uint idAttach, int idAttachTo, bool fAttach);
+        [DllImport("kernel32.dll")]
+        internal static extern int GetCurrentThreadId();
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern IntPtr GetFocus();
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool ReadProcessMemory(
     IntPtr hProcess,

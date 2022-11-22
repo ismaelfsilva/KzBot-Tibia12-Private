@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -23,6 +24,9 @@ namespace KzBot.Threads
         private static DateTime lastTelegramMessage = DateTime.MinValue;
 
         public static bool safeMode = false;
+        public static bool hasImbue = true;
+
+        public static DateTime lastCheckImbueTime = DateTime.MinValue;
 
         private static async void AlarmThread(object? state)
         {
@@ -142,6 +146,7 @@ namespace KzBot.Threads
             }
         }
 
+
         private static List<AlarmType> CheckAlarms()
         {
             List<AlarmType> alarmsRequested = new List<AlarmType>();
@@ -197,7 +202,31 @@ namespace KzBot.Threads
 
             if (Globals.Config.Alarms[(int)AlarmType.Low_Stamina].Enabled && Objects.Player.Stamina.TotalMinutes <= 14 * 60)
                 alarmsRequested.Add(AlarmType.Low_Stamina);
-                       
+
+            if (Globals.Config.Alarms[(int)AlarmType.No_Imbue].Enabled && (DateTime.Now - lastCheckImbueTime).TotalMilliseconds >= 60 * 5 * 1000)
+            {
+                Objects.Client.lookAt(Equipment.Weapon);
+                System.Threading.Thread.Sleep(500);
+                List<string> messages = Objects.Client.getServerLogMessages();
+                for (int i = 1; i <= 25; i++)
+                {
+                    if (i > messages.Count)
+                        break;
+
+                    string msg = messages[messages.Count - i].ToLower();
+
+                    if (msg.Contains("imbuements:"))
+                    {
+                        lastCheckImbueTime = DateTime.Now;
+                        hasImbue = msg.Contains("void");
+                        break;
+                    }
+                }
+            }
+            else if (Globals.Config.Alarms[(int)AlarmType.No_Imbue].Enabled && !hasImbue)
+                alarmsRequested.Add(AlarmType.No_Imbue);
+
+
             return alarmsRequested;
         }
 

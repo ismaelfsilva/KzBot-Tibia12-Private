@@ -3,6 +3,20 @@
 namespace KzBot
 {
 
+    public enum Equipment
+    {
+        Amulet,
+        Helmet,
+        Backpack,
+        Weapon,
+        Armor,
+        Shield,
+        Ring,
+        Legs,
+        Torch,
+        Boots,
+    }
+
     public enum FightMode
     {
         OFFENSIVE = 0,

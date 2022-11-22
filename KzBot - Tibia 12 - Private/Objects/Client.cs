@@ -12,6 +12,30 @@ namespace KzBot.Objects
     {
         private static List<uint> foundCooldownAddresses = new List<uint>();
 
+        private static List<Point> equipmentPoints = new List<Point>()
+        {
+            new Point(-150, 170),
+            new Point(-115, 170),
+            new Point(-75, 170),
+            new Point(-150, 205),
+            new Point(-115, 205),
+            new Point(-75, 205),
+            new Point(-150, 240),
+            new Point(-115, 240),
+            new Point(-75, 240),
+            new Point(-115, 270),
+        };
+
+        public static void lookAt(Equipment equip)
+        {
+            WinApi.RECT clientRect;
+            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+
+            Point equipPoint = equipmentPoints[(int)equip];
+
+            lookClick(clientRect.right - 8 + equipPoint.X, equipPoint.Y);
+        }
+
         public static bool hasCooldown(CooldownGroup group)
         {
             uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, new uint[] { 0x74, 0x18 });
@@ -31,12 +55,14 @@ namespace KzBot.Objects
 
         public static List<string> getServerLogMessages()
         {
-            object clipboard = Clipboard.GetDataObject();
+            string clipboard = Clipboard.GetText();
             List<string> messages = new List<string>();
 
             Keyboard.PressKey(Keys.F22);
             Keyboard.PressKey(Keys.F23);
             Keyboard.PressKey(Keys.F24);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(100);
 
             using (StringReader reader = new StringReader(Clipboard.GetText()))
             {
@@ -47,9 +73,12 @@ namespace KzBot.Objects
                 }
             }
 
-            Clipboard.SetDataObject(clipboard);
+            Clipboard.Clear();
+            if (clipboard != String.Empty)
+                Clipboard.SetText(clipboard);
             return messages;
         }
+
 
 
         public static void targetNear()
@@ -205,14 +234,8 @@ namespace KzBot.Objects
             uint lParam = (uint)WinApi.MakeLParam(x, y);
             WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
             WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
-
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
-
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
-
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_LBUTTON | WinApi.MK_RBUTTON, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, WinApi.MK_LBUTTON, lParam);
             WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
         }
 

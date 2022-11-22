@@ -284,6 +284,8 @@ namespace KzBot.Threads
                             }
 
                             System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(500);
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 

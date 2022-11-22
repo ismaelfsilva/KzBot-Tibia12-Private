@@ -177,6 +177,22 @@ namespace KzBot.Objects
             WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
         }
 
+        public static void lookClick(int x, int y)
+        {
+            uint lParam = (uint)WinApi.MakeLParam(x, y);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
+
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
+
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
+
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
+        }
+
         public static void moveMouse(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
@@ -194,10 +210,10 @@ namespace KzBot.Objects
         public static void rightClickPos(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
+            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
         }
 
         public static void middleClickPos(int x, int y)

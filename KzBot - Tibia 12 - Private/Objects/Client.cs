@@ -241,7 +241,7 @@ namespace KzBot.Objects
                 {
                     long id = WinApi.ReadInt16(Globals.Handle, item + 0x10);
 
-                    Debug.WriteLine("Id: {0} | Count: {1}", id, WinApi.ReadInt16(Globals.Handle, item + 0x24));
+                    //Debug.WriteLine("Id: {0} | Count: {1} | Addr: {2} | Teste: {3}", id, WinApi.ReadInt16(Globals.Handle, item + 0x24), item.ToString("X"), slot);
 
                     if (id == itemId)
                         return WinApi.ReadInt16(Globals.Handle, item + 0x24);

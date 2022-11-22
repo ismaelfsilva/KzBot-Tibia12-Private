@@ -185,11 +185,16 @@ namespace KzBot.Objects
             }
         }
 
+        public static Position Goto()
+        {
+            return new Position() { X = GotoX, Y = GotoY, Z = GotoZ };
+        }
+
         public static void Goto(int X, int Y, int Z)
         {
-            GotoX = X;
-            GotoY = Y;
             GotoZ = Z;
+            GotoY = Y;
+            GotoX = X;
             isWalking = true;
         }
         public static void Goto(Position pos)

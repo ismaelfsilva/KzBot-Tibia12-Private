@@ -228,17 +228,39 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Imbue:
-                        if (true == false && waypoint.Extra.Trim().ToLower() == "audio")
-                            using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
+                        {
+                            bool foundItem = false;
+                            bool hasImbue = false;
+                            Objects.Client.lookAt(Equipment.Weapon);
+                            System.Threading.Thread.Sleep(500);
+                            List<string> messages = Objects.Client.getServerLogMessages();
+                            for (int i = 1; i <= 25; i++)
                             {
-                                soundPlayer.Play();
-                                System.Threading.Thread.Sleep(1000);
+                                if (i > messages.Count)
+                                    break;
+
+                                string msg = messages[messages.Count - i].ToLower();
+
+                                if (msg.Contains("imbuements:"))
+                                {
+                                    foundItem = true;
+                                    hasImbue = msg.Contains("void");
+                                    break;
+                                }
                             }
-                        else if (true == false)
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
-                        else
-                            Globals.WaypointId++;
-                        break;
+
+                            if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
+                                using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
+                                {
+                                    soundPlayer.Play();
+                                    System.Threading.Thread.Sleep(1000);
+                                }
+                            else if (foundItem && !hasImbue)
+                                Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                            else if (foundItem)
+                                Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Check_Refill: 
                         bool needRefill = false;
                         foreach (RefillRule refill in Globals.Config.Refill)

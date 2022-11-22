@@ -266,8 +266,11 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(500);
 
-                            Client.Say("#s hi");
-                            System.Threading.Thread.Sleep(3000);
+                            Keyboard.PressKey(Keys.F21);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.Say("hi");
+                            System.Threading.Thread.Sleep(500);
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 
@@ -311,7 +314,6 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Buy_Refill:
                         {
-                            bool saidHi = false;
                             Point tradeWindow;
                             Point okButton;
                             foreach (RefillRule refill in Globals.Config.Refill)
@@ -327,12 +329,11 @@ namespace KzBot.Threads
                                 Keyboard.PressKey(Keys.Escape);
                                 System.Threading.Thread.Sleep(500);
 
-                                if (!saidHi)
-                                {
-                                    Client.Say("#s hi");
-                                    System.Threading.Thread.Sleep(3000);
-                                    saidHi = true;
-                                }
+                                Keyboard.PressKey(Keys.F21);
+                                System.Threading.Thread.Sleep(500);
+
+                                Client.Say("hi");
+                                System.Threading.Thread.Sleep(500);
 
                                 Client.Say(refill.Type);
                                 System.Threading.Thread.Sleep(1000);
@@ -386,9 +387,12 @@ namespace KzBot.Threads
                             lastBalanceUpdate = DateTime.Now;
                         }
 
-                        System.Threading.Thread.Sleep(2000);
-                        Client.Say("#s hi");
-                        System.Threading.Thread.Sleep(3000);
+
+                        Keyboard.PressKey(Keys.F21);
+                        System.Threading.Thread.Sleep(500);
+
+                        Client.Say("hi");
+                        System.Threading.Thread.Sleep(500);
                         Client.Say("deposit all");
                         System.Threading.Thread.Sleep(100);
                         Client.Say("yes");
@@ -399,8 +403,11 @@ namespace KzBot.Threads
                     case WaypointType.Transfer:
                         if (Globals.characterToTransfer != String.Empty)
                         {
+                            Keyboard.PressKey(Keys.F21);
+                            System.Threading.Thread.Sleep(500);
+
                             Client.Say("hi");
-                            System.Threading.Thread.Sleep(3000);
+                            System.Threading.Thread.Sleep(500);
                             for (int i = 0; i < 5; i++)
                             {
                                 Client.Say("transfer");

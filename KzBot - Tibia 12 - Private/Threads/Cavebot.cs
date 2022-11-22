@@ -118,7 +118,8 @@ namespace KzBot.Threads
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
-                            Keyboard.PressKey(Keys.Escape);
+                            if (waypoint.rangeX == 1 && waypoint.rangeY == 1)
+                                Keyboard.PressKey(Keys.Escape);
                         }
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
                             Globals.WaypointId++;

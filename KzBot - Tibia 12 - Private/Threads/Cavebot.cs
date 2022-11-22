@@ -570,6 +570,16 @@ namespace KzBot.Threads
                         else
                             Globals.WaypointId--;
                         break;
+                    case WaypointType.Travel:
+                        Keyboard.PressKey(Keys.F21);
+                        System.Threading.Thread.Sleep(500);
+                        Client.Say("hi");
+                        System.Threading.Thread.Sleep(500);
+                        Client.Say(waypoint.Extra);
+                        System.Threading.Thread.Sleep(500);
+                        Client.Say("yes");
+                        System.Threading.Thread.Sleep(500);
+                        break;
                     default:
                         Globals.WaypointId++;
                         break;

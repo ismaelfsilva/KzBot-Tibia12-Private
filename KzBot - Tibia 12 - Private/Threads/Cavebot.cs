@@ -283,6 +283,7 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(100);
                             }
 
+                            System.Threading.Thread.Sleep(500);
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 

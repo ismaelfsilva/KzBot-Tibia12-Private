@@ -274,32 +274,36 @@ namespace KzBot.Threads
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 
-                            Point tradeWindow = Objects.ClientData.FindTrade();
-                            Point okButton = Objects.ClientData.FindOkButton();
-                            if (tradeWindow.X <= 0 || okButton.X <= 0)
+
+                            WinApi.RECT clientRect;
+                            WinApi.GetWindowRect(Globals.Handle, out clientRect);
+                            Point closeWindow = new Point(clientRect.right - 8, 410);
+
+                            for (int i = 0; i < 10; i++)
                             {
-                                Globals.WaypointId++;
-                                return;
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(200);
                             }
+
+                            Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                             Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
                             System.Threading.Thread.Sleep(200);
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 10)
+                            while (itemSoldWithoutCapChange <= 5)
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
                                 System.Threading.Thread.Sleep(200);
-                                //Client.leftClick(okButton.X - 20, okButton.Y - 35);
-                                //System.Threading.Thread.Sleep(300);
-                                Client.leftClick(okButton.X + 5, okButton.Y + 5);
+
+                                Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
                                 System.Threading.Thread.Sleep(200);
 
                                 itemSoldWithoutCapChange++;
 
-                                if (itemSoldWithoutCapChange == 10)
+                                if (itemSoldWithoutCapChange == 5)
                                 {
                                     int playerCap = Objects.Player.Cap;
                                     if (lastCap != playerCap)
@@ -308,14 +312,14 @@ namespace KzBot.Threads
                                     lastCap = playerCap;
                                 }
 
+                                if (!Globals.Config.GeneralStatus)
+                                    return;
                             }
                             Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Buy_Refill:
                         {
-                            Point tradeWindow;
-                            Point okButton;
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
                                 int itemCount = Objects.Client.getItemCount(refill.Id);
@@ -336,42 +340,54 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(500);
 
                                 Client.Say(refill.Type);
-                                System.Threading.Thread.Sleep(1000);
-                                tradeWindow = Objects.ClientData.FindTrade();
-                                okButton = Objects.ClientData.FindOkButton();
-                                if (tradeWindow.X <= 0 || okButton.X <= 0)
+                                System.Threading.Thread.Sleep(500);
+
+                                WinApi.RECT clientRect;
+                                WinApi.GetWindowRect(Globals.Handle, out clientRect);
+                                Point closeWindow = new Point(clientRect.right - 8, 410);
+
+                                for (int i = 0; i < 10; i++)
                                 {
-                                    Globals.WaypointId++;
-                                    return;
+                                    Client.leftClick(closeWindow.X, closeWindow.Y);
+                                    System.Threading.Thread.Sleep(200);
                                 }
+
+                                Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
                                 System.Threading.Thread.Sleep(500);
 
-                                // Search Item
-                                Client.leftClick(okButton.X - 65, okButton.Y - 50);
-                                System.Threading.Thread.Sleep(500);
-                                Client.leftClick(okButton.X - 65, okButton.Y - 50);
+                                // Reset Item
+                                Client.leftClick(tradeWindow.X + 140, tradeWindow.Y + 105);
                                 System.Threading.Thread.Sleep(1000);
+
+                                // Search Item
+                                Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
+                                System.Threading.Thread.Sleep(500);
                                 Keyboard.Write(refill.Name);
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Select Item
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(500);
-                                Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(1000);
 
                                 // Set Count
-                                Client.leftClick(okButton.X - 20, okButton.Y - 20);
+                                Keyboard.PressKey(Keys.Escape);
+                                System.Threading.Thread.Sleep(1000);
+                                Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
+                                System.Threading.Thread.Sleep(1000);
+                                Keyboard.PressKey(Keys.Delete);
                                 System.Threading.Thread.Sleep(1000);
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Buy
-                                Client.leftClick(okButton.X + 5, okButton.Y + 5);
+                                Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
                                 System.Threading.Thread.Sleep(1000);
+
+                                if (!Globals.Config.GeneralStatus)
+                                    return;
                             }
                             Globals.WaypointId++;
                             break;

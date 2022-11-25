@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KzBot.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,14 @@ namespace KzBot.Threads
                 int playerMpPc = (int)Math.Round(playerMp / playerMpOnePc);
 
                 int playerLevel = Objects.Player.Level;
+                Vocation voc = Globals.Accounts.List[Globals.AccountId].Vocation;
 
                 foreach (HealRule rule in Globals.Config.Healer)
                 {
                     bool takeOutItem = false;
+
+                    if (Globals.AccountId != -1 && (voc != Vocation.None && rule.Vocation != Vocation.None) && voc != rule.Vocation)
+                        continue;
 
                     if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))
                         continue;

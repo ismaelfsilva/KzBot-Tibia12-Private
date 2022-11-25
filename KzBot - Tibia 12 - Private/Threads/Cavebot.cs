@@ -263,8 +263,12 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Check_Refill: 
                         bool needRefill = false;
+                        Vocation voc = Globals.Accounts.List[Globals.AccountId].Vocation;
                         foreach (RefillRule refill in Globals.Config.Refill)
                         {
+                            if (Globals.AccountId != -1 && (voc != Vocation.None && refill.Vocation != Vocation.None) && voc != refill.Vocation)
+                                continue;
+
                             if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
                             {
                                 needRefill = true;

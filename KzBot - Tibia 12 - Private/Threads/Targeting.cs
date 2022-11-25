@@ -81,8 +81,13 @@ namespace KzBot.Threads
                     lastUtitoTime = DateTime.Now;
                 }
 
+                Vocation voc = Globals.Accounts.List[Globals.AccountId].Vocation;
+
                 foreach (TargetRule rule in Globals.Config.Targeting)
                 {
+                    if (Globals.AccountId != -1 && (voc != Vocation.None && rule.Vocation != Vocation.None) && voc != rule.Vocation)
+                        continue;
+
                     if (rule.ComboOnly && !Globals.ComboStatus)
                         continue;
 

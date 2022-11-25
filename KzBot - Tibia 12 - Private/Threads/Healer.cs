@@ -39,6 +39,9 @@ namespace KzBot.Threads
                     if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))
                         continue;
 
+                    if (rule.Type == HealType.EnergyRing)
+                        energyRingEquipped = Objects.Player.isManaShielded;
+
                     // Check Hp % or Flat
                     if (rule.HpMax <= 100 && (playerHpPc < rule.HpMin || playerHpPc > rule.HpMax))
                     {
@@ -88,9 +91,6 @@ namespace KzBot.Threads
 
                     if (rule.Level > 0 && playerLevel < rule.Level)
                         continue;
-
-                    if (rule.Type == HealType.EnergyRing)
-                        energyRingEquipped = !takeOutItem;
 
                     Keyboard.PressKey(rule.Key);
                     rule.LastUse = DateTime.Now;

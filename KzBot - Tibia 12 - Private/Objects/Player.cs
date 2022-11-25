@@ -185,6 +185,14 @@ namespace KzBot.Objects
             }
         }
 
+        public static bool isManaShielded
+        {
+            get
+            {
+                return Objects.Client.getItemCount(3088) > 0;
+            }
+        }
+
         public static Position Goto()
         {
             return new Position() { X = GotoX, Y = GotoY, Z = GotoZ };

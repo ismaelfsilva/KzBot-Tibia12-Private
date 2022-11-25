@@ -163,6 +163,8 @@ namespace KzBot
             public string Script { get; set; } = string.Empty;
             [XmlAttribute]
             public int Index { get; set; } = 0;
+            [XmlAttribute]
+            public Vocation Vocation { get; set; } = Vocation.None;
 
             public void Start()
             {

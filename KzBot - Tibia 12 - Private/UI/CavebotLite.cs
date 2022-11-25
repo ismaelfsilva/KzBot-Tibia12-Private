@@ -398,20 +398,20 @@ namespace KzBot.UI
         private void button22_Click(object sender, EventArgs e)
         {
             Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
-            waypoint.Label = "ExaniTera" + ++exaniTeraId;
+            waypoint.Label = "Rope" + ++exaniTeraId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
-                waypoint.Label = "ExaniTera" + ++exaniTeraId;
+                waypoint.Label = "Rope" + ++exaniTeraId;
 
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
 
-            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Say, "exani tera",1, 1);
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Use_On, "F9",1, 1);
             Globals.Config.Waypoints.Add(waypoint2);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
 
             Position playerPos = Objects.Player.Position;
-            Waypoint waypoint3 = new Waypoint() { X = playerPos.X + xDiff, Y = playerPos.Y + yDiff + 1, Z = playerPos.Z - 1, Type = WaypointType.Not_Location_Goto_Label, rangeX = 2, rangeY = 2, Extra = "ExaniTera" + exaniTeraId };
+            Waypoint waypoint3 = new Waypoint() { X = playerPos.X + xDiff, Y = playerPos.Y + yDiff + 1, Z = playerPos.Z - 1, Type = WaypointType.Not_Location_Goto_Label, rangeX = 2, rangeY = 2, Extra = "Rope" + exaniTeraId };
             Globals.Config.Waypoints.Add(waypoint3);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
 

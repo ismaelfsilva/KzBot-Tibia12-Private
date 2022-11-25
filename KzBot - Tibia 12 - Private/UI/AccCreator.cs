@@ -196,7 +196,7 @@ namespace KzBot.UI
                         }
                         else if (content.Contains("Account Created"))
                         {
-                            textBox5.Text += String.Format("<Account Character=\"{0}\" AccountName=\"{1}\" Password=\"{2}\" Script=\"Leveling.kzTibia\" Index=\"1\" />", character, account, password) + Environment.NewLine;
+                            textBox5.Text += String.Format("<Account Character=\"{0}\" AccountName=\"{1}\" Password=\"{2}\" Script=\"Leveling.kzTibia\" Vocation=\"None\" Index=\"1\" />", character, account, password) + Environment.NewLine;
                         }
                         else
                         {

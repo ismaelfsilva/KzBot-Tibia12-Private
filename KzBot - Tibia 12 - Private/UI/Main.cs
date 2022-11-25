@@ -387,7 +387,8 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+            //System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+            Keyboard.PressKey(Keys.BrowserBack);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

@@ -49,7 +49,7 @@ namespace KzBot.Objects
                 uint creatureAddress = WinApi.ReadUInt32(Globals.Handle, creaturePointer + Addresses.Battlelist.creaturePointer);
 
                 Creature cr = new Creature(creatureAddress);
-                if (!cr.isNear || cr.Z != playerPos.Z)
+                if (cr.Z != playerPos.Z || Math.Abs(playerPos.X - cr.X) > 7 || Math.Abs(playerPos.Y - cr.Y) > 5) // !cr.IsNear()
                     continue;
 
                 creatures.Add(cr);

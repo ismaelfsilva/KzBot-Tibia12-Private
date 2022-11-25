@@ -87,6 +87,8 @@ namespace KzBot
         public int ToBuy { get; set; } = 0;
         [XmlAttribute]
         public int ToLeave { get; set; } = 0;
+        [XmlAttribute]
+        Vocation Vocation { get; set; } = Vocation.None;
 
         public RefillRule()
         {
@@ -161,6 +163,9 @@ namespace KzBot
         public int Level { get; set; } = 0;
         [XmlAttribute]
         public int Delay { get; set; } = 0;
+
+        [XmlAttribute]
+        Vocation Vocation { get; set; } = Vocation.None;
         [XmlIgnore]
         public DateTime LastUse { get; set; } = DateTime.MinValue;
 
@@ -206,6 +211,8 @@ namespace KzBot
         public Keys Key { get; set; } = Keys.None;
         [XmlAttribute]
         public HealType Type { get; set; } = HealType.Nothing;
+        [XmlAttribute]
+        Vocation Vocation { get; set; } = Vocation.None;
         [XmlIgnore]
         public DateTime LastUse { get; set; } = DateTime.MinValue;
 

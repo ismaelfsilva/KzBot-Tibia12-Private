@@ -2,6 +2,14 @@
 
 namespace KzBot
 {
+    public enum Vocation
+    {
+        None,
+        MS,
+        ED,
+        RP,
+        EK,
+    }
 
     public enum Equipment
     {

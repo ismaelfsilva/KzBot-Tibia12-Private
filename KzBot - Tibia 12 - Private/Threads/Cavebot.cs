@@ -602,6 +602,17 @@ namespace KzBot.Threads
                         Client.Say("yes");
                         System.Threading.Thread.Sleep(500);
                         break;
+                    case WaypointType.Open_Npc:
+                        Keyboard.PressKey(Keys.F21);
+                        System.Threading.Thread.Sleep(1000);
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.If_Vocation_Goto_Label:
+                        if ((Globals.AccountId == -1) || Globals.Accounts.List[Globals.AccountId].Vocation.ToString().ToLower() == extraData[0].Trim().ToLower())
+                            Globals.WaypointId++;
+                        else
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());
+                        break;
                     default:
                         Globals.WaypointId++;
                         break;

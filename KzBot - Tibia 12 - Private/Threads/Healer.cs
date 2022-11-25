@@ -10,6 +10,7 @@ namespace KzBot.Threads
     public static class Healer
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(HealerThread, null, Timeout.Infinite, Timeout.Infinite);
+        public static bool energyRingEquipped = false;
 
         private static void HealerThread(object? state)
         {
@@ -27,13 +28,12 @@ namespace KzBot.Threads
                 int playerMpPc = (int)Math.Round(playerMp / playerMpOnePc);
 
                 int playerLevel = Objects.Player.Level;
-                Vocation voc = Globals.Accounts.List[Globals.AccountId].Vocation;
 
                 foreach (HealRule rule in Globals.Config.Healer)
                 {
                     bool takeOutItem = false;
 
-                    if (Globals.AccountId != -1 && (voc != Vocation.None && rule.Vocation != Vocation.None) && voc != rule.Vocation)
+                    if (Globals.AccountId != -1 && (Globals.Accounts.List[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Accounts.List[Globals.AccountId].Vocation != rule.Vocation)
                         continue;
 
                     if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))
@@ -42,14 +42,14 @@ namespace KzBot.Threads
                     // Check Hp % or Flat
                     if (rule.HpMax <= 100 && (playerHpPc < rule.HpMin || playerHpPc > rule.HpMax))
                     {
-                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !Objects.ClientData.isManaShielded))
+                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !energyRingEquipped))
                             continue;
                         else
                             takeOutItem = true;
                     }
                     else if (rule.HpMax > 100 && (playerHp < rule.HpMin || playerHp > rule.HpMax))
                     {
-                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !Objects.ClientData.isManaShielded))
+                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !energyRingEquipped))
                             continue;
                         else
                             takeOutItem = true;
@@ -58,14 +58,14 @@ namespace KzBot.Threads
                     // Check Mp % or Flat
                     if (rule.MpMax <= 100 && (playerMpPc < rule.MpMin || playerMpPc > rule.MpMax))
                     {
-                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !Objects.ClientData.isManaShielded))
+                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !energyRingEquipped))
                             continue;
                         else
                             takeOutItem = true;
                     }
                     else if (rule.MpMax > 100 && (playerMp < rule.MpMin || playerMp > rule.MpMax))
                     {
-                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !Objects.ClientData.isManaShielded))
+                        if ((rule.Type != HealType.SSA || !Objects.ClientData.hasAmulet) && (rule.Type != HealType.EnergyRing || !energyRingEquipped))
                             continue;
                         else
                             takeOutItem = true;
@@ -80,7 +80,7 @@ namespace KzBot.Threads
                     if (!takeOutItem && rule.Type == HealType.SSA && Objects.ClientData.hasAmulet)
                         continue;
 
-                    if (!takeOutItem && rule.Type == HealType.EnergyRing && Objects.ClientData.isManaShielded)
+                    if (!takeOutItem && rule.Type == HealType.EnergyRing && energyRingEquipped)
                         continue;
 
                     if (rule.Type == HealType.Item && Globals.Config.Targeting.Exists(r => r.Type == TargetType.Item) && Objects.Client.HasAttackCooldown && (DateTime.Now - Threads.Targeting.lastTargetSkillTime).TotalMilliseconds <= 500)
@@ -88,6 +88,9 @@ namespace KzBot.Threads
 
                     if (rule.Level > 0 && playerLevel < rule.Level)
                         continue;
+
+                    if (rule.Type == HealType.EnergyRing)
+                        energyRingEquipped = !takeOutItem;
 
                     Keyboard.PressKey(rule.Key);
                     rule.LastUse = DateTime.Now;

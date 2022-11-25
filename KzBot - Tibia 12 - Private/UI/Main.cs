@@ -198,6 +198,14 @@ namespace KzBot
             Threads.Alarms.safeMode = false;
             Addresses.Version.HadesOt(Globals.Process);
             Threads.ClientData.setClient = false;
+            try
+            {
+                Globals.AccountId = Globals.Accounts.List.FindIndex(a => a.Character.ToLower() == comboBox1.Text.Trim().ToLower());
+            }
+            catch 
+            {
+                Globals.AccountId = -1;
+            }
         }   
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)

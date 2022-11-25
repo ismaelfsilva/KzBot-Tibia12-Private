@@ -363,6 +363,9 @@ namespace KzBot.Threads
 
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
+                                if (Globals.AccountId != -1 && (Globals.Accounts.List[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Accounts.List[Globals.AccountId].Vocation != refill.Vocation)
+                                    continue;
+
                                 int itemCount = Objects.Client.getItemCount(refill.Id);
 
                                 if (itemCount >= refill.ToBuy)

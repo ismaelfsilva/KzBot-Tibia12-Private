@@ -68,8 +68,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button25 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button26 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -209,6 +210,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button26);
             this.groupBox4.Controls.Add(this.button7);
             this.groupBox4.Controls.Add(this.button19);
             this.groupBox4.Controls.Add(this.button8);
@@ -221,14 +223,14 @@
             this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Location = new System.Drawing.Point(143, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(134, 318);
+            this.groupBox4.Size = new System.Drawing.Size(134, 347);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hunt / Outros";
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(6, 283);
+            this.button7.Location = new System.Drawing.Point(6, 312);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(122, 23);
             this.button7.TabIndex = 10;
@@ -238,7 +240,7 @@
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(6, 196);
+            this.button19.Location = new System.Drawing.Point(6, 225);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(122, 23);
             this.button19.TabIndex = 9;
@@ -258,7 +260,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(6, 167);
+            this.button6.Location = new System.Drawing.Point(6, 196);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(122, 23);
             this.button6.TabIndex = 6;
@@ -268,7 +270,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(6, 138);
+            this.button5.Location = new System.Drawing.Point(6, 167);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(122, 23);
             this.button5.TabIndex = 5;
@@ -278,7 +280,7 @@
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(6, 254);
+            this.button24.Location = new System.Drawing.Point(6, 283);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(122, 23);
             this.button24.TabIndex = 4;
@@ -288,7 +290,7 @@
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(6, 225);
+            this.button23.Location = new System.Drawing.Point(6, 254);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(122, 23);
             this.button23.TabIndex = 3;
@@ -540,6 +542,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
             // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(6, 46);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(59, 23);
+            this.button25.TabIndex = 16;
+            this.button25.Text = "Use";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -557,15 +569,15 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(280, 616);
             this.flowLayoutPanel1.TabIndex = 17;
             // 
-            // button25
+            // button26
             // 
-            this.button25.Location = new System.Drawing.Point(6, 46);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(59, 23);
-            this.button25.TabIndex = 16;
-            this.button25.Text = "Use";
-            this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.button25_Click);
+            this.button26.Location = new System.Drawing.Point(6, 138);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(122, 23);
+            this.button26.TabIndex = 11;
+            this.button26.Text = "Shovel";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
             // CavebotLite
             // 
@@ -635,5 +647,6 @@
         private Button button19;
         private Button button7;
         private Button button25;
+        private Button button26;
     }
 }

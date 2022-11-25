@@ -322,6 +322,7 @@ namespace KzBot.UI
         public int holeId = 0;
         public int stairsId = 0;
         public int teleportId = 0;
+        public int shovelId = 0;
         private void button20_Click(object sender, EventArgs e)
         {
             Position playerPos = Objects.Player.Position;
@@ -397,7 +398,7 @@ namespace KzBot.UI
 
         private void button22_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 1, 1);
+            Waypoint waypoint = GenerateWaypoint(WaypointType.Stand, 2, 2);
             waypoint.Label = "Rope" + ++exaniTeraId;
 
             while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
@@ -414,6 +415,33 @@ namespace KzBot.UI
             Waypoint waypoint3 = new Waypoint() { X = playerPos.X + xDiff, Y = playerPos.Y + yDiff + 1, Z = playerPos.Z - 1, Type = WaypointType.Not_Location_Goto_Label, rangeX = 2, rangeY = 2, Extra = "Rope" + exaniTeraId };
             Globals.Config.Waypoints.Add(waypoint3);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
+
+            radioButton11.Checked = true;
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            Position playerPos = Objects.Player.Position;
+            Waypoint waypoint = new Waypoint() { X = playerPos.X, Y = playerPos.Y, Z = playerPos.Z, Type = WaypointType.Stand, rangeX = 1, rangeY = 1 };
+            waypoint.Label = "Shovel" + ++shovelId;
+
+            while (Globals.Config.Waypoints.Exists(w => w.Label == waypoint.Label))
+                waypoint.Label = "Shovel" + ++shovelId;
+
+            Globals.Config.Waypoints.Add(waypoint);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
+
+            Waypoint waypoint2 = GenerateWaypoint(WaypointType.Use_On, "F18", 1, 1);
+            Globals.Config.Waypoints.Add(waypoint2);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint2.ListViewItem());
+
+            Waypoint waypoint3 = GenerateWaypoint(WaypointType.Step, 1, 1);
+            Globals.Config.Waypoints.Add(waypoint3);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint3.ListViewItem());
+
+            Waypoint waypoint4 = new Waypoint() { X = playerPos.X + xDiff, Y = playerPos.Y + yDiff, Z = playerPos.Z + 1, Type = WaypointType.Not_Location_Goto_Label, rangeX = 2, rangeY = 2, Extra = "Shovel" + shovelId };
+            Globals.Config.Waypoints.Add(waypoint4);
+            Globals.Main.Cavebot.listView1.Items.Add(waypoint4.ListViewItem());
 
             radioButton11.Checked = true;
         }

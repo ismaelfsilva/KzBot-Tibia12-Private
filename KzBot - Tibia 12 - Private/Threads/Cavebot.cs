@@ -144,7 +144,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Lure:
                         {
-                            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0);
+                            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
                             if (Globals.Config.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                             {
                                 if (!didWaitBecauseOfPlayerOnCombo)

@@ -319,9 +319,7 @@ namespace KzBot.Objects
 
                 foreach (uint item in collection)
                 {
-                    long id = WinApi.ReadInt16(Globals.Handle, item + 0x10);
-                    if (id < 0 || id > 200000)
-                        id = WinApi.ReadInt32(Globals.Handle, item + 0x10);
+                    long id = WinApi.ReadUInt16(Globals.Handle, item + 0x10);
 
                     //Debug.WriteLine("Id: {0} | Count: {1} | Addr: {2}", id, WinApi.ReadInt16(Globals.Handle, item + 0x24), item.ToString("X"));
 

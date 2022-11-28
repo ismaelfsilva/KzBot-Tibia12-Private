@@ -36,6 +36,7 @@ namespace KzBot
             Globals.telegramBotToken = Properties.Settings.Default.TelegramBotToken;
             Globals.telegramUserId = Properties.Settings.Default.TelegramUserId;
             Globals.characterToTransfer = Properties.Settings.Default.CharacterToTransfer;
+            Globals.otVersion = Properties.Settings.Default.otVersion;
 
             Globals.TelegramBot = new TelegramBotClient(Globals.telegramBotToken);
 
@@ -196,7 +197,12 @@ namespace KzBot
                 Globals.Process = p;
 
             Threads.Alarms.safeMode = false;
-            Addresses.Version.v1290(Globals.Process);
+
+            if (Globals.otVersion == "12.90")
+                Addresses.Version.v1290(Globals.Process);
+            else if (Globals.otVersion == "13.05")
+                Addresses.Version.v1305(Globals.Process);
+
             Threads.ClientData.setClient = false;
             try
             {

@@ -24,6 +24,8 @@ namespace KzBot
         public static bool ComboStatus { get; set; } = false;
         public static string exeOtLocation { get; set; } = String.Empty;
 
+        public static string otVersion { get; set; } = "12.90";
+
 
         public static string telegramUserId { get; set; } = string.Empty;
         public static string telegramBotToken { get; set; } = string.Empty;

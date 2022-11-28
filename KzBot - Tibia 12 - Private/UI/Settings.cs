@@ -152,6 +152,31 @@ namespace KzBot.UI
 
                 tableLayoutPanel1.Controls.Add(textBox);
             }
+            {
+                Label label = new Label();
+                label.Text = "OT Version";
+                label.Dock = DockStyle.Fill;
+
+                tableLayoutPanel1.Controls.Add(label);
+                ///
+                TextBox textBox = new TextBox();
+                textBox.PlaceholderText = "OT Version";
+
+                if (Globals.otVersion != String.Empty)
+                    textBox.Text = Globals.otVersion;
+
+                textBox.TextAlign = HorizontalAlignment.Center;
+                textBox.Dock = DockStyle.Fill;
+
+                textBox.TextChanged += (sender, EventArgs) => {
+                    Globals.otVersion = textBox.Text;
+
+                    Properties.Settings.Default.otVersion = textBox.Text;
+                    Properties.Settings.Default.Save();
+                };
+
+                tableLayoutPanel1.Controls.Add(textBox);
+            }
 
             foreach (PropertyInfo prop in Globals.Config.GetType().GetProperties())
             {

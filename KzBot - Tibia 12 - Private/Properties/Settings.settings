@@ -32,5 +32,8 @@
     <Setting Name="Size" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">494, 310</Value>
     </Setting>
+    <Setting Name="otVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12.90</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

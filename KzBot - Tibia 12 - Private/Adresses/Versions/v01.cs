@@ -49,6 +49,9 @@ namespace KzBot.Addresses
             Player.manaMax = new uint[] { 0x6C, 0x5A };
             Player.soul = new uint[] { 0x6C, 0x5C };
             Player.stamina = new uint[] { 0x6C, 0x70 };
+
+            Player.items = new uint[] { 0xA0, 0x18, 0x20 };
+            Player.cooldowns = new uint[] { 0x74, 0x18 };
         }
     }
 }

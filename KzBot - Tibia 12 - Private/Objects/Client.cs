@@ -292,7 +292,7 @@ namespace KzBot.Objects
 
         public static void SetCooldownAddresses()
         {
-            uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, new uint[] { 0x74, 0x18 });
+            uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.cooldowns);
             List<uint> collection = Util.QtCollectionHelper.Read(collectionAddr);
 
             foreach (uint item in collection)
@@ -314,7 +314,7 @@ namespace KzBot.Objects
         {
             try
             {
-                uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, new uint[] { 0xA0, 0x18, 0x20 });
+                uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.items);
                 List<uint> collection = Util.QtCollectionHelper.Read(collectionAddr);
 
                 foreach (uint item in collection)
@@ -339,7 +339,7 @@ namespace KzBot.Objects
         {
             try
             {
-                uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, new uint[] { 0xA0, 0x18, 0x20 });
+                uint collectionAddr = WinApi.ReadOffsetUInt32(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.items);
                 List<uint> collection = Util.QtCollectionHelper.Read(collectionAddr);
 
                 foreach (uint item in collection)

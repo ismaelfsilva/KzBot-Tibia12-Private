@@ -33,5 +33,8 @@ namespace KzBot.Addresses
         public static uint[] outfit;
         public static uint[] stamina;
         public static uint[] status;
+
+        public static uint[] items;
+        public static uint[] cooldowns;
     }
 }

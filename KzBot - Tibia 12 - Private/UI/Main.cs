@@ -196,7 +196,7 @@ namespace KzBot
                 Globals.Process = p;
 
             Threads.Alarms.safeMode = false;
-            Addresses.Version.HadesOt(Globals.Process);
+            Addresses.Version.v1290(Globals.Process);
             Threads.ClientData.setClient = false;
             try
             {

@@ -49,8 +49,8 @@ namespace KzBot.Addresses
             Player.soul = new uint[] { 0x6C, 0x60 };
             Player.stamina = new uint[] { 0x6C, 0x78 };
 
-            Player.items = new uint[] { 0xA0, 0x18, 0x20 }; // FALTA ATUALIZAR
-            Player.cooldowns = new uint[] { 0x74, 0x18 }; // FALTA ATUALIZAR
+            Player.items = new uint[] { 0xA0, 0x18, 0x20 };
+            Player.cooldowns = new uint[] { 0x74, 0x18 };
         }
     }
 }

@@ -180,13 +180,13 @@ namespace KzBot.Threads
                 if (Globals.Config.Alarms[(int)AlarmType.GM_On_Screen].Enabled && creatures.Exists(c => c.Name.Contains("[") || gmNames.Contains(c.Name)))
                     alarmsRequested.Add(AlarmType.GM_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && !Globals.Accounts.List.Exists(a=> a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.Config.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && !Globals.Client.Accounts.Accounts.Exists(a=> a.Character.ToLower() == c.Name.ToLower())))
                     alarmsRequested.Add(AlarmType.Player_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address && !Globals.Accounts.List.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.Config.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address && !Globals.Client.Accounts.Accounts.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
                     alarmsRequested.Add(AlarmType.PK_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black) && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && c.HealthPc < 50 && !Globals.Accounts.List.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.Config.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black) && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && c.HealthPc < 50 && !Globals.Client.Accounts.Accounts.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
                     alarmsRequested.Add(AlarmType.PK_On_Screen);
             }
 

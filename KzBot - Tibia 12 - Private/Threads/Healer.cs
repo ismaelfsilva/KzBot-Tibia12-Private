@@ -33,7 +33,7 @@ namespace KzBot.Threads
                 {
                     bool takeOutItem = false;
 
-                    if (Globals.AccountId != -1 && (Globals.Accounts.List[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Accounts.List[Globals.AccountId].Vocation != rule.Vocation)
+                    if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != rule.Vocation)
                         continue;
 
                     if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))

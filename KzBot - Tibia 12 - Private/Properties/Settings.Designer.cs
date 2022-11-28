@@ -74,18 +74,6 @@ namespace KzBot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExeLocation {
-            get {
-                return ((string)(this["ExeLocation"]));
-            }
-            set {
-                this["ExeLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string TelegramBotToken {
             get {
                 return ((string)(this["TelegramBotToken"]));
@@ -104,18 +92,6 @@ namespace KzBot.Properties {
             }
             set {
                 this["TelegramUserId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CharacterToTransfer {
-            get {
-                return ((string)(this["CharacterToTransfer"]));
-            }
-            set {
-                this["CharacterToTransfer"] = value;
             }
         }
         
@@ -140,18 +116,6 @@ namespace KzBot.Properties {
             }
             set {
                 this["Size"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12.90")]
-        public string otVersion {
-            get {
-                return ((string)(this["otVersion"]));
-            }
-            set {
-                this["otVersion"] = value;
             }
         }
     }

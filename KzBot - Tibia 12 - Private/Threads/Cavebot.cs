@@ -45,7 +45,7 @@ namespace KzBot.Threads
                         });
 
                         new System.Threading.Thread(() => {
-                            Globals.Accounts.List.Find(a => Globals.Accounts.List.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Accounts.List[Globals.AccountId].Script)?.Start();
+                            Globals.Client.Accounts.Accounts.Find(a => Globals.Client.Accounts.Accounts.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Client.Accounts.Accounts[Globals.AccountId].Script)?.Start();
                       }).Start();
 
 
@@ -265,7 +265,7 @@ namespace KzBot.Threads
                         bool needRefill = false;
                         foreach (RefillRule refill in Globals.Config.Refill)
                         {
-                            if (Globals.AccountId != -1 && (Globals.Accounts.List[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Accounts.List[Globals.AccountId].Vocation != refill.Vocation)
+                            if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
                                 continue;
 
                             if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
@@ -363,7 +363,7 @@ namespace KzBot.Threads
 
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
-                                if (Globals.AccountId != -1 && (Globals.Accounts.List[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Accounts.List[Globals.AccountId].Vocation != refill.Vocation)
+                                if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
                                     continue;
 
                                 int itemCount = Objects.Client.getItemCount(refill.Id);
@@ -449,7 +449,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Transfer:
-                        if (Globals.characterToTransfer != String.Empty)
+                        if (Globals.Client.Transfer != String.Empty)
                         {
                             Keyboard.PressKey(Keys.F21);
                             System.Threading.Thread.Sleep(500);
@@ -462,7 +462,7 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(100);
                                 Client.Say(Globals.Config.qty_To_Transfer.ToString());
                                 System.Threading.Thread.Sleep(100);
-                                Client.Say(Globals.characterToTransfer);
+                                Client.Say(Globals.Client.Transfer);
                                 System.Threading.Thread.Sleep(100);
                                 Client.Say("yes");
                                 System.Threading.Thread.Sleep(100);
@@ -614,7 +614,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.If_Vocation_Goto_Label:
-                        if (Globals.AccountId == -1 || Globals.Accounts.List[Globals.AccountId].Vocation.ToString().ToLower() != extraData[0].Trim().ToLower())
+                        if (Globals.AccountId == -1 || Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation.ToString().ToLower() != extraData[0].Trim().ToLower())
                             Globals.WaypointId++;
                         else
                             Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());

@@ -32,11 +32,8 @@ namespace KzBot
 
             Globals.Main = this;
 
-            Globals.exeOtLocation = Properties.Settings.Default.ExeLocation;
             Globals.telegramBotToken = Properties.Settings.Default.TelegramBotToken;
             Globals.telegramUserId = Properties.Settings.Default.TelegramUserId;
-            Globals.characterToTransfer = Properties.Settings.Default.CharacterToTransfer;
-            Globals.otVersion = Properties.Settings.Default.otVersion;
 
             Globals.TelegramBot = new TelegramBotClient(Globals.telegramBotToken);
 
@@ -196,22 +193,32 @@ namespace KzBot
             if (p != null)
                 Globals.Process = p;
 
-            Threads.Alarms.safeMode = false;
 
-            if (Globals.otVersion == "12.90")
-                Addresses.Version.v1290(Globals.Process);
-            else if (Globals.otVersion == "13.05")
-                Addresses.Version.v1305(Globals.Process);
-
-            Threads.ClientData.setClient = false;
             try
             {
-                Globals.AccountId = Globals.Accounts.List.FindIndex(a => a.Character.ToLower() == comboBox1.Text.Trim().ToLower());
+                Globals.AccountId = -1;
+                foreach (ClientList.Client client in Globals.ClientList.Clients)
+                {
+                    Globals.AccountId = client.Accounts.Accounts.FindIndex(a => a.Character.ToLower() == comboBox1.Text.Trim().ToLower());
+                    Globals.Client = client;
+                    if (Globals.AccountId != -1)
+                        break;
+                }
             }
-            catch 
+            catch
             {
                 Globals.AccountId = -1;
             }
+
+
+            Threads.Alarms.safeMode = false;
+
+            if (Globals.Client.Version == "12.90")
+                Addresses.Version.v1290(Globals.Process);
+            else if (Globals.Client.Version == "13.05")
+                Addresses.Version.v1305(Globals.Process);
+
+            Threads.ClientData.setClient = false;
         }   
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -364,21 +371,31 @@ namespace KzBot
             while (accountsToolStripMenuItem.DropDownItems.Count > 2)
                 accountsToolStripMenuItem.DropDownItems.RemoveAt(2);
 
-            using (Stream file = System.IO.File.Open("Accounts.xml", FileMode.Open))
+            using (Stream file = System.IO.File.Open("Clients.xml", FileMode.Open))
             {
-                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Accounts), new XmlRootAttribute("KzTibia"));
+                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ClientList), new XmlRootAttribute("KzTibia"));
 
-                Globals.Accounts.List.Clear();
-                Globals.Accounts = (Accounts)writer.Deserialize(file);
+                Globals.ClientList.Clients.Clear();
+                Globals.ClientList = (ClientList)writer.Deserialize(file);
 
-                foreach (Accounts.Account account in Globals.Accounts.List)
+                foreach (ClientList.Client client in Globals.ClientList.Clients)
                 {
-                    ToolStripItem item = accountsToolStripMenuItem.DropDownItems.Add(account.Character);
+                    ToolStripMenuItem item = new ToolStripMenuItem(client.Name);
+                    client.Update(item);
+
                     item.Click += (sender, EventArgs) => {
-                        account.Start();
+                        Globals.Client = client;
+
+                        if (Globals.Process == null)
+                            return;
+
+                        if (client.Version == "12.90")
+                            Addresses.Version.v1290(Globals.Process);
+                        else if (client.Version == "13.05")
+                            Addresses.Version.v1305(Globals.Process);
                     };
 
-
+                    accountsToolStripMenuItem.DropDownItems.Add(item);
                     // Login
                 }
 

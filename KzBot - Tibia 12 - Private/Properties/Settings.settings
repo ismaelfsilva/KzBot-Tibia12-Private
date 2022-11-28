@@ -14,16 +14,10 @@
     <Setting Name="Utito_Key" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">123</Value>
     </Setting>
-    <Setting Name="ExeLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="TelegramBotToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TelegramUserId" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="CharacterToTransfer" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Location" Type="System.Drawing.Point" Scope="User">
@@ -31,9 +25,6 @@
     </Setting>
     <Setting Name="Size" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">494, 310</Value>
-    </Setting>
-    <Setting Name="otVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">12.90</Value>
     </Setting>
   </Settings>
 </SettingsFile>

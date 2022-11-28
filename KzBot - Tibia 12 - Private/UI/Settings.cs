@@ -38,45 +38,6 @@ namespace KzBot.UI
 
             {
                 Label label = new Label();
-                label.Text = "OT File Location";
-                label.Dock = DockStyle.Fill;
-
-                tableLayoutPanel1.Controls.Add(label);
-                ///
-                Button button = new Button();
-
-                if (Globals.exeOtLocation != String.Empty)
-                    button.Text = Globals.exeOtLocation;
-                else
-                    button.Text = "Select File Location";
-
-                button.TextAlign = ContentAlignment.MiddleCenter;
-                button.Dock = DockStyle.Fill;
-
-                button.Click += (sender, EventArgs) => {
-
-                    using (OpenFileDialog fileDialog = new OpenFileDialog())
-                    {
-                        fileDialog.Filter = "OT File Location (*.exe)|*.exe";
-                        fileDialog.DefaultExt = "exe";
-                        fileDialog.AddExtension = true;
-                        fileDialog.DefaultExt = ".exe";
-
-                        if (fileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            button.Text = fileDialog.FileName;
-                            Globals.exeOtLocation = fileDialog.FileName;
-                            Properties.Settings.Default.ExeLocation = fileDialog.FileName;
-                            Properties.Settings.Default.Save();
-                        }
-                    }
-
-                };
-
-                tableLayoutPanel1.Controls.Add(button);
-            }
-            {
-                Label label = new Label();
                 label.Text = "Telegram Bot Token";
                 label.Dock = DockStyle.Fill;
 
@@ -122,56 +83,6 @@ namespace KzBot.UI
                     Globals.telegramUserId = textBox.Text;
 
                     Properties.Settings.Default.TelegramUserId = textBox.Text;
-                    Properties.Settings.Default.Save();
-                };
-
-                tableLayoutPanel1.Controls.Add(textBox);
-            }
-            {
-                Label label = new Label();
-                label.Text = "Character To Transfer";
-                label.Dock = DockStyle.Fill;
-
-                tableLayoutPanel1.Controls.Add(label);
-                ///
-                TextBox textBox = new TextBox();
-                textBox.PlaceholderText = "Character To Transfer";
-
-                if (Globals.characterToTransfer != String.Empty)
-                    textBox.Text = Globals.characterToTransfer;
-
-                textBox.TextAlign = HorizontalAlignment.Center;
-                textBox.Dock = DockStyle.Fill;
-
-                textBox.TextChanged += (sender, EventArgs) => {
-                    Globals.characterToTransfer = textBox.Text;
-
-                    Properties.Settings.Default.CharacterToTransfer = textBox.Text;
-                    Properties.Settings.Default.Save();
-                };
-
-                tableLayoutPanel1.Controls.Add(textBox);
-            }
-            {
-                Label label = new Label();
-                label.Text = "OT Version";
-                label.Dock = DockStyle.Fill;
-
-                tableLayoutPanel1.Controls.Add(label);
-                ///
-                TextBox textBox = new TextBox();
-                textBox.PlaceholderText = "OT Version";
-
-                if (Globals.otVersion != String.Empty)
-                    textBox.Text = Globals.otVersion;
-
-                textBox.TextAlign = HorizontalAlignment.Center;
-                textBox.Dock = DockStyle.Fill;
-
-                textBox.TextChanged += (sender, EventArgs) => {
-                    Globals.otVersion = textBox.Text;
-
-                    Properties.Settings.Default.otVersion = textBox.Text;
                     Properties.Settings.Default.Save();
                 };
 

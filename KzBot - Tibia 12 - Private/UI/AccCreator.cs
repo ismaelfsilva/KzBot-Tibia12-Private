@@ -309,7 +309,7 @@ namespace KzBot.UI
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
 
-            foreach (string dir in System.IO.Directory.GetParent(Globals.exeOtLocation).Parent.GetDirectories("characterdata").FirstOrDefault().GetDirectories().Select(d=> d.FullName))
+            foreach (string dir in System.IO.Directory.GetParent(Globals.Client.OtFile).Parent.GetDirectories("characterdata").FirstOrDefault().GetDirectories().Select(d=> d.FullName))
             {                
                 try
                 {

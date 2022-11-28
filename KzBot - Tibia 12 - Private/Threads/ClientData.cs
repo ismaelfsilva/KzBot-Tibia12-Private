@@ -93,7 +93,7 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(100);
                         }
 
-                        Accounts.Account account = Globals.Accounts.List[Globals.AccountId];
+                        AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
                         WinApi.RECT clientRect;
                         WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);

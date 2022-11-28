@@ -22,9 +22,6 @@ namespace KzBot
             }
         }
         public static bool ComboStatus { get; set; } = false;
-        public static string exeOtLocation { get; set; } = String.Empty;
-
-        public static string otVersion { get; set; } = "12.90";
 
 
         public static string telegramUserId { get; set; } = string.Empty;
@@ -32,16 +29,16 @@ namespace KzBot
         public static TelegramBotClient TelegramBot;
 
 
-        public static string characterToTransfer { get; set; } = String.Empty;
 
-
+        public static ClientList.Client Client { get; set; }
 
         public static int AccountId { get; set; } = -1;
         public static string ScriptFile { get; set; } = string.Empty;
 
 
         public static Config Config { get; set; } = new Config();
-        public static Accounts Accounts { get; set; } = new Accounts();
+
+        public static ClientList ClientList { get; set; } = new ClientList();
 
         public static int WaypointId { get; set; } = 0;
 
@@ -148,10 +145,56 @@ namespace KzBot
             }
         }
     }
-
-    public class Accounts
+    public class ClientList
     {
-        public List<Account> List = new List<Account>();
+        public List<Client> Clients { get; set; } = new List<Client>();
+
+        public class Client
+        {
+            [XmlAttribute]
+            public string Name { get; set; } = string.Empty;
+            [XmlAttribute]
+            public string Version { get; set; } = string.Empty;
+            [XmlAttribute]
+            public string AccountsFile { get; set; } = string.Empty;
+            [XmlAttribute]
+            public string OtFile { get; set; } = string.Empty;
+            [XmlAttribute]
+            public string Transfer { get; set; } = string.Empty;
+
+            [XmlIgnore]
+            public AccountList Accounts { get; set; } = new AccountList();
+
+            public void Update(ToolStripMenuItem parent)
+            {
+                try
+                {
+                    using (Stream file = System.IO.File.Open(AccountsFile, FileMode.Open))
+                    {
+                        XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(AccountList), new XmlRootAttribute("KzTibia"));
+                        this.Accounts = (AccountList)writer.Deserialize(file);
+
+                        foreach (AccountList.Account account in Accounts.Accounts)
+                        {
+                            ToolStripItem item = parent.DropDownItems.Add(account.Character);
+                            item.Click += (sender, EventArgs) => {
+                                Globals.Client = this;
+                                account.Start();
+                            };
+                        }
+
+                        file.Close();
+                    }
+                }
+                catch
+                { }
+            }
+        }
+    }
+
+    public class AccountList
+    {
+        public List<Account> Accounts { get; set; } = new List<Account>();
 
         public class Account
         {
@@ -184,7 +227,7 @@ namespace KzBot
 
                 System.Threading.Thread.Sleep(1000);
 
-                Globals.Process = Process.Start(Globals.exeOtLocation);
+                Globals.Process = Process.Start(Globals.Client.OtFile);
                 Globals.Process.WaitForInputIdle();
 
                 Globals.Main.Invoke((MethodInvoker)delegate
@@ -195,7 +238,7 @@ namespace KzBot
                     Globals.Main.comboBox1.Text = Character;
                 });
 
-                Globals.AccountId = Globals.Accounts.List.FindIndex(a=> a.Character == Character);
+                Globals.AccountId = Globals.Client.Accounts.Accounts.FindIndex(a=> a.Character == Character);
 
                 if (Script.Length > 0)
                     Globals.Load(@".\Scripts\" + Script);

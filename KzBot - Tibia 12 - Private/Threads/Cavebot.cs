@@ -632,10 +632,7 @@ namespace KzBot.Threads
             {
                 if (Globals.Config.GeneralStatus && Globals.Config.CavebotStatus)
                 {
-                    if (Globals.WaypointId != startWaypointId)
-                        Thread.Change(0, Timeout.Infinite);
-                    else
-                        Thread.Change(100, Timeout.Infinite);
+                    Thread.Change(100, Timeout.Infinite);
                 }
             }
         }

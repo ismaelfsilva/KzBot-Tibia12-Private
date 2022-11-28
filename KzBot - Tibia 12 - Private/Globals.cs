@@ -161,6 +161,8 @@ namespace KzBot
             public string OtFile { get; set; } = string.Empty;
             [XmlAttribute]
             public string Transfer { get; set; } = string.Empty;
+            [XmlAttribute]
+            public string Website { get; set; } = string.Empty;
 
             [XmlIgnore]
             public AccountList Accounts { get; set; } = new AccountList();

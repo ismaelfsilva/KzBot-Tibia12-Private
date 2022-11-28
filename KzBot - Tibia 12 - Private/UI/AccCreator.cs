@@ -117,7 +117,9 @@ namespace KzBot.UI
                 {
                     engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 
-                    var checkCodeResponse = await client.GetAsync(new Uri("https://45.141.214.47/?subtopic=imagebuilder&image_refresher=%27.rand(1,99999).%27"));
+                    var checkCodeResponse = await client.GetAsync(new Uri(Globals.Client.Website + @"?subtopic=imagebuilder&image_refresher=%27.rand(1,99999).%27"));
+                    var resp = await checkCodeResponse.Content.ReadAsStringAsync();
+                    Clipboard.SetText(resp.ToString());
                     if (checkCodeResponse.IsSuccessStatusCode)
                     {
                         Bitmap checkCode = (Bitmap)Bitmap.FromStream(await checkCodeResponse.Content.ReadAsStreamAsync());
@@ -177,7 +179,7 @@ namespace KzBot.UI
 
                 var postContent = new FormUrlEncodedContent(pairs);
 
-                var response = await client.PostAsync(new Uri("https://45.141.214.47/?account/create"), postContent);
+                var response = await client.PostAsync(new Uri(Globals.Client.Website + @"?account/create"), postContent);
 
                 if (response.IsSuccessStatusCode)
                 {

@@ -12,7 +12,6 @@ namespace KzBot.Addresses
         public static uint[] redSquare;
         public static uint[] greenSquare;
         public static uint[] mouseHoverCreature;
-        public static uint loggedIn;
 
         public static uint[] hp;
         public static uint[] hpMax;

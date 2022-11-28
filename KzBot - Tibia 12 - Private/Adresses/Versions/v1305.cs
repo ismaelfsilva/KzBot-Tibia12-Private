@@ -9,10 +9,8 @@ namespace KzBot.Addresses
         {
             uint BaseAddress = Convert.ToUInt32(p.MainModule.BaseAddress.ToInt32());
 
-            Battlelist.Pointer = new uint[] { 0x138, 0x8};   //
+            Battlelist.Pointer = new uint[] { 0x140, 0x8};   //
             Battlelist.creaturePointer = 0x14;  //
-
-            Client.clientTime = new uint[] { 0x260, 0x64, 0x50 };
 
             Creature.id = 0x10;
             Creature.X = 0x24;
@@ -27,31 +25,32 @@ namespace KzBot.Addresses
             Creature.hpPc = 0x84;
             Creature.isNear = 0xC8;
 
-            Player.Pointer = 0xF1EB7C + BaseAddress;
-            Player.creaturePointer = 0x260;
-            Player.redSquare = new uint[] { 0x138, 0x1C };
-            Player.greenSquare = new uint[] { 0x138, 0x18 };
-            Player.mouseHoverCreature = new uint[] { 0x138, 0x14 };
-            Player.loggedIn = 0x2D0;
+            Player.Pointer = 0x103CE74 + BaseAddress;
+            Player.creaturePointer = 0x270;
+            Player.redSquare = new uint[] { 0x140, 0x1C };
+            Player.greenSquare = new uint[] { 0x140, 0x18 };
+            Player.mouseHoverCreature = new uint[] { 0x140, 0x14 };
 
-            Player.gotoX = new uint[] { 0x494, 0xB8 };
-            Player.gotoY = new uint[] { 0x494, 0xBC };
-            Player.gotoZ = new uint[] { 0x494, 0xC0 };
-            Player.isWalking = new uint[] { 0x494, 0xA8 };
+            Client.clientTime = new uint[] { Player.creaturePointer, 0x64, 0x50 };
+
+            Player.gotoX = new uint[] { 0x4BC, 0xB8 };
+            Player.gotoY = new uint[] { 0x4BC, 0xBC };
+            Player.gotoZ = new uint[] { 0x4BC, 0xC0 };
+            Player.isWalking = new uint[] { 0x4BC, 0xA8 };
 
             Player.hp = new uint[] { 0x6C, 0xC };
-            Player.hpMax = new uint[] { 0x6C, 0xE };
-            Player.cap = new uint[] { 0x6C, 0x10 };
+            Player.hpMax = new uint[] { 0x6C, 0x10 };
+            Player.cap = new uint[] { 0x6C, 0x14 };
             Player.experience = new uint[] { 0x6C, 0x20 };
             Player.level = new uint[] { 0x6C, 0x28 };
             Player.experiencePc = new uint[] { 0x6C, 0x2A };
             Player.mana = new uint[] { 0x6C, 0x58 };
-            Player.manaMax = new uint[] { 0x6C, 0x5A };
-            Player.soul = new uint[] { 0x6C, 0x5C };
-            Player.stamina = new uint[] { 0x6C, 0x70 };
+            Player.manaMax = new uint[] { 0x6C, 0x5C };
+            Player.soul = new uint[] { 0x6C, 0x60 };
+            Player.stamina = new uint[] { 0x6C, 0x78 };
 
-            Player.items = new uint[] { 0xA0, 0x18, 0x20 };
-            Player.cooldowns = new uint[] { 0x74, 0x18 };
+            Player.items = new uint[] { 0xA0, 0x18, 0x20 }; // FALTA ATUALIZAR
+            Player.cooldowns = new uint[] { 0x74, 0x18 }; // FALTA ATUALIZAR
         }
     }
 }

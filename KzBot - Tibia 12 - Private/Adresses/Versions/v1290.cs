@@ -32,7 +32,6 @@ namespace KzBot.Addresses
             Player.redSquare = new uint[] { 0x138, 0x1C };
             Player.greenSquare = new uint[] { 0x138, 0x18 };
             Player.mouseHoverCreature = new uint[] { 0x138, 0x14 };
-            Player.loggedIn = 0x2D0;
 
             Player.gotoX = new uint[] { 0x494, 0xB8 };
             Player.gotoY = new uint[] { 0x494, 0xBC };

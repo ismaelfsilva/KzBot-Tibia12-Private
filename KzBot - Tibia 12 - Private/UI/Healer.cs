@@ -186,7 +186,7 @@ namespace KzBot.UI
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // ULTIMATE SPIRIT POTION
-            HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 60, MpMin = 0, MpMax = 100, Type = HealType.Item, Vocation = Vocation.RP, Key = Keys.OemBackslash };
+            HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 60, MpMin = 0, MpMax = 100, Type = HealType.Item, Level = 130, Vocation = Vocation.RP, Key = Keys.OemBackslash };
             Globals.Config.Healer.Add(HealRule1);
             listView1.Items.Add(HealRule1.ListViewItem());
 
@@ -196,12 +196,12 @@ namespace KzBot.UI
             listView1.Items.Add(HealRule2.ListViewItem());
 
             // ENERGY RING
-            HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 20, MpMax = 100, Type = HealType.EnergyRing, Vocation = Vocation.RP, Key = Keys.Home };
+            HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 20, MpMax = 100, Type = HealType.EnergyRing, Level=100, Vocation = Vocation.RP, Key = Keys.Home };
             Globals.Config.Healer.Add(HealRule3);
             listView1.Items.Add(HealRule3.ListViewItem());
 
             // GREAT MANA POTION
-            HealRule HealRule4 = new HealRule() { HpMin = 60, HpMax = 100, MpMin = 0, MpMax = 90, Type = HealType.Item, Vocation = Vocation.RP, Key=Keys.OemQuestion };
+            HealRule HealRule4 = new HealRule() { HpMin = 60, HpMax = 100, MpMin = 0, MpMax = 90, Type = HealType.Item, Level=80, Vocation = Vocation.RP, Key=Keys.OemQuestion };
             Globals.Config.Healer.Add(HealRule4);
             listView1.Items.Add(HealRule4.ListViewItem());
         }

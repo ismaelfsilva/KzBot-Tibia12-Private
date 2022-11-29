@@ -51,10 +51,11 @@ namespace KzBot.Threads
                 {
                     Creature playerCreature = Objects.Player.Creature;
 
-                    if (!firstUpdate || lastUpdatedCharacter != playerCreature.Name || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
+                    if (!firstUpdate || (playerCreature.Name != string.Empty && lastUpdatedCharacter != playerCreature.Name) || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
                     {
-                        lastUpdatedCharacter = Objects.Player.Creature.Name;
+                        lastUpdatedCharacter = playerCreature.Name;
                         UpdateCharacter();
+                        System.Threading.Thread.Sleep(1100);
                     }
 
                     if (!setClient)

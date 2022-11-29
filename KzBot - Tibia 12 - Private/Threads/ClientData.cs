@@ -170,6 +170,7 @@ namespace KzBot.Threads
         new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
         new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
         new KeyValuePair<string, string>("server", Globals.Client.Name.ToString()),
+        new KeyValuePair<string, string>("vocation", Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation.ToString()),
         new KeyValuePair<string, string>("generated", amountToAdd.ToString()),
     };
 

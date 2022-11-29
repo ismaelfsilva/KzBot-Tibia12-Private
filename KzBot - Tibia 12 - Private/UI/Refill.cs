@@ -162,6 +162,10 @@ namespace KzBot.UI
             RefillRule rule4 = new RefillRule() { Id = 3161, Name = "Avalanche Rune", Type = "runes", ToBuy = 600, ToLeave = 100, Vocation = Vocation.RP };
             Globals.Config.Refill.Add(rule4);
             listView1.Items.Add(rule4.ListViewItem());
+
+            RefillRule rule5 = new RefillRule() { Id = 3051, Name = "Energy Ring", Type = "trade", ToBuy = 2, ToLeave = 0, Vocation = Vocation.RP };
+            Globals.Config.Refill.Add(rule5);
+            listView1.Items.Add(rule5.ListViewItem());
         }
     }
 }

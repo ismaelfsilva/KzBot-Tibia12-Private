@@ -151,7 +151,10 @@ namespace KzBot.Threads
         {
             List<AlarmType> alarmsRequested = new List<AlarmType>();
 
-            if (Globals.Process == null || Globals.Process.HasExited || Globals.Process.MainWindowTitle == "Tibia")
+            if (Globals.Process == null || Globals.Process.HasExited)
+                return alarmsRequested;
+
+            if (!Objects.Player.isLoggedIn)
             {
                 if (Globals.Config.Alarms[((int)AlarmType.Disconnected)].Enabled)
                 {
@@ -169,9 +172,6 @@ namespace KzBot.Threads
                 }   
                 return alarmsRequested;
             }
-
-            if (!Objects.Player.isLoggedIn)
-                return alarmsRequested;
 
             // FUNCTIONS THAT REQUIRES BATTLELIST
             if  (Globals.Config.Alarms[(int)AlarmType.GM_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.Player_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.PK_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled)

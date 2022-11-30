@@ -21,7 +21,7 @@ namespace KzBot.Threads
             Target.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn)
+                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
                 // Auto Target Area
@@ -58,7 +58,7 @@ namespace KzBot.Threads
             SpellCaster.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited)
+                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
                 // Spell Caster Area

@@ -63,8 +63,6 @@ namespace KzBot.Threads
                         System.Threading.Thread.Sleep(2000);
 
                         //Objects.ClientData.FindPositions();
-
-                        WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out Globals.clientRect);
                         Objects.ClientData.FindGameMapRect();
                         Objects.Client.SetCooldownAddresses();
 

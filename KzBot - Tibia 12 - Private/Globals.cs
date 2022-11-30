@@ -233,6 +233,11 @@ namespace KzBot
                 Globals.Process = Process.Start(Globals.Client.OtFile);
                 Globals.Process.WaitForInputIdle();
 
+                WinApi.RECT cRect;
+                WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
+                if (cRect.right > 0 && cRect.bottom > 0)
+                    Globals.clientRect = cRect;
+
                 Globals.Main.Invoke((MethodInvoker)delegate
                 {
                     Globals.Main.comboBox1.Items.Clear();

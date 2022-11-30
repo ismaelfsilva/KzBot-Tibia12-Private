@@ -218,6 +218,11 @@ namespace KzBot
             else if (Globals.Client.Version == "13.05")
                 Addresses.Version.v1305(Globals.Process);
 
+            WinApi.RECT cRect;
+            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
+            if (cRect.right > 0 && cRect.bottom > 0)
+                Globals.clientRect = cRect;
+
             Threads.ClientData.setClient = false;
         }   
 

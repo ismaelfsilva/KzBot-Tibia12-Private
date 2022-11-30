@@ -12,7 +12,7 @@ namespace KzBot
     {
         public static void PressChar(uint key)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, key, 0);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, key, 0);
         }
 
         public static void Write(string text)
@@ -38,23 +38,23 @@ namespace KzBot
 
         public static void PressKey(uint key)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYDOWN, key, getlParam(key, false, true));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYUP, key, getlParam(key, true, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYDOWN, key, getlParam(key, false, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYUP, key, getlParam(key, true, true));
         }
 
         public static void PressKey(Keys key, int delay = 0)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYDOWN, (uint)key, getlParam((uint)key, false, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYDOWN, (uint)key, getlParam((uint)key, false, true));
             if (delay > 0)
                 System.Threading.Thread.Sleep(delay);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYUP, (uint)key, getlParam((uint)key, true, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_KEYUP, (uint)key, getlParam((uint)key, true, true));
         }
         //
 
         public static void PressChar(Keys key)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, (uint)key, getlParam((uint)key, false, true));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, (uint)key, getlParam((uint)key, true, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, (uint)key, getlParam((uint)key, false, true));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, (uint)key, getlParam((uint)key, true, true));
         }
     }
 }

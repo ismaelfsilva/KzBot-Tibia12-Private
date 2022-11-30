@@ -228,41 +228,41 @@ namespace KzBot.Objects
 
         public static void dragMouse(Point from, Point to)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(to.X, to.Y));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, (uint)WinApi.MakeLParam(to.X, to.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(to.X, to.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, (uint)WinApi.MakeLParam(to.X, to.Y));
         }
 
         public static void leftClick(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
         }
 
         public static void lookClick(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_LBUTTON | WinApi.MK_RBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, WinApi.MK_LBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_LBUTTON | WinApi.MK_RBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, WinApi.MK_LBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, lParam);
         }
 
         public static void moveMouse(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
         }
 
         public static void mouseWheel(int x, int y, bool up)
         {
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(x, y));
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEWHEEL, (up) ? 0x780000 : 0xFF880000, Convert.ToUInt32(y * 65536 + x));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(x, y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEWHEEL, (up) ? 0x780000 : 0xFF880000, Convert.ToUInt32(y * 65536 + x));
             //zDelta -120 -> Down
             //zDelta 120 -> Up
         }
@@ -270,20 +270,20 @@ namespace KzBot.Objects
         public static void rightClickPos(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
         }
 
         public static void middleClickPos(int x, int y)
         {
             // Execute click
             uint lParam = (uint)WinApi.MakeLParam(x, y);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MBUTTONDOWN, WinApi.MK_MBUTTON, 0);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MBUTTONDOWN, WinApi.MK_MBUTTON, 0);
             //WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
-            WinApi.PostMessage(Globals.Process.MainWindowHandle, WinApi.WM_MBUTTONUP, 0, 0);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MBUTTONUP, 0, 0);
         }
 
         public static void SetCooldownAddresses()

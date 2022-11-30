@@ -43,8 +43,28 @@ namespace KzBot.Threads
                     }
                 }
 
+                if (Globals.Process == null || Globals.Process.HasExited)
+                    return;
 
-                if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited)
+                // UPDATE CLIENT RECT
+                if (Globals.clientRect.bottom <= 0)
+                {
+                    WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                    WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+
+                    if (placement.showCmd == 2)
+                       WinApi.ShowWindow(Globals.Process.MainWindowHandle, 3);
+
+                    WinApi.RECT cRect;
+                    WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
+                    if (cRect.right > 0 && cRect.bottom > 0)
+                        Globals.clientRect = cRect;
+                    else
+                        return;
+                }
+
+
+                if (!Globals.Config.GeneralStatus)
                     return;
 
                 if (Objects.Player.isLoggedIn)

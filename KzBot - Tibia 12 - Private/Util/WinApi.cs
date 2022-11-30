@@ -1044,6 +1044,22 @@ namespace KzBot
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern int WaitForSingleObject(IntPtr Handle, uint Wait);
 
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(IntPtr hWnd, ref WindowPlacement lpwndpl);
+
+        public struct WindowPlacement
+        {
+            public int length;
+            public int flags;
+            public int showCmd;
+            public System.Drawing.Point ptMinPosition;
+            public System.Drawing.Point ptMaxPosition;
+            public System.Drawing.Rectangle rcNormalPosition;
+        }
+
+
         public static bool WriteByte(IntPtr Handle, long address, byte val)
         {
             try

@@ -233,10 +233,7 @@ namespace KzBot
                 Globals.Process = Process.Start(Globals.Client.OtFile);
                 Globals.Process.WaitForInputIdle();
 
-                WinApi.RECT cRect;
-                WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
-                if (cRect.right > 0 && cRect.bottom > 0)
-                    Globals.clientRect = cRect;
+                Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
                 Globals.Main.Invoke((MethodInvoker)delegate
                 {

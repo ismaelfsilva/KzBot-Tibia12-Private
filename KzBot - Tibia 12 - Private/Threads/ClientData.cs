@@ -61,8 +61,10 @@ namespace KzBot.Threads
                     if (!setClient)
                     {
                         System.Threading.Thread.Sleep(2000);
-                        
+
                         //Objects.ClientData.FindPositions();
+
+                        WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out Globals.clientRect);
                         Objects.ClientData.FindGameMapRect();
                         Objects.Client.SetCooldownAddresses();
 
@@ -96,8 +98,7 @@ namespace KzBot.Threads
 
                         AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
-                        WinApi.RECT clientRect;
-                        WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+                        WinApi.RECT clientRect = Globals.clientRect;
 
                         Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 60);
                         System.Threading.Thread.Sleep(100);

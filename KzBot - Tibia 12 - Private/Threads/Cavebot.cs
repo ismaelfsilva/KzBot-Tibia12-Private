@@ -298,8 +298,7 @@ namespace KzBot.Threads
                             Client.Say("hi");
                             System.Threading.Thread.Sleep(500);
 
-                            WinApi.RECT clientRect;
-                            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+                            WinApi.RECT clientRect = Globals.clientRect;
                             Point closeWindow = new Point(clientRect.right - 16, 510);
 
                             for (int i = 0; i < 10; i++)
@@ -349,8 +348,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Buy_Refill:
                         {
-                            WinApi.RECT clientRect;
-                            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
+                            WinApi.RECT clientRect = Globals.clientRect;
                             Point closeWindow = new Point(clientRect.right - 16, 510);
 
                             for (int i = 0; i < 10; i++)

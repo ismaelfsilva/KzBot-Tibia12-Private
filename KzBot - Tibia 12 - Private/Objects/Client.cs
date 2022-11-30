@@ -29,12 +29,9 @@ namespace KzBot.Objects
 
         public static void lookAt(Equipment equip)
         {
-            WinApi.RECT clientRect;
-            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out clientRect);
-
             Point equipPoint = equipmentPoints[(int)equip];
 
-            lookClick(clientRect.right - 8 + equipPoint.X, equipPoint.Y);
+            lookClick(Globals.clientRect.right - 8 + equipPoint.X, equipPoint.Y);
         }
 
         public static bool hasCooldown(CooldownGroup group)
@@ -213,8 +210,7 @@ namespace KzBot.Objects
 
         public static Bitmap CaptureApplication()
         {
-            WinApi.RECT rc;
-            WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out rc);
+            WinApi.RECT rc = Globals.clientRect;
 
             Bitmap bmp = new Bitmap(rc.right - rc.left, rc.bottom - rc.top, PixelFormat.Format24bppRgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);

@@ -149,10 +149,7 @@ namespace KzBot.Objects
                 if (clientImage == null)
                     return;
 
-                WinApi.RECT windowRECT;
-                WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out windowRECT);
-
-
+                WinApi.RECT windowRECT = Globals.clientRect;
 
                 for (int x = 0; x < windowRECT.right; x++)
                 {

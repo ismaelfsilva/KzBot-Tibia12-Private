@@ -14,6 +14,7 @@ namespace KzBot
     {
         public static Main Main;
         public static Process Process { get; set; } = null;
+        public static WinApi.RECT clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
         public static IntPtr Handle 
         { 
             get

@@ -313,6 +313,7 @@ namespace KzBot
         Login_Next,
         Exit,
         Load,
+        Disable_Safe,
         Alert,
         Nothing,
     }

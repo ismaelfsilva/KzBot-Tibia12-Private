@@ -638,6 +638,10 @@ namespace KzBot.Threads
                         else
                             Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());
                         break;
+                    case WaypointType.Disable_Safe:
+                        Threads.Alarms.safeMode = false;
+                        Globals.WaypointId++;
+                        break;
                     default:
                         Globals.WaypointId++;
                         break;

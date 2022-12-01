@@ -127,6 +127,7 @@ namespace KzBot.Threads
                         }
 
 
+
                         if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                             return;
 

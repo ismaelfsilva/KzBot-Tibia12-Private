@@ -272,7 +272,7 @@ namespace KzBot.Objects
             uint lParam = (uint)WinApi.MakeLParam(x, y);
             WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
             WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONDOWN, WinApi.MK_RBUTTON, lParam);
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_RBUTTON, lParam);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
             WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_RBUTTONUP, 0, lParam);
         }
 

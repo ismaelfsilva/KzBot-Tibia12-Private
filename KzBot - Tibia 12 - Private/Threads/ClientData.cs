@@ -115,6 +115,12 @@ namespace KzBot.Threads
 
                     if (Globals.AccountId != -1)
                     {
+                        WinApi.RECT clientRect = Globals.clientRect;
+
+                        // CLICK OK ON SS [TEST]
+                        Objects.Client.leftClick((clientRect.right - 8) / 2 + 130, (clientRect.bottom - 31) / 2 + 60);
+                        System.Threading.Thread.Sleep(100);
+
                         for (int i = 0; i < 10; i++)
                         {
                             Keyboard.PressKey(Keys.Escape);
@@ -123,7 +129,6 @@ namespace KzBot.Threads
 
                         AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
-                        WinApi.RECT clientRect = Globals.clientRect;
 
                         Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 60);
                         System.Threading.Thread.Sleep(100);

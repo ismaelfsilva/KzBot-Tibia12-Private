@@ -12,7 +12,7 @@ namespace KzBot
     {
         public static void PressChar(uint key)
         {
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, key, 0);
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_CHAR, key, getlParam(key, false, false));
         }
 
         public static void Write(string text)

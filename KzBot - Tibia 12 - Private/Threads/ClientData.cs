@@ -51,9 +51,13 @@ namespace KzBot.Threads
                 {
                     WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                     WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+                    bool changedFocus = false;
 
                     if (placement.showCmd == 2)
-                       WinApi.ShowWindow(Globals.Process.MainWindowHandle, 3);
+                    {
+                        changedFocus = true;
+                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                    }
 
                     WinApi.RECT cRect;
                     WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
@@ -61,6 +65,9 @@ namespace KzBot.Threads
                         Globals.clientRect = cRect;
                     else
                         return;
+
+                    if (changedFocus)
+                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
                 }
 
 

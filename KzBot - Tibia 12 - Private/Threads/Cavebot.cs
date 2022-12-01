@@ -348,6 +348,16 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Buy_Refill:
                         {
+                            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+                            bool changedFocus = false;
+
+                            if (placement.showCmd == 2)
+                            {
+                                changedFocus = true;
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                            }
+
                             WinApi.RECT clientRect = Globals.clientRect;
                             Point closeWindow = new Point(clientRect.right - 16, 510);
 
@@ -371,18 +381,18 @@ namespace KzBot.Threads
                                     continue;
                                 }
 
-                                System.Threading.Thread.Sleep(500);
-                                Keyboard.PressKey(Keys.Escape);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(100);
+                                Objects.Client.leftClick(Objects.ClientData.GameMapRect.Left, clientRect.bottom - 23);
+                                System.Threading.Thread.Sleep(100);
 
                                 Keyboard.PressKey(Keys.F21);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(100);
 
                                 Client.Say("hi");
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(100);
 
                                 Client.Say(refill.Type);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(1000);
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
@@ -390,25 +400,27 @@ namespace KzBot.Threads
 
                                 // Reset Item
                                 Client.leftClick(tradeWindow.X + 140, tradeWindow.Y + 105);
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Search Item
                                 Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
-                                System.Threading.Thread.Sleep(500);
+                                //System.Threading.Thread.Sleep(100);
                                 Keyboard.Write(refill.Name);
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Select Item
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Set Count
                                 Keyboard.PressKey(Keys.Escape);
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(500);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
-                                System.Threading.Thread.Sleep(1000);
+                                //System.Threading.Thread.Sleep(100);
                                 Keyboard.PressKey(Keys.Delete);
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(100);
+                                Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
+                                //System.Threading.Thread.Sleep(100);
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 System.Threading.Thread.Sleep(1000);
 
@@ -417,8 +429,17 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(1000);
 
                                 if (!Globals.Config.GeneralStatus)
+                                {
+                                    if (changedFocus)
+                                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+
                                     return;
+                                }
                             }
+
+                            if (changedFocus)
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+
                             Globals.WaypointId++;
                             break;
                         }

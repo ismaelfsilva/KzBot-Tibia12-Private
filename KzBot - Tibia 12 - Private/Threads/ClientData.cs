@@ -47,7 +47,11 @@ namespace KzBot.Threads
                     return;
 
                 // UPDATE CLIENT RECT
-                if (Globals.clientRect.bottom <= 0)
+
+                WinApi.RECT cRect;
+                WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
+
+                if (Globals.clientRect.bottom <= 0 || (cRect.bottom > 0 && cRect.bottom != Globals.clientRect.bottom))
                 {
                     WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                     WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
@@ -59,8 +63,6 @@ namespace KzBot.Threads
                         WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
                     }
 
-                    WinApi.RECT cRect;
-                    WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
                     if (cRect.right > 0 && cRect.bottom > 0)
                         Globals.clientRect = cRect;
                     else
@@ -115,17 +117,42 @@ namespace KzBot.Threads
 
                     if (Globals.AccountId != -1)
                     {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(100);
+
+                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                                return;
+                        }
+
+
+                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            return;
+
                         WinApi.RECT clientRect = Globals.clientRect;
 
                         // CLICK OK ON SS [TEST]
-                        Objects.Client.leftClick((clientRect.right - 8) / 2 + 130, (clientRect.bottom - 31) / 2 + 60);
-                        System.Threading.Thread.Sleep(100);
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Objects.Client.leftClick((clientRect.right - 8) / 2 + 130, (clientRect.bottom - 31) / 2 + (i * 10));
+                            System.Threading.Thread.Sleep(100);
+
+                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                                return;
+                        }
 
                         for (int i = 0; i < 10; i++)
                         {
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(100);
+
+                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                                return;
                         }
+
+                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            return;
 
                         AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
@@ -135,32 +162,38 @@ namespace KzBot.Threads
                         Keyboard.Write(account.AccountName);
                         System.Threading.Thread.Sleep(100);
 
+                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            return;
+
                         Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 30);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.Password);
                         System.Threading.Thread.Sleep(100);
 
+                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            return;
+
                         Keyboard.PressKey(Keys.Enter);
                         System.Threading.Thread.Sleep(5000);
 
-                        if (!Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                             return;
 
                         for (int i = 0; i < 30; i++)
                         {
                             Keyboard.PressKey(Keys.Up);
-                            System.Threading.Thread.Sleep(20);
+                            System.Threading.Thread.Sleep(50);
 
-                            if (!Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                                 return;
                         }
 
                         for (int i = 0; i < account.Index - 1; i++)
                         {
                             Keyboard.PressKey(Keys.Down);
-                            System.Threading.Thread.Sleep(50);
+                            System.Threading.Thread.Sleep(100);
 
-                            if (!Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                                 return;
                         }
 
@@ -169,7 +202,7 @@ namespace KzBot.Threads
                         {
                             if (!Objects.Player.isLoggedIn)
                                 System.Threading.Thread.Sleep(100);
-                            else if (!Globals.Config.GeneralStatus)
+                            else if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                                 return;
                             else
                                 break;

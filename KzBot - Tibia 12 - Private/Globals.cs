@@ -249,6 +249,14 @@ namespace KzBot
                     System.Threading.Thread.Sleep(100);
                 }
 
+                System.Threading.Thread.Sleep(1000);
+
+                if (Globals.Process == null)
+                {
+                    Globals.Process = Process.Start(Globals.Client.OtFile);
+                    Globals.Process.WaitForInputIdle();
+                }
+
                 Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
                 Globals.Main.Invoke((MethodInvoker)delegate

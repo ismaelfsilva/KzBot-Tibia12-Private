@@ -49,7 +49,7 @@ namespace KzBot.Threads
                 // UPDATE CLIENT RECT
 
                 WinApi.RECT cRect;
-                WinApi.GetWindowRect(Globals.Process.MainWindowHandle, out cRect);
+                WinApi.GetClientRect(Globals.Process.MainWindowHandle, out cRect);
 
                 if (Globals.clientRect.bottom <= 0 || (cRect.bottom > 0 && cRect.bottom != Globals.clientRect.bottom))
                 {

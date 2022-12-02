@@ -299,7 +299,7 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
 
                             WinApi.RECT clientRect = Globals.clientRect;
-                            Point closeWindow = new Point(clientRect.right - 16, 510);
+                            Point closeWindow = new Point(clientRect.right - 8, 510);
 
                             for (int i = 0; i < 10; i++)
                             {
@@ -313,7 +313,7 @@ namespace KzBot.Threads
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 
-                            Point tradeWindow = new Point(clientRect.right - 163, 507);
+                            Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                             Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
                             System.Threading.Thread.Sleep(200);
@@ -359,7 +359,7 @@ namespace KzBot.Threads
                             }
 
                             WinApi.RECT clientRect = Globals.clientRect;
-                            Point closeWindow = new Point(clientRect.right - 16, 510);
+                            Point closeWindow = new Point(clientRect.right - 8, 510);
 
                             for (int i = 0; i < 10; i++)
                             {
@@ -367,7 +367,7 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(100);
                             }
 
-                            Point tradeWindow = new Point(clientRect.right - 163, 507);
+                            Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
@@ -642,6 +642,38 @@ namespace KzBot.Threads
                         Threads.Alarms.safeMode = false;
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Reset_FPS:
+                        {
+                            bool reconnectStatus = Globals.Config.auto_Reconnect;
+                            Globals.Config.auto_Reconnect = false;
+
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("!fps");
+                            System.Threading.Thread.Sleep(2000);
+
+                            WinApi.RECT clientRect = Globals.clientRect;
+
+                            // CLICK OK ON SS [TEST]
+                            for (int i = 0; i < 12; i++)
+                            {
+                                Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
+                                System.Threading.Thread.Sleep(100);
+
+                                if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                                    return;
+                            }
+                            System.Threading.Thread.Sleep(2000);
+
+
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(5000);
+
+                            Objects.Client.SetCooldownAddresses();
+                            Globals.Config.auto_Reconnect = reconnectStatus;
+                            Globals.WaypointId++;
+
+                            break;
+                        }
                     default:
                         Globals.WaypointId++;
                         break;

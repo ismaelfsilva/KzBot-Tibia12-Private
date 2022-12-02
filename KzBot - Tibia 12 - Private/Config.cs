@@ -311,6 +311,7 @@ namespace KzBot
         Exit,
         Load,
         Disable_Safe,
+        Reset_FPS,
         Alert,
         Nothing,
     }

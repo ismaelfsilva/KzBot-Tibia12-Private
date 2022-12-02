@@ -229,7 +229,13 @@ namespace KzBot
 
                 });
 
-                if (Objects.Player.isLoggedIn)
+
+                if (Globals.Process == null)
+                {
+                    Globals.Process = Process.Start(Globals.Client.OtFile);
+                    Globals.Process.WaitForInputIdle();
+                }
+                else if (Objects.Player.isLoggedIn)
                 {
                     Globals.Config.auto_Reconnect = false;
 
@@ -241,21 +247,17 @@ namespace KzBot
 
                     Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
                     System.Threading.Thread.Sleep(2000);
+
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Keyboard.PressKey(Keys.Escape);
+                        System.Threading.Thread.Sleep(100);
+                    }
                 }
 
-                for (int i = 0; i < 10; i++)
-                {
-                    Keyboard.PressKey(Keys.Escape);
-                    System.Threading.Thread.Sleep(100);
-                }
+                System.Threading.Thread.Sleep(2000);
 
-                System.Threading.Thread.Sleep(1000);
-
-                if (Globals.Process == null)
-                {
-                    Globals.Process = Process.Start(Globals.Client.OtFile);
-                    Globals.Process.WaitForInputIdle();
-                }
 
                 Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 

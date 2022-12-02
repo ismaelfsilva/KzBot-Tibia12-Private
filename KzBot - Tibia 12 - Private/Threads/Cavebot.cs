@@ -36,7 +36,25 @@ namespace KzBot.Threads
                     Threads.ClientData.UpdateCharacter();
                     if (!Objects.Player.isLoggedIn || (waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) || (Math.Abs(Objects.Player.Position.X - waypoint.X) < waypoint.rangeX && Math.Abs(Objects.Player.Position.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == Objects.Player.Position.Z)))
                     {
-                        Globals.Process?.Kill();
+                        if (Objects.Player.isLoggedIn)
+                        {
+                            Globals.Config.auto_Reconnect = false;
+
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("!fps");
+                            System.Threading.Thread.Sleep(2000);
+
+                            WinApi.RECT clientRect = Globals.clientRect;
+
+                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
+                            System.Threading.Thread.Sleep(2000);
+                        }
+
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(100);
+                        }
 
                         Globals.WaypointId = 0;
                         Globals.Config.GeneralStatus = false;
@@ -653,17 +671,8 @@ namespace KzBot.Threads
 
                             WinApi.RECT clientRect = Globals.clientRect;
 
-                            // CLICK OK ON SS [TEST]
-                            for (int i = 0; i < 12; i++)
-                            {
-                                Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
-                                System.Threading.Thread.Sleep(100);
-
-                                if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
-                                    return;
-                            }
+                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
                             System.Threading.Thread.Sleep(2000);
-
 
                             Keyboard.PressKey(Keys.Enter);
                             System.Threading.Thread.Sleep(5000);

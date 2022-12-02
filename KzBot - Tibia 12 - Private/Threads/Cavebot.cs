@@ -688,7 +688,7 @@ namespace KzBot.Threads
                             bool reconnectStatus = Globals.Config.auto_Reconnect;
                             Globals.Config.auto_Reconnect = false;
 
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(3000);
                             Client.Say("!fps");
                             System.Threading.Thread.Sleep(2000);
 
@@ -699,6 +699,10 @@ namespace KzBot.Threads
 
                             Keyboard.PressKey(Keys.Enter);
                             System.Threading.Thread.Sleep(5000);
+
+                            //Keyboard.PressKey(Keys.F3);
+                            //Keyboard.PressKey(Keys.OemQuestion);
+                            //System.Threading.Thread.Sleep(2000);
 
                             Objects.Client.SetCooldownAddresses();
                             Globals.Config.auto_Reconnect = reconnectStatus;

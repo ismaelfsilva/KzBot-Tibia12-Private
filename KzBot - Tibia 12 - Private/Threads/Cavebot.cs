@@ -179,7 +179,7 @@ namespace KzBot.Threads
 
                         }
                     case WaypointType.Loot:
-                        if (Globals.Config.manual_Looting)
+                        if (Globals.HasAutoLoot)
                         {
                             for (int tries = 0; tries < 5; tries++)
                             {

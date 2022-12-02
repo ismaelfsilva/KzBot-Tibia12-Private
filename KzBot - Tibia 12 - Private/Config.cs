@@ -10,9 +10,6 @@ namespace KzBot
     public class Config
     {
         public bool auto_Reconnect { get; set; } = true;
-        public bool manual_Looting { get; set; } = false;
-
-
 
 
         // Alarm Options

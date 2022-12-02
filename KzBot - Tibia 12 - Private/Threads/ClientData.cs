@@ -95,6 +95,8 @@ namespace KzBot.Threads
                         Objects.ClientData.FindGameMapRect();
                         Objects.Client.SetCooldownAddresses();
 
+                        Globals.HasAutoLoot = Globals.Client.AutoLootId != -1 && Objects.Client.getItemCount(Globals.Client.AutoLootId) > 0;
+
                         setClient = true;
                     }
 

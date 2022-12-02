@@ -23,6 +23,7 @@ namespace KzBot
             }
         }
         public static bool ComboStatus { get; set; } = false;
+        public static bool HasAutoLoot { get; set; } = false;
 
 
         public static string telegramUserId { get; set; } = string.Empty;
@@ -164,6 +165,8 @@ namespace KzBot
             public string Transfer { get; set; } = string.Empty;
             [XmlAttribute]
             public string Website { get; set; } = string.Empty;
+            [XmlAttribute]
+            public int AutoLootId { get; set; } = -1;
 
             [XmlIgnore]
             public AccountList Accounts { get; set; } = new AccountList();

@@ -292,24 +292,30 @@ namespace KzBot.Threads
                                 Globals.WaypointId++;
                             break;
                         }
-                    case WaypointType.Check_Refill: 
-                        bool needRefill = false;
-                        foreach (RefillRule refill in Globals.Config.Refill)
+                    case WaypointType.Check_Refill:
                         {
-                            if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
-                                continue;
-
-                            if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
+                            bool needRefill = false;
+                            int playerLevel = Objects.Player.Level;
+                            foreach (RefillRule refill in Globals.Config.Refill)
                             {
-                                needRefill = true;
-                                break;
+                                if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
+                                    continue;
+
+                                if ((refill.MinLevel > 0 && playerLevel < refill.MinLevel) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
+                                    continue;
+
+                                if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
+                                {
+                                    needRefill = true;
+                                    break;
+                                }
                             }
+                            if (needRefill)
+                                Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                            else
+                                Globals.WaypointId++;
+                            break;
                         }
-                        if (needRefill)
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
-                        else
-                            Globals.WaypointId++;
-                        break;
                     case WaypointType.Go_Near:
                         Creature cr = Objects.Battlelist.getCreaturesOnScreen().Find(c => c.Name.ToLower() == waypoint.Extra.Trim().ToLower());
                         if (cr != null && cr.Position.distanceTo(playerPos) > 1)
@@ -399,10 +405,14 @@ namespace KzBot.Threads
                             }
 
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
+                            int playerLevel = Objects.Player.Level;
 
                             foreach (RefillRule refill in Globals.Config.Refill)
                             {
                                 if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
+                                    continue;
+
+                                if ((refill.MinLevel > 0 && playerLevel < refill.MinLevel) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
                                     continue;
 
                                 int itemCount = Objects.Client.getItemCount(refill.Id);

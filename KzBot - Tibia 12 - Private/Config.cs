@@ -82,6 +82,10 @@ namespace KzBot
         [XmlAttribute]
         public int Id { get; set; } = 0;
         [XmlAttribute]
+        public int MinLevel { get; set; } = 0;
+        [XmlAttribute]
+        public int MaxLevel { get; set; } = 0;
+        [XmlAttribute]
         public int ToBuy { get; set; } = 0;
         [XmlAttribute]
         public int ToLeave { get; set; } = 0;

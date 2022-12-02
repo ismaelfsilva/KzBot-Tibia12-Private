@@ -138,7 +138,7 @@ namespace KzBot.Threads
                         // CLICK OK ON SS [TEST]
                         for (int i = 0; i < 10; i++)
                         {
-                            Objects.Client.leftClick((clientRect.right - 8) / 2 + 130, (clientRect.bottom - 31) / 2 + (i * 10));
+                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
                             System.Threading.Thread.Sleep(100);
 
                             if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
@@ -160,7 +160,7 @@ namespace KzBot.Threads
                         AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
 
-                        Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 60);
+                        Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 60);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.AccountName);
                         System.Threading.Thread.Sleep(100);
@@ -168,7 +168,7 @@ namespace KzBot.Threads
                         if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
                             return;
 
-                        Objects.Client.leftClick((clientRect.right - 8) / 2, (clientRect.bottom - 31) / 2 - 30);
+                        Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 30);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.Write(account.Password);
                         System.Threading.Thread.Sleep(100);

@@ -31,7 +31,7 @@ namespace KzBot.Objects
         {
             Point equipPoint = equipmentPoints[(int)equip];
 
-            lookClick(Globals.clientRect.right - 8 + equipPoint.X, equipPoint.Y);
+            lookClick(Globals.clientRect.right - Globals.clientRect.left + equipPoint.X, equipPoint.Y);
         }
 
         public static bool hasCooldown(CooldownGroup group)

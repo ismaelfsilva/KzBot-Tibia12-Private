@@ -136,24 +136,25 @@ namespace KzBot.UI
 
         private void knightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RefillRule rule = new RefillRule() { Id = 237, Name = "Strong Mana Potion", Type = "potions", ToBuy = 800, ToLeave = 150, Vocation = Vocation.EK};
-            Globals.Config.Refill.Add(rule);
-            listView1.Items.Add(rule.ListViewItem());
-
             RefillRule rule2 = new RefillRule() { Id = 23375, Name = "Supreme Health Potion", Type = "potions", ToBuy = 50, ToLeave = 30, Vocation = Vocation.EK };
             Globals.Config.Refill.Add(rule2);
             listView1.Items.Add(rule2.ListViewItem());
+
+            RefillRule rule = new RefillRule() { Id = 237, Name = "Strong Mana Potion", Type = "potions", ToBuy = 800, ToLeave = 150, Vocation = Vocation.EK };
+            Globals.Config.Refill.Add(rule);
+            listView1.Items.Add(rule.ListViewItem());
         }
 
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RefillRule rule = new RefillRule() { Id = 238, Name = "Great Mana Potion", Type = "potions", ToBuy = 800, ToLeave = 200, Vocation = Vocation.RP };
-            Globals.Config.Refill.Add(rule);
-            listView1.Items.Add(rule.ListViewItem());
 
             RefillRule rule2 = new RefillRule() { Id = 23374, Name = "Ultimate Spirit Potion", Type = "potions", ToBuy = 200, ToLeave = 50, Vocation = Vocation.RP };
             Globals.Config.Refill.Add(rule2);
             listView1.Items.Add(rule2.ListViewItem());
+
+            RefillRule rule5 = new RefillRule() { Id = 3051, Name = "Energy Ring", Type = "trade", ToBuy = 2, ToLeave = 0, Vocation = Vocation.RP };
+            Globals.Config.Refill.Add(rule5);
+            listView1.Items.Add(rule5.ListViewItem());
 
             RefillRule rule3 = new RefillRule() { Id = 35901, Name = "Diamond Arrow", Type = "distance", ToBuy = 1200, ToLeave = 200, Vocation = Vocation.RP };
             Globals.Config.Refill.Add(rule3);
@@ -163,9 +164,9 @@ namespace KzBot.UI
             Globals.Config.Refill.Add(rule4);
             listView1.Items.Add(rule4.ListViewItem());
 
-            RefillRule rule5 = new RefillRule() { Id = 3051, Name = "Energy Ring", Type = "trade", ToBuy = 2, ToLeave = 0, Vocation = Vocation.RP };
-            Globals.Config.Refill.Add(rule5);
-            listView1.Items.Add(rule5.ListViewItem());
+            RefillRule rule = new RefillRule() { Id = 238, Name = "Great Mana Potion", Type = "potions", ToBuy = 800, ToLeave = 200, Vocation = Vocation.RP };
+            Globals.Config.Refill.Add(rule);
+            listView1.Items.Add(rule.ListViewItem());
         }
     }
 }

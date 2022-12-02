@@ -82,7 +82,7 @@ namespace KzBot
         [XmlAttribute]
         public int Id { get; set; } = 0;
         [XmlAttribute]
-        public int MinLevel { get; set; } = 0;
+        public int Level { get; set; } = 0;
         [XmlAttribute]
         public int MaxLevel { get; set; } = 0;
         [XmlAttribute]
@@ -164,6 +164,8 @@ namespace KzBot
         [XmlAttribute]
         public int Level { get; set; } = 0;
         [XmlAttribute]
+        public int MaxLevel { get; set; } = 0;
+        [XmlAttribute]
         public int Delay { get; set; } = 0;
 
         [XmlAttribute]
@@ -207,6 +209,8 @@ namespace KzBot
         public int MpMax { get; set; } = 0;
         [XmlAttribute]
         public int Level { get; set; } = 0;
+        [XmlAttribute]
+        public int MaxLevel { get; set; } = 0;
         [XmlAttribute]
         public int Delay { get; set; } = 0;
         [XmlAttribute]

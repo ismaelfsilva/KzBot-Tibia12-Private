@@ -36,6 +36,9 @@ namespace KzBot.Threads
                     if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != rule.Vocation)
                         continue;
 
+                    if ((rule.Level > 0 && playerLevel < rule.Level) || (rule.MaxLevel > 0 && playerLevel > rule.MaxLevel))
+                        continue;
+
                     if (DateTime.Now < rule.LastUse.AddMilliseconds(rule.Delay))
                         continue;
 
@@ -87,9 +90,6 @@ namespace KzBot.Threads
                         continue;
 
                     if (rule.Type == HealType.Item && Globals.Config.Targeting.Exists(r => r.Type == TargetType.Item) && Objects.Client.HasAttackCooldown && (DateTime.Now - Threads.Targeting.lastTargetSkillTime).TotalMilliseconds <= 500)
-                        continue;
-
-                    if (rule.Level > 0 && playerLevel < rule.Level)
                         continue;
 
                     Keyboard.PressKey(rule.Key);

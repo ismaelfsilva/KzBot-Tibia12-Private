@@ -304,7 +304,7 @@ namespace KzBot.Threads
                                 if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
                                     continue;
 
-                                if ((refill.MinLevel > 0 && playerLevel < refill.MinLevel) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
+                                if ((refill.Level > 0 && playerLevel < refill.Level) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
                                     continue;
 
                                 if (Objects.Client.getItemCount(refill.Id) < refill.ToLeave)
@@ -415,7 +415,7 @@ namespace KzBot.Threads
                                 if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
                                     continue;
 
-                                if ((refill.MinLevel > 0 && playerLevel < refill.MinLevel) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
+                                if ((refill.Level > 0 && playerLevel < refill.Level) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
                                     continue;
 
                                 int itemCount = Objects.Client.getItemCount(refill.Id);

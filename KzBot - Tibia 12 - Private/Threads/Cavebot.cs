@@ -15,6 +15,7 @@ namespace KzBot.Threads
         public static System.Threading.Timer Thread = new System.Threading.Timer(CavebotThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool didWaitBecauseOfPlayerOnCombo = false;
         public static DateTime lastBalanceUpdate = DateTime.MinValue;
+        public static DateTime lastLureStart = DateTime.MinValue;
 
         private static void CavebotThread(object state)
         {
@@ -162,6 +163,9 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Lure:
                         {
+                            if (!Globals.ComboStatus && waypoint.Extra.Trim().Length > 0)
+                                System.Threading.Thread.Sleep(int.Parse(waypoint.Extra));
+
                             List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
                             if (Globals.Config.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                             {
@@ -178,7 +182,16 @@ namespace KzBot.Threads
                             creatures.RemoveAll(c => c.Type != CreatureType.Monster);
 
                             if (!Globals.ComboStatus && creatures.Count >= Globals.Config.creature_Count_To_Skip_Lure)
+                            {
+                                lastLureStart = DateTime.Now;
                                 Globals.ComboStatus = true;
+                            }
+                            else if (Globals.Config.max_Lure_Time > 0 && (DateTime.Now - lastLureStart).TotalMilliseconds >= Globals.Config.max_Lure_Time)
+                            {
+                                Globals.ComboStatus = false;
+                                didWaitBecauseOfPlayerOnCombo = false;
+                                Globals.WaypointId++;
+                            }
                             else if (Globals.ComboStatus && creatures.Count <= Globals.Config.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.Config.creatures_Left_Health_To_End_Lure).Count())
                             {
                                 Globals.ComboStatus = false;

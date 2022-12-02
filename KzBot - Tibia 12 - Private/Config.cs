@@ -34,6 +34,7 @@ namespace KzBot
         public int qty_To_Transfer { get; set; } = 1000000;
         public bool check_Only_Near_Creatures_If_Player_on_Screen { get; set; } = true;
         public int time_To_Wait_Before_Checking_Creatures_If_Player_on_Screen { get; set; } = 3000;
+        public int max_Lure_Time { get; set; } = -1;
         public int creature_Count_To_Skip_Lure { get; set; } = 3;
         public int creature_Count_To_End_Lure { get; set; } = 1;
         public int creatures_Left_Health_To_End_Lure { get; set; } = 50;

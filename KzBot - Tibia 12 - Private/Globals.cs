@@ -238,9 +238,11 @@ namespace KzBot
                 else if (Objects.Player.isLoggedIn)
                 {
                     Globals.Config.auto_Reconnect = false;
+                    WinApi.RECT clientRect = Globals.clientRect;
 
+                    Objects.Client.leftClick(clientRect.right - clientRect.left - 15, 345);
                     System.Threading.Thread.Sleep(500);
-                    Objects.Client.Say("!fps");
+                    Keyboard.PressKey(Keys.Enter);
                     System.Threading.Thread.Sleep(2000);
 
                     if (Objects.Player.isLoggedIn)
@@ -249,7 +251,6 @@ namespace KzBot
                         return;
                     }
 
-                    WinApi.RECT clientRect = Globals.clientRect;
 
                     Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
                     System.Threading.Thread.Sleep(2000);

@@ -238,9 +238,7 @@ namespace KzBot.Threads
                         Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.Check_Cap:
-                        if (Objects.Player.Level < Globals.Config.min_Level_To_Check_Cap)
-                            Globals.WaypointId++;
-                        else if (Objects.Player.Cap < int.Parse(extraData[0]))
+                        if (Objects.Player.Cap < int.Parse(extraData[0]))
                             Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;   

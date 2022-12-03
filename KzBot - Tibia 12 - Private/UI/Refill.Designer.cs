@@ -39,15 +39,17 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.amuletOfLossToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,9 +119,11 @@
             this.deleteToolStripMenuItem,
             this.toolStripSeparator1,
             this.knightToolStripMenuItem,
-            this.paladinToolStripMenuItem});
+            this.paladinToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.amuletOfLossToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
             // 
             // clearToolStripMenuItem
             // 
@@ -134,6 +138,25 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // knightToolStripMenuItem
+            // 
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
+            // 
+            // paladinToolStripMenuItem
+            // 
+            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paladinToolStripMenuItem.Text = "Paladin";
+            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
             // comboBox1
             // 
@@ -210,24 +233,17 @@
             this.textBox4.TabIndex = 13;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
-            // knightToolStripMenuItem
+            // amuletOfLossToolStripMenuItem
             // 
-            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
-            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.knightToolStripMenuItem.Text = "Knight";
-            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
-            // 
-            // paladinToolStripMenuItem
-            // 
-            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
-            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.paladinToolStripMenuItem.Text = "Paladin";
-            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
+            this.amuletOfLossToolStripMenuItem.Name = "amuletOfLossToolStripMenuItem";
+            this.amuletOfLossToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.amuletOfLossToolStripMenuItem.Text = "Amulet of Loss";
+            this.amuletOfLossToolStripMenuItem.Click += new System.EventHandler(this.amuletOfLossToolStripMenuItem_Click);
             // 
             // Refill
             // 
@@ -273,5 +289,7 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem knightToolStripMenuItem;
         private ToolStripMenuItem paladinToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem amuletOfLossToolStripMenuItem;
     }
 }

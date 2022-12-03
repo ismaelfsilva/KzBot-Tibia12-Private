@@ -176,5 +176,12 @@ namespace KzBot.UI
             Globals.Config.Refill.Add(rule);
             listView1.Items.Add(rule.ListViewItem());
         }
+
+        private void amuletOfLossToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefillRule rule = new RefillRule() { Id = 3057, Name = "Amulet of Loss", Type = "trade", ToBuy = 1, ToLeave = 0 };
+            Globals.Config.Refill.Add(rule);
+            listView1.Items.Add(rule.ListViewItem());
+        }
     }
 }

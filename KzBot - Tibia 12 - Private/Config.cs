@@ -39,6 +39,8 @@ namespace KzBot
         public int creature_Count_To_End_Lure { get; set; } = 1;
         public int creatures_Left_Health_To_End_Lure { get; set; } = 50;
 
+        public int min_Level_To_Check_Cap { get; set; } = 0;
+
         // Cavebot Waypoints
         public List<Waypoint> Waypoints { get; set; } = new List<Waypoint>();
 

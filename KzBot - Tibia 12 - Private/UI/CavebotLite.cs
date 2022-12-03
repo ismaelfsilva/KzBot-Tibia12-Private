@@ -309,7 +309,7 @@ namespace KzBot.UI
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            Waypoint waypoint = GenerateWaypoint(WaypointType.Goto_Label, "Goto_Hunt", 3, 3);
+            Waypoint waypoint = GenerateWaypoint(WaypointType.Check_Level, "9999;Goto_Hunt", 3, 3);
             Globals.Config.Waypoints.Add(waypoint);
             Globals.Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
         }
@@ -448,6 +448,14 @@ namespace KzBot.UI
 
         private void button23_Click(object sender, EventArgs e)
         {
+            Waypoint waypointRefillDiamondArrow = GenerateWaypoint(WaypointType.Press, "Oem5", 5, 5);
+            waypointRefillDiamondArrow.Label = "Hunt_Refill_Diamond_Arrow";
+            Globals.Config.Waypoints.Add(waypointRefillDiamondArrow);
+            Globals.Main.Cavebot.listView1.Items.Add(waypointRefillDiamondArrow.ListViewItem());
+            Globals.Config.Waypoints.Add(waypointRefillDiamondArrow);
+            Globals.Main.Cavebot.listView1.Items.Add(waypointRefillDiamondArrow.ListViewItem());
+
+
             Waypoint waypoint = GenerateWaypoint(WaypointType.Check_Refill, "Goto_Refill", 5, 5);
             waypoint.Label = "Hunt_Check_Refill";
             Globals.Config.Waypoints.Add(waypoint);

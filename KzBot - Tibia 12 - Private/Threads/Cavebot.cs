@@ -96,6 +96,9 @@ namespace KzBot.Threads
                 switch (waypoint.Type)
                 {
                     // WAYPOINTS THAT DON'T NEED THE PLAYER TO BE IN RANGE TO EXECUTE
+                    case WaypointType.If_Location_Goto_Label:
+                    case WaypointType.If_Location_Goback:
+                        break;
                     case WaypointType.Stand:
                     case WaypointType.Node:
                     case WaypointType.Use:
@@ -111,8 +114,6 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Not_Location_Goto_Label:
                     case WaypointType.Not_Location_Goback:
-                    case WaypointType.If_Location_Goto_Label:
-                    case WaypointType.If_Location_Goback:
                         if (Math.Abs(playerPos.X - waypoint.X) >= 200 && Math.Abs(playerPos.Y - waypoint.Y) >= 200)
                         {
                             Globals.WaypointId++;

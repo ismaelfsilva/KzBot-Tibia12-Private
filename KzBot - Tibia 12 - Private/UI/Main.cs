@@ -416,8 +416,7 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
-            MessageBox.Show(Objects.Client.hasCooldown(CooldownGroup.Heal).ToString());
+            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

@@ -217,6 +217,8 @@ namespace KzBot
                 Addresses.Version.v1290(Globals.Process);
             else if (Globals.Client.Version == "13.05")
                 Addresses.Version.v1305(Globals.Process);
+            else if (Globals.Client.Version == "13.20")
+                Addresses.Version.v1320(Globals.Process);
 
             Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
@@ -395,6 +397,8 @@ namespace KzBot
                             Addresses.Version.v1290(Globals.Process);
                         else if (client.Version == "13.05")
                             Addresses.Version.v1305(Globals.Process);
+                        else if (client.Version == "13.20")
+                            Addresses.Version.v1320(Globals.Process);
                     };
 
                     accountsToolStripMenuItem.DropDownItems.Add(item);
@@ -412,7 +416,8 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+            //System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+            MessageBox.Show(Objects.Client.hasCooldown(CooldownGroup.Heal).ToString());
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

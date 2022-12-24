@@ -278,6 +278,15 @@ namespace KzBot
 
             return item;
         }
+
+        [XmlIgnore]
+        public Position Position
+        {
+            get
+            {
+                return new Position() { X=X, Y=Y,Z=Z};
+            }
+        }
     }
 
     public enum WaypointType
@@ -301,6 +310,8 @@ namespace KzBot
         Buy_Refill,
         Deposit_All,
         Transfer,
+        Buy_Market,
+        Imbue,
         Travel,
         Wait_PZ,
         Disable_Targeting,

@@ -1,6 +1,7 @@
 using KzBot.Objects;
 using KzBot.UI;
 using System.Diagnostics;
+using System.Drawing;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
@@ -416,7 +417,11 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+            //System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+
+            Position pos = Objects.Player.Position;
+            pos.Y += -1;
+            Objects.Client.doImbue(Equipment.Weapon, pos, 1, 8, 3);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

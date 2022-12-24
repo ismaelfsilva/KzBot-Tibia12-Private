@@ -13,7 +13,7 @@ namespace KzBot.Objects
     {
         private static List<uint> foundCooldownAddresses = new List<uint>();
 
-        private static List<Point> equipmentPoints = new List<Point>()
+        public static List<Point> equipmentPoints = new List<Point>()
         {
             new Point(-150, 170),
             new Point(-115, 170),
@@ -32,6 +32,195 @@ namespace KzBot.Objects
             Point equipPoint = equipmentPoints[(int)equip];
 
             lookClick(Globals.clientRect.right - Globals.clientRect.left + equipPoint.X, equipPoint.Y);
+        }
+
+        public static void buyItem(string itemName, int qty, Position pos)
+        {
+            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                return;
+
+            // MAKE SURE CAN TYPE ON WINDOW
+            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+            bool changedFocus = false;
+
+            if (placement.showCmd == 2)
+            {
+                changedFocus = true;
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+            }
+
+            // CLOSE ALL WINDOWS AFTER BATTLELIST
+            Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
+            for (int i = 0; i < 10; i++)
+            {
+                Client.leftClick(closeWindow.X, closeWindow.Y);
+                System.Threading.Thread.Sleep(100);
+            }
+            System.Threading.Thread.Sleep(1000);
+
+            // OPEN DEPOT
+            Position playerPos = Objects.Player.Position;
+            Point sqmPosition = new Point();
+            sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
+            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
+            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
+            System.Threading.Thread.Sleep(1000);
+
+            // GET POINTS
+            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+            Point marketPoint = new Point(Globals.clientRect.right - 40,535);
+            Point mailBoxPoint = new Point(Globals.clientRect.right - 75, 535);
+            Point mailBoxFirstItemPoint = new Point(Globals.clientRect.right - 145, 535);
+            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+            Point resetTextButtonPoint = new Point(middleScreenPoint.X - 205, middleScreenPoint.Y + 205);
+            Point enterTextButtonPoint = new Point(middleScreenPoint.X - 300, middleScreenPoint.Y + 205);
+
+            Point firstItemPoint = new Point(middleScreenPoint.X - 300, middleScreenPoint.Y - 55);
+            Point firstOfferPoint = new Point(middleScreenPoint.X, middleScreenPoint.Y - 185);
+
+            Point increaseQtyPoint = new Point(middleScreenPoint.X + 165, middleScreenPoint.Y - 225);
+            Point accepButtonPoint = new Point(middleScreenPoint.X + 335, middleScreenPoint.Y - 225);
+
+            // DO STUFF
+            Client.rightClickPos(marketPoint.X, marketPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Client.leftClick(resetTextButtonPoint.X, resetTextButtonPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Client.leftClick(enterTextButtonPoint.X, enterTextButtonPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Keyboard.Write(itemName);
+            System.Threading.Thread.Sleep(1000);
+            Client.leftClick(firstItemPoint.X, firstItemPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Client.leftClick(firstOfferPoint.X, firstOfferPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            for (int i = 1; i < qty; i++)
+            {
+                Client.leftClick(increaseQtyPoint.X, increaseQtyPoint.Y);
+                System.Threading.Thread.Sleep(250);
+            }
+            System.Threading.Thread.Sleep(750);
+            Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(1000);
+            Client.rightClickPos(mailBoxPoint.X, mailBoxPoint.Y);
+            System.Threading.Thread.Sleep(1000);
+            Client.dragMouse(mailBoxFirstItemPoint, backpackPoint);
+            System.Threading.Thread.Sleep(1000);
+
+            // MINIMIZE WINDOW IF IT HAS TO
+            if (changedFocus)
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+        }
+
+        public static void doImbue(Equipment equipment, Position pos, int slot, int imbueId, int imbueTier = 3)
+        {
+            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                return;
+
+            // MAKE SURE CAN TYPE ON WINDOW
+            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+            bool changedFocus = false;
+
+            if (placement.showCmd == 2)
+            {
+                changedFocus = true;
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+            }
+
+            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+
+            Point itemRelativePoint = Objects.Client.equipmentPoints[(int)equipment];
+            Point itemPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + itemRelativePoint.X, itemRelativePoint.Y);
+            Point backpackFirstItemPoint = new Point(Globals.clientRect.right - 145, 535);
+            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+            List<Point> slotPoints = new List<Point> {
+            new Point(middleScreenPoint.X + 55, middleScreenPoint.Y - 180),
+            new Point(middleScreenPoint.X + 140, middleScreenPoint.Y - 180),
+            new Point(middleScreenPoint.X + 230, middleScreenPoint.Y - 180),
+        };
+
+            Point imbueTypeList = new Point(middleScreenPoint.X - 50, middleScreenPoint.Y - 85);
+            Point imbueTierList = new Point(middleScreenPoint.X + 50, middleScreenPoint.Y - 85);
+
+            Point improveChance = new Point(middleScreenPoint.X -10, middleScreenPoint.Y + 60);
+            Point doImbue = new Point(middleScreenPoint.X + 200, middleScreenPoint.Y + 60);
+
+            // CLOSE ALL WINDOWS AFTER BATTLELIST
+            Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
+            for (int i = 0; i < 10; i++)
+            {
+                Client.leftClick(closeWindow.X, closeWindow.Y);
+                System.Threading.Thread.Sleep(100);
+            }
+            System.Threading.Thread.Sleep(1000);
+
+            // PUT ITEM IN BACKPACK
+            Client.dragMouse(itemPoint, backpackPoint);
+            System.Threading.Thread.Sleep(1000);
+
+            // OPEN BACKPACK
+            Client.rightClickPos(backpackPoint);
+            System.Threading.Thread.Sleep(1000);
+
+            // OPEN IMBUE WINDOW
+            Position playerPos = Objects.Player.Position;
+            Point sqmPosition = new Point();
+            sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
+            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
+            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
+            System.Threading.Thread.Sleep(1000);
+            Objects.Client.leftClick(backpackFirstItemPoint);
+            System.Threading.Thread.Sleep(1000);
+
+            // SELECT SLOT
+            Client.leftClick(slotPoints[slot-1]);
+            System.Threading.Thread.Sleep(1000);
+
+            // SELECT TYPE
+            Client.leftClick(imbueTypeList);
+            System.Threading.Thread.Sleep(1000);
+            for (int i = 1; i < imbueId; i++)
+            {
+                Keyboard.PressKey(Keys.Down);
+                System.Threading.Thread.Sleep(250);
+            }
+            System.Threading.Thread.Sleep(750);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(1000);
+
+            // SELECT TIER
+            Client.leftClick(imbueTierList);
+            System.Threading.Thread.Sleep(1000);
+            for (int i = 1; i < imbueTier; i++)
+            {
+                Keyboard.PressKey(Keys.Down);
+                System.Threading.Thread.Sleep(250);
+            }
+            System.Threading.Thread.Sleep(750);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(1000);
+
+            // IMPROVE CHANCE
+            Client.leftClick(improveChance);
+            System.Threading.Thread.Sleep(1000);
+
+            // DO IMBUE
+            Client.leftClick(doImbue);
+            System.Threading.Thread.Sleep(1000);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(1000);
+
+            // MINIMIZE WINDOW IF IT HAS TO
+            if (changedFocus)
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
         }
 
         public static bool hasCooldown(CooldownGroup group)
@@ -228,10 +417,15 @@ namespace KzBot.Objects
 
         public static void dragMouse(Point from, Point to)
         {
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, 1, (uint)WinApi.MakeLParam(from.X, from.Y));
-            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 1, (uint)WinApi.MakeLParam(to.X, to.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, (uint)WinApi.MakeLParam(from.X, from.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONDOWN, WinApi.MK_LBUTTON, (uint)WinApi.MakeLParam(from.X, from.Y));
+            WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, WinApi.MK_LBUTTON, (uint)WinApi.MakeLParam(to.X, to.Y));
             WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_LBUTTONUP, 0, (uint)WinApi.MakeLParam(to.X, to.Y));
+        }
+
+        public static void leftClick(Point p)
+        {
+            leftClick(p.X, p.Y);
         }
 
         public static void leftClick(int x, int y)
@@ -266,8 +460,12 @@ namespace KzBot.Objects
             //zDelta -120 -> Down
             //zDelta 120 -> Up
         }
+        public static void rightClickPos(Point p)
+        {
+            rightClickPos(p.X, p.Y);
+        }
 
-        public static void rightClickPos(int x, int y)
+            public static void rightClickPos(int x, int y)
         {
             uint lParam = (uint)WinApi.MakeLParam(x, y);
             WinApi.SendMessage(Globals.Process.MainWindowHandle, WinApi.WM_MOUSEMOVE, 0, lParam);
@@ -341,7 +539,7 @@ namespace KzBot.Objects
                     uint namePointer = WinApi.ReadUInt32(Globals.Handle, item + 0x28);
                     string name = WinApi.ReadString(Globals.Handle, namePointer + 0x10);
 
-                    if (name == itemName)
+                    if (name.ToLower() == itemName.ToLower())
                         return WinApi.ReadInt16(Globals.Handle, item + 0x24);
                 }
             }

@@ -105,6 +105,8 @@ namespace KzBot.Threads
                     case WaypointType.Node:
                     case WaypointType.Use:
                     case WaypointType.Use_On:
+                    case WaypointType.Buy_Market:
+                    case WaypointType.Imbue:
                     case WaypointType.Go_Near:
                     case WaypointType.Teleport:
                     case WaypointType.Step:
@@ -538,6 +540,20 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(1000);
                         }
                         Globals.WaypointId++;
+                        break;
+                    case WaypointType.Buy_Market:
+                        {
+                            int itemCount = Objects.Client.getItemCount(int.Parse(extraData[1]));
+                            if (itemCount < int.Parse(extraData[2]))
+                                Objects.Client.buyItem(extraData[0], int.Parse(extraData[2]) - itemCount, waypoint.Position);
+                            else
+                                Globals.WaypointId++;
+                        }
+                        break;
+                    case WaypointType.Imbue:
+                        {
+                            Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
+                        }
                         break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)

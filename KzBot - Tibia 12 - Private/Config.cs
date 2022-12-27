@@ -312,6 +312,7 @@ namespace KzBot
         Transfer,
         Buy_Market,
         Imbue,
+        Take_Out_Equip,
         Travel,
         Wait_PZ,
         Disable_Targeting,

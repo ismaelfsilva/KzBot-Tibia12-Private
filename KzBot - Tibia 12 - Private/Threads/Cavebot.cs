@@ -555,6 +555,11 @@ namespace KzBot.Threads
                             Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
                         }
                         break;
+                    case WaypointType.Take_Out_Equip:
+                        {
+                            Client.takeOut((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position);
+                        }
+                        break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)
                             Globals.WaypointId++;

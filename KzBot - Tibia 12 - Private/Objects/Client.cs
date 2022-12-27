@@ -27,14 +27,37 @@ namespace KzBot.Objects
             new Point(-115, 270),
         };
 
-        public static void lookAt(Equipment equip)
+        public static void lookAt(Equipment equipment)
         {
-            Point equipPoint = equipmentPoints[(int)equip];
+            Point equipPoint = equipmentPoints[(int)equipment];
 
             lookClick(Globals.clientRect.right - Globals.clientRect.left + equipPoint.X, equipPoint.Y);
         }
 
-        public static void buyItem(string itemName, int qty, Position pos)
+        public static void takeOut(Equipment equipment)
+        {
+            Position playerPos = Objects.Player.Position;
+            takeOut(equipment, playerPos);
+            
+        }
+
+        public static void takeOut(Equipment equipment, Position pos)
+        {
+            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                return;
+
+            Point equipPoint = equipmentPoints[(int)equipment];
+
+            Position playerPos = Objects.Player.Position;
+            Point sqmPosition = new Point();
+            sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
+            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
+
+            Client.dragMouse(equipPoint, sqmPosition);
+            System.Threading.Thread.Sleep(1000);
+        }
+
+            public static void buyItem(string itemName, int qty, Position pos)
         {
             if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                 return;

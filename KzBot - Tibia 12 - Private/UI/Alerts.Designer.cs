@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(319, 201);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 491);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Alerts
@@ -53,7 +53,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(342, 201);
+            this.ClientSize = new System.Drawing.Size(848, 491);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Alerts";

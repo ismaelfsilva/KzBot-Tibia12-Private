@@ -104,7 +104,7 @@
             this.accountCreatorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(478, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -206,7 +206,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.MinimumSize = new System.Drawing.Size(98, 142);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(98, 142);
+            this.groupBox1.Size = new System.Drawing.Size(98, 432);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -274,7 +274,7 @@
             this.tabControl1.Location = new System.Drawing.Point(116, 30);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(350, 229);
+            this.tabControl1.Size = new System.Drawing.Size(856, 519);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -283,7 +283,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(342, 201);
+            this.tabPage1.Size = new System.Drawing.Size(848, 491);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -328,7 +328,7 @@
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(336, 195);
+            this.listView1.Size = new System.Drawing.Size(842, 485);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -357,7 +357,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 236);
+            this.button1.Location = new System.Drawing.Point(12, 526);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(98, 23);
             this.button1.TabIndex = 4;
@@ -375,7 +375,7 @@
             "Target Next Key",
             "Haste Key",
             "Utito Key"});
-            this.comboBox2.Location = new System.Drawing.Point(12, 207);
+            this.comboBox2.Location = new System.Drawing.Point(12, 497);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(98, 23);
             this.comboBox2.TabIndex = 5;
@@ -390,7 +390,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 271);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);

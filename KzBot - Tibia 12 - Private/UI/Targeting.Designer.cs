@@ -47,6 +47,7 @@
             this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.utitoTempoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exetaResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exetaAmpResToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.utitoTempoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +82,7 @@
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(318, 120);
+            this.listView1.Size = new System.Drawing.Size(824, 410);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -155,38 +155,38 @@
             this.exetaResToolStripMenuItem,
             this.exetaAmpResToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 214);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 192);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // knightToolStripMenuItem
             // 
             this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
-            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.knightToolStripMenuItem.Text = "Knight";
             this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
             // 
             // paladinToolStripMenuItem
             // 
             this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
-            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.paladinToolStripMenuItem.Text = "Paladin";
             this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
@@ -194,32 +194,39 @@
             // 
             this.mageToolStripMenuItem.Enabled = false;
             this.mageToolStripMenuItem.Name = "mageToolStripMenuItem";
-            this.mageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mageToolStripMenuItem.Text = "Mage";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // utitoTempoToolStripMenuItem
+            // 
+            this.utitoTempoToolStripMenuItem.Name = "utitoTempoToolStripMenuItem";
+            this.utitoTempoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.utitoTempoToolStripMenuItem.Text = "Utito Tempo";
+            this.utitoTempoToolStripMenuItem.Click += new System.EventHandler(this.utitoTempoToolStripMenuItem_Click);
             // 
             // exetaResToolStripMenuItem
             // 
             this.exetaResToolStripMenuItem.Name = "exetaResToolStripMenuItem";
-            this.exetaResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exetaResToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exetaResToolStripMenuItem.Text = "Exeta Res";
             this.exetaResToolStripMenuItem.Click += new System.EventHandler(this.exetaResToolStripMenuItem_Click);
             // 
             // exetaAmpResToolStripMenuItem
             // 
             this.exetaAmpResToolStripMenuItem.Name = "exetaAmpResToolStripMenuItem";
-            this.exetaAmpResToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exetaAmpResToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exetaAmpResToolStripMenuItem.Text = "Exeta Amp Res";
             this.exetaAmpResToolStripMenuItem.Click += new System.EventHandler(this.exetaAmpResToolStripMenuItem_Click);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(260, 166);
+            this.button1.Location = new System.Drawing.Point(766, 456);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(70, 23);
             this.button1.TabIndex = 1;
@@ -232,10 +239,10 @@
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(185, 139);
+            this.textBox2.Location = new System.Drawing.Point(185, 429);
             this.textBox2.Name = "textBox2";
             this.textBox2.PlaceholderText = "Min Creatures";
-            this.textBox2.Size = new System.Drawing.Size(69, 23);
+            this.textBox2.Size = new System.Drawing.Size(575, 23);
             this.textBox2.TabIndex = 5;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -243,7 +250,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(185, 166);
+            this.textBox1.Location = new System.Drawing.Point(691, 456);
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "Mana";
             this.textBox1.Size = new System.Drawing.Size(69, 23);
@@ -255,7 +262,7 @@
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 166);
+            this.comboBox1.Location = new System.Drawing.Point(12, 456);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(84, 23);
             this.comboBox1.TabIndex = 7;
@@ -265,7 +272,7 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(260, 138);
+            this.button2.Location = new System.Drawing.Point(766, 428);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 23);
             this.button2.TabIndex = 8;
@@ -277,7 +284,7 @@
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(102, 139);
+            this.textBox3.Location = new System.Drawing.Point(102, 429);
             this.textBox3.Name = "textBox3";
             this.textBox3.PlaceholderText = "Skill Range";
             this.textBox3.Size = new System.Drawing.Size(77, 23);
@@ -292,7 +299,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "Target",
             "Player"});
-            this.comboBox2.Location = new System.Drawing.Point(12, 139);
+            this.comboBox2.Location = new System.Drawing.Point(12, 429);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(84, 23);
             this.comboBox2.TabIndex = 10;
@@ -303,25 +310,18 @@
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(102, 166);
+            this.textBox4.Location = new System.Drawing.Point(102, 456);
             this.textBox4.Name = "textBox4";
             this.textBox4.PlaceholderText = "Creatures";
-            this.textBox4.Size = new System.Drawing.Size(77, 23);
+            this.textBox4.Size = new System.Drawing.Size(583, 23);
             this.textBox4.TabIndex = 11;
-            // 
-            // utitoTempoToolStripMenuItem
-            // 
-            this.utitoTempoToolStripMenuItem.Name = "utitoTempoToolStripMenuItem";
-            this.utitoTempoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.utitoTempoToolStripMenuItem.Text = "Utito Tempo";
-            this.utitoTempoToolStripMenuItem.Click += new System.EventHandler(this.utitoTempoToolStripMenuItem_Click);
             // 
             // Targeting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(342, 201);
+            this.ClientSize = new System.Drawing.Size(848, 491);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox3);

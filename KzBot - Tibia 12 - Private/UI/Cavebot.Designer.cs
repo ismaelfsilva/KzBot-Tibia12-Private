@@ -69,7 +69,7 @@
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(318, 120);
+            this.listView1.Size = new System.Drawing.Size(824, 410);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -144,7 +144,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 166);
+            this.comboBox1.Location = new System.Drawing.Point(12, 456);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 23);
             this.comboBox1.TabIndex = 1;
@@ -154,10 +154,10 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(273, 138);
+            this.button1.Location = new System.Drawing.Point(273, 428);
             this.button1.MinimumSize = new System.Drawing.Size(37, 23);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(57, 23);
+            this.button1.Size = new System.Drawing.Size(563, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(118, 138);
+            this.textBox1.Location = new System.Drawing.Point(118, 428);
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "X";
             this.textBox1.Size = new System.Drawing.Size(55, 23);
@@ -177,7 +177,7 @@
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(179, 138);
+            this.textBox2.Location = new System.Drawing.Point(179, 428);
             this.textBox2.Name = "textBox2";
             this.textBox2.PlaceholderText = "Y";
             this.textBox2.Size = new System.Drawing.Size(55, 23);
@@ -188,7 +188,7 @@
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox3.Location = new System.Drawing.Point(240, 138);
+            this.textBox3.Location = new System.Drawing.Point(240, 428);
             this.textBox3.Name = "textBox3";
             this.textBox3.PlaceholderText = "Z";
             this.textBox3.Size = new System.Drawing.Size(27, 23);
@@ -199,7 +199,7 @@
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox4.Location = new System.Drawing.Point(12, 138);
+            this.textBox4.Location = new System.Drawing.Point(12, 428);
             this.textBox4.Name = "textBox4";
             this.textBox4.PlaceholderText = "Label";
             this.textBox4.Size = new System.Drawing.Size(100, 23);
@@ -209,16 +209,16 @@
             // 
             this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(179, 166);
+            this.textBox5.Location = new System.Drawing.Point(179, 456);
             this.textBox5.Name = "textBox5";
             this.textBox5.PlaceholderText = "Extra";
-            this.textBox5.Size = new System.Drawing.Size(151, 23);
+            this.textBox5.Size = new System.Drawing.Size(657, 23);
             this.textBox5.TabIndex = 7;
             // 
             // textBox6
             // 
             this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox6.Location = new System.Drawing.Point(118, 166);
+            this.textBox6.Location = new System.Drawing.Point(118, 456);
             this.textBox6.Name = "textBox6";
             this.textBox6.PlaceholderText = "Range";
             this.textBox6.Size = new System.Drawing.Size(25, 23);
@@ -229,7 +229,7 @@
             // textBox7
             // 
             this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox7.Location = new System.Drawing.Point(148, 166);
+            this.textBox7.Location = new System.Drawing.Point(148, 456);
             this.textBox7.Name = "textBox7";
             this.textBox7.PlaceholderText = "Range";
             this.textBox7.Size = new System.Drawing.Size(25, 23);
@@ -242,7 +242,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(342, 201);
+            this.ClientSize = new System.Drawing.Size(848, 491);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);

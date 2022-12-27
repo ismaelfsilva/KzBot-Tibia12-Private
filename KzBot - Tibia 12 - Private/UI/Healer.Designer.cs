@@ -40,6 +40,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -48,9 +51,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.knightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +73,7 @@
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(318, 120);
+            this.listView1.Size = new System.Drawing.Size(824, 410);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -126,27 +126,46 @@
             this.knightToolStripMenuItem,
             this.paladinToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 98);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+            // 
+            // knightToolStripMenuItem
+            // 
+            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
+            this.knightToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.knightToolStripMenuItem.Text = "Knight";
+            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
+            // 
+            // paladinToolStripMenuItem
+            // 
+            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.paladinToolStripMenuItem.Text = "Paladin";
+            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(255, 137);
+            this.button1.Location = new System.Drawing.Point(761, 427);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -158,7 +177,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(103, 138);
+            this.textBox1.Location = new System.Drawing.Point(609, 428);
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "Health Min";
             this.textBox1.Size = new System.Drawing.Size(70, 23);
@@ -169,7 +188,7 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(179, 138);
+            this.textBox2.Location = new System.Drawing.Point(685, 428);
             this.textBox2.Name = "textBox2";
             this.textBox2.PlaceholderText = "Health Max";
             this.textBox2.Size = new System.Drawing.Size(70, 23);
@@ -180,7 +199,7 @@
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(103, 167);
+            this.textBox3.Location = new System.Drawing.Point(609, 457);
             this.textBox3.Name = "textBox3";
             this.textBox3.PlaceholderText = "Mana Min";
             this.textBox3.Size = new System.Drawing.Size(70, 23);
@@ -191,7 +210,7 @@
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(179, 167);
+            this.textBox4.Location = new System.Drawing.Point(685, 457);
             this.textBox4.Name = "textBox4";
             this.textBox4.PlaceholderText = "Mana Max";
             this.textBox4.Size = new System.Drawing.Size(70, 23);
@@ -201,7 +220,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(255, 166);
+            this.button2.Location = new System.Drawing.Point(761, 456);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -215,9 +234,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 138);
+            this.comboBox1.Location = new System.Drawing.Point(12, 428);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(85, 23);
+            this.comboBox1.Size = new System.Drawing.Size(591, 23);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -226,38 +245,19 @@
             this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(12, 166);
+            this.textBox5.Location = new System.Drawing.Point(12, 456);
             this.textBox5.Name = "textBox5";
             this.textBox5.PlaceholderText = "Delay";
-            this.textBox5.Size = new System.Drawing.Size(85, 23);
+            this.textBox5.Size = new System.Drawing.Size(591, 23);
             this.textBox5.TabIndex = 8;
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // knightToolStripMenuItem
-            // 
-            this.knightToolStripMenuItem.Name = "knightToolStripMenuItem";
-            this.knightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.knightToolStripMenuItem.Text = "Knight";
-            this.knightToolStripMenuItem.Click += new System.EventHandler(this.knightToolStripMenuItem_Click);
-            // 
-            // paladinToolStripMenuItem
-            // 
-            this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
-            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.paladinToolStripMenuItem.Text = "Paladin";
-            this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
             // Healer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(342, 201);
+            this.ClientSize = new System.Drawing.Size(848, 491);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);

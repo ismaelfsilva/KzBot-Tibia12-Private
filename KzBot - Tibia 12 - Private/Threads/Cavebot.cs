@@ -553,11 +553,13 @@ namespace KzBot.Threads
                     case WaypointType.Imbue:
                         {
                             Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
+                            Globals.WaypointId++;
                         }
                         break;
                     case WaypointType.Take_Out_Equip:
                         {
                             Client.takeOut((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position);
+                            Globals.WaypointId++;
                         }
                         break;
                     case WaypointType.Teleport:

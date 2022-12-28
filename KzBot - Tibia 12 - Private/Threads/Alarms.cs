@@ -107,6 +107,7 @@ namespace KzBot.Threads
                                     Globals.Process = null;
                                     break;
                                 case "resetwpt":
+                                    Globals.ComboStatus = false;
                                     Globals.WaypointId = 0;
                                     break;
                                 case "target":

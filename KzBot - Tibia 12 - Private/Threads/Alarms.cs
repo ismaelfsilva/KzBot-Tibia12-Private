@@ -100,7 +100,7 @@ namespace KzBot.Threads
                                     Globals.Process = null;
                                     break;
                                 case "exitall":
-                                    foreach (Process p in Process.GetProcessesByName("client"))
+                                    foreach (Process p in Process.GetProcesses().Where(p=> p.MainWindowTitle.Contains("Tibia")))
                                     {
                                         p.Kill(true);
                                     }

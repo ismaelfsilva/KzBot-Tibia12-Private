@@ -80,7 +80,7 @@ namespace KzBot
 
             comboBox1.Items.Clear();
 
-            foreach (Process p in Process.GetProcessesByName("client").Where(p => p.MainWindowTitle != "Tibia"))
+            foreach (Process p in Process.GetProcesses().Where(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle != "Tibia"))
             {
                 comboBox1.Items.Add(p.MainWindowTitle.Replace("Tibia - ", ""));
             }
@@ -182,7 +182,7 @@ namespace KzBot
         {
             comboBox1.Items.Clear();
 
-            foreach (Process p in Process.GetProcessesByName("client").Where(p => p.MainWindowTitle != "Tibia"))
+            foreach (Process p in Process.GetProcesses().Where(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle != "Tibia"))
             {
                 comboBox1.Items.Add(p.MainWindowTitle.Replace("Tibia - ", ""));
             }
@@ -190,7 +190,7 @@ namespace KzBot
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Process p = Process.GetProcessesByName("client").FirstOrDefault(p => p.MainWindowTitle == "Tibia - " + comboBox1.Text);
+            Process p = Process.GetProcesses().FirstOrDefault(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle == "Tibia - " + comboBox1.Text);
             if (p != null)
                 Globals.Process = p;
 

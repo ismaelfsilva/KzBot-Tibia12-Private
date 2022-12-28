@@ -303,6 +303,7 @@ namespace KzBot
         Check_Level,
         Check_Refill,
         Check_Safe,
+        Check_PZ,
         Check_Imbue,
         Go_Near,
         Open_Npc,

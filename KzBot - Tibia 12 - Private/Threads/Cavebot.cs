@@ -268,6 +268,12 @@ namespace KzBot.Threads
                         else
                             Globals.WaypointId++;
                         break;
+                    case WaypointType.Check_PZ:
+                        if (Objects.Player.Creature.Skull != PlayerSkulls.White)
+                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
                     case WaypointType.Check_Imbue:
                         {
                             bool foundItem = false;

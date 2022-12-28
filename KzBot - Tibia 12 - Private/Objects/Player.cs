@@ -105,11 +105,11 @@ namespace KzBot.Objects
             }
         }
 
-        public static int Experience
+        public static long Experience
         {
             get
             {
-                return WinApi.ReadOffsetInt32(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.experience);
+                return WinApi.ReadOffsetInt64(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.experience);
             }
         }
 

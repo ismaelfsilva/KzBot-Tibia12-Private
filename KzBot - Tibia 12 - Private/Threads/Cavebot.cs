@@ -151,7 +151,10 @@ namespace KzBot.Threads
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
                             Globals.WaypointId++;
                         else
+                        {
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
+                            System.Threading.Thread.Sleep(500);
+                        }
                         break;
                     case WaypointType.Node:
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
@@ -159,7 +162,10 @@ namespace KzBot.Threads
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
                             Globals.WaypointId++;
                         else
+                        {
                             Player.Goto(waypoint.X + new Random().Next(waypoint.rangeX * -1 + 1, waypoint.rangeX - 1), waypoint.Y + new Random().Next(waypoint.rangeY * -1 + 1, waypoint.rangeY - 1), waypoint.Z);
+                            System.Threading.Thread.Sleep(500);
+                        }
                         break;
                     case WaypointType.Say:
                         Client.Say(waypoint.Extra);

@@ -11,6 +11,15 @@ namespace KzBot
 {
     public partial class Main : Form
     {
+        public string filePath;
+        public string clientPath;
+
+        public string config_username;
+        public string config_password;
+
+        public string account_username;
+        public string account_password;
+
         public UI.Cavebot Cavebot;
         public UI.Healer Healer;
         public UI.Targeting Targeting;
@@ -89,6 +98,11 @@ namespace KzBot
 
             refreshToolStripMenuItem.PerformClick();
             Main_ResizeEnd(sender, e);
+
+            if (filePath != null)
+            {
+                Globals.Load(filePath);
+            }
         }
         private void Main_ResizeEnd(object sender, EventArgs e)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace KzBot.Util
 {
@@ -44,7 +45,7 @@ namespace KzBot.Util
 
             JsonSerializer serializer = new JsonSerializer();
 
-            using (StreamReader reader = new StreamReader("names.json"))
+            using (StreamReader reader = new StreamReader(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Config/Names.json"))
             using (JsonReader jreader = new JsonTextReader(reader))
             {
                 l = serializer.Deserialize<NameList>(jreader);

@@ -376,7 +376,7 @@ namespace KzBot
             while (accountsToolStripMenuItem.DropDownItems.Count > 2)
                 accountsToolStripMenuItem.DropDownItems.RemoveAt(2);
 
-            using (Stream file = System.IO.File.Open("Clients.xml", FileMode.Open))
+            using (Stream file = System.IO.File.Open(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Config/Clients.xml", FileMode.Open))
             {
                 XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ClientList), new XmlRootAttribute("KzTibia"));
 

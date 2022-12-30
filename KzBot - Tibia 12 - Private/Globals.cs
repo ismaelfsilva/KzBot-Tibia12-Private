@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -175,7 +176,7 @@ namespace KzBot
             {
                 try
                 {
-                    using (Stream file = System.IO.File.Open(AccountsFile, FileMode.Open))
+                    using (Stream file = System.IO.File.Open(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + AccountsFile, FileMode.Open))
                     {
                         XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(AccountList), new XmlRootAttribute("KzTibia"));
                         this.Accounts = (AccountList)writer.Deserialize(file);

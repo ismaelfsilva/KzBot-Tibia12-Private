@@ -33,7 +33,7 @@ namespace KzBot.UI
         private void button1_Click(object sender, EventArgs e)
         {
             TargetRule TargetRule = new TargetRule();
-            Globals.Config.Targeting.Add(TargetRule);
+            Globals.ScriptConfig.Targeting.Add(TargetRule);
             listView1.Items.Add(TargetRule.ListViewItem());
         }
 
@@ -51,7 +51,7 @@ namespace KzBot.UI
             }
             else
             {
-                TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+                TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
 
                 button2.Text = rule.Key.ToString();
                 textBox1.Text = rule.Mana.ToString();
@@ -75,7 +75,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.Type = (TargetType)Enum.Parse(typeof(TargetType), comboBox1.Text);
             listView1.SelectedItems[0].SubItems[1].Text = rule.Type.ToString();
         }
@@ -85,7 +85,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.Mana = Convert.ToInt32(textBox1.Text);
             listView1.SelectedItems[0].SubItems[6].Text = rule.Mana.ToString();
         }
@@ -95,7 +95,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.CreatureCount = Convert.ToInt32(textBox2.Text);
             listView1.SelectedItems[0].SubItems[5].Text = rule.CreatureCount.ToString();
         }
@@ -105,7 +105,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.Key = e.KeyCode;
             listView1.SelectedItems[0].SubItems[2].Text = e.KeyCode.ToString();
             button2.Text = e.KeyCode.ToString();
@@ -116,7 +116,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.PlayerOnCenter = comboBox2.Text == "Player";
             listView1.SelectedItems[0].SubItems[3].Text = comboBox2.Text;
         }
@@ -126,7 +126,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            TargetRule rule = Globals.Config.Targeting[listView1.SelectedIndices[0]];
+            TargetRule rule = Globals.ScriptConfig.Targeting[listView1.SelectedIndices[0]];
             rule.Range = Convert.ToInt32(textBox3.Text);
             listView1.SelectedItems[0].SubItems[4].Text = rule.Range.ToString();
         }
@@ -136,7 +136,7 @@ namespace KzBot.UI
             if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Globals.Config.Targeting.Clear();
+            Globals.ScriptConfig.Targeting.Clear();
             listView1.Items.Clear();
         }
 
@@ -145,7 +145,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            Globals.Config.Targeting.RemoveAt(listView1.SelectedIndices[0]);
+            Globals.ScriptConfig.Targeting.RemoveAt(listView1.SelectedIndices[0]);
             listView1.Items.Remove(listView1.SelectedItems[0]);
         }
 
@@ -153,22 +153,22 @@ namespace KzBot.UI
         {
             // EXORI GRAN
             TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell,  Mana = 340, Level = 90, Vocation = Vocation.EK, Key=Keys.F7};
-            Globals.Config.Targeting.Add(TargetRule1);
+            Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
 
             // EXORI MAS - MUITOS MOBS
             TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, CreatureCount = 10, Range = 3, Vocation = Vocation.EK, Key=Keys.F8 };
-            Globals.Config.Targeting.Add(TargetRule2);
+            Globals.ScriptConfig.Targeting.Add(TargetRule2);
             listView1.Items.Add(TargetRule2.ListViewItem());
 
             // EXORI
             TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Spell, Mana = 115, Level = 35, Vocation = Vocation.EK, Key=Keys.F6 };
-            Globals.Config.Targeting.Add(TargetRule3);
+            Globals.ScriptConfig.Targeting.Add(TargetRule3);
             listView1.Items.Add(TargetRule3.ListViewItem());
 
             // EXORI MAS
             TargetRule TargetRule4 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, Range = 3, Vocation = Vocation.EK, Key=Keys.F8 };
-            Globals.Config.Targeting.Add(TargetRule4);
+            Globals.ScriptConfig.Targeting.Add(TargetRule4);
             listView1.Items.Add(TargetRule4.ListViewItem());
         }
 
@@ -176,17 +176,17 @@ namespace KzBot.UI
         {
             // EXEVO MAS SAN
             TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 50, Range = 3, Vocation = Vocation.RP, Key=Keys.Oem6 };
-            Globals.Config.Targeting.Add(TargetRule1);
+            Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
 
             // RUNE
             TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = false, Vocation = Vocation.RP, Key=Keys.Divide };
-            Globals.Config.Targeting.Add(TargetRule2);
+            Globals.ScriptConfig.Targeting.Add(TargetRule2);
             listView1.Items.Add(TargetRule2.ListViewItem());
 
             // RUNE
             TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = true, Vocation = Vocation.RP, Key = Keys.Divide };
-            Globals.Config.Targeting.Add(TargetRule3);
+            Globals.ScriptConfig.Targeting.Add(TargetRule3);
             listView1.Items.Add(TargetRule3.ListViewItem());
         }
 
@@ -194,7 +194,7 @@ namespace KzBot.UI
         {
             // EXETA RES
             TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 40, Level = 20, Delay = 4000, Vocation=Vocation.EK, Key=Keys.F11 };
-            Globals.Config.Targeting.Add(TargetRule1);
+            Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
 
@@ -202,7 +202,7 @@ namespace KzBot.UI
         {
             // EXETA AMP RES
             TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 80, Level = 150, Delay = 5000, Vocation = Vocation.EK, Key=Keys.F11 };
-            Globals.Config.Targeting.Add(TargetRule1);
+            Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
 
@@ -210,7 +210,7 @@ namespace KzBot.UI
         {
             // UTITO TEMPO
             TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 290, Level = 60, Delay = 10000, ComboOnly = true, Vocation = Vocation.EK, Key =Keys.F12 };
-            Globals.Config.Targeting.Add(TargetRule1);
+            Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
     }

@@ -17,7 +17,7 @@ namespace KzBot.Threads
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus || !Globals.Config.HealerStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn)
+                if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.HealerStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn)
                     return;
 
                 int playerHpPc = Objects.Player.Creature.HealthPc;
@@ -29,11 +29,11 @@ namespace KzBot.Threads
 
                 int playerLevel = Objects.Player.Level;
 
-                foreach (HealRule rule in Globals.Config.Healer)
+                foreach (HealRule rule in Globals.ScriptConfig.Healer)
                 {
                     bool takeOutItem = false;
 
-                    if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != rule.Vocation)
+                    if (Globals.AccVocation != Vocation.None && rule.Vocation != Vocation.None && Globals.AccVocation != rule.Vocation)
                         continue;
 
                     if ((rule.Level > 0 && playerLevel < rule.Level) || (rule.MaxLevel > 0 && playerLevel > rule.MaxLevel))
@@ -89,7 +89,7 @@ namespace KzBot.Threads
                     if (!takeOutItem && rule.Type == HealType.EnergyRing && energyRingEquipped)
                         continue;
 
-                    if (rule.Type == HealType.Item && Globals.Config.Targeting.Exists(r => r.Type == TargetType.Item) && Objects.Client.HasAttackCooldown && (DateTime.Now - Threads.Targeting.lastTargetSkillTime).TotalMilliseconds <= 500)
+                    if (rule.Type == HealType.Item && Globals.ScriptConfig.Targeting.Exists(r => r.Type == TargetType.Item) && Objects.Client.HasAttackCooldown && (DateTime.Now - Threads.Targeting.lastTargetSkillTime).TotalMilliseconds <= 500)
                         continue;
 
                     Keyboard.PressKey(rule.Key);
@@ -102,7 +102,7 @@ namespace KzBot.Threads
             }
             finally
             {
-                if (Globals.Config.GeneralStatus && Globals.Config.HealerStatus)
+                if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.HealerStatus)
                     Thread.Change(100, Timeout.Infinite);
             }
         }

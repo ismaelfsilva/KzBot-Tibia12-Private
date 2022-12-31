@@ -89,7 +89,7 @@ namespace KzBot.UI
                 tableLayoutPanel1.Controls.Add(textBox);
             }
 
-            foreach (PropertyInfo prop in Globals.Config.GetType().GetProperties())
+            foreach (PropertyInfo prop in Globals.ScriptConfig.GetType().GetProperties())
             {
                 if (Char.IsUpper(prop.Name[0]))
                     continue;
@@ -107,7 +107,7 @@ namespace KzBot.UI
                 {
                     TextBox textBox = new TextBox();
 
-                    textBox.Text = ((int)prop.GetValue(Globals.Config)).ToString();
+                    textBox.Text = ((int)prop.GetValue(Globals.ScriptConfig)).ToString();
                     textBox.PlaceholderText = prop.Name;
                     textBox.TextAlign = HorizontalAlignment.Center;
                     textBox.Dock = DockStyle.Fill;
@@ -117,7 +117,7 @@ namespace KzBot.UI
                         int output;
                         int.TryParse(textBox.Text, out output);
 
-                        prop.SetValue(Globals.Config, output);
+                        prop.SetValue(Globals.ScriptConfig, output);
                     };
 
                     tableLayoutPanel1.Controls.Add(textBox);
@@ -126,12 +126,12 @@ namespace KzBot.UI
                 {
                     CheckBox checkBox = new CheckBox();
 
-                    checkBox.Checked = (bool)prop.GetValue(Globals.Config);
+                    checkBox.Checked = (bool)prop.GetValue(Globals.ScriptConfig);
                     checkBox.Dock = DockStyle.Fill;
                     checkBox.CheckAlign = ContentAlignment.MiddleCenter;
 
                     checkBox.CheckedChanged += (sender, EventArgs) => {
-                        prop.SetValue(Globals.Config, checkBox.Checked);
+                        prop.SetValue(Globals.ScriptConfig, checkBox.Checked);
                     };
 
                     tableLayoutPanel1.Controls.Add(checkBox);

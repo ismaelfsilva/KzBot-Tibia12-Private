@@ -4,25 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HUB
+namespace HUB.Classes
 {
     public class Character
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string vocation { get; set; }
-        public int level { get; set; }
-        public int owner { get; set; }
-        public string server { get; set; }
-        public string account { get; set; }
-        public string password { get; set; }
-        public int balance { get; set; }
-        public int last_stamina { get; set; }
-        public string last_online { get; set; }
-        public string time_online { get; set; }
-        public int status { get; set; }
-        public string script { get; set; }
-        public string warning { get; set; }
+        public int id { get; set; } = -1;
+        public string name { get; set; } = string.Empty;
+        public string vocation { get; set; } = "None";
+        public int level { get; set; } = -1;
+        public int owner { get; set; } = -1;
+        public string server { get; set; } = string.Empty;
+        public string account { get; set; } = string.Empty;
+        public string password { get; set; } = string.Empty;
+        public int char_index { get; set; } = 0;
+        public int balance { get; set; } = 0;
+        public int last_stamina { get; set; } = 0;
+        public string last_online { get; set; } = string.Empty;
+        public int time_online { get; set; } = 0;
+        public int status { get; set; } = 0;
+        public string script { get; set; } = string.Empty;
+        public string warning { get; set; } = string.Empty;
+        public List<string> system_warning { get; set; } = new List<string>();
 
         public TimeSpan actual_stamina
         {

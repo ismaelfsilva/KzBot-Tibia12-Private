@@ -46,5 +46,17 @@ namespace HUB.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BotPath {
+            get {
+                return ((string)(this["BotPath"]));
+            }
+            set {
+                this["BotPath"] = value;
+            }
+        }
     }
 }

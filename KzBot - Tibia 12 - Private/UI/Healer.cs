@@ -32,7 +32,7 @@ namespace KzBot.UI
         private void button2_Click(object sender, EventArgs e)
         {
             HealRule HealRule = new HealRule() { HpMin = 0, HpMax = 80, MpMax = 30, MpMin = 5, Delay = 500, Type = HealType.Nothing};
-            Globals.Config.Healer.Add(HealRule);
+            Globals.ScriptConfig.Healer.Add(HealRule);
             listView1.Items.Add(HealRule.ListViewItem());
         }
 
@@ -50,7 +50,7 @@ namespace KzBot.UI
             }
             else
             {
-                HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+                HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
 
                 button1.Text = rule.Key.ToString();
                 textBox1.Text = rule.HpMin.ToString();
@@ -76,7 +76,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.Key = e.KeyCode;
             listView1.SelectedItems[0].SubItems[4].Text = e.KeyCode.ToString();
             button1.Text = e.KeyCode.ToString();
@@ -87,7 +87,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.Type = (HealType)Enum.Parse(typeof(HealType), comboBox1.Text);
             listView1.SelectedItems[0].SubItems[1].Text = rule.Type.ToString();
         }
@@ -97,7 +97,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.Delay = Convert.ToInt32(textBox5.Text);
             listView1.SelectedItems[0].SubItems[5].Text = rule.Delay.ToString();
         }
@@ -107,7 +107,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.HpMin = Convert.ToInt32(textBox1.Text);
             listView1.SelectedItems[0].SubItems[2].Text = String.Format("{0} to {1}", rule.HpMin, rule.HpMax);
         }
@@ -117,7 +117,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.HpMax = Convert.ToInt32(textBox2.Text);
             listView1.SelectedItems[0].SubItems[2].Text = String.Format("{0} to {1}", rule.HpMin, rule.HpMax);
         }
@@ -127,7 +127,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.MpMin = Convert.ToInt32(textBox3.Text);
             listView1.SelectedItems[0].SubItems[3].Text = String.Format("{0} to {1}", rule.MpMin, rule.MpMax);
         }
@@ -137,7 +137,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            HealRule rule = Globals.Config.Healer[listView1.SelectedIndices[0]];
+            HealRule rule = Globals.ScriptConfig.Healer[listView1.SelectedIndices[0]];
             rule.MpMax = Convert.ToInt32(textBox4.Text);
             listView1.SelectedItems[0].SubItems[3].Text = String.Format("{0} to {1}", rule.MpMin, rule.MpMax);
         }
@@ -147,7 +147,7 @@ namespace KzBot.UI
             if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Globals.Config.Healer.Clear();
+            Globals.ScriptConfig.Healer.Clear();
             listView1.Items.Clear();
         }
 
@@ -156,7 +156,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            Globals.Config.Healer.RemoveAt(listView1.SelectedIndices[0]);
+            Globals.ScriptConfig.Healer.RemoveAt(listView1.SelectedIndices[0]);
             listView1.Items.Remove(listView1.SelectedItems[0]);
         }
 
@@ -164,32 +164,32 @@ namespace KzBot.UI
         {
             // SUPREME HEALTH POTION
             HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 0, MpMax = 100, Level = 200, Type = HealType.Item, Vocation = Vocation.EK, Key = Keys.F4 };
-            Globals.Config.Healer.Add(HealRule1);
+            Globals.ScriptConfig.Healer.Add(HealRule1);
             listView1.Items.Add(HealRule1.ListViewItem());
 
             // ULTIMATE HEALTH POTION
             HealRule HealRule6 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 0, MpMax = 100, Level = 130, MaxLevel = 210, Type = HealType.Item, Vocation = Vocation.EK, Key = Keys.F15 };
-            Globals.Config.Healer.Add(HealRule6);
+            Globals.ScriptConfig.Healer.Add(HealRule6);
             listView1.Items.Add(HealRule6.ListViewItem());
 
             // EXURA GRAN ICO
             HealRule HealRule2 = new HealRule() { HpMin = 0, HpMax = 30, MpMin = 200, MpMax = 99999, Delay = 600000, Type = HealType.Spell, Level = 80, Vocation = Vocation.EK, Key=Keys.F1 };
-            Globals.Config.Healer.Add(HealRule2);
+            Globals.ScriptConfig.Healer.Add(HealRule2);
             listView1.Items.Add(HealRule2.ListViewItem());
 
             // EXURA MED ICO
             HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 90, MpMin = 90, MpMax = 99999, Type = HealType.Spell, Level = 300, Vocation = Vocation.EK, Key = Keys.F2 };
-            Globals.Config.Healer.Add(HealRule3);
+            Globals.ScriptConfig.Healer.Add(HealRule3);
             listView1.Items.Add(HealRule3.ListViewItem());
 
             // EXURA ICO
             HealRule HealRule5 = new HealRule() { HpMin = 0, HpMax = 90, MpMin = 40, MpMax = 99999, Type = HealType.Spell, Level = 10, MaxLevel = 300, Vocation = Vocation.EK, Key = Keys.F13 };
-            Globals.Config.Healer.Add(HealRule5);
+            Globals.ScriptConfig.Healer.Add(HealRule5);
             listView1.Items.Add(HealRule5.ListViewItem());
 
             // STRONG MANA POTION
             HealRule HealRule4 = new HealRule() { HpMin = 50, HpMax = 100, MpMin = 0, MpMax = 80, Type = HealType.Item, Vocation = Vocation.EK, Key=Keys.F3 };
-            Globals.Config.Healer.Add(HealRule4);
+            Globals.ScriptConfig.Healer.Add(HealRule4);
             listView1.Items.Add(HealRule4.ListViewItem());
         }
 
@@ -197,27 +197,27 @@ namespace KzBot.UI
         {
             // ULTIMATE SPIRIT POTION
             HealRule HealRule1 = new HealRule() { HpMin = 0, HpMax = 60, MpMin = 0, MpMax = 100, Type = HealType.Item, Level = 130, Vocation = Vocation.RP, Key = Keys.OemBackslash };
-            Globals.Config.Healer.Add(HealRule1);
+            Globals.ScriptConfig.Healer.Add(HealRule1);
             listView1.Items.Add(HealRule1.ListViewItem());
 
             // GREAT SPIRIT POTION
             HealRule HealRule5 = new HealRule() { HpMin = 0, HpMax = 60, MpMin = 0, MpMax = 100, Type = HealType.Item, Level = 80, MaxLevel = 140, Vocation = Vocation.RP, Key = Keys.Insert };
-            Globals.Config.Healer.Add(HealRule5);
+            Globals.ScriptConfig.Healer.Add(HealRule5);
             listView1.Items.Add(HealRule5.ListViewItem());
 
             // EXURA GRAN SAN
             HealRule HealRule2 = new HealRule() { HpMin = 0, HpMax = 90, MpMin = 210, MpMax = 99999, Type = HealType.Spell, Level = 60, Vocation = Vocation.RP, Key=Keys.OemPeriod };
-            Globals.Config.Healer.Add(HealRule2);
+            Globals.ScriptConfig.Healer.Add(HealRule2);
             listView1.Items.Add(HealRule2.ListViewItem());
 
             // ENERGY RING
             HealRule HealRule3 = new HealRule() { HpMin = 0, HpMax = 50, MpMin = 20, MpMax = 100, Type = HealType.EnergyRing, Level=50, Vocation = Vocation.RP, Key = Keys.Home };
-            Globals.Config.Healer.Add(HealRule3);
+            Globals.ScriptConfig.Healer.Add(HealRule3);
             listView1.Items.Add(HealRule3.ListViewItem());
 
             // GREAT MANA POTION
             HealRule HealRule4 = new HealRule() { HpMin = 60, HpMax = 100, MpMin = 0, MpMax = 90, Type = HealType.Item, Level=80, Vocation = Vocation.RP, Key=Keys.OemQuestion };
-            Globals.Config.Healer.Add(HealRule4);
+            Globals.ScriptConfig.Healer.Add(HealRule4);
             listView1.Items.Add(HealRule4.ListViewItem());
         }
     }

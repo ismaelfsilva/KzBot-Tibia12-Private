@@ -11,14 +11,7 @@ namespace KzBot
 {
     public partial class Main : Form
     {
-        public string filePath;
-        public string clientPath;
-
-        public string config_username;
-        public string config_password;
-
-        public string account_username;
-        public string account_password;
+        public bool didStartUp = false;
 
         public UI.Cavebot Cavebot;
         public UI.Healer Healer;
@@ -48,7 +41,7 @@ namespace KzBot
             Globals.TelegramBot = new TelegramBotClient(Globals.telegramBotToken);
 
             foreach (AlarmType t in Enum.GetValues(typeof(AlarmType)))
-                Globals.Config.Alarms.Add(new AlarmRule(t));
+                Globals.ScriptConfig.Alarms.Add(new AlarmRule(t));
 
             Cavebot = new UI.Cavebot();
             Healer = new UI.Healer();
@@ -96,13 +89,39 @@ namespace KzBot
 
             Threads.ClientData.Thread.Change(100, Timeout.Infinite);
 
-            refreshToolStripMenuItem.PerformClick();
             Main_ResizeEnd(sender, e);
 
-            if (filePath != null)
+            if (Globals.Script != null)
             {
-                Globals.Load(filePath);
+                Globals.Load(Globals.Script.path);
             }
+
+            if (Globals.Server != null && Globals.Client != null)
+            {
+                Globals.Process = Process.Start(Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+
+                Globals.Main.comboBox1.Items.Clear();
+                Globals.Main.Text = "KzBot - " + Globals.AccCharName;
+                Globals.Main.comboBox1.Items.Add(Globals.AccCharName);
+                Globals.Main.comboBox1.Text = Globals.AccCharName;
+
+                Threads.Alarms.safeMode = false;
+                Threads.ClientData.setClient = false;
+                Threads.ClientData.firstUpdate = false;
+
+                if (Globals.Server.version == "12.90")
+                    Addresses.Version.v1290(Globals.Process);
+                else if (Globals.Server.version == "13.05")
+                    Addresses.Version.v1305(Globals.Process);
+                else if (Globals.Server.version == "13.20")
+                    Addresses.Version.v1320(Globals.Process);
+
+                Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
+
+                Threads.ClientData.setClient = false;
+            }
+
+            didStartUp = true;
         }
         private void Main_ResizeEnd(object sender, EventArgs e)
         {
@@ -204,35 +223,26 @@ namespace KzBot
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!didStartUp)
+                return;
+
+
             Process p = Process.GetProcesses().FirstOrDefault(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle == "Tibia - " + comboBox1.Text);
             if (p != null)
                 Globals.Process = p;
 
-
-            try
-            {
-                Globals.AccountId = -1;
-                foreach (ClientList.Client client in Globals.ClientList.Clients)
-                {
-                    Globals.AccountId = client.Accounts.Accounts.FindIndex(a => a.Character.ToLower() == comboBox1.Text.Trim().ToLower());
-                    Globals.Client = client;
-                    if (Globals.AccountId != -1)
-                        break;
-                }
-            }
-            catch
-            {
-                Globals.AccountId = -1;
-            }
-
+            Globals.Server = Program.Config.Servers.FirstOrDefault(s => p.MainModule.FileName.StartsWith(s.path));
+            Globals.Client = Program.Config.Clients.FirstOrDefault(c => p.MainModule.FileName.EndsWith(c.file));
 
             Threads.Alarms.safeMode = false;
+            Threads.ClientData.setClient = false;
+            Threads.ClientData.firstUpdate = false;
 
-            if (Globals.Client.Version == "12.90")
+            if (Globals.Server.version == "12.90")
                 Addresses.Version.v1290(Globals.Process);
-            else if (Globals.Client.Version == "13.05")
+            else if (Globals.Server.version == "13.05")
                 Addresses.Version.v1305(Globals.Process);
-            else if (Globals.Client.Version == "13.20")
+            else if (Globals.Server.version == "13.20")
                 Addresses.Version.v1320(Globals.Process);
 
             Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
@@ -297,9 +307,9 @@ namespace KzBot
                         this.Text = "KzBot - " + Objects.Player.Creature.Name;
                     }
 
-                    if  (Globals.Config.GeneralStatus && Globals.Config.CavebotStatus)
+                    if  (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.CavebotStatus)
                     {
-                        if (Globals.Config.Waypoints.Count > 0 && Globals.WaypointId >= 0 && Globals.WaypointId < Globals.Config.Waypoints.Count)
+                        if (Globals.ScriptConfig.Waypoints.Count > 0 && Globals.WaypointId >= 0 && Globals.WaypointId < Globals.ScriptConfig.Waypoints.Count)
                         {
                             int lvItemId = 0;
                             foreach (ListViewItem lvItem in Cavebot.listView1.Items)
@@ -330,17 +340,17 @@ namespace KzBot
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.Config.GeneralStatus = checkBox1.Checked;
+            Globals.ScriptConfig.GeneralStatus = checkBox1.Checked;
 
-            if (Globals.Config.GeneralStatus)
+            if (Globals.ScriptConfig.GeneralStatus)
             {
                 Threads.Alarms.safeMode = false;
                 //Threads.ClientData.Thread.Change(100, Timeout.Infinite);
                 Threads.Alarms.Thread.Change(100, Timeout.Infinite);
 
-                if (Globals.Config.CavebotStatus) Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
-                if (Globals.Config.HealerStatus) Threads.Healer.Thread.Change(100, Timeout.Infinite);
-                if (Globals.Config.TargetingStatus)
+                if (Globals.ScriptConfig.CavebotStatus) Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
+                if (Globals.ScriptConfig.HealerStatus) Threads.Healer.Thread.Change(100, Timeout.Infinite);
+                if (Globals.ScriptConfig.TargetingStatus)
                 {
                     Threads.Targeting.Target.Change(100, Timeout.Infinite);
                     Threads.Targeting.SpellCaster.Change(100, Timeout.Infinite);
@@ -350,26 +360,26 @@ namespace KzBot
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.Config.HealerStatus = checkBox2.Checked;
+            Globals.ScriptConfig.HealerStatus = checkBox2.Checked;
             Threads.Healer.Thread.Change(100, Timeout.Infinite);
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.Config.CavebotStatus = checkBox3.Checked;
+            Globals.ScriptConfig.CavebotStatus = checkBox3.Checked;
             Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.Config.TargetingStatus = checkBox4.Checked;
+            Globals.ScriptConfig.TargetingStatus = checkBox4.Checked;
             Threads.Targeting.Target.Change(100, Timeout.Infinite);
             Threads.Targeting.SpellCaster.Change(100, Timeout.Infinite);
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.Config.AlarmStatus = checkBox5.Checked;
+            Globals.ScriptConfig.AlarmStatus = checkBox5.Checked;
             Threads.Alarms.Thread.Change(100, Timeout.Infinite);
         }
 
@@ -385,45 +395,6 @@ namespace KzBot
             button1.Text = ((Keys)Properties.Settings.Default[comboBox2.Text.Replace(" ", "_")]).ToString();
         }
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            while (accountsToolStripMenuItem.DropDownItems.Count > 2)
-                accountsToolStripMenuItem.DropDownItems.RemoveAt(2);
-
-            using (Stream file = System.IO.File.Open(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Config/Clients.xml", FileMode.Open))
-            {
-                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ClientList), new XmlRootAttribute("KzTibia"));
-
-                Globals.ClientList.Clients.Clear();
-                Globals.ClientList = (ClientList)writer.Deserialize(file);
-
-                foreach (ClientList.Client client in Globals.ClientList.Clients)
-                {
-                    ToolStripMenuItem item = new ToolStripMenuItem(client.Name);
-                    client.Update(item);
-
-                    item.Click += (sender, EventArgs) => {
-                        Globals.Client = client;
-
-                        if (Globals.Process == null)
-                            return;
-
-                        if (client.Version == "12.90")
-                            Addresses.Version.v1290(Globals.Process);
-                        else if (client.Version == "13.05")
-                            Addresses.Version.v1305(Globals.Process);
-                        else if (client.Version == "13.20")
-                            Addresses.Version.v1320(Globals.Process);
-                    };
-
-                    accountsToolStripMenuItem.DropDownItems.Add(item);
-                    // Login
-                }
-
-                file.Close();
-            }
-        }
-
         private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
              CavebotLite.Show();
@@ -431,17 +402,12 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", $"\"https://kzsoft.com.br/characters.php\"");
+
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Threads.Alarms.safeMode = true;
-        }
-
-        private void accountCreatorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new AccCreator().Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -33,7 +33,7 @@ namespace KzBot.UI
             this.tableLayoutPanel1.Controls.Clear();
             tableLayoutPanel1.RowCount = 1;
 
-            foreach (AlarmRule alarm in Globals.Config.Alarms)
+            foreach (AlarmRule alarm in Globals.ScriptConfig.Alarms)
             {
                 tableLayoutPanel1.RowCount += 1;
 

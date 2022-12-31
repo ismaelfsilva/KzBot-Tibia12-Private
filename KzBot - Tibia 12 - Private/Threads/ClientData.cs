@@ -36,7 +36,7 @@ namespace KzBot.Threads
 
                     System.Media.SystemSounds.Beep.Play();
 
-                    if (!Globals.Config.GeneralStatus)
+                    if (!Globals.ScriptConfig.GeneralStatus)
                     {
                         System.Threading.Thread.Sleep(1000);
                         return;
@@ -73,14 +73,14 @@ namespace KzBot.Threads
                 }
 
 
-                if (!Globals.Config.GeneralStatus)
+                if (!Globals.ScriptConfig.GeneralStatus)
                     return;
 
                 if (Objects.Player.isLoggedIn)
                 {
                     Creature playerCreature = Objects.Player.Creature;
 
-                    if (!firstUpdate || (playerCreature.Name != string.Empty && lastUpdatedCharacter != playerCreature.Name) || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 600 == 0)
+                    if (!firstUpdate || (playerCreature.Name != string.Empty && lastUpdatedCharacter != playerCreature.Name) || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 60 == 0)
                     {
                         lastUpdatedCharacter = playerCreature.Name;
                         UpdateCharacter();
@@ -95,42 +95,34 @@ namespace KzBot.Threads
                         Objects.ClientData.FindGameMapRect();
                         Objects.Client.SetCooldownAddresses();
 
-                        Globals.HasAutoLoot = Globals.Client.AutoLootId != -1 && Objects.Client.getItemCount(Globals.Client.AutoLootId) > 0;
+                        Globals.HasAutoLoot = Globals.Server.autoLootId != -1 && Objects.Client.getItemCount(Globals.Server.autoLootId) > 0;
 
                         setClient = true;
                     }
 
                     int pLevel = Objects.Player.Level;
 
-                    if (Globals.Config.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                    if (Globals.ScriptConfig.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support))
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Haste_Key);
-
-                    //if (Globals.Config.auto_Utito && Globals.ComboStatus && !Objects.ClientData.isBuffed && pLevel >= 60 && Objects.Player.Mana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
-                    //    Keyboard.PressKey((Keys)Properties.Settings.Default.Utito_Key);
-
-                    //Objects.ClientData.Update();
                 }
-                else if (Globals.Config.auto_Reconnect)
+                else if (Globals.ScriptConfig.auto_Reconnect)
                 {
                     setClient = false;
                     Threads.Alarms.safeMode = false;
 
                     System.Threading.Thread.Sleep(1000);
-
-                    if (Globals.AccountId != -1)
-                    {
                         for (int i = 0; i < 10; i++)
                         {
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(100);
 
-                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                         }
 
 
 
-                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
 
                         WinApi.RECT clientRect = Globals.clientRect;
@@ -141,7 +133,7 @@ namespace KzBot.Threads
                             Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
                             System.Threading.Thread.Sleep(100);
 
-                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                         }
 
@@ -150,36 +142,34 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(100);
 
-                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                         }
 
-                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
-
-                        AccountList.Account account = Globals.Client.Accounts.Accounts[Globals.AccountId];
 
 
                         Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 60);
                         System.Threading.Thread.Sleep(100);
-                        Keyboard.Write(account.AccountName);
+                        Keyboard.Write(Globals.AccName);
                         System.Threading.Thread.Sleep(100);
 
-                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
 
                         Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 30);
                         System.Threading.Thread.Sleep(100);
-                        Keyboard.Write(account.Password);
+                        Keyboard.Write(Globals.AccPass);
                         System.Threading.Thread.Sleep(100);
 
-                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
 
                         Keyboard.PressKey(Keys.Enter);
                         System.Threading.Thread.Sleep(5000);
 
-                        if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
 
                         for (int i = 0; i < 30; i++)
@@ -187,16 +177,16 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Up);
                             System.Threading.Thread.Sleep(50);
 
-                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                         }
 
-                        for (int i = 0; i < account.Index - 1; i++)
+                        for (int i = 0; i < Globals.AccCharIndex; i++)
                         {
                             Keyboard.PressKey(Keys.Down);
                             System.Threading.Thread.Sleep(100);
 
-                            if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                         }
 
@@ -205,13 +195,12 @@ namespace KzBot.Threads
                         {
                             if (!Objects.Player.isLoggedIn)
                                 System.Threading.Thread.Sleep(100);
-                            else if (Objects.Player.isLoggedIn || !Globals.Config.GeneralStatus)
+                            else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                                 return;
                             else
                                 break;
                         }
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -229,29 +218,19 @@ namespace KzBot.Threads
             {
                 var client = new HttpClient();
 
-                var pairs = new List<KeyValuePair<string, string>>
-    {
-        new KeyValuePair<string, string>("name", Objects.Player.Creature.Name),
-        new KeyValuePair<string, string>("user", Environment.UserName),
-        new KeyValuePair<string, string>("script", Globals.ScriptFile.Contains(@"\") ? Globals.ScriptFile.Split(@"\").LastOrDefault() : Globals.ScriptFile),
-        new KeyValuePair<string, string>("level", Objects.Player.Level.ToString()),
-        new KeyValuePair<string, string>("stamina", Objects.Player.Stamina.TotalSeconds.ToString()),
-        new KeyValuePair<string, string>("server", Globals.Client.Name.ToString()),
-        new KeyValuePair<string, string>("vocation", Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation.ToString()),
-        new KeyValuePair<string, string>("generated", amountToAdd.ToString()),
-    };
-
-                if (!firstUpdate)
-                    pairs.Add(new KeyValuePair<string, string>("first", "1"));
-
-                var postContent = new FormUrlEncodedContent(pairs);
-
                 client.Timeout = TimeSpan.FromSeconds(5);
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-                var response = await client.PostAsync(new Uri("https://www.kzsoft.com.br/characters.php"), postContent);
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}",
+                    Globals.Username,
+                    Globals.Password,
+                    Globals.AccCharName,
+                    Objects.Player.Level,
+                    amountToAdd,
+                    Objects.Player.Stamina.TotalSeconds
+                    )));
                 string content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode && content == "1")
@@ -269,6 +248,7 @@ namespace KzBot.Threads
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
                 Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
                 return;
             }

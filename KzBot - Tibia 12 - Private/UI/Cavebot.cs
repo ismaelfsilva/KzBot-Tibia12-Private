@@ -38,7 +38,7 @@ namespace KzBot.UI
         {
             Waypoint waypoint = new Waypoint() { X = Convert.ToInt32(textBox1.Text), Y = Convert.ToInt32(textBox2.Text) , Z = Convert.ToInt32(textBox3.Text),  Label = textBox4.Text, Extra = textBox5.Text, Type = (WaypointType)Enum.Parse(typeof(WaypointType), comboBox1.Text.Replace(" ", "_")), rangeX = Convert.ToInt32(textBox6.Text), rangeY = Convert.ToInt32(textBox7.Text) };
             textBox4.Text = string.Empty;
-            Globals.Config.Waypoints.Add(waypoint);
+            Globals.ScriptConfig.Waypoints.Add(waypoint);
             listView1.Items.Add(waypoint.ListViewItem());
         }
 
@@ -95,7 +95,7 @@ namespace KzBot.UI
             if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            Globals.Config.Waypoints.Clear();
+            Globals.ScriptConfig.Waypoints.Clear();
             listView1.Items.Clear();
             Globals.WaypointId = 0;            
         }
@@ -105,7 +105,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            Globals.Config.Waypoints.RemoveAt(listView1.SelectedIndices[0]);
+            Globals.ScriptConfig.Waypoints.RemoveAt(listView1.SelectedIndices[0]);
             listView1.Items.Remove(listView1.SelectedItems[0]);            
         }
 
@@ -114,7 +114,7 @@ namespace KzBot.UI
             if (listView1.SelectedItems.Count <= 0)
                 return;
 
-            Waypoint waypoint = Globals.Config.Waypoints[listView1.SelectedIndices[0]];
+            Waypoint waypoint = Globals.ScriptConfig.Waypoints[listView1.SelectedIndices[0]];
             ListViewItem lvItem = listView1.Items[listView1.SelectedIndices[0]];
 
             waypoint.X = int.Parse(textBox1.Text);

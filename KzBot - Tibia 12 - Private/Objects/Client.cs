@@ -43,7 +43,7 @@ namespace KzBot.Objects
 
         public static void takeOut(Equipment equipment, Position pos)
         {
-            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+            if (!Globals.ScriptConfig.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                 return;
 
             Point equipPoint = equipmentPoints[(int)equipment];
@@ -59,7 +59,7 @@ namespace KzBot.Objects
 
             public static void buyItem(string itemName, int qty, Position pos)
         {
-            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+            if (!Globals.ScriptConfig.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                 return;
 
             // MAKE SURE CAN TYPE ON WINDOW
@@ -142,7 +142,7 @@ namespace KzBot.Objects
 
         public static void doImbue(Equipment equipment, Position pos, int slot, int imbueId, int imbueTier = 3)
         {
-            if (!Globals.Config.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+            if (!Globals.ScriptConfig.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                 return;
 
             // MAKE SURE CAN TYPE ON WINDOW
@@ -310,7 +310,7 @@ namespace KzBot.Objects
 
         public static void targetNear()
         {
-            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
+            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.ScriptConfig.ignore_List.Contains(cr.Name));
             if (creatures.Count <= 0)
                 return;
 
@@ -326,7 +326,7 @@ namespace KzBot.Objects
 
                 Position playerPos = Objects.Player.Position;
                 Creature playerTarget = creatures.Find(c => c.Id == Player.TargetId);
-                if (Globals.Config.ignore_List.Contains(playerTarget?.Name))
+                if (Globals.ScriptConfig.ignore_List.Contains(playerTarget?.Name))
                     playerTarget = null;
 
                 int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos) : 50;
@@ -344,13 +344,13 @@ namespace KzBot.Objects
                         }
                     }
 
-                    if (creatureToTarget != null && creatureToTarget.Id != Player.TargetId && distToTarget <= Globals.Config.max_Distance_To_Target)
+                    if (creatureToTarget != null && creatureToTarget.Id != Player.TargetId && distToTarget <= Globals.ScriptConfig.max_Distance_To_Target)
                     {
                         for (int i = 0; i < 50; i++)
                         {
                             if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos) <= distToTarget))
                             {
-                                if (!Globals.Config.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
+                                if (!Globals.ScriptConfig.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
                                     break;
                             }
 

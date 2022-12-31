@@ -65,13 +65,9 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.charactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendToSafeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.accountCreatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -97,11 +93,9 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.accountsToolStripMenuItem,
             this.cavebotLiteToolStripMenuItem,
             this.charactersToolStripMenuItem,
-            this.sendToSafeToolStripMenuItem,
-            this.accountCreatorToolStripMenuItem});
+            this.sendToSafeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
@@ -145,27 +139,6 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // accountsToolStripMenuItem
-            // 
-            this.accountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem,
-            this.toolStripSeparator2});
-            this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
-            this.accountsToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.accountsToolStripMenuItem.Text = "Accounts";
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
-            // 
             // cavebotLiteToolStripMenuItem
             // 
             this.cavebotLiteToolStripMenuItem.Name = "cavebotLiteToolStripMenuItem";
@@ -176,8 +149,8 @@
             // charactersToolStripMenuItem
             // 
             this.charactersToolStripMenuItem.Name = "charactersToolStripMenuItem";
-            this.charactersToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.charactersToolStripMenuItem.Text = "Characters";
+            this.charactersToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.charactersToolStripMenuItem.Text = "TESTE";
             this.charactersToolStripMenuItem.Click += new System.EventHandler(this.charactersToolStripMenuItem_Click);
             // 
             // sendToSafeToolStripMenuItem
@@ -186,13 +159,6 @@
             this.sendToSafeToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.sendToSafeToolStripMenuItem.Text = "Send to Safe";
             this.sendToSafeToolStripMenuItem.Click += new System.EventHandler(this.sendToSafeToolStripMenuItem_Click);
-            // 
-            // accountCreatorToolStripMenuItem
-            // 
-            this.accountCreatorToolStripMenuItem.Name = "accountCreatorToolStripMenuItem";
-            this.accountCreatorToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
-            this.accountCreatorToolStripMenuItem.Text = "Account Creator";
-            this.accountCreatorToolStripMenuItem.Click += new System.EventHandler(this.accountCreatorToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -432,8 +398,6 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Timer uiUpdater;
-        private ToolStripMenuItem refreshToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator2;
         public CheckBox checkBox1;
         public CheckBox checkBox5;
         public CheckBox checkBox4;
@@ -443,7 +407,5 @@
         private ToolStripMenuItem cavebotLiteToolStripMenuItem;
         private ToolStripMenuItem charactersToolStripMenuItem;
         private ToolStripMenuItem sendToSafeToolStripMenuItem;
-        private ToolStripMenuItem accountCreatorToolStripMenuItem;
-        public ToolStripMenuItem accountsToolStripMenuItem;
     }
 }

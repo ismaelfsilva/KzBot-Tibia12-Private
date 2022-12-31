@@ -33,18 +33,18 @@ namespace KzBot.Threads
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus)
+                if (!Globals.ScriptConfig.GeneralStatus)
                     return;
 
                 List<AlarmType> alarmsRequested = new List<AlarmType>();
 
                 if (Globals.Process == null || Globals.Process.HasExited || Globals.Process.MainWindowTitle == "Tibia")
                 { }
-                else if (Globals.Config.Alarms[(int)AlarmType.Stuck].Enabled)
+                else if (Globals.ScriptConfig.Alarms[(int)AlarmType.Stuck].Enabled)
                 {
                     Position playerPos = Objects.Player.Position;
-                    Waypoint waypoint = Globals.Config.Waypoints[Globals.WaypointId];
-                    if (Globals.Config.CavebotStatus && (playerPos.Z != 0 && playerPos == lastCheckPosition) && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && ++ticksStuck >= 30)
+                    Waypoint waypoint = Globals.ScriptConfig.Waypoints[Globals.WaypointId];
+                    if (Globals.ScriptConfig.CavebotStatus && (playerPos.Z != 0 && playerPos == lastCheckPosition) && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && ++ticksStuck >= 30)
                         alarmsRequested.Add(AlarmType.Stuck);
                     else if (playerPos != lastCheckPosition)
                     {
@@ -53,19 +53,19 @@ namespace KzBot.Threads
                     }
                 }
 
-                if (Globals.Config.AlarmStatus)
+                if (Globals.ScriptConfig.AlarmStatus)
                     alarmsRequested.AddRange(CheckAlarms());
 
                 bool audioRequest = false;
 
                 foreach (AlarmType alarm in alarmsRequested)
                 {
-                    if (Globals.Config.Alarms[((int)alarm)].Enabled)
+                    if (Globals.ScriptConfig.Alarms[((int)alarm)].Enabled)
                     {
                         // DO LOG MESSAGE
 
                         //
-                        string actionString = Globals.Config.Alarms[((int)alarm)].Action.Replace("()", "");
+                        string actionString = Globals.ScriptConfig.Alarms[((int)alarm)].Action.Replace("()", "");
 
                         foreach (string action in actionString.Split(";"))
                         {
@@ -142,7 +142,7 @@ namespace KzBot.Threads
             }
             finally
             {
-                if (Globals.Config.GeneralStatus)
+                if (Globals.ScriptConfig.GeneralStatus)
                     Thread.Change(1000, Timeout.Infinite);
             }
         }
@@ -157,7 +157,7 @@ namespace KzBot.Threads
 
             if (!Objects.Player.isLoggedIn)
             {
-                if (Globals.Config.Alarms[((int)AlarmType.Disconnected)].Enabled)
+                if (Globals.ScriptConfig.Alarms[((int)AlarmType.Disconnected)].Enabled)
                 {
                     alarmsRequested.Add(AlarmType.Disconnected);
                     Debug.WriteLine("Disconnected");
@@ -166,7 +166,7 @@ namespace KzBot.Threads
             }
             else if (!Objects.Player.isAlive())
             {
-                if (Globals.Config.Alarms[((int)AlarmType.Death)].Enabled)
+                if (Globals.ScriptConfig.Alarms[((int)AlarmType.Death)].Enabled)
                 {
                     alarmsRequested.Add(AlarmType.Death);
                     Debug.WriteLine("Death");
@@ -175,36 +175,36 @@ namespace KzBot.Threads
             }
 
             // FUNCTIONS THAT REQUIRES BATTLELIST
-            if  (Globals.Config.Alarms[(int)AlarmType.GM_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.Player_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.PK_On_Screen].Enabled || Globals.Config.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled)
+            if  (Globals.ScriptConfig.Alarms[(int)AlarmType.GM_On_Screen].Enabled || Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].Enabled || Globals.ScriptConfig.Alarms[(int)AlarmType.PK_On_Screen].Enabled || Globals.ScriptConfig.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled)
             {
                 List<Creature> creatures = Battlelist.getCreaturesOnScreen();
-                if (Globals.Config.Alarms[(int)AlarmType.GM_On_Screen].Enabled && creatures.Exists(c => c.Name.Contains("[") || gmNames.Contains(c.Name)))
+                if (Globals.ScriptConfig.Alarms[(int)AlarmType.GM_On_Screen].Enabled && creatures.Exists(c => c.Name.Contains("[") || gmNames.Contains(c.Name)))
                     alarmsRequested.Add(AlarmType.GM_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && !Globals.Client.Accounts.Accounts.Exists(a=> a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                     alarmsRequested.Add(AlarmType.Player_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address && !Globals.Client.Accounts.Accounts.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.ScriptConfig.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address))
                     alarmsRequested.Add(AlarmType.PK_On_Screen);
 
-                if (Globals.Config.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black) && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && c.HealthPc < 50 && !Globals.Client.Accounts.Accounts.Exists(a => a.Character.ToLower() == c.Name.ToLower())))
+                if (Globals.ScriptConfig.Alarms[(int)AlarmType.Has_Skull_Dangerous].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black) && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address && c.HealthPc < 50))
                     alarmsRequested.Add(AlarmType.PK_On_Screen);
             }
 
-            if (Globals.Config.Alarms[(int)AlarmType.Local_Chat_Message].Enabled && Objects.ClientData.hasMessageLocalChat)
+            if (Globals.ScriptConfig.Alarms[(int)AlarmType.Local_Chat_Message].Enabled && Objects.ClientData.hasMessageLocalChat)
                 alarmsRequested.Add(AlarmType.Local_Chat_Message);
 
-            if (Globals.Config.Alarms[(int)AlarmType.Has_Skull].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black))
+            if (Globals.ScriptConfig.Alarms[(int)AlarmType.Has_Skull].Enabled && (Player.Creature.Skull == PlayerSkulls.White || Player.Creature.Skull == PlayerSkulls.Red || Player.Creature.Skull == PlayerSkulls.Black))
                 alarmsRequested.Add(AlarmType.Has_Skull);
 
             // 
-            if (Globals.Config.Alarms[(int)AlarmType.Low_Cap].Enabled && Objects.Player.Cap <= 200)
+            if (Globals.ScriptConfig.Alarms[(int)AlarmType.Low_Cap].Enabled && Objects.Player.Cap <= 200)
                 alarmsRequested.Add(AlarmType.Low_Cap);
 
-            if (Globals.Config.Alarms[(int)AlarmType.Low_Stamina].Enabled && Objects.Player.Stamina.TotalMinutes <= 14 * 60)
+            if (Globals.ScriptConfig.Alarms[(int)AlarmType.Low_Stamina].Enabled && Objects.Player.Stamina.TotalMinutes <= 14 * 60)
                 alarmsRequested.Add(AlarmType.Low_Stamina);
 
-            if (Globals.Config.Alarms[(int)AlarmType.No_Imbue].Enabled && (DateTime.Now - lastCheckImbueTime).TotalMilliseconds >= 60 * 5 * 1000)
+            if (Globals.ScriptConfig.Alarms[(int)AlarmType.No_Imbue].Enabled && (DateTime.Now - lastCheckImbueTime).TotalMilliseconds >= 60 * 5 * 1000)
             {
                 Objects.Client.lookAt(Equipment.Weapon);
                 System.Threading.Thread.Sleep(500);
@@ -224,7 +224,7 @@ namespace KzBot.Threads
                     }
                 }
             }
-            else if (Globals.Config.Alarms[(int)AlarmType.No_Imbue].Enabled && !hasImbue)
+            else if (Globals.ScriptConfig.Alarms[(int)AlarmType.No_Imbue].Enabled && !hasImbue)
                 alarmsRequested.Add(AlarmType.No_Imbue);
 
 

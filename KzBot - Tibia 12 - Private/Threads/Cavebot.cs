@@ -23,71 +23,25 @@ namespace KzBot.Threads
             int startWaypointId = Globals.WaypointId;
             try
             {
-                if (Globals.Config.Waypoints.Count <= 0)
+                if (Globals.ScriptConfig.Waypoints.Count <= 0)
                     return;
 
-                if (Globals.Config.Waypoints.Count > 0 && Globals.WaypointId >= Globals.Config.Waypoints.Count)
+                if (Globals.ScriptConfig.Waypoints.Count > 0 && Globals.WaypointId >= Globals.ScriptConfig.Waypoints.Count)
                     Globals.WaypointId = 0;
 
                 startWaypointId = Globals.WaypointId;
-                Waypoint waypoint = Globals.Config.Waypoints[Globals.WaypointId];
+                Waypoint waypoint = Globals.ScriptConfig.Waypoints[Globals.WaypointId];
 
                 if (waypoint.Type == WaypointType.Login_Next)
                 {
-                    Threads.ClientData.UpdateCharacter();
-                    if (!Objects.Player.isLoggedIn || (waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) || (Math.Abs(Objects.Player.Position.X - waypoint.X) < waypoint.rangeX && Math.Abs(Objects.Player.Position.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == Objects.Player.Position.Z)))
-                    {
-                        if (Objects.Player.isLoggedIn)
-                        {
-                            WinApi.RECT clientRect = Globals.clientRect;
-
-                            Globals.Config.auto_Reconnect = false;
-
-                            Client.leftClick(clientRect.right - clientRect.left - 15, 345);
-                            System.Threading.Thread.Sleep(500);
-                            Keyboard.PressKey(Keys.Enter);
-                            System.Threading.Thread.Sleep(2000);
-
-                            if (Objects.Player.isLoggedIn)
-                                return;
-
-
-                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
-                            System.Threading.Thread.Sleep(2000);
-                        }
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(100);
-                        }
-
-                        Globals.WaypointId = 0;
-                        Globals.Config.GeneralStatus = false;
-                        Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
-                            Globals.Main.checkBox1.Checked = false;
-                        });
-
-                        new System.Threading.Thread(() => {
-                            Globals.Client.Accounts.Accounts.Find(a => Globals.Client.Accounts.Accounts.FindIndex(acc => acc.Character == a.Character) > Globals.AccountId && a.Script == Globals.Client.Accounts.Accounts[Globals.AccountId].Script)?.Start();
-                      }).Start();
-
-
-                        return;
-                    }
-                    else
-                    {
-                        Globals.WaypointId++;
-                        return;
-                    }
 
                 }
 
-                if (!Globals.Config.GeneralStatus || !Globals.Config.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
 
-                if (Globals.Config.stop_Walking_on_Target && Objects.Player.isAttacking)
+                if (Globals.ScriptConfig.stop_Walking_on_Target && Objects.Player.isAttacking)
                     return;
 
                 Position playerPos = Objects.Player.Position;
@@ -180,12 +134,12 @@ namespace KzBot.Threads
                             if (!Globals.ComboStatus && waypoint.Extra.Trim().Length > 0)
                                 System.Threading.Thread.Sleep(int.Parse(waypoint.Extra));
 
-                            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
-                            if (Globals.Config.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
+                            List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.HealthPc > 0 && !Globals.ScriptConfig.ignore_List.Contains(cr.Name));
+                            if (Globals.ScriptConfig.check_Only_Near_Creatures_If_Player_on_Screen && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                             {
                                 if (!didWaitBecauseOfPlayerOnCombo)
                                 {
-                                    System.Threading.Thread.Sleep(Globals.Config.time_To_Wait_Before_Checking_Creatures_If_Player_on_Screen);
+                                    System.Threading.Thread.Sleep(Globals.ScriptConfig.time_To_Wait_Before_Checking_Creatures_If_Player_on_Screen);
                                     didWaitBecauseOfPlayerOnCombo = true;
                                 }
 
@@ -195,18 +149,18 @@ namespace KzBot.Threads
 
                             creatures.RemoveAll(c => c.Type != CreatureType.Monster);
 
-                            if (!Globals.ComboStatus && creatures.Count >= Globals.Config.creature_Count_To_Skip_Lure)
+                            if (!Globals.ComboStatus && creatures.Count >= Globals.ScriptConfig.creature_Count_To_Skip_Lure)
                             {
                                 lastLureStart = DateTime.Now;
                                 Globals.ComboStatus = true;
                             }
-                            else if (Globals.Config.max_Lure_Time > 0 && (DateTime.Now - lastLureStart).TotalMilliseconds >= Globals.Config.max_Lure_Time)
+                            else if (Globals.ScriptConfig.max_Lure_Time > 0 && (DateTime.Now - lastLureStart).TotalMilliseconds >= Globals.ScriptConfig.max_Lure_Time)
                             {
                                 Globals.ComboStatus = false;
                                 didWaitBecauseOfPlayerOnCombo = false;
                                 Globals.WaypointId++;
                             }
-                            else if (Globals.ComboStatus && creatures.Count <= Globals.Config.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.Config.creatures_Left_Health_To_End_Lure).Count())
+                            else if (Globals.ComboStatus && creatures.Count <= Globals.ScriptConfig.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.ScriptConfig.creatures_Left_Health_To_End_Lure).Count())
                             {
                                 Globals.ComboStatus = false;
                                 didWaitBecauseOfPlayerOnCombo = false;
@@ -216,7 +170,7 @@ namespace KzBot.Threads
                             {
                                 Globals.WaypointId++;
                                 didWaitBecauseOfPlayerOnCombo = false;
-                                if (Globals.Config.Waypoints[Globals.WaypointId].Type == WaypointType.Loot)
+                                if (Globals.ScriptConfig.Waypoints[Globals.WaypointId].Type == WaypointType.Loot)
                                     Globals.WaypointId++;
                             }
 
@@ -246,37 +200,37 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Goto_Label:
-                        Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
+                        Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.Check_Cap:
-                        if (Objects.Player.Level < Globals.Config.min_Level_To_Check_Cap)
+                        if (Objects.Player.Level < Globals.ScriptConfig.min_Level_To_Check_Cap)
                             Globals.WaypointId++;
                         else if (Objects.Player.Cap < int.Parse(extraData[0]))
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;   
                         break;
                     case WaypointType.Check_Level:
                         if (Objects.Player.Level < int.Parse(extraData[0]))
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Stamina:
                         if (Objects.Player.Stamina.TotalSeconds < int.Parse(extraData[0]) * 60)
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Safe:
                         if (Threads.Alarms.safeMode)
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_PZ:
                         if (Objects.Player.Creature.Skull != PlayerSkulls.White)
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;
@@ -309,18 +263,19 @@ namespace KzBot.Threads
                                     System.Threading.Thread.Sleep(1000);
                                 }
                             else if (foundItem && !hasImbue)
-                                Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                                Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             else if (foundItem)
                                 Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Check_Refill:
                         {
+                            Globals.HasAutoLoot = Globals.Server.autoLootId != -1 && Objects.Client.getItemCount(Globals.Server.autoLootId) > 0;
                             bool needRefill = false;
                             int playerLevel = Objects.Player.Level;
-                            foreach (RefillRule refill in Globals.Config.Refill)
+                            foreach (RefillRule refill in Globals.ScriptConfig.Refill)
                             {
-                                if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
+                                if (Globals.AccVocation != Vocation.None && refill.Vocation != Vocation.None && Globals.AccVocation != refill.Vocation)
                                     continue;
 
                                 if ((refill.Level > 0 && playerLevel < refill.Level) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
@@ -333,7 +288,7 @@ namespace KzBot.Threads
                                 }
                             }
                             if (needRefill)
-                                Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                                Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             else
                                 Globals.WaypointId++;
                             break;
@@ -399,7 +354,7 @@ namespace KzBot.Threads
                                     lastCap = playerCap;
                                 }
 
-                                if (!Globals.Config.GeneralStatus)
+                                if (!Globals.ScriptConfig.GeneralStatus)
                                     return;
                             }
                             Globals.WaypointId++;
@@ -429,9 +384,9 @@ namespace KzBot.Threads
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
                             int playerLevel = Objects.Player.Level;
 
-                            foreach (RefillRule refill in Globals.Config.Refill)
+                            foreach (RefillRule refill in Globals.ScriptConfig.Refill)
                             {
-                                if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && refill.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != refill.Vocation)
+                                if (Globals.AccVocation != Vocation.None && refill.Vocation != Vocation.None && Globals.AccVocation != refill.Vocation)
                                     continue;
 
                                 if ((refill.Level > 0 && playerLevel < refill.Level) || (refill.MaxLevel > 0 && playerLevel > refill.MaxLevel))
@@ -491,7 +446,7 @@ namespace KzBot.Threads
                                 Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
                                 System.Threading.Thread.Sleep(1000);
 
-                                if (!Globals.Config.GeneralStatus)
+                                if (!Globals.ScriptConfig.GeneralStatus)
                                 {
                                     if (changedFocus)
                                         WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
@@ -531,26 +486,6 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Transfer:
-                        if (Globals.Client.Transfer != String.Empty)
-                        {
-                            Keyboard.PressKey(Keys.F21);
-                            System.Threading.Thread.Sleep(500);
-
-                            Client.Say("hi");
-                            System.Threading.Thread.Sleep(500);
-                            for (int i = 0; i < 5; i++)
-                            {
-                                Client.Say("transfer");
-                                System.Threading.Thread.Sleep(100);
-                                Client.Say(Globals.Config.qty_To_Transfer.ToString());
-                                System.Threading.Thread.Sleep(100);
-                                Client.Say(Globals.Client.Transfer);
-                                System.Threading.Thread.Sleep(100);
-                                Client.Say("yes");
-                                System.Threading.Thread.Sleep(100);
-                            }
-                            System.Threading.Thread.Sleep(1000);
-                        }
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Buy_Market:
@@ -677,13 +612,13 @@ namespace KzBot.Threads
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == playerPos.Z))
                             Globals.WaypointId++;
                         else
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.Not_Location_Goback:
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == playerPos.Z))
                             Globals.WaypointId++;
                         else if (Globals.WaypointId <= 0)
-                            Globals.WaypointId = Globals.Config.Waypoints.Count - 1;
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.Count - 1;
                         else
                             Globals.WaypointId--;
                         break;
@@ -691,13 +626,13 @@ namespace KzBot.Threads
                         if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
                             Globals.WaypointId++;
                         else
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.If_Location_Goback:
                         if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
                             Globals.WaypointId++;
                         else if (Globals.WaypointId <= 0)
-                            Globals.WaypointId = Globals.Config.Waypoints.Count - 1;
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.Count - 1;
                         else
                             Globals.WaypointId--;
                         break;
@@ -717,10 +652,10 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.If_Vocation_Goto_Label:
-                        if (Globals.AccountId == -1 || Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation.ToString().ToLower() != extraData[0].Trim().ToLower())
+                        if (Globals.AccVocation.ToString().ToLower() != extraData[0].Trim().ToLower())
                             Globals.WaypointId++;
                         else
-                            Globals.WaypointId = Globals.Config.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());
                         break;
                     case WaypointType.Disable_Safe:
                         Threads.Alarms.safeMode = false;
@@ -728,8 +663,8 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Reset_FPS:
                         {
-                            bool reconnectStatus = Globals.Config.auto_Reconnect;
-                            Globals.Config.auto_Reconnect = false;
+                            bool reconnectStatus = Globals.ScriptConfig.auto_Reconnect;
+                            Globals.ScriptConfig.auto_Reconnect = false;
 
                             System.Threading.Thread.Sleep(3000);
                             Client.Say("!fps");
@@ -737,7 +672,7 @@ namespace KzBot.Threads
 
                             if (Objects.Player.isLoggedIn)
                             {
-                                Globals.Config.auto_Reconnect = reconnectStatus;
+                                Globals.ScriptConfig.auto_Reconnect = reconnectStatus;
                                 Globals.WaypointId++;
                                 break;
                             }
@@ -755,7 +690,7 @@ namespace KzBot.Threads
                             //System.Threading.Thread.Sleep(2000);
 
                             Objects.Client.SetCooldownAddresses();
-                            Globals.Config.auto_Reconnect = reconnectStatus;
+                            Globals.ScriptConfig.auto_Reconnect = reconnectStatus;
                             Globals.WaypointId++;
 
                             break;
@@ -767,11 +702,10 @@ namespace KzBot.Threads
             }
             catch (Exception ex)
             {
-
             }
             finally
             {
-                if (Globals.Config.GeneralStatus && Globals.Config.CavebotStatus)
+                if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.CavebotStatus)
                 {
                     Thread.Change(100, Timeout.Infinite);
                 }

@@ -1,37 +1,55 @@
+using System.Reflection;
+using System.Xml.Serialization;
+
 namespace KzBot
 {
-    internal static class Program
+    public static class Program
     {
+        public static Config Config = new Config();
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            using (Stream file = System.IO.File.Open(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Config.xml", FileMode.Open))
+            {
+                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Config), new XmlRootAttribute("KzTibia"));
+
+                Config = (Config)writer.Deserialize(file);
+                file.Close();
+            }
+
             ApplicationConfiguration.Initialize();
 
-            Main main = new Main();
+
 
             if (args.Length >= 1)
-                main.filePath = args[0];
+                Globals.Script = Config.Scripts.FirstOrDefault(s => s.id == args[0]);
 
             if (args.Length >= 3)
             {
-                main.config_username= args[1];
-                main.config_password= args[2];
+                Globals.Username= args[1];
+                Globals.Password= args[2];
             }
 
-            if (args.Length >= 5)
+            if (args.Length >= 8)
             {
-                main.account_username = args[3];
-                main.account_password = args[4];
+                Globals.AccCharName = args[3];
+                Globals.AccName = args[4];
+                Globals.AccPass = args[5];
+                Globals.AccCharIndex = int.Parse(args[6]);
+                Globals.AccVocation = (Vocation)Enum.Parse(typeof(Vocation), args[7]);
             }
 
-            if (args.Length >= 6)
-                main.clientPath = args[5];
+            if (args.Length >= 9)
+                Globals.Server = Config.Servers.FirstOrDefault(s => s.id == args[8]);
 
+            if (args.Length >= 10)
+                Globals.Client = Config.Clients.FirstOrDefault(c => c.id == args[9]);
+
+
+            Main main = new Main();
             Application.Run(main);
         }
     }

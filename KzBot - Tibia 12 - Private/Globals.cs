@@ -32,16 +32,25 @@ namespace KzBot
         public static TelegramBotClient TelegramBot;
 
 
+        // SETUP AREA
+        public static string Username { get; set; } = string.Empty;
+        public static string Password { get; set; } = string.Empty;
 
-        public static ClientList.Client Client { get; set; }
+        public static string AccCharName { get; set; } = string.Empty;
+        public static string AccName { get; set; } = string.Empty;
+        public static string AccPass { get; set; } = string.Empty;
+        public static int AccCharIndex { get; set; } = 0;
+        public static Vocation AccVocation { get; set; } = Vocation.None;
 
-        public static int AccountId { get; set; } = -1;
-        public static string ScriptFile { get; set; } = string.Empty;
+        public static Classes.Client Client { get; set; }
+        public static Classes.Server Server { get; set; }
+        public static Classes.Script Script { get; set; }
+
+        // END SETUP AREA
 
 
-        public static Config Config { get; set; } = new Config();
 
-        public static ClientList ClientList { get; set; } = new ClientList();
+        public static Script ScriptConfig { get; set; } = new Script();
 
         public static int WaypointId { get; set; } = 0;
 
@@ -49,7 +58,7 @@ namespace KzBot
         {
             using (Stream file = System.IO.File.Open(filePath, FileMode.Open))
             {
-                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Config), new XmlRootAttribute("KzTibia"));
+                XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Script), new XmlRootAttribute("KzTibia"));
                 Globals.Main.Invoke((MethodInvoker)delegate {
 
                     Main.checkBox1.Checked = false;
@@ -60,14 +69,10 @@ namespace KzBot
 
                 });
 
-
-                if (ScriptFile != filePath)
-                    Globals.WaypointId = 0;
-
-                Globals.Config.Waypoints.Clear();
-                Globals.Config.Targeting.Clear();
-                Globals.Config.Healer.Clear();
-                Globals.Config.Refill.Clear();
+                Globals.ScriptConfig.Waypoints.Clear();
+                Globals.ScriptConfig.Targeting.Clear();
+                Globals.ScriptConfig.Healer.Clear();
+                Globals.ScriptConfig.Refill.Clear();
 
                 Globals.Main.Invoke((MethodInvoker)delegate {
                     Main.Cavebot.listView1.Items.Clear();
@@ -76,44 +81,44 @@ namespace KzBot
                     Main.Refill.listView1.Items.Clear();
                 });                
 
-                Globals.Config = (Config)writer.Deserialize(file);
+                Globals.ScriptConfig = (Script)writer.Deserialize(file);
 
                 foreach (AlarmType type in Enum.GetValues(typeof(AlarmType)))
                 {
-                    if (!Globals.Config.Alarms.Exists(rule=> rule.Type == type))
-                        Globals.Config.Alarms.Add(new AlarmRule(type));
+                    if (!Globals.ScriptConfig.Alarms.Exists(rule=> rule.Type == type))
+                        Globals.ScriptConfig.Alarms.Add(new AlarmRule(type));
                 }
 
                 Globals.Main.Invoke((MethodInvoker)delegate {
-                    foreach (Waypoint waypoint in Globals.Config.Waypoints)
+                    foreach (Waypoint waypoint in Globals.ScriptConfig.Waypoints)
                         Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
 
-                    foreach (TargetRule targetRule in Globals.Config.Targeting)
+                    foreach (TargetRule targetRule in Globals.ScriptConfig.Targeting)
                         Main.Targeting.listView1.Items.Add(targetRule.ListViewItem());
 
-                    foreach (HealRule healRule in Globals.Config.Healer)
+                    foreach (HealRule healRule in Globals.ScriptConfig.Healer)
                         Main.Healer.listView1.Items.Add(healRule.ListViewItem());
 
-                    foreach (RefillRule refillRule in Globals.Config.Refill)
+                    foreach (RefillRule refillRule in Globals.ScriptConfig.Refill)
                         Main.Refill.listView1.Items.Add(refillRule.ListViewItem());
 
                     Main.Alerts.AddAlarms();
                     Main.Settings.Reload();
 
-                    Main.checkBox1.Checked = Globals.Config.GeneralStatus;
-                    Main.checkBox2.Checked = Globals.Config.HealerStatus;
-                    Main.checkBox3.Checked = Globals.Config.CavebotStatus;
-                    Main.checkBox4.Checked = Globals.Config.TargetingStatus;
-                    Main.checkBox5.Checked = Globals.Config.AlarmStatus;
+                    Main.checkBox1.Checked = Globals.ScriptConfig.GeneralStatus;
+                    Main.checkBox2.Checked = Globals.ScriptConfig.HealerStatus;
+                    Main.checkBox3.Checked = Globals.ScriptConfig.CavebotStatus;
+                    Main.checkBox4.Checked = Globals.ScriptConfig.TargetingStatus;
+                    Main.checkBox5.Checked = Globals.ScriptConfig.AlarmStatus;
 
                 });
 
-                Globals.Main.CavebotLite.doorId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Door"));
-                Globals.Main.CavebotLite.exaniTeraId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("ExaniTera"));
-                Globals.Main.CavebotLite.holeId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Hole"));
-                Globals.Main.CavebotLite.ladderId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Ladder"));
-                Globals.Main.CavebotLite.stairsId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Stairs"));
-                Globals.Main.CavebotLite.teleportId = Globals.Config.Waypoints.Count(w => w.Label.StartsWith("Teleport"));
+                Globals.Main.CavebotLite.doorId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Door"));
+                Globals.Main.CavebotLite.exaniTeraId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("ExaniTera"));
+                Globals.Main.CavebotLite.holeId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Hole"));
+                Globals.Main.CavebotLite.ladderId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Ladder"));
+                Globals.Main.CavebotLite.stairsId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Stairs"));
+                Globals.Main.CavebotLite.teleportId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Teleport"));
 
                 /*
                 if (Globals.Config.CavebotStatus) Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
@@ -126,7 +131,6 @@ namespace KzBot
                 if (Globals.Config.AlarmStatus) Threads.Alarms.Thread.Change(100, Timeout.Infinite);
                 */
 
-                ScriptFile = filePath;
                 file.Close();
             }
         }
@@ -136,151 +140,15 @@ namespace KzBot
             XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
             namespaces.Add(string.Empty, string.Empty);
 
-            XmlSerializer configSerializer = new System.Xml.Serialization.XmlSerializer(typeof(Config), new XmlRootAttribute("KzTibia"));
+            XmlSerializer configSerializer = new System.Xml.Serialization.XmlSerializer(typeof(Script), new XmlRootAttribute("KzTibia"));
 
             using (var writer = System.IO.File.OpenWrite(filePath))
             {
                 using (var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { Indent = true }))
                 {
-                    configSerializer.Serialize(xmlWriter, Globals.Config);
-                    ScriptFile = filePath;
+                    configSerializer.Serialize(xmlWriter, Globals.ScriptConfig);
+                    Script.path = filePath;
                 }
-            }
-        }
-    }
-    public class ClientList
-    {
-        public List<Client> Clients { get; set; } = new List<Client>();
-
-        public class Client
-        {
-            [XmlAttribute]
-            public string Name { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string Version { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string AccountsFile { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string OtFile { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string Transfer { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string Website { get; set; } = string.Empty;
-            [XmlAttribute]
-            public int AutoLootId { get; set; } = -1;
-
-            [XmlIgnore]
-            public AccountList Accounts { get; set; } = new AccountList();
-
-            public void Update(ToolStripMenuItem parent)
-            {
-                try
-                {
-                    using (Stream file = System.IO.File.Open(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + AccountsFile, FileMode.Open))
-                    {
-                        XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(AccountList), new XmlRootAttribute("KzTibia"));
-                        this.Accounts = (AccountList)writer.Deserialize(file);
-
-                        foreach (AccountList.Account account in Accounts.Accounts)
-                        {
-                            ToolStripItem item = parent.DropDownItems.Add(account.Character);
-                            item.Click += (sender, EventArgs) => {
-                                Globals.Client = this;
-                                account.Start();
-                            };
-                        }
-
-                        file.Close();
-                    }
-                }
-                catch
-                { }
-            }
-        }
-    }
-
-    public class AccountList
-    {
-        public List<Account> Accounts { get; set; } = new List<Account>();
-
-        public class Account
-        {
-            [XmlAttribute]
-            public string Character { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string AccountName { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string Password { get; set; } = string.Empty;
-            [XmlAttribute]
-            public string Script { get; set; } = string.Empty;
-            [XmlAttribute]
-            public int Index { get; set; } = 0;
-            [XmlAttribute]
-            public Vocation Vocation { get; set; } = Vocation.None;
-
-            public void Start()
-            {
-                Globals.Main.Invoke((MethodInvoker)delegate {
-
-                    Globals.Main.checkBox1.Checked = false;
-                    Globals.Main.checkBox2.Checked = false;
-                    Globals.Main.checkBox3.Checked = false;
-                    Globals.Main.checkBox4.Checked = false;
-                    Globals.Main.checkBox5.Checked = false;
-
-                });
-
-
-                if (Globals.Process == null)
-                {
-                    Globals.Process = Process.Start(Globals.Client.OtFile);
-                    Globals.Process.WaitForInputIdle();
-                }
-                else if (Objects.Player.isLoggedIn)
-                {
-                    Globals.Config.auto_Reconnect = false;
-                    WinApi.RECT clientRect = Globals.clientRect;
-
-                    Objects.Client.leftClick(clientRect.right - clientRect.left - 15, 345);
-                    System.Threading.Thread.Sleep(500);
-                    Keyboard.PressKey(Keys.Enter);
-                    System.Threading.Thread.Sleep(2000);
-
-                    if (Objects.Player.isLoggedIn)
-                    {
-                        Start();
-                        return;
-                    }
-
-
-                    Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
-                    System.Threading.Thread.Sleep(2000);
-
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Keyboard.PressKey(Keys.Escape);
-                        System.Threading.Thread.Sleep(100);
-                    }
-                }
-
-                System.Threading.Thread.Sleep(2000);
-
-
-                Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
-
-                Globals.Main.Invoke((MethodInvoker)delegate
-                {
-                    Globals.Main.comboBox1.Items.Clear();
-                    Globals.Main.Text = "KzBot - " + Character;
-                    Globals.Main.comboBox1.Items.Add(Character);
-                    Globals.Main.comboBox1.Text = Character;
-                });
-
-                Globals.AccountId = Globals.Client.Accounts.Accounts.FindIndex(a=> a.Character == Character);
-
-                if (Script.Length > 0)
-                    Globals.Load(@".\Scripts\" + Script);
             }
         }
     }

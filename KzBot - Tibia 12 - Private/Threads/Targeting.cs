@@ -21,22 +21,22 @@ namespace KzBot.Threads
             Target.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
                 // Auto Target Area
 
-                if (Globals.Config.only_target_on_lures && !Globals.ComboStatus)
+                if (Globals.ScriptConfig.only_target_on_lures && !Globals.ComboStatus)
                     return;
 
-                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
+                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.ScriptConfig.ignore_List.Contains(cr.Name));
 
                 if (creatures.Count <= 0)
                     return;
 
                 Objects.Client.targetNear(creatures);
 
-                if (Globals.Config.follow_Target && Objects.Player.isAttacking)
+                if (Globals.ScriptConfig.follow_Target && Objects.Player.isAttacking)
                 {
                     Creature creatureToFollow = creatures.Find(c => c.Id == Player.TargetId);
                     if (creatureToFollow != null)
@@ -49,7 +49,7 @@ namespace KzBot.Threads
             }
             finally
             {
-                if (Globals.Config.GeneralStatus && Globals.Config.TargetingStatus)
+                if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.TargetingStatus)
                     Target.Change(500, Timeout.Infinite);
             }
         }
@@ -58,14 +58,14 @@ namespace KzBot.Threads
             SpellCaster.Change(Timeout.Infinite, Timeout.Infinite);
             try
             {
-                if (!Globals.Config.GeneralStatus || !Globals.Config.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.TargetingStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
 
                 // Spell Caster Area
 
                 bool hasAttackCooldown = Objects.Client.hasCooldown(CooldownGroup.Attack);
 
-                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.Config.ignore_List.Contains(cr.Name));
+                List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.ScriptConfig.ignore_List.Contains(cr.Name));
                 Position playerPos = Player.Position;
 
                 int playerMana = Objects.Player.Mana;
@@ -75,15 +75,15 @@ namespace KzBot.Threads
 
                 bool didCastSkill = false;
 
-                if (Globals.Config.auto_Utito && Globals.ComboStatus && (DateTime.Now - lastUtitoTime).TotalMilliseconds > 10000 && playerLevel >= 60 && playerMana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                if (Globals.ScriptConfig.auto_Utito && Globals.ComboStatus && (DateTime.Now - lastUtitoTime).TotalMilliseconds > 10000 && playerLevel >= 60 && playerMana >= 290 && Objects.Client.hasCooldown(CooldownGroup.Support))
                 {
                     Keyboard.PressKey((Keys)Properties.Settings.Default.Utito_Key);
                     lastUtitoTime = DateTime.Now;
                 }
 
-                foreach (TargetRule rule in Globals.Config.Targeting)
+                foreach (TargetRule rule in Globals.ScriptConfig.Targeting)
                 {
-                    if (Globals.AccountId != -1 && (Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != Vocation.None && rule.Vocation != Vocation.None) && Globals.Client.Accounts.Accounts[Globals.AccountId].Vocation != rule.Vocation)
+                    if (Globals.AccVocation != Vocation.None && rule.Vocation != Vocation.None && Globals.AccVocation != rule.Vocation)
                         continue;
 
                     if ((rule.Level > 0 && playerLevel < rule.Level) || (rule.MaxLevel > 0 && playerLevel > rule.MaxLevel))
@@ -100,7 +100,7 @@ namespace KzBot.Threads
                     if (rule.Delay > 0 && (DateTime.Now - rule.LastUse).TotalMilliseconds <= rule.Delay)
                         continue;
 
-                    if (Globals.ComboStatus && Globals.Config.ignore_Creature_Count_on_Combo)
+                    if (Globals.ComboStatus && Globals.ScriptConfig.ignore_Creature_Count_on_Combo)
                     { }
                     else if (rule.PlayerOnCenter && creatures.Where(c => c.Position.distanceTo(playerPos) <= rule.Range).Count() < rule.CreatureCount)
                         continue;
@@ -122,7 +122,7 @@ namespace KzBot.Threads
             }
             finally
             {
-                if (Globals.Config.GeneralStatus && Globals.Config.TargetingStatus)
+                if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.TargetingStatus)
                     SpellCaster.Change(100, Timeout.Infinite);
             }
         }

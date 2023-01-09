@@ -31,7 +31,7 @@ namespace HUB.Util
             AllLowerCaseChars = GetCharRange('a', 'z', exclusiveChars: "ilo");
             AllUpperCaseChars = GetCharRange('A', 'Z', exclusiveChars: "IO");
             AllNumericChars = GetCharRange('2', '9');
-            AllSpecialChars = "!@#*()$?+-="; // TIREI %
+            AllSpecialChars = "!@#*()$?-="; // TIREI % e +
         }
 
         public PasswordGenerator(int minimumLengthPassword = 8, int maximumLengthPassword = 15, int minimumLowerCaseChars = 1,

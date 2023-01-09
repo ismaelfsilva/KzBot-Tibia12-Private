@@ -47,7 +47,7 @@ namespace HUB.Util
 
             JsonSerializer serializer = new JsonSerializer();
 
-            using (StreamReader reader = new StreamReader(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Config/Names.json"))
+            using (StreamReader reader = new StreamReader(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\names.json"))
             using (JsonReader jreader = new JsonTextReader(reader))
             {
                 l = serializer.Deserialize<NameList>(jreader);

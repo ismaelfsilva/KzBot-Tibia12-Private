@@ -32,6 +32,27 @@ namespace HUB
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            bool addFunc = await addCharacterAsync(Settings.Default.Username,
+                    Settings.Default.Password,
+                    textBox1.Text,
+                    textBox2.Text,
+                    textBox3.Text,
+                    comboBox1.Text,
+                    comboBox2.Text,
+                    comboBox3.Text != string.Empty ? "&char_script=" + comboBox3.Text : string.Empty);
+
+
+            if (addFunc)
+            {
+                if (MessageBox.Show("Character Added.") == DialogResult.OK)
+                    this.Close();
+            }
+            else
+                MessageBox.Show("There was an error.");
+        }
+
+        public async Task<bool> addCharacterAsync(string username, string password, string charName, string charAccount, string charPassword, string charServer, string charVocation, string charScript = "")
+        {
             try
             {
                 var client = new HttpClient();
@@ -41,33 +62,32 @@ namespace HUB
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-               string requestString = string.Format("https://tibia.kzsoft.com.br/create.php?username={0}&password={1}&char_name={2}&char_account={3}&char_password={4}&char_server={5}&char_vocation={6}{7}",
-                    Settings.Default.Username,
-                    Settings.Default.Password,
-                    textBox1.Text,
-                    textBox2.Text,
-                    textBox3.Text,
-                    comboBox1.Text,
-                    comboBox2.Text,
-                    comboBox3.Text != string.Empty ? "&char_script=" + comboBox3.Text : string.Empty
-                    );
+                string requestString = string.Format("https://tibia.kzsoft.com.br/create.php?username={0}&password={1}&char_name={2}&char_account={3}&char_password={4}&char_server={5}&char_vocation={6}{7}",
+                     username,
+                     password,
+                     charName,
+                     charAccount,
+                     charPassword,
+                     charServer,
+                     charVocation,
+                     charScript != string.Empty ? "&char_script=" + charScript : string.Empty
+                     );
 
                 var response = await client.GetAsync(requestString);
                 string content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode && content == "1")
-                {
-                    if (MessageBox.Show("Character Added.") == DialogResult.OK)
-                        this.Close();
-                }
+                    return true;
                 else
-                    MessageBox.Show("There was an error.");
+                    return false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error.");
-                return;
+                return false;
             }
+
+            return false;
         }
 
         private async void button2_Click(object sender, EventArgs e)
@@ -85,7 +105,9 @@ namespace HUB
                 bool created = await taskList[i];
 
                 if (created)
+                {
                     count++;
+                }
                 else
                     taskList.Add(Create());
 
@@ -157,7 +179,14 @@ namespace HUB
                 character = new Util.RandomName(r).Generate((Util.Sex)Convert.ToInt32(male), r.Next(0, 1));
             }
 
-            return await Create(account, password, email, character, male, flag);
+            return await Create(account, password, email, character, male, flag) && await addCharacterAsync(Settings.Default.Username,
+                    Settings.Default.Password,
+                    character,
+                    account,
+                    password,
+                    comboBox1.Text,
+                    comboBox2.Text,
+                    comboBox3.Text != string.Empty ? "&char_script=" + comboBox3.Text : string.Empty); ;
         }
 
         public string GenerateName(int len)

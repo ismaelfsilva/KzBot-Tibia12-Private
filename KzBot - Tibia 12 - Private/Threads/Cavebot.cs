@@ -37,6 +37,13 @@ namespace KzBot.Threads
                 {
 
                 }
+                else if (waypoint.Type == WaypointType.Close_Bot)
+                {
+                    Threads.ClientData.UpdateCharacter();
+                    Globals.Main.canCloseForm = true;
+                    Globals.Main.Close();
+                    return;
+                }
 
                 if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
@@ -590,11 +597,6 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Oemplus);
                             Globals.WaypointId++;
                         }
-                        break;
-                    case WaypointType.Close_Bot:
-                        Threads.ClientData.UpdateCharacter();
-                        Globals.Main.canCloseForm = true;
-                        Globals.Main.Close();
                         break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)

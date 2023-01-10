@@ -47,13 +47,14 @@ namespace KzBot.Objects
                 return;
 
             Point equipPoint = equipmentPoints[(int)equipment];
+            Point equipFinalPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + equipPoint.X, equipPoint.Y);
 
             Position playerPos = Objects.Player.Position;
             Point sqmPosition = new Point();
             sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
             sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
 
-            Client.dragMouse(equipPoint, sqmPosition);
+            Client.dragMouse(equipFinalPoint, sqmPosition);
             System.Threading.Thread.Sleep(1000);
         }
 
@@ -451,6 +452,7 @@ namespace KzBot.Objects
 
         public static void Say(string text)
         {
+            Keyboard.PressKey(Keys.F19);
             Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(200);
             foreach (byte b in ASCIIEncoding.Default.GetBytes(text))
@@ -460,6 +462,7 @@ namespace KzBot.Objects
             System.Threading.Thread.Sleep(200);
             Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(200);
+            Keyboard.PressKey(Keys.F20);
         }
 
         public static Bitmap CaptureApplication()

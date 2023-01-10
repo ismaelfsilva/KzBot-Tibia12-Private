@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using Telegram.Bot;
@@ -83,23 +84,13 @@ namespace KzBot
 
             comboBox1.Items.Clear();
 
-            foreach (Process p in Process.GetProcesses().Where(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle != "Tibia"))
-            {
-                comboBox1.Items.Add(p.MainWindowTitle.Replace("Tibia - ", ""));
-            }
-
-            Threads.ClientData.Thread.Change(100, Timeout.Infinite);
-
-            Main_ResizeEnd(sender, e);
-
-            if (Globals.Script != null)
-            {
-                Globals.Load(Globals.Script.path);
-            }
-
             if (Globals.Server != null && Globals.Client != null)
             {
-                Globals.Process = Process.Start(Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                while (Globals.Process == null)
+                {
+                    Globals.Process = Process.Start(Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                    Globals.Process.WaitForInputIdle();
+                }
 
                 Globals.Main.comboBox1.Items.Clear();
                 Globals.Main.Text = "KzBot - " + Globals.AccCharName;
@@ -121,6 +112,22 @@ namespace KzBot
 
                 Threads.ClientData.setClient = false;
             }
+
+
+            foreach (Process p in Process.GetProcesses().Where(p => p.MainWindowTitle.StartsWith("Tibia") && p.MainWindowTitle != "Tibia"))
+            {
+                comboBox1.Items.Add(p.MainWindowTitle.Replace("Tibia - ", ""));
+            }
+
+
+            if (Globals.Script != null)
+            {
+                Globals.Load(Globals.Script.path);
+            }
+
+            Threads.ClientData.Thread.Change(100, Timeout.Infinite);
+
+            Main_ResizeEnd(sender, e);
 
             didStartUp = true;
         }
@@ -357,31 +364,59 @@ namespace KzBot
                     Threads.Targeting.SpellCaster.Change(100, Timeout.Infinite);
                 }
             }
+            else
+            {
+                Threads.Cavebot.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+                Threads.Healer.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+                Threads.Targeting.Target.Change(Timeout.Infinite, Timeout.Infinite);
+                Threads.Targeting.SpellCaster.Change(Timeout.Infinite, Timeout.Infinite);
+                Threads.Alarms.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             Globals.ScriptConfig.HealerStatus = checkBox2.Checked;
-            Threads.Healer.Thread.Change(100, Timeout.Infinite);
+            if (Globals.ScriptConfig.HealerStatus)
+                Threads.Healer.Thread.Change(100, Timeout.Infinite);
+            else
+                Threads.Healer.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             Globals.ScriptConfig.CavebotStatus = checkBox3.Checked;
-            Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
+            if (Globals.ScriptConfig.CavebotStatus)
+                Threads.Cavebot.Thread.Change(100, Timeout.Infinite);
+            else
+                Threads.Cavebot.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             Globals.ScriptConfig.TargetingStatus = checkBox4.Checked;
-            Threads.Targeting.Target.Change(100, Timeout.Infinite);
-            Threads.Targeting.SpellCaster.Change(100, Timeout.Infinite);
+            if (Globals.ScriptConfig.TargetingStatus)
+            {
+                Threads.Targeting.Target.Change(100, Timeout.Infinite);
+                Threads.Targeting.SpellCaster.Change(100, Timeout.Infinite);
+            }
+            else
+            {
+                Threads.Targeting.Target.Change(Timeout.Infinite, Timeout.Infinite);
+                Threads.Targeting.SpellCaster.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             Globals.ScriptConfig.AlarmStatus = checkBox5.Checked;
-            Threads.Alarms.Thread.Change(100, Timeout.Infinite);
+            if (Globals.ScriptConfig.AlarmStatus)
+                Threads.Alarms.Thread.Change(100, Timeout.Infinite);
+            else
+                Threads.Alarms.Thread.Change(Timeout.Infinite, Timeout.Infinite);
+
         }
 
         private void button1_KeyDown(object sender, KeyEventArgs e)
@@ -403,7 +438,27 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            List<Point> lootPointList = new List<Point>();
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    Point sqmPosition = new Point();
+                    sqmPosition.X = Objects.ClientData.GameMapCenter.X + x * Objects.ClientData.SqmSize.Width;
+                    sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + y * Objects.ClientData.SqmSize.Height;
+                    lootPointList.Add(sqmPosition);
+                }
+            }
+
+            for (int tries = 0; tries < 1; tries++)
+            {
+                foreach (Point p in lootPointList)
+                {
+                    Objects.Client.rightClickPos(p);
+                    System.Threading.Thread.Sleep(250);
+                }
+            }
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

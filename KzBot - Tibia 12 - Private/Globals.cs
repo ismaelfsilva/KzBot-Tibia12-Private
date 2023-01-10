@@ -69,6 +69,12 @@ namespace KzBot
 
                 });
 
+                Globals.ScriptConfig.AlarmStatus = false;
+                Globals.ScriptConfig.HealerStatus = false;
+                Globals.ScriptConfig.TargetingStatus = false;
+                Globals.ScriptConfig.CavebotStatus = false;
+                Globals.ScriptConfig.GeneralStatus = false;
+
                 Globals.ScriptConfig.Waypoints.Clear();
                 Globals.ScriptConfig.Targeting.Clear();
                 Globals.ScriptConfig.Healer.Clear();
@@ -89,6 +95,8 @@ namespace KzBot
                         Globals.ScriptConfig.Alarms.Add(new AlarmRule(type));
                 }
 
+                System.Threading.Thread.Sleep(1000);
+
                 Globals.Main.Invoke((MethodInvoker)delegate {
                     foreach (Waypoint waypoint in Globals.ScriptConfig.Waypoints)
                         Main.Cavebot.listView1.Items.Add(waypoint.ListViewItem());
@@ -105,12 +113,14 @@ namespace KzBot
                     Main.Alerts.AddAlarms();
                     Main.Settings.Reload();
 
-                    Main.checkBox1.Checked = Globals.ScriptConfig.GeneralStatus;
                     Main.checkBox2.Checked = Globals.ScriptConfig.HealerStatus;
                     Main.checkBox3.Checked = Globals.ScriptConfig.CavebotStatus;
                     Main.checkBox4.Checked = Globals.ScriptConfig.TargetingStatus;
                     Main.checkBox5.Checked = Globals.ScriptConfig.AlarmStatus;
 
+                    System.Threading.Thread.Sleep(1000);
+
+                    Main.checkBox1.Checked = Globals.ScriptConfig.GeneralStatus;
                 });
 
                 Globals.Main.CavebotLite.doorId = Globals.ScriptConfig.Waypoints.Count(w => w.Label.StartsWith("Door"));

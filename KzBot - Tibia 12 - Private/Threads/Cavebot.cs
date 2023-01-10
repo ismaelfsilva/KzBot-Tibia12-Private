@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace KzBot.Threads
@@ -17,6 +19,7 @@ namespace KzBot.Threads
         public static System.Threading.Timer Thread = new System.Threading.Timer(CavebotThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool didWaitBecauseOfPlayerOnCombo = false;
         public static DateTime lastLureStart = DateTime.MinValue;
+        public static int lastCharacterId = 0;
 
         private static void CavebotThread(object state)
         {
@@ -36,6 +39,28 @@ namespace KzBot.Threads
                 if (waypoint.Type == WaypointType.Login_Next)
                 {
 
+                }
+                else if (waypoint.Type == WaypointType.Setup_Config)
+                {
+                    int charId = lastCharacterId;
+                    if (charId <= 0)
+                    {
+                        Globals.WaypointId++;
+                        return;
+                    }
+
+                    try
+                    {
+                        string botPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
+                        string lootFile = "lootBlackWhitelist.json";
+                        string sidebarsFile = "sidebars.json";
+                        File.Copy(botPath + lootFile, Globals.Server.path + @"\characterdata\" + charId + @"\" + lootFile, true);
+                        File.Copy(botPath + sidebarsFile, Globals.Server.path + @"\characterdata\" + charId + @"\" + sidebarsFile, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
                 }
                 else if (waypoint.Type == WaypointType.Close_Bot)
                 {
@@ -71,6 +96,7 @@ namespace KzBot.Threads
                     case WaypointType.Imbue:
                     case WaypointType.Go_Near:
                     case WaypointType.Teleport:
+                    case WaypointType.Take_Out_Equip:
                     case WaypointType.Step:
                         if (playerPos.Z != waypoint.Z)
                         {
@@ -188,18 +214,25 @@ namespace KzBot.Threads
                     case WaypointType.Loot:
                         if (!Globals.HasAutoLoot)
                         {
-                            for (int tries = 0; tries < 5; tries++)
+                            List<Point> lootPointList = new List<Point>();
+
+                            for (int x = -1; x <= 1; x++)
                             {
-                                for (int x = -1; x <= 1; x++)
+                                for (int y = -1; y <= 1; y++)
                                 {
-                                    for (int y = -1; y <= 1; y++)
-                                    {
-                                        Point sqmPosition = new Point();
-                                        sqmPosition.X = Objects.ClientData.GameMapCenter.X + x * Objects.ClientData.SqmSize.Width;
-                                        sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + y * Objects.ClientData.SqmSize.Height;
-                                        Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
-                                        System.Threading.Thread.Sleep(10);
-                                    }
+                                    Point sqmPosition = new Point();
+                                    sqmPosition.X = Objects.ClientData.GameMapCenter.X + x * Objects.ClientData.SqmSize.Width;
+                                    sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + y * Objects.ClientData.SqmSize.Height;
+                                    lootPointList.Add(sqmPosition);
+                                }
+                            }
+
+                            for (int tries = 0; tries < 1; tries++)
+                            {
+                                foreach (Point p in lootPointList)
+                                {
+                                    Objects.Client.rightClickPos(p);
+                                    System.Threading.Thread.Sleep(250);
                                 }
                             }
                         }
@@ -317,10 +350,12 @@ namespace KzBot.Threads
                     case WaypointType.Sell_All:
                         {
                             System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(500);
 
-                            Keyboard.PressKey(Keys.F21);
+                            Keyboard.PressKey(Keys.F22);
                             System.Threading.Thread.Sleep(500);
 
                             Client.Say("hi");
@@ -371,6 +406,8 @@ namespace KzBot.Threads
                                 if (!Globals.ScriptConfig.GeneralStatus)
                                     return;
                             }
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.F20);
                             Globals.WaypointId++;
                             break;
                         }
@@ -398,6 +435,12 @@ namespace KzBot.Threads
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
                             int playerLevel = Objects.Player.Level;
 
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(100);
+
+                            Keyboard.PressKey(Keys.F22);
+                            System.Threading.Thread.Sleep(100);
+
                             foreach (RefillRule refill in Globals.ScriptConfig.Refill)
                             {
                                 if (Globals.AccVocation != Vocation.None && refill.Vocation != Vocation.None && Globals.AccVocation != refill.Vocation)
@@ -415,9 +458,6 @@ namespace KzBot.Threads
 
                                 System.Threading.Thread.Sleep(100);
                                 Objects.Client.leftClick(Objects.ClientData.GameMapRect.Left, clientRect.bottom - 23);
-                                System.Threading.Thread.Sleep(100);
-
-                                Keyboard.PressKey(Keys.F21);
                                 System.Threading.Thread.Sleep(100);
 
                                 Client.Say("hi");
@@ -465,6 +505,9 @@ namespace KzBot.Threads
                                     if (changedFocus)
                                         WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
 
+                                    Keyboard.PressKey(Keys.F20);
+                                    System.Threading.Thread.Sleep(100);
+
                                     return;
                                 }
                             }
@@ -472,10 +515,16 @@ namespace KzBot.Threads
                             if (changedFocus)
                                 WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
 
+
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(100);
+
                             Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Deposit_All:
+                        Keyboard.PressKey(Keys.F19);
+                        System.Threading.Thread.Sleep(100);
                         Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(500);
 
@@ -486,12 +535,17 @@ namespace KzBot.Threads
                         Client.Say("yes");
                         System.Threading.Thread.Sleep(1000);
 
+                        Keyboard.PressKey(Keys.F20);
+                        System.Threading.Thread.Sleep(100);
+
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Transfer:
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Balance:
+                        Keyboard.PressKey(Keys.F19);
+                        System.Threading.Thread.Sleep(100);
                         Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(500);
 
@@ -519,6 +573,9 @@ namespace KzBot.Threads
 
                         Threads.ClientData.lastBalance = balance;
 
+                        Keyboard.PressKey(Keys.F20);
+                        System.Threading.Thread.Sleep(100);
+
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Buy_Market:
@@ -533,12 +590,14 @@ namespace KzBot.Threads
                     case WaypointType.Imbue:
                         {
                             Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
+                            System.Threading.Thread.Sleep(500);
                             Globals.WaypointId++;
                         }
                         break;
                     case WaypointType.Take_Out_Equip:
                         {
-                            Client.takeOut((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position);
+                            Client.takeOut((Equipment)Enum.Parse(typeof(Equipment), waypoint.Extra.Trim()), waypoint.Position);
+                            //System.Threading.Thread.Sleep(500);
                             Globals.WaypointId++;
                         }
                         break;
@@ -653,17 +712,32 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Click_Ok:
-                        Point buttonPoint = Objects.ClientData.FindOkButton();
-                        if (buttonPoint.X <= 0)
-                            System.Media.SystemSounds.Beep.Play();
-                        else
                         {
-                            Objects.Client.leftClick(buttonPoint.X, buttonPoint.Y);
-                            Keyboard.PressKey(Keys.Escape);
-                            Globals.WaypointId++;
-                        }
+                            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+                            bool changedFocus = false;
 
-                        break;
+                            if (placement.showCmd == 2)
+                            {
+                                changedFocus = true;
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                            }
+
+                            Point buttonPoint = Objects.ClientData.FindOkButton();
+                            if (buttonPoint.X <= 0)
+                                System.Media.SystemSounds.Beep.Play();
+                            else
+                            {
+                                Objects.Client.leftClick(buttonPoint.X, buttonPoint.Y);
+                                Keyboard.PressKey(Keys.Escape);
+                                Globals.WaypointId++;
+                            }
+
+                            if (changedFocus)
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+
+                            break;
+                        }
                     case WaypointType.Use_On:
                         System.Threading.Thread.Sleep(300);
 
@@ -699,11 +773,36 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Login_Next:
                         break;
+                    case WaypointType.Logout:
+                        {
+                            WinApi.RECT clientRect = Globals.clientRect;
+
+                            if (Objects.Player.Creature.Id > 0)
+                                lastCharacterId = Objects.Player.Creature.Id;
+
+                            Client.leftClick(clientRect.right - clientRect.left - 15, 345);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(2000);
+
+                            if (!Objects.Player.isLoggedIn)
+                                Globals.WaypointId++;
+
+                            break;
+                        }
                     case WaypointType.Load:
-                        Globals.Load(@".\Scripts\" + @waypoint.Extra);
+                        Classes.Script script = Program.Config.Scripts.FirstOrDefault(s => s.name.ToLower().Trim() == waypoint.Extra.Trim().ToLower());
                         Globals.WaypointId = 0;
-                        System.Threading.Thread.Sleep(5000);
-                        break;
+                        Thread.Change(Timeout.Infinite, Timeout.Infinite);
+                        Globals.ScriptConfig.GeneralStatus = false;
+                        Globals.ScriptConfig.CavebotStatus = false;
+
+                        if (script == null)
+                            Globals.Load(@".\Scripts\" + @waypoint.Extra);
+                        else
+                            Globals.Load(script.path);
+
+                        return;
                     case WaypointType.Alert:
                         WinApi.FlashWindow(Globals.Process.MainWindowHandle, true);
                         System.Media.SystemSounds.Beep.Play();
@@ -738,7 +837,9 @@ namespace KzBot.Threads
                             Globals.WaypointId--;
                         break;
                     case WaypointType.Travel:
-                        Keyboard.PressKey(Keys.F21);
+                        Keyboard.PressKey(Keys.F19);
+                        System.Threading.Thread.Sleep(100);
+                        Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(500);
                         Client.Say("hi");
                         System.Threading.Thread.Sleep(500);
@@ -746,9 +847,11 @@ namespace KzBot.Threads
                         System.Threading.Thread.Sleep(500);
                         Client.Say("yes");
                         System.Threading.Thread.Sleep(500);
+                        Keyboard.PressKey(Keys.F20);
+                        System.Threading.Thread.Sleep(100);
                         break;
                     case WaypointType.Open_Npc:
-                        Keyboard.PressKey(Keys.F21);
+                        Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(1000);
                         Globals.WaypointId++;
                         break;
@@ -767,6 +870,8 @@ namespace KzBot.Threads
                             bool reconnectStatus = Globals.ScriptConfig.auto_Reconnect;
                             Globals.ScriptConfig.auto_Reconnect = false;
 
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(3000);
                             Client.Say("!fps");
                             System.Threading.Thread.Sleep(2000);
@@ -792,6 +897,10 @@ namespace KzBot.Threads
 
                             Objects.Client.SetCooldownAddresses();
                             Globals.ScriptConfig.auto_Reconnect = reconnectStatus;
+
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F20);
+
                             Globals.WaypointId++;
 
                             break;

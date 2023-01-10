@@ -24,6 +24,8 @@ namespace KzBot
             return strResult;
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(ref Point lpPoint);
         public static bool IsNumericType(object o)
         {
             switch (Type.GetTypeCode(o.GetType()))

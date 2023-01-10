@@ -262,6 +262,48 @@ namespace KzBot.Objects
             return false;
         }
 
+        public static List<string> getNpcMessages()
+        {
+            string clipboard = Clipboard.GetText();
+            Globals.Main.Invoke((MethodInvoker)delegate
+            {
+                clipboard = Clipboard.GetText();
+            });
+
+            string serverLogText = string.Empty;
+            List<string> messages = new List<string>();
+
+            Keyboard.PressKey(Keys.F22);
+            Keyboard.PressKey(Keys.F23);
+            Keyboard.PressKey(Keys.F24);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(100);
+
+
+            Globals.Main.Invoke((MethodInvoker)delegate
+            {
+                serverLogText = Clipboard.GetText();
+
+                Clipboard.Clear();
+                if (clipboard != String.Empty)
+                    Clipboard.SetText(clipboard);
+            });
+
+
+            System.Threading.Thread.Sleep(1000);
+
+
+            using (StringReader reader = new StringReader(serverLogText))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    messages.Add(line);
+                }
+            }
+
+            return messages;
+        }
 
         public static List<string> getServerLogMessages()
         {
@@ -274,7 +316,7 @@ namespace KzBot.Objects
             string serverLogText = string.Empty;
             List<string> messages = new List<string>();
 
-            Keyboard.PressKey(Keys.F22);
+            Keyboard.PressKey(Keys.F21);
             Keyboard.PressKey(Keys.F23);
             Keyboard.PressKey(Keys.F24);
             Keyboard.PressKey(Keys.Enter);

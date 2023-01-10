@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace KzBot.Threads
 {
@@ -14,7 +16,6 @@ namespace KzBot.Threads
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(CavebotThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool didWaitBecauseOfPlayerOnCombo = false;
-        public static DateTime lastBalanceUpdate = DateTime.MinValue;
         public static DateTime lastLureStart = DateTime.MinValue;
 
         private static void CavebotThread(object state)
@@ -212,6 +213,12 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Check_Level:
                         if (Objects.Player.Level < int.Parse(extraData[0]))
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
+                    case WaypointType.Check_Balance:
+                        if (Threads.ClientData.lastBalance > 0 && Threads.ClientData.lastBalance < int.Parse(extraData[0]))
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;
@@ -462,18 +469,7 @@ namespace KzBot.Threads
                             break;
                         }
                     case WaypointType.Deposit_All:
-                        if ((DateTime.Now  - lastBalanceUpdate).TotalMilliseconds > 5 * 60 * 1000)
-                        {
-                            int goldCount = Objects.Client.getItemCount(3031);
-                            int platCount = Objects.Client.getItemCount(3035) * 100;
-                            int crystalCount = Objects.Client.getItemCount(3043) * 10000;
-
-                            Threads.ClientData.amountToAdd += goldCount + platCount + crystalCount;
-                            lastBalanceUpdate = DateTime.Now;
-                        }
-
-
-                        Keyboard.PressKey(Keys.F21);
+                        Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(500);
 
                         Client.Say("hi");
@@ -486,6 +482,36 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Transfer:
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.Balance:
+                        Keyboard.PressKey(Keys.F22);
+                        System.Threading.Thread.Sleep(500);
+
+                        Client.Say("hi");
+                        System.Threading.Thread.Sleep(500);
+                        Client.Say("balance");
+                        System.Threading.Thread.Sleep(2000);
+
+                        Keyboard.PressKey(Keys.F23);
+                        System.Threading.Thread.Sleep(500);
+                        Keyboard.PressKey(Keys.F24);
+                        System.Threading.Thread.Sleep(500);
+
+                        string balanceMessage = Objects.Client.getNpcMessages().LastOrDefault();
+                        int balance = Threads.ClientData.lastBalance;
+                        Regex regex = new Regex(@"\d+");
+
+                        if (balanceMessage != null && balanceMessage.Contains("gold"))
+                        {
+                            MatchCollection matches = regex.Matches(balanceMessage);
+
+                            if (matches.Count > 0)
+                                int.TryParse(matches.LastOrDefault().Value, out balance);
+                        }
+
+                        Threads.ClientData.lastBalance = balance;
+
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Buy_Market:
@@ -509,6 +535,67 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         }
                         break;
+                    case WaypointType.Setup_Bag:
+                        {
+                            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+
+                            Point assignPoint = new Point(middleScreenPoint.X - 100, middleScreenPoint.Y - 150);
+                            Point backpackFirstItemPoint = new Point(Globals.clientRect.right - 145, 535);
+                            Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
+                            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+                            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+                            // CLOSE WINDOWS
+                            for (int i = 0; i < 10; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(100);
+                            }
+                            System.Threading.Thread.Sleep(1000);
+
+                            // OPEN BACKPACK
+                            Client.rightClickPos(backpackPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            // OPEN CONTAINERS WINDOW
+                            Keyboard.PressKey(Keys.OemMinus);
+                            System.Threading.Thread.Sleep(500);
+
+                            // CLICK ASSIGN
+                            Client.leftClick(assignPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            // SET TO MAIN BACKPACK
+                            Client.leftClick(backpackPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(500);
+
+                            // CLICK ASSIGN
+                            Client.leftClick(assignPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            // SET TO FIRST SLOT IN BP
+                            Client.leftClick(backpackFirstItemPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(500);
+
+                            Keyboard.PressKey(Keys.Escape);
+                            Globals.WaypointId++;
+                        }
+                        break;
+                    case WaypointType.Set_Offensive:
+                        {
+                            Keyboard.PressKey(Keys.Oemplus);
+                            Globals.WaypointId++;
+                        }
+                        break;
+                    case WaypointType.Close_Bot:
+                        Threads.ClientData.UpdateCharacter();
+                        Globals.Main.canCloseForm = true;
+                        Globals.Main.Close();
+                        break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)
                             Globals.WaypointId++;
@@ -522,6 +609,12 @@ namespace KzBot.Threads
                     case WaypointType.Wait_PZ:
                         if (Objects.Player.Creature.Skull != PlayerSkulls.White)
                             Globals.WaypointId++;
+                        break;
+                    case WaypointType.Disable_Healer:
+                        Globals.Main.checkBox2.Invoke((MethodInvoker)delegate {
+                            Globals.Main.checkBox2.Checked = false;
+                        });
+                        Globals.WaypointId++;
                         break;
                     case WaypointType.Disable_Targeting:
                         Globals.Main.checkBox4.Invoke((MethodInvoker)delegate {
@@ -544,6 +637,12 @@ namespace KzBot.Threads
                     case WaypointType.Enable_Alerts:
                         Globals.Main.checkBox5.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox5.Checked = true;
+                        });
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.Enable_Healer:
+                        Globals.Main.checkBox2.Invoke((MethodInvoker)delegate {
+                            Globals.Main.checkBox2.Checked = true;
                         });
                         Globals.WaypointId++;
                         break;

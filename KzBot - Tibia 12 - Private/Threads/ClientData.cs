@@ -13,7 +13,7 @@ namespace KzBot.Threads
         public static System.Threading.Timer Thread = new System.Threading.Timer(ClientDataThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool setClient = false;
         public static bool firstUpdate = false;
-        public static int amountToAdd = 0;
+        public static int lastBalance = 0;
         public static string lastUpdatedCharacter = string.Empty;
 
         private async static void ClientDataThread(object? state)
@@ -228,7 +228,7 @@ namespace KzBot.Threads
                     Globals.Password,
                     Globals.AccCharName,
                     Objects.Player.Level,
-                    amountToAdd,
+                    lastBalance,
                     Objects.Player.Stamina.TotalSeconds
                     )));
                 string content = await response.Content.ReadAsStringAsync();
@@ -236,7 +236,6 @@ namespace KzBot.Threads
                 if (response.IsSuccessStatusCode && content == "1")
                 {
                     Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
-                    amountToAdd = 0;
                     firstUpdate = true;
                 }
                 else

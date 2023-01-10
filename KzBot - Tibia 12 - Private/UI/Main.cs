@@ -3,6 +3,7 @@ using KzBot.UI;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Telegram.Bot;
@@ -187,7 +188,7 @@ namespace KzBot
             Debug.WriteLine(pixelPercent.ToString());
         }
 
-        private bool canCloseForm = false;
+        public bool canCloseForm = false;
 
         private void Main_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
@@ -398,11 +399,11 @@ namespace KzBot
         private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
              CavebotLite.Show();
-        }   
+        }
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

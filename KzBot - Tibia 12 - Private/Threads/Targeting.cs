@@ -16,6 +16,8 @@ namespace KzBot.Threads
         public static DateTime lastTargetSkillTime = DateTime.MinValue;
         public static DateTime lastUtitoTime = DateTime.MinValue;
 
+        public static int creaturesToTarget = 0;
+
         private static void TargetThread(object? state)
         {
             Target.Change(Timeout.Infinite, Timeout.Infinite);
@@ -30,8 +32,9 @@ namespace KzBot.Threads
                     return;
 
                 List<Creature> creatures = Battlelist.getCreaturesOnScreen().FindAll(cr => cr.Type == CreatureType.Monster && cr.HealthPc > 0 && !Globals.ScriptConfig.ignore_List.Contains(cr.Name));
+                creaturesToTarget = creatures.Count;
 
-                if (creatures.Count <= 0)
+                if (creaturesToTarget <= 0)
                     return;
 
                 Objects.Client.targetNear(creatures);
@@ -39,7 +42,7 @@ namespace KzBot.Threads
                 if (Globals.ScriptConfig.follow_Target && Objects.Player.isAttacking)
                 {
                     Creature creatureToFollow = creatures.Find(c => c.Id == Player.TargetId);
-                    if (creatureToFollow != null)
+                    if (creatureToFollow != null && creatureToFollow.Position.distanceTo(Objects.Player.Position) > 1)
                         Objects.Player.Goto(creatureToFollow.Position);
                 }
             }

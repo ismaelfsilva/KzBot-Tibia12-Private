@@ -441,27 +441,8 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<Point> lootPointList = new List<Point>();
 
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    Point sqmPosition = new Point();
-                    sqmPosition.X = Objects.ClientData.GameMapCenter.X + x * Objects.ClientData.SqmSize.Width;
-                    sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + y * Objects.ClientData.SqmSize.Height;
-                    lootPointList.Add(sqmPosition);
-                }
-            }
-
-            for (int tries = 0; tries < 1; tries++)
-            {
-                foreach (Point p in lootPointList)
-                {
-                    Objects.Client.rightClickPos(p);
-                    System.Threading.Thread.Sleep(250);
-                }
-            }
+            MessageBox.Show("Healer " + Globals.ScriptConfig.HealerStatus);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

@@ -74,7 +74,7 @@ namespace KzBot.Threads
                     return;
 
 
-                if (Globals.ScriptConfig.stop_Walking_on_Target && Objects.Player.isAttacking)
+                if (Globals.ScriptConfig.stop_Walking_on_Target && (Objects.Player.isAttacking || Threads.Targeting.creaturesToTarget > 1))
                     return;
 
                 Position playerPos = Objects.Player.Position;
@@ -164,11 +164,14 @@ namespace KzBot.Threads
                             Globals.ScriptConfig.auto_Haste = false;
 
                             Client.Say(waypoint.Extra);
-                            Globals.WaypointId++;
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
 
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
+
+                            Globals.WaypointId++;
                             break;
 
                         }
@@ -423,13 +426,27 @@ namespace KzBot.Threads
                                 }
 
                                 if (!Globals.ScriptConfig.GeneralStatus)
+                                {
+                                    System.Threading.Thread.Sleep(500);
+                                    Keyboard.PressKey(Keys.F20);
+
+                                    Globals.ScriptConfig.HealerStatus = healerStatus;
+                                    Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                                    if (Globals.ScriptConfig.HealerStatus)
+                                        Threads.Healer.Thread.Change(100, Timeout.Infinite);
+
                                     return;
+                                }
                             }
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.F20);
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -540,6 +557,9 @@ namespace KzBot.Threads
                                     Globals.ScriptConfig.HealerStatus = healerStatus;
                                     Globals.ScriptConfig.auto_Haste = hasteStatus;
 
+                                    if (Globals.ScriptConfig.HealerStatus)
+                                        Threads.Healer.Thread.Change(100, Timeout.Infinite);
+
                                     return;
                                 }
                             }
@@ -553,6 +573,9 @@ namespace KzBot.Threads
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -582,6 +605,9 @@ namespace KzBot.Threads
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -632,6 +658,9 @@ namespace KzBot.Threads
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -919,7 +948,10 @@ namespace KzBot.Threads
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
 
-                        break;
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
+
+                            break;
                         }
                     case WaypointType.Open_Npc:
                         Keyboard.PressKey(Keys.F22);
@@ -983,6 +1015,9 @@ namespace KzBot.Threads
 
                             Globals.ScriptConfig.HealerStatus = healerStatus;
                             Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            if (Globals.ScriptConfig.HealerStatus)
+                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             break;
                         }

@@ -156,9 +156,22 @@ namespace KzBot.Threads
                         }
                         break;
                     case WaypointType.Say:
-                        Client.Say(waypoint.Extra);
-                        Globals.WaypointId++;
-                        break;
+                        {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
+                            Client.Say(waypoint.Extra);
+                            Globals.WaypointId++;
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            break;
+
+                        }
                     case WaypointType.Wait:
                         System.Threading.Thread.Sleep(int.Parse(waypoint.Extra));
                         Globals.WaypointId++;
@@ -349,6 +362,12 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Sell_All:
                         {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(500);
@@ -408,11 +427,21 @@ namespace KzBot.Threads
                             }
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.F20);
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
                             Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Buy_Refill:
                         {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
                             WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                             WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
                             bool changedFocus = false;
@@ -436,10 +465,10 @@ namespace KzBot.Threads
                             int playerLevel = Objects.Player.Level;
 
                             Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
 
                             Keyboard.PressKey(Keys.F22);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
 
                             foreach (RefillRule refill in Globals.ScriptConfig.Refill)
                             {
@@ -456,12 +485,12 @@ namespace KzBot.Threads
                                     continue;
                                 }
 
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(1000);
                                 Objects.Client.leftClick(Objects.ClientData.GameMapRect.Left, clientRect.bottom - 23);
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(1000);
 
                                 Client.Say("hi");
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(1000);
 
                                 Client.Say(refill.Type);
                                 System.Threading.Thread.Sleep(1000);
@@ -508,6 +537,9 @@ namespace KzBot.Threads
                                     Keyboard.PressKey(Keys.F20);
                                     System.Threading.Thread.Sleep(100);
 
+                                    Globals.ScriptConfig.HealerStatus = healerStatus;
+                                    Globals.ScriptConfig.auto_Haste = hasteStatus;
+
                                     return;
                                 }
                             }
@@ -519,65 +551,91 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
 
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
                             Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Deposit_All:
-                        Keyboard.PressKey(Keys.F19);
-                        System.Threading.Thread.Sleep(100);
-                        Keyboard.PressKey(Keys.F22);
-                        System.Threading.Thread.Sleep(500);
+                        {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
 
-                        Client.Say("hi");
-                        System.Threading.Thread.Sleep(500);
-                        Client.Say("deposit all");
-                        System.Threading.Thread.Sleep(100);
-                        Client.Say("yes");
-                        System.Threading.Thread.Sleep(1000);
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
 
-                        Keyboard.PressKey(Keys.F20);
-                        System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F22);
+                            System.Threading.Thread.Sleep(500);
 
-                        Globals.WaypointId++;
-                        break;
+                            Client.Say("hi");
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("deposit all");
+                            System.Threading.Thread.Sleep(100);
+                            Client.Say("yes");
+                            System.Threading.Thread.Sleep(1000);
+
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(100);
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Transfer:
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Balance:
-                        Keyboard.PressKey(Keys.F19);
-                        System.Threading.Thread.Sleep(100);
-                        Keyboard.PressKey(Keys.F22);
-                        System.Threading.Thread.Sleep(500);
-
-                        Client.Say("hi");
-                        System.Threading.Thread.Sleep(500);
-                        Client.Say("balance");
-                        System.Threading.Thread.Sleep(2000);
-
-                        Keyboard.PressKey(Keys.F23);
-                        System.Threading.Thread.Sleep(500);
-                        Keyboard.PressKey(Keys.F24);
-                        System.Threading.Thread.Sleep(500);
-
-                        string balanceMessage = Objects.Client.getNpcMessages().LastOrDefault();
-                        int balance = Threads.ClientData.lastBalance;
-                        Regex regex = new Regex(@"\d+");
-
-                        if (balanceMessage != null && balanceMessage.Contains("gold"))
                         {
-                            MatchCollection matches = regex.Matches(balanceMessage);
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
 
-                            if (matches.Count > 0)
-                                int.TryParse(matches.LastOrDefault().Value, out balance);
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
+
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F22);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.Say("hi");
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("balance");
+                            System.Threading.Thread.Sleep(2000);
+
+                            Keyboard.PressKey(Keys.F23);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.F24);
+                            System.Threading.Thread.Sleep(500);
+
+                            string balanceMessage = Objects.Client.getNpcMessages().LastOrDefault();
+                            int balance = Threads.ClientData.lastBalance;
+                            Regex regex = new Regex(@"\d+");
+
+                            if (balanceMessage != null && balanceMessage.Contains("gold"))
+                            {
+                                MatchCollection matches = regex.Matches(balanceMessage);
+
+                                if (matches.Count > 0)
+                                    int.TryParse(matches.LastOrDefault().Value, out balance);
+                            }
+
+                            Threads.ClientData.lastBalance = balance;
+
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(100);
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
+                            Globals.WaypointId++;
+                            break;
                         }
-
-                        Threads.ClientData.lastBalance = balance;
-
-                        Keyboard.PressKey(Keys.F20);
-                        System.Threading.Thread.Sleep(100);
-
-                        Globals.WaypointId++;
-                        break;
                     case WaypointType.Buy_Market:
                         {
                             int itemCount = Objects.Client.getItemCount(int.Parse(extraData[1]));
@@ -837,7 +895,15 @@ namespace KzBot.Threads
                             Globals.WaypointId--;
                         break;
                     case WaypointType.Travel:
-                        Keyboard.PressKey(Keys.F19);
+                        {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
+
+                            Keyboard.PressKey(Keys.F19);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(500);
@@ -849,7 +915,12 @@ namespace KzBot.Threads
                         System.Threading.Thread.Sleep(500);
                         Keyboard.PressKey(Keys.F20);
                         System.Threading.Thread.Sleep(100);
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
+
                         break;
+                        }
                     case WaypointType.Open_Npc:
                         Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(1000);
@@ -867,6 +938,13 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Reset_FPS:
                         {
+                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+
+                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.ScriptConfig.auto_Haste = false;
+
+
                             bool reconnectStatus = Globals.ScriptConfig.auto_Reconnect;
                             Globals.ScriptConfig.auto_Reconnect = false;
 
@@ -902,6 +980,9 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
 
                             Globals.WaypointId++;
+
+                            Globals.ScriptConfig.HealerStatus = healerStatus;
+                            Globals.ScriptConfig.auto_Haste = hasteStatus;
 
                             break;
                         }

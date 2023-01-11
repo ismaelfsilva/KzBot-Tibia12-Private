@@ -88,7 +88,10 @@ namespace KzBot
             {
                 while (Globals.Process == null)
                 {
-                    Globals.Process = Process.Start(Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                    ProcessStartInfo clientInfo = new ProcessStartInfo();
+                    clientInfo.FileName = (@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                    clientInfo.WorkingDirectory = Path.GetDirectoryName(@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                    Globals.Process = Process.Start(clientInfo);
                     Globals.Process.WaitForInputIdle();
                 }
 

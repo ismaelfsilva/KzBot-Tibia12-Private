@@ -25,7 +25,7 @@ namespace KzBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("116")]
+        [global::System.Configuration.DefaultSettingValueAttribute("127")]
         public int Loot_Key {
             get {
                 return ((int)(this["Loot_Key"]));
@@ -49,7 +49,7 @@ namespace KzBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("121")]
+        [global::System.Configuration.DefaultSettingValueAttribute("122")]
         public int Haste_Key {
             get {
                 return ((int)(this["Haste_Key"]));
@@ -61,7 +61,7 @@ namespace KzBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("48")]
         public int Utito_Key {
             get {
                 return ((int)(this["Utito_Key"]));

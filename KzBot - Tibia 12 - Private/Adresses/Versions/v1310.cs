@@ -5,7 +5,7 @@ namespace KzBot.Addresses
 {
     public partial class Version
     {
-        public static void v1320(Process p) // 13.20
+        public static void v1310(Process p) // 13.10
         {
             uint BaseAddress = Convert.ToUInt32(p.MainModule.BaseAddress.ToInt32());
 

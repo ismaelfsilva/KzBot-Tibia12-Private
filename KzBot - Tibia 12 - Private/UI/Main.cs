@@ -109,7 +109,7 @@ namespace KzBot
                 else if (Globals.Server.version == "13.05")
                     Addresses.Version.v1305(Globals.Process);
                 else if (Globals.Server.version == "13.20")
-                    Addresses.Version.v1320(Globals.Process);
+                    Addresses.Version.v1310(Globals.Process);
 
                 Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
@@ -254,7 +254,7 @@ namespace KzBot
             else if (Globals.Server.version == "13.05")
                 Addresses.Version.v1305(Globals.Process);
             else if (Globals.Server.version == "13.20")
-                Addresses.Version.v1320(Globals.Process);
+                Addresses.Version.v1310(Globals.Process);
 
             Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 

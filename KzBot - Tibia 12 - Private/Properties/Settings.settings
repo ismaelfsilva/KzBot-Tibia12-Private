@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="Loot_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">116</Value>
+      <Value Profile="(Default)">127</Value>
     </Setting>
     <Setting Name="Target_Next_Key" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">35</Value>
     </Setting>
     <Setting Name="Haste_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">121</Value>
+      <Value Profile="(Default)">122</Value>
     </Setting>
     <Setting Name="Utito_Key" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">123</Value>
+      <Value Profile="(Default)">48</Value>
     </Setting>
     <Setting Name="TelegramBotToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

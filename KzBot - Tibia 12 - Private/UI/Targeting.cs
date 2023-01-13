@@ -152,22 +152,22 @@ namespace KzBot.UI
         private void knightToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // EXORI GRAN
-            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell,  Mana = 340, Level = 90, Vocation = Vocation.EK, Key=Keys.F7};
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell,  Mana = 340, Level = 90, Vocation = Vocation.EK, Key=Keys.D7};
             Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
 
             // EXORI MAS - MUITOS MOBS
-            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, CreatureCount = 10, Range = 3, Vocation = Vocation.EK, Key=Keys.F8 };
+            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, CreatureCount = 10, Range = 3, Vocation = Vocation.EK, Key=Keys.D8 };
             Globals.ScriptConfig.Targeting.Add(TargetRule2);
             listView1.Items.Add(TargetRule2.ListViewItem());
 
             // EXORI
-            TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Spell, Mana = 115, Level = 35, Vocation = Vocation.EK, Key=Keys.F6 };
+            TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Spell, Mana = 115, Level = 35, Vocation = Vocation.EK, Key=Keys.D6 };
             Globals.ScriptConfig.Targeting.Add(TargetRule3);
             listView1.Items.Add(TargetRule3.ListViewItem());
 
             // EXORI MAS
-            TargetRule TargetRule4 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, Range = 3, Vocation = Vocation.EK, Key=Keys.F8 };
+            TargetRule TargetRule4 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 33, Range = 3, Vocation = Vocation.EK, Key=Keys.D8 };
             Globals.ScriptConfig.Targeting.Add(TargetRule4);
             listView1.Items.Add(TargetRule4.ListViewItem());
         }
@@ -175,17 +175,17 @@ namespace KzBot.UI
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // EXEVO MAS SAN
-            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 50, Range = 3, Vocation = Vocation.RP, Key=Keys.Oem6 };
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Spell, Mana = 160, Level = 50, Range = 3, Vocation = Vocation.RP, Key=Keys.D1 };
             Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
 
             // RUNE
-            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = false, Vocation = Vocation.RP, Key=Keys.Divide };
+            TargetRule TargetRule2 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = false, Vocation = Vocation.RP, Key=Keys.D2 };
             Globals.ScriptConfig.Targeting.Add(TargetRule2);
             listView1.Items.Add(TargetRule2.ListViewItem());
 
             // RUNE
-            TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = true, Vocation = Vocation.RP, Key = Keys.Divide };
+            TargetRule TargetRule3 = new TargetRule() { Type = TargetType.Item, Mana = 0, Level = 30, Range = 3, PlayerOnCenter = true, Vocation = Vocation.RP, Key = Keys.D2 };
             Globals.ScriptConfig.Targeting.Add(TargetRule3);
             listView1.Items.Add(TargetRule3.ListViewItem());
         }
@@ -193,7 +193,7 @@ namespace KzBot.UI
         private void exetaResToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // EXETA RES
-            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 40, Level = 20, Delay = 4000, Vocation=Vocation.EK, Key=Keys.F11 };
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 40, Level = 20, Delay = 4000, Vocation=Vocation.EK, Key=Keys.D9 };
             Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
@@ -201,7 +201,7 @@ namespace KzBot.UI
         private void exetaAmpResToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // EXETA AMP RES
-            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 80, Level = 150, Delay = 5000, Vocation = Vocation.EK, Key=Keys.F11 };
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 80, Level = 150, Delay = 5000, Vocation = Vocation.EK, Key=Keys.D9 };
             Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }
@@ -209,7 +209,7 @@ namespace KzBot.UI
         private void utitoTempoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // UTITO TEMPO
-            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 290, Level = 60, Delay = 10000, ComboOnly = true, Vocation = Vocation.EK, Key =Keys.F12 };
+            TargetRule TargetRule1 = new TargetRule() { Type = TargetType.Support, Mana = 290, Level = 60, Delay = 10000, ComboOnly = true, Vocation = Vocation.EK, Key =Keys.D0 };
             Globals.ScriptConfig.Targeting.Add(TargetRule1);
             listView1.Items.Add(TargetRule1.ListViewItem());
         }

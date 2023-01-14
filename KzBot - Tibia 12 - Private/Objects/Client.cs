@@ -452,7 +452,6 @@ namespace KzBot.Objects
 
         public static void Say(string text)
         {
-            Keyboard.PressKey(Keys.F19);
             Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(200);
             foreach (byte b in ASCIIEncoding.Default.GetBytes(text))
@@ -461,8 +460,6 @@ namespace KzBot.Objects
             }
             System.Threading.Thread.Sleep(200);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(200);
-            Keyboard.PressKey(Keys.F20);
         }
 
         public static Bitmap CaptureApplication()

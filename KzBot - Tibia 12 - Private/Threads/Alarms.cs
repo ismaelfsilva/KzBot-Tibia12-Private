@@ -95,6 +95,7 @@ namespace KzBot.Threads
                                     }
                                     break;
                                 case "exit":
+                                    Keyboard.PressKey(Keys.F19);
                                     Client.Say("!fps");
                                     Globals.Process?.Kill(true);
                                     Globals.Process = null;

@@ -27,8 +27,10 @@ namespace KzBot.Threads
             int startWaypointId = Globals.WaypointId;
 
             bool healerStatus = Globals.ScriptConfig.HealerStatus;
+            bool targetStatus = Globals.ScriptConfig.TargetingStatus;
             bool hasteStatus = Globals.ScriptConfig.auto_Haste;
             bool changedStatus = false;
+            bool isChatOn = false;
 
             try
             {
@@ -164,17 +166,13 @@ namespace KzBot.Threads
                         {
                             changedStatus = true;
 
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
                             Client.Say(waypoint.Extra);
-
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                             Globals.WaypointId++;
                             break;
 
@@ -370,10 +368,14 @@ namespace KzBot.Threads
                     case WaypointType.Sell_All:
                         {
                             changedStatus = true;
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
                             System.Threading.Thread.Sleep(500);
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.Escape);
@@ -431,24 +433,11 @@ namespace KzBot.Threads
                                 {
                                     System.Threading.Thread.Sleep(500);
                                     Keyboard.PressKey(Keys.F20);
-
-                                    Globals.ScriptConfig.HealerStatus = healerStatus;
-                                    Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                                    if (Globals.ScriptConfig.HealerStatus)
-                                        Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                                     return;
                                 }
                             }
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.F20);
-
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -456,7 +445,10 @@ namespace KzBot.Threads
                     case WaypointType.Buy_Refill:
                         {
                             changedStatus = true;
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
                             WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
@@ -481,6 +473,7 @@ namespace KzBot.Threads
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
                             int playerLevel = Objects.Player.Level;
 
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(1000);
 
@@ -554,12 +547,6 @@ namespace KzBot.Threads
                                     Keyboard.PressKey(Keys.F20);
                                     System.Threading.Thread.Sleep(100);
 
-                                    Globals.ScriptConfig.HealerStatus = healerStatus;
-                                    Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                                    if (Globals.ScriptConfig.HealerStatus)
-                                        Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                                     return;
                                 }
                             }
@@ -571,21 +558,19 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
 
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                             Globals.WaypointId++;
                             break;
                         }
                     case WaypointType.Deposit_All:
                         {
                             changedStatus = true;
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(100);
                             Keyboard.PressKey(Keys.F22);
@@ -601,12 +586,6 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
 
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                             Globals.WaypointId++;
                             break;
                         }
@@ -616,10 +595,14 @@ namespace KzBot.Threads
                     case WaypointType.Balance:
                         {
                             changedStatus = true;
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
 
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(100);
                             Keyboard.PressKey(Keys.F22);
@@ -651,12 +634,6 @@ namespace KzBot.Threads
 
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
-
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             Globals.WaypointId++;
                             break;
@@ -922,10 +899,14 @@ namespace KzBot.Threads
                     case WaypointType.Travel:
                         {
                             changedStatus = true;
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
 
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                         System.Threading.Thread.Sleep(100);
                         Keyboard.PressKey(Keys.F22);
@@ -938,12 +919,6 @@ namespace KzBot.Threads
                         System.Threading.Thread.Sleep(500);
                         Keyboard.PressKey(Keys.F20);
                         System.Threading.Thread.Sleep(100);
-
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
 
                             break;
                         }
@@ -966,7 +941,10 @@ namespace KzBot.Threads
                         {
                             changedStatus = true;
 
-                            Globals.ScriptConfig.HealerStatus = false;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
                             Globals.ScriptConfig.auto_Haste = false;
 
 
@@ -974,6 +952,7 @@ namespace KzBot.Threads
                             Globals.ScriptConfig.auto_Reconnect = false;
 
                             System.Threading.Thread.Sleep(100);
+                            isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
                             System.Threading.Thread.Sleep(3000);
                             Client.Say("!fps");
@@ -1006,12 +985,6 @@ namespace KzBot.Threads
 
                             Globals.WaypointId++;
 
-                            Globals.ScriptConfig.HealerStatus = healerStatus;
-                            Globals.ScriptConfig.auto_Haste = hasteStatus;
-
-                            if (Globals.ScriptConfig.HealerStatus)
-                                Threads.Healer.Thread.Change(100, Timeout.Infinite);
-
                             break;
                         }
                     default:
@@ -1026,8 +999,15 @@ namespace KzBot.Threads
             {
                 if (changedStatus)
                 {
-                    Globals.ScriptConfig.HealerStatus = healerStatus;
+                    Globals.Main.Invoke((MethodInvoker)delegate {
+                        Globals.Main.checkBox2.Checked = healerStatus;
+                        Globals.Main.checkBox4.Checked = targetStatus;
+                    });
                     Globals.ScriptConfig.auto_Haste = hasteStatus;
+                }
+                if (isChatOn)
+                {
+                    Keyboard.PressKey(Keys.F20);
                 }
 
                 if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.CavebotStatus)

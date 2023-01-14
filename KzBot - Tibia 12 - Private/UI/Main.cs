@@ -134,7 +134,12 @@ namespace KzBot
 
             didStartUp = true;
         }
-        private void Main_ResizeEnd(object sender, EventArgs e)
+
+        private void Main_Shown(object sender, EventArgs e)
+        {
+            Activate();
+        }
+            private void Main_ResizeEnd(object sender, EventArgs e)
         {
             decimal pixelPercent = (this.Size.Width - 160 - System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) / 100;
 
@@ -453,6 +458,16 @@ namespace KzBot
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void eKToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Globals.AccVocation = Vocation.EK;
+        }
+
+        private void rPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Globals.AccVocation = Vocation.RP;
         }
     }
 

@@ -68,6 +68,11 @@
             this.cavebotLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.charactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendToSafeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setVocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -95,10 +100,11 @@
             this.fileToolStripMenuItem,
             this.cavebotLiteToolStripMenuItem,
             this.charactersToolStripMenuItem,
-            this.sendToSafeToolStripMenuItem});
+            this.sendToSafeToolStripMenuItem,
+            this.setVocationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(796, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -160,6 +166,43 @@
             this.sendToSafeToolStripMenuItem.Text = "Send to Safe";
             this.sendToSafeToolStripMenuItem.Click += new System.EventHandler(this.sendToSafeToolStripMenuItem_Click);
             // 
+            // setVocationToolStripMenuItem
+            // 
+            this.setVocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eKToolStripMenuItem,
+            this.rPToolStripMenuItem,
+            this.eDToolStripMenuItem,
+            this.mSToolStripMenuItem});
+            this.setVocationToolStripMenuItem.Name = "setVocationToolStripMenuItem";
+            this.setVocationToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.setVocationToolStripMenuItem.Text = "Set Vocation";
+            // 
+            // eKToolStripMenuItem
+            // 
+            this.eKToolStripMenuItem.Name = "eKToolStripMenuItem";
+            this.eKToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.eKToolStripMenuItem.Text = "EK";
+            this.eKToolStripMenuItem.Click += new System.EventHandler(this.eKToolStripMenuItem_Click);
+            // 
+            // rPToolStripMenuItem
+            // 
+            this.rPToolStripMenuItem.Name = "rPToolStripMenuItem";
+            this.rPToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.rPToolStripMenuItem.Text = "RP";
+            this.rPToolStripMenuItem.Click += new System.EventHandler(this.rPToolStripMenuItem_Click);
+            // 
+            // eDToolStripMenuItem
+            // 
+            this.eDToolStripMenuItem.Name = "eDToolStripMenuItem";
+            this.eDToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.eDToolStripMenuItem.Text = "ED";
+            // 
+            // mSToolStripMenuItem
+            // 
+            this.mSToolStripMenuItem.Name = "mSToolStripMenuItem";
+            this.mSToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.mSToolStripMenuItem.Text = "MS";
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -172,7 +215,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.MinimumSize = new System.Drawing.Size(98, 142);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(98, 432);
+            this.groupBox1.Size = new System.Drawing.Size(98, 364);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -238,9 +281,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(116, 30);
+            this.tabControl1.MinimumSize = new System.Drawing.Size(350, 229);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(856, 519);
+            this.tabControl1.Size = new System.Drawing.Size(668, 451);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -249,7 +293,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 491);
+            this.tabPage1.Size = new System.Drawing.Size(660, 423);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -294,7 +338,7 @@
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(842, 485);
+            this.listView1.Size = new System.Drawing.Size(654, 417);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -323,7 +367,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 526);
+            this.button1.Location = new System.Drawing.Point(12, 458);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(98, 23);
             this.button1.TabIndex = 4;
@@ -341,7 +385,7 @@
             "Target Next Key",
             "Haste Key",
             "Utito Key"});
-            this.comboBox2.Location = new System.Drawing.Point(12, 497);
+            this.comboBox2.Location = new System.Drawing.Point(12, 429);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(98, 23);
             this.comboBox2.TabIndex = 5;
@@ -356,20 +400,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(796, 493);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(494, 310);
+            this.MinimumSize = new System.Drawing.Size(132, 310);
             this.Name = "Main";
             this.Text = "KzBot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
+            this.Shown += new System.EventHandler(this.Main_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -407,5 +453,10 @@
         private ToolStripMenuItem cavebotLiteToolStripMenuItem;
         private ToolStripMenuItem charactersToolStripMenuItem;
         private ToolStripMenuItem sendToSafeToolStripMenuItem;
+        private ToolStripMenuItem setVocationToolStripMenuItem;
+        private ToolStripMenuItem eKToolStripMenuItem;
+        private ToolStripMenuItem rPToolStripMenuItem;
+        private ToolStripMenuItem eDToolStripMenuItem;
+        private ToolStripMenuItem mSToolStripMenuItem;
     }
 }

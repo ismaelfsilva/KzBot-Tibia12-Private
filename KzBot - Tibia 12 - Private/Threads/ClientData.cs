@@ -16,6 +16,10 @@ namespace KzBot.Threads
         public static int lastBalance = 0;
         public static string lastUpdatedCharacter = string.Empty;
 
+        public static bool botIsHidden = false;
+        public static Size sizeWhenVisible = new Size();
+        public static bool lockSize = false;
+
         private async static void ClientDataThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -28,19 +32,69 @@ namespace KzBot.Threads
                     mainHandle = Globals.Main.Handle;
                 });
 
-                if ((foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle) && WinApi.GetAsyncKeyState(Keys.Pause))
+                if (Globals.Process == null || Globals.Process.HasExited)
                 {
-                    Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
-                        Globals.Main.checkBox1.Checked = !Globals.Main.checkBox1.Checked;
+                    Globals.Main.Invoke((MethodInvoker)delegate
+                    {
+                        Globals.Main.Visible = true;
+                        Globals.Main.ShowInTaskbar = true;
+                    });
+                }
+                else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle)
+                {
+                    Globals.Main.Invoke((MethodInvoker)delegate
+                    {
+                        Globals.Main.TopMost = true;
+                        Globals.Main.ShowInTaskbar = false;
+
+                        if (!botIsHidden)
+                            Globals.Main.Show();
+
+                        if (foregroundWindow == mainHandle && lockSize)
+                        {
+                            Globals.Main.Size = sizeWhenVisible;
+                            lockSize = false;
+                        }
+                        else if (foregroundWindow == Globals.Process?.MainWindowHandle && Globals.Main.Size != Globals.Main.MinimumSize)
+                        {
+                            lockSize = true;
+                            sizeWhenVisible = Globals.Main.Size;
+                            Globals.Main.Size = Globals.Main.MinimumSize;
+                        }
                     });
 
-                    System.Media.SystemSounds.Beep.Play();
-
-                    if (!Globals.ScriptConfig.GeneralStatus)
+                    if (WinApi.GetAsyncKeyState(Keys.Pause))
                     {
-                        System.Threading.Thread.Sleep(1000);
-                        return;
+                        Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
+                            Globals.Main.checkBox1.Checked = !Globals.Main.checkBox1.Checked;
+                        });
+
+                        System.Media.SystemSounds.Beep.Play();
+
+                        if (!Globals.ScriptConfig.GeneralStatus)
+                        {
+                            System.Threading.Thread.Sleep(1000);
+                            return;
+                        }
                     }
+                    else if (WinApi.GetAsyncKeyState(Keys.ControlKey) && WinApi.GetAsyncKeyState(Keys.Home))
+                    {
+                        Globals.Main.Invoke((MethodInvoker)delegate {
+                            Globals.Main.Visible = !Globals.Main.Visible;
+                            botIsHidden = !Globals.Main.Visible;
+                            if (Globals.Main.Visible)
+                                WinApi.SetForegroundWindow(Globals.Main.Handle);
+                        });
+                    }
+                }
+                else
+                {
+                    Globals.Main.Invoke((MethodInvoker)delegate
+                    {
+                        Globals.Main.Hide();
+                        Globals.Main.TopMost = false;
+                        Globals.Main.ShowInTaskbar = false;
+                    });
                 }
 
                 if (Globals.Process == null || Globals.Process.HasExited)

@@ -14,6 +14,7 @@ namespace KzBot.Threads
         public static bool setClient = false;
         public static bool firstUpdate = false;
         public static int lastBalance = 0;
+        public static string status = "init";
         public static string lastUpdatedCharacter = string.Empty;
 
         public static bool botIsHidden = false;
@@ -275,13 +276,14 @@ namespace KzBot.Threads
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}",
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}&script_status={6}",
                     Globals.Username,
                     Globals.Password,
                     Globals.AccCharName,
                     Objects.Player.Level,
                     lastBalance,
-                    Objects.Player.Stamina.TotalSeconds
+                    Objects.Player.Stamina.TotalSeconds,
+                    status == string.Empty ? "None" : status
                     )));
                 string content = await response.Content.ReadAsStringAsync();
 

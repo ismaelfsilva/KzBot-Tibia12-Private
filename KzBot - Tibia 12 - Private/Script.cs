@@ -344,6 +344,7 @@ namespace KzBot
         Close_Bot,
         Load,
         Disable_Safe,
+        Set_Status,
         Reset_FPS,
         Alert,
         Nothing,

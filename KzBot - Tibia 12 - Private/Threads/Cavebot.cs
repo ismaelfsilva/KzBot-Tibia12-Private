@@ -937,6 +937,10 @@ namespace KzBot.Threads
                         Threads.Alarms.safeMode = false;
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Set_Status:
+                        Threads.ClientData.status = waypoint.Extra.Trim();
+                        Globals.WaypointId++;
+                        break;
                     case WaypointType.Reset_FPS:
                         {
                             changedStatus = true;

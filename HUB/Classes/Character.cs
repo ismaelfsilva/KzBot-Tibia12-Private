@@ -24,6 +24,9 @@ namespace HUB.Classes
         public int status { get; set; } = 0;
         public string script { get; set; } = string.Empty;
         public string warning { get; set; } = string.Empty;
+        public int has_imbuement { get; set; } = 1;
+
+        public string script_status { get; set; } = string.Empty;
         public List<string> system_warning { get; set; } = new List<string>();
 
         public TimeSpan actual_stamina

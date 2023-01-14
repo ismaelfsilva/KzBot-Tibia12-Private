@@ -133,16 +133,27 @@ namespace HUB
 
                     ListViewItem lvItem = ch.ListViewItem;
 
-                    lvItem.ToolTipText = ch.warning.Replace("; ", Environment.NewLine);
-
+                    if (ch.warning.Length > 0)
+                    {
+                        lvItem.ToolTipText += (lvItem.ToolTipText.Length > 0 ? Environment.NewLine : string.Empty) + "SCRIPT WARNINGS:" + Environment.NewLine + " - " + string.Join(Environment.NewLine + " - ", ch.warning.Split("|"));
+                    }
                     if (ch.system_warning.Count > 0)
                     {
-                        lvItem.ToolTipText += (ch.warning.Length > 0 ? Environment.NewLine : string.Empty) + string.Join(Environment.NewLine, ch.system_warning);
-                        lvItem.BackColor = Color.Red;
+                        lvItem.ToolTipText += (lvItem.ToolTipText.Length > 0 ? Environment.NewLine : string.Empty) + "SYSTEM WARNINGS:" + Environment.NewLine + " - " + string.Join(Environment.NewLine + " - ", ch.system_warning);
                     }
-                    else if (lvItem.ToolTipText.Length > 0)
+                    if (ch.script_status.Length > 0)
+                    {
+                        lvItem.ToolTipText += (lvItem.ToolTipText.Length > 0 ? Environment.NewLine : string.Empty) + "STATUS: " + ch.script_status;
+                    }
+
+
+                    if (ch.system_warning.Count > 0)
+                        lvItem.BackColor = Color.Red;
+                    else if (ch.has_imbuement == 0)
+                        lvItem.BackColor = Color.Blue;
+                    else if (ch.warning.Length > 0)
                         lvItem.BackColor = Color.Yellow;
-                    else if ((DateTime.Now - DateTime.Parse(ch.last_online)).TotalMinutes < 10)
+                    else if ((DateTime.Now - DateTime.Parse(ch.last_online)).TotalMinutes < 2)
                         lvItem.BackColor = Color.Green;
 
                     listView1.Items.Add(lvItem);
@@ -218,28 +229,21 @@ namespace HUB
         }
 
 
-        ToolTip mTooltip;
+        ToolTip mTooltip = new ToolTip() {  UseAnimation= false, UseFading=false};
         Point mLastPos = new Point(-1, -1);
+        private void listview_ItemHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            mLastPos = listView1.PointToClient(Cursor.Position);
+            mTooltip.Show(e.Item.ToolTipText, e.Item.ListView, mLastPos.X, mLastPos.Y);
+        }
         private void listview_MouseMove(object sender, MouseEventArgs e)
         {
             ListViewHitTestInfo info = listView1.HitTest(e.X, e.Y);
 
-            if (mTooltip == null)
-                mTooltip = new ToolTip();
-
-            if (mLastPos != e.Location)
+            if (info.Item == null && info.SubItem == null)
             {
-                if (info.Item != null && info.SubItem != null && info.Item.ToolTipText.Length > 0)
-                {
-                    mTooltip.Show(info.Item.ToolTipText, info.Item.ListView, e.X, e.Y, 20000);
-                }
-                else
-                {
-                    mTooltip.SetToolTip(listView1, string.Empty);
-                }
+                mTooltip.Show(string.Empty, listView1, e.X, e.Y);
             }
-
-            mLastPos = e.Location;
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)

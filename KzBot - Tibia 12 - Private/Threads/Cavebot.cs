@@ -324,7 +324,7 @@ namespace KzBot.Threads
 
                             if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
                             {
-                                Threads.ClientData.hasImbuement = false;
+                                Threads.ClientData.hasImbuement = 0;
                                 using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
                                 {
                                     soundPlayer.Play();
@@ -333,12 +333,12 @@ namespace KzBot.Threads
                             }
                             else if (foundItem && !hasImbue)
                             {
-                                Threads.ClientData.hasImbuement = false;
+                                Threads.ClientData.hasImbuement = 0;
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             }
                             else if (foundItem)
                             {
-                                Threads.ClientData.hasImbuement = true;
+                                Threads.ClientData.hasImbuement = 1;
                                 Globals.WaypointId++;
                             }
 

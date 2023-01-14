@@ -15,7 +15,7 @@ namespace KzBot.Threads
         public static bool firstUpdate = false;
         public static int lastBalance = 0;
         public static string status = "init";
-        public static bool hasImbuement = true;
+        public static int hasImbuement = -1;
         public static string lastUpdatedCharacter = string.Empty;
 
         public static bool botIsHidden = false;

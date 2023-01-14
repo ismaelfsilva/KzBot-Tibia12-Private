@@ -91,6 +91,8 @@ namespace KzBot
                     ProcessStartInfo clientInfo = new ProcessStartInfo();
                     clientInfo.FileName = (@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
                     clientInfo.WorkingDirectory = Path.GetDirectoryName(@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
+                    clientInfo.UseShellExecute = true;
+                    clientInfo.WindowStyle = ProcessWindowStyle.Maximized;
                     Globals.Process = Process.Start(clientInfo);
                     Globals.Process.WaitForInputIdle();
                 }
@@ -108,7 +110,7 @@ namespace KzBot
                     Addresses.Version.v1290(Globals.Process);
                 else if (Globals.Server.version == "13.05")
                     Addresses.Version.v1305(Globals.Process);
-                else if (Globals.Server.version == "13.20")
+                else if (Globals.Server.version == "13.10")
                     Addresses.Version.v1310(Globals.Process);
 
                 Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
@@ -258,7 +260,7 @@ namespace KzBot
                 Addresses.Version.v1290(Globals.Process);
             else if (Globals.Server.version == "13.05")
                 Addresses.Version.v1305(Globals.Process);
-            else if (Globals.Server.version == "13.20")
+            else if (Globals.Server.version == "13.10")
                 Addresses.Version.v1310(Globals.Process);
 
             Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };

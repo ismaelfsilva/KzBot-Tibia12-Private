@@ -25,6 +25,11 @@ namespace KzBot.Threads
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
             int startWaypointId = Globals.WaypointId;
+
+            bool healerStatus = Globals.ScriptConfig.HealerStatus;
+            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+            bool changedStatus = false;
+
             try
             {
                 if (Globals.ScriptConfig.Waypoints.Count <= 0)
@@ -157,8 +162,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Say:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+                            changedStatus = true;
 
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
@@ -365,9 +369,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Sell_All:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
-
+                            changedStatus = true;
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
 
@@ -453,9 +455,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Buy_Refill:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
-
+                            changedStatus = true;
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
 
@@ -582,9 +582,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Deposit_All:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
-
+                            changedStatus = true;
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
 
@@ -617,9 +615,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Balance:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
-
+                            changedStatus = true;
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
 
@@ -925,9 +921,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Travel:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
-
+                            changedStatus = true;
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
 
@@ -970,8 +964,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Reset_FPS:
                         {
-                            bool healerStatus = Globals.ScriptConfig.HealerStatus;
-                            bool hasteStatus = Globals.ScriptConfig.auto_Haste;
+                            changedStatus = true;
 
                             Globals.ScriptConfig.HealerStatus = false;
                             Globals.ScriptConfig.auto_Haste = false;
@@ -1031,6 +1024,12 @@ namespace KzBot.Threads
             }
             finally
             {
+                if (changedStatus)
+                {
+                    Globals.ScriptConfig.HealerStatus = healerStatus;
+                    Globals.ScriptConfig.auto_Haste = hasteStatus;
+                }
+
                 if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.CavebotStatus)
                 {
                     Thread.Change(100, Timeout.Infinite);

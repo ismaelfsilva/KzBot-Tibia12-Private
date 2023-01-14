@@ -42,6 +42,16 @@ namespace KzBot.Threads
                         Globals.Main.ShowInTaskbar = true;
                     });
                 }
+                else if (Globals.Process != null && Globals.Process.HasExited)
+                {
+                    Threads.ClientData.UpdateCharacter();
+                    Globals.Main.Invoke((MethodInvoker)delegate
+                    {
+                        Globals.Main.canCloseForm = true;
+                        Globals.Main.Close();
+                    });
+                    return;
+                }
                 else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle || Globals.Main.OwnedForms.Count(f=> f.Handle == foregroundWindow) > 0)
                 {
                     Globals.Main.Invoke((MethodInvoker)delegate

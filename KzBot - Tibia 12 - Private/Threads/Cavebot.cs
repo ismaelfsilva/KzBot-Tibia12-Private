@@ -72,8 +72,11 @@ namespace KzBot.Threads
                 else if (waypoint.Type == WaypointType.Close_Bot)
                 {
                     Threads.ClientData.UpdateCharacter();
-                    Globals.Main.canCloseForm = true;
-                    Globals.Main.Close();
+                    Globals.Main.Invoke((MethodInvoker)delegate
+                    {
+                        Globals.Main.canCloseForm = true;
+                        Globals.Main.Close();
+                    });
                     return;
                 }
 

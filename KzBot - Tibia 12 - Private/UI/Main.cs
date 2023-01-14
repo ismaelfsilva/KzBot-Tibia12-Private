@@ -218,6 +218,12 @@ namespace KzBot
             {
                 canCloseForm = true;
 
+                foreach (Form f in this.OwnedForms)
+                {
+                    f.Close();
+                    f.Dispose();
+                }
+
                 KzBot.Properties.Settings.Default.Location = this.Location;
                 KzBot.Properties.Settings.Default.Size = this.Size;
 
@@ -443,6 +449,7 @@ namespace KzBot
 
         private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CavebotLite.Owner = this;
              CavebotLite.Show();
         }
 

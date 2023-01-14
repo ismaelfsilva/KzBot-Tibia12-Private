@@ -40,7 +40,7 @@ namespace KzBot.Threads
                         Globals.Main.ShowInTaskbar = true;
                     });
                 }
-                else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle)
+                else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle || Globals.Main.OwnedForms.Count(f=> f.Handle == foregroundWindow) > 0)
                 {
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {
@@ -62,7 +62,6 @@ namespace KzBot.Threads
                             Globals.Main.Size = Globals.Main.MinimumSize;
                         }
                     });
-
                     if (WinApi.GetAsyncKeyState(Keys.Pause))
                     {
                         Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
@@ -96,7 +95,6 @@ namespace KzBot.Threads
                         Globals.Main.ShowInTaskbar = false;
                     });
                 }
-
                 if (Globals.Process == null || Globals.Process.HasExited)
                     return;
 

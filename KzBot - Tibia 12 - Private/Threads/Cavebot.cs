@@ -320,17 +320,28 @@ namespace KzBot.Threads
                                     break;
                                 }
                             }
+                                                     
 
                             if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
+                            {
+                                Threads.ClientData.hasImbuement = false;
                                 using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
                                 {
                                     soundPlayer.Play();
                                     System.Threading.Thread.Sleep(1000);
                                 }
+                            }
                             else if (foundItem && !hasImbue)
+                            {
+                                Threads.ClientData.hasImbuement = false;
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                            }
                             else if (foundItem)
+                            {
+                                Threads.ClientData.hasImbuement = true;
                                 Globals.WaypointId++;
+                            }
+
                             break;
                         }
                     case WaypointType.Check_Refill:

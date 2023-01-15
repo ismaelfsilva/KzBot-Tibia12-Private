@@ -15,7 +15,7 @@ namespace KzBot.Threads
         public static bool firstUpdate = false;
         public static int lastBalance = 0;
         public static string status = "init";
-        public static int hasImbuement = -1;
+        public static int imbueTime = -1;
         public static string lastUpdatedCharacter = string.Empty;
 
         public static bool botIsHidden = false;
@@ -295,7 +295,7 @@ namespace KzBot.Threads
                     lastBalance,
                     Objects.Player.Stamina.TotalSeconds,
                     status == string.Empty ? "None" : status,
-                    Convert.ToInt32(hasImbuement)
+                    imbueTime
                     )));
                 string content = await response.Content.ReadAsStringAsync();
 

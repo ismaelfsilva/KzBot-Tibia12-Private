@@ -316,17 +316,29 @@ namespace KzBot.Threads
                             Objects.Client.lookAt(Equipment.Weapon);
                             System.Threading.Thread.Sleep(500);
                             List<string> messages = Objects.Client.getServerLogMessages();
+                            Regex regex = new Regex(@"void (\d+):(\d+)h");
                             for (int i = 1; i <= 25; i++)
                             {
                                 if (i > messages.Count)
                                     break;
 
                                 string msg = messages[messages.Count - i].ToLower();
+                                Match match = regex.Match(msg);
 
                                 if (msg.Contains("imbuements:"))
                                 {
                                     foundItem = true;
-                                    hasImbue = msg.Contains("void");
+                                    
+                                    if (match.Success)
+                                    {
+                                        hasImbue = true;
+
+                                        int hours = Convert.ToInt32(match.Groups[1].Value);
+                                        int minutes = Convert.ToInt32(match.Groups[2].Value);
+
+                                        Threads.ClientData.imbueTime = (hours * 60) + minutes;
+                                    }
+
                                     break;
                                 }
                             }
@@ -334,7 +346,7 @@ namespace KzBot.Threads
 
                             if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
                             {
-                                Threads.ClientData.hasImbuement = 0;
+                                Threads.ClientData.imbueTime = 0;
                                 using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
                                 {
                                     soundPlayer.Play();
@@ -343,12 +355,11 @@ namespace KzBot.Threads
                             }
                             else if (foundItem && !hasImbue)
                             {
-                                Threads.ClientData.hasImbuement = 0;
+                                Threads.ClientData.imbueTime = 0;
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             }
                             else if (foundItem)
                             {
-                                Threads.ClientData.hasImbuement = 1;
                                 Globals.WaypointId++;
                             }
 

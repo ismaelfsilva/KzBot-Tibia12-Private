@@ -234,7 +234,7 @@ namespace HUB
         private void listview_ItemHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
             mLastPos = listView1.PointToClient(Cursor.Position);
-            mTooltip.Show(e.Item.ToolTipText, e.Item.ListView, mLastPos.X, mLastPos.Y);
+            mTooltip.Show(e.Item.ToolTipText, e.Item.ListView, mLastPos.X + 15, mLastPos.Y);
         }
         private void listview_MouseMove(object sender, MouseEventArgs e)
         {

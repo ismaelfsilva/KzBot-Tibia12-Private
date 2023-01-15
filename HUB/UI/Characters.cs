@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -255,6 +256,11 @@ namespace HUB
             UpdateCharacteres();
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmd);
+
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewHitTestInfo info = listView1.HitTest(e.X, e.Y);
@@ -267,12 +273,21 @@ namespace HUB
 
                 if (ch != null)
                 {
-                    Script script = Program.Config.Scripts.FirstOrDefault(s => s.name == ch.script);
-                    Client client = Program.Config.Clients.FirstOrDefault(c => script.client == c.name);
-                    Server server = Program.Config.Servers.FirstOrDefault(s => s.name == ch.server);
-                    string clientPath = Path.Combine(server.path, "bin", client.file);
+                    DateTime lastOnlineTime = DateTime.Parse(ch.last_online);
+                    Process p = Process.GetProcesses().FirstOrDefault(p => p.MainWindowTitle == "Tibia - " + ch.name);
+                    if (p !=null)
+                    {
+                        ShowWindow(p.MainWindowHandle, 3);
+                        SetForegroundWindow(p.MainWindowHandle);
+                    }
+                    else if ((DateTime.Now - lastOnlineTime).TotalSeconds > 60)
+                    {
+                        Script script = Program.Config.Scripts.FirstOrDefault(s => s.name == ch.script);
+                        Client client = Program.Config.Clients.FirstOrDefault(c => script.client == c.name);
+                        Server server = Program.Config.Servers.FirstOrDefault(s => s.name == ch.server);
+                        string clientPath = Path.Combine(server.path, "bin", client.file);
 
-                    List<string> argms= new List<string>()
+                        List<string> argms = new List<string>()
                     {
                         script.id,
                         Settings.Default.Username,
@@ -286,12 +301,13 @@ namespace HUB
                         client.id,
                     };
 
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.CreateNoWindow = false;
-                    startInfo.UseShellExecute = false;
-                    startInfo.FileName = Settings.Default.BotPath;
-                    startInfo.Arguments = string.Join(" ", argms);
-                    Process.Start(startInfo);
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.CreateNoWindow = false;
+                        startInfo.UseShellExecute = false;
+                        startInfo.FileName = Settings.Default.BotPath;
+                        startInfo.Arguments = string.Join(" ", argms);
+                        Process.Start(startInfo);
+                    }
                 }
             }
         }

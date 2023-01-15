@@ -34,7 +34,7 @@ namespace KzBot.Threads
                     mainHandle = Globals.Main.Handle;
                 });
 
-                if (Globals.Process == null || Globals.Process.HasExited)
+                if (Globals.Process == null)
                 {
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {

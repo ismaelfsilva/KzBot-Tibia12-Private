@@ -51,6 +51,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.refreshSearch = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(636, 10);
+            this.comboBox2.Location = new System.Drawing.Point(917, 10);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(151, 23);
             this.comboBox2.TabIndex = 15;
@@ -68,7 +70,7 @@
             // textBox5
             // 
             this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(522, 10);
+            this.textBox5.Location = new System.Drawing.Point(803, 10);
             this.textBox5.Name = "textBox5";
             this.textBox5.PlaceholderText = "Stamina";
             this.textBox5.Size = new System.Drawing.Size(108, 23);
@@ -78,7 +80,7 @@
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(408, 10);
+            this.textBox4.Location = new System.Drawing.Point(689, 10);
             this.textBox4.Name = "textBox4";
             this.textBox4.PlaceholderText = "Level";
             this.textBox4.Size = new System.Drawing.Size(108, 23);
@@ -88,7 +90,7 @@
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(210, 10);
+            this.textBox3.Location = new System.Drawing.Point(491, 10);
             this.textBox3.Name = "textBox3";
             this.textBox3.PlaceholderText = "Script";
             this.textBox3.Size = new System.Drawing.Size(192, 23);
@@ -109,7 +111,9 @@
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8,
-            this.columnHeader9});
+            this.columnHeader1,
+            this.columnHeader9,
+            this.columnHeader10});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.FullRowSelect = true;
             this.listView1.LabelWrap = false;
@@ -117,7 +121,7 @@
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.ShowItemToolTips = true;
-            this.listView1.Size = new System.Drawing.Size(775, 406);
+            this.listView1.Size = new System.Drawing.Size(1056, 406);
             this.listView1.TabIndex = 11;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -243,11 +247,23 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Imbuement";
+            this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader1.Width = 80;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Status";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader10.Width = 200;
+            // 
             // Characters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 459);
+            this.ClientSize = new System.Drawing.Size(1080, 459);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
@@ -289,5 +305,7 @@
         private ToolStripMenuItem banToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem editToolStripMenuItem;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader10;
     }
 }

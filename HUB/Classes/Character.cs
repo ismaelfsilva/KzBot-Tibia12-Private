@@ -24,8 +24,8 @@ namespace HUB.Classes
         public int status { get; set; } = 0;
         public string script { get; set; } = string.Empty;
         public string warning { get; set; } = string.Empty;
-        public int has_imbuement { get; set; } = 1;
-
+        public int imbuement_time { get; set; } = 0;
+        public string status_update_time { get; set; } = DateTime.MinValue.ToString();
         public string script_status { get; set; } = string.Empty;
         public List<string> system_warning { get; set; } = new List<string>();
 
@@ -64,7 +64,18 @@ namespace HUB.Classes
                 else
                     lvItem.SubItems.Add($"{totalHours:D2}:{minutes:D2}");
 
+
+                if (imbuement_time >= 0)
+                {
+                    TimeSpan imbueTimeSpan = TimeSpan.FromMinutes(imbuement_time);
+                    lvItem.SubItems.Add(string.Format("{0}:{1}", imbueTimeSpan.TotalHours >= 1 ? imbueTimeSpan.Hours.ToString("D2") : "00", imbueTimeSpan.Minutes >= 1 ? imbueTimeSpan.Minutes.ToString("D2") : "00"));
+                }
+                else
+                    lvItem.SubItems.Add("Unknown");
+
                 lvItem.SubItems.Add(lastOnlineTime.ToString());
+                DateTime lastStatusUpdateTime = DateTime.Parse(status_update_time);
+                lvItem.SubItems.Add(string.Format("[{0}] {1}", lastStatusUpdateTime, script_status.ToString()));
 
                 return lvItem;
             }

@@ -144,13 +144,13 @@ namespace HUB
                     }
                     if (ch.script_status.Length > 0)
                     {
-                        lvItem.ToolTipText += (lvItem.ToolTipText.Length > 0 ? Environment.NewLine : string.Empty) + "STATUS: " + ch.script_status;
+                        //lvItem.ToolTipText += (lvItem.ToolTipText.Length > 0 ? Environment.NewLine : string.Empty) + "STATUS: " + ch.script_status;
                     }
 
 
                     if (ch.system_warning.Count > 0)
                         lvItem.BackColor = Color.Red;
-                    else if (ch.has_imbuement == 0)
+                    else if (ch.imbuement_time == 0)
                         lvItem.BackColor = Color.Blue;
                     else if (ch.warning.Length > 0)
                         lvItem.BackColor = Color.Yellow;

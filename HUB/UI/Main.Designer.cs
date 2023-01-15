@@ -43,7 +43,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(807, 487);
+            this.tabControl1.Size = new System.Drawing.Size(960, 487);
             this.tabControl1.TabIndex = 0;
             // 
             // textBox1
@@ -67,7 +67,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(744, 11);
+            this.button1.Location = new System.Drawing.Point(897, 11);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -82,7 +82,7 @@
             this.textBox3.Location = new System.Drawing.Point(344, 12);
             this.textBox3.Name = "textBox3";
             this.textBox3.PlaceholderText = "Bot Path";
-            this.textBox3.Size = new System.Drawing.Size(394, 23);
+            this.textBox3.Size = new System.Drawing.Size(547, 23);
             this.textBox3.TabIndex = 4;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 540);
+            this.ClientSize = new System.Drawing.Size(984, 540);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);

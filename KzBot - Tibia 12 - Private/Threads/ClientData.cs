@@ -14,7 +14,7 @@ namespace KzBot.Threads
         public static bool setClient = false;
         public static bool firstUpdate = false;
         public static int lastBalance = 0;
-        public static string status = "init";
+        public static string status = "None";
         public static int imbueTime = -1;
         public static string lastUpdatedCharacter = string.Empty;
 

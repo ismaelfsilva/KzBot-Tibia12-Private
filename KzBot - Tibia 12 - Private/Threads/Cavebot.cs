@@ -175,7 +175,14 @@ namespace KzBot.Threads
                             });
                             Globals.ScriptConfig.auto_Haste = false;
 
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(200);
+
                             Client.Say(waypoint.Extra);
+
+                            System.Threading.Thread.Sleep(200);
+                            Keyboard.PressKey(Keys.F20);
+
                             Globals.WaypointId++;
                             break;
 

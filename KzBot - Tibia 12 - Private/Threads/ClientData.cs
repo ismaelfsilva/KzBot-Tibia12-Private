@@ -213,10 +213,13 @@ namespace KzBot.Threads
                     }
 
                     Keyboard.PressKey(Keys.Enter);
-                    for (int i = 0; i < 20; i++)
+                    int gameServerLoginChecks = 20;
+                    for (int i = 1; i <= gameServerLoginChecks; i++)
                     {
                         if (!Objects.Player.isLoggedIn)
                             System.Threading.Thread.Sleep(100);
+                        else if (i >= gameServerLoginChecks - 1)
+                            Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                             return;
                         else

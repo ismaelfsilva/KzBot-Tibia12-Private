@@ -277,7 +277,6 @@ namespace KzBot.Objects
             Keyboard.PressKey(Keys.F22);
             Keyboard.PressKey(Keys.F23);
             Keyboard.PressKey(Keys.F24);
-            Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(100);
 
 
@@ -320,7 +319,6 @@ namespace KzBot.Objects
             Keyboard.PressKey(Keys.F21);
             Keyboard.PressKey(Keys.F23);
             Keyboard.PressKey(Keys.F24);
-            Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(100);
 
 

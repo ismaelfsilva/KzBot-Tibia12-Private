@@ -221,7 +221,10 @@ namespace KzBot.Threads
                         else if (i >= gameServerLoginChecks - 1)
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
+                        {
+                            Keyboard.PressKey(Keys.F20);
                             return;
+                        }
                         else
                             break;
                     }

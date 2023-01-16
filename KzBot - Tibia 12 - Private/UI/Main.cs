@@ -456,7 +456,6 @@ namespace KzBot
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            MessageBox.Show("Healer " + Globals.ScriptConfig.HealerStatus);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

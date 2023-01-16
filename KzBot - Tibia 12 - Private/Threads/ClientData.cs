@@ -174,97 +174,55 @@ namespace KzBot.Threads
                     setClient = false;
                     Threads.Alarms.safeMode = false;
 
-                    System.Threading.Thread.Sleep(1000);
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(100);
+                    Keyboard.PressKey(Keys.Escape);
+                    System.Threading.Thread.Sleep(10);
 
-                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                        }
+                    WinApi.RECT clientRect = Globals.clientRect;
 
-
-
-                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                            return;
-
-                        WinApi.RECT clientRect = Globals.clientRect;
-
-                        // CLICK OK ON SS [TEST]
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
-                            System.Threading.Thread.Sleep(100);
-
-                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                        }
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(100);
-
-                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                        }
-
-                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                            return;
-
-
-                        Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 60);
-                        System.Threading.Thread.Sleep(100);
-                        Keyboard.Write(Globals.AccName);
-                        System.Threading.Thread.Sleep(100);
-
-                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                            return;
-
-                        Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 30);
-                        System.Threading.Thread.Sleep(100);
-                        Keyboard.Write(Globals.AccPass);
-                        System.Threading.Thread.Sleep(100);
-
-                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                            return;
-
-                        Keyboard.PressKey(Keys.Enter);
-                        System.Threading.Thread.Sleep(5000);
-
-                        if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                            return;
-
-                        for (int i = 0; i < 30; i++)
-                        {
-                            Keyboard.PressKey(Keys.Up);
-                            System.Threading.Thread.Sleep(50);
-
-                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                        }
-
-                        for (int i = 0; i < Globals.AccCharIndex; i++)
-                        {
-                            Keyboard.PressKey(Keys.Down);
-                            System.Threading.Thread.Sleep(100);
-
-                            if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                        }
-
-                        Keyboard.PressKey(Keys.Enter);
-                        for (int i = 0; i < 50; i++)
-                        {
-                            if (!Objects.Player.isLoggedIn)
-                                System.Threading.Thread.Sleep(100);
-                            else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
-                                return;
-                            else
-                                break;
-                        }
+                    // CLICK OK ON SS [TEST]
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
+                        System.Threading.Thread.Sleep(10);
                     }
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Keyboard.PressKey(Keys.Escape);
+                        System.Threading.Thread.Sleep(10);
+                    }
+
+                    Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 60);
+                    Keyboard.Write(Globals.AccName);
+                    Objects.Client.leftClick((clientRect.right - clientRect.left) / 2, (clientRect.bottom - clientRect.top) / 2 - 30);
+                    Keyboard.Write(Globals.AccPass);
+
+                    Keyboard.PressKey(Keys.Enter);
+                    System.Threading.Thread.Sleep(500);
+
+                    for (int i = 0; i < 30; i++)
+                    {
+                        Keyboard.PressKey(Keys.Up);
+                        System.Threading.Thread.Sleep(10);
+                    }
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Keyboard.PressKey(Keys.Down);
+                        System.Threading.Thread.Sleep(10);
+                    }
+
+                    Keyboard.PressKey(Keys.Enter);
+                    for (int i = 0; i < 20; i++)
+                    {
+                        if (!Objects.Player.isLoggedIn)
+                            System.Threading.Thread.Sleep(100);
+                        else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
+                            return;
+                        else
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {

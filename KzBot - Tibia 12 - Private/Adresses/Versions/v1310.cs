@@ -32,6 +32,7 @@ namespace KzBot.Addresses
             Player.mouseHoverCreature = new uint[] { 0x158, 0x14 }; // UPDATED
 
             Client.clientTime = new uint[] { Player.creaturePointer, 0x64, 0x50 }; // UPDATED
+            Client.lastWalkTime = new uint[] { Player.creaturePointer, 0x64, 0x58 }; // UPDATED
 
             Player.gotoX = new uint[] { 0x4FC, 0xB8 }; // UPDATED
             Player.gotoY = new uint[] { 0x4FC, 0xBC }; // UPDATED

@@ -9,6 +9,7 @@ namespace KzBot.Addresses
     public static class Client
     {
         public static uint[] clientTime;
+        public static uint[] lastWalkTime;
 
         public static uint attackCooldown = 0x0;
         public static uint healCooldown = 0x0;

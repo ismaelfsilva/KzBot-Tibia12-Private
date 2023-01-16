@@ -42,15 +42,19 @@ namespace KzBot.Threads
                 { }
                 else if (Globals.ScriptConfig.Alarms[(int)AlarmType.Stuck].Enabled)
                 {
-                    Position playerPos = Objects.Player.Position;
                     Waypoint waypoint = Globals.ScriptConfig.Waypoints[Globals.WaypointId];
-                    if (Globals.ScriptConfig.CavebotStatus && (playerPos.Z != 0 && playerPos == lastCheckPosition) && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && ++ticksStuck >= 30)
-                        alarmsRequested.Add(AlarmType.Stuck);
-                    else if (playerPos != lastCheckPosition)
+                    if (Globals.ScriptConfig.CavebotStatus && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && Objects.Client.TimeStopped >= 10000)
+                        ticksStuck++;
+                    else
                     {
-                        lastCheckPosition = playerPos;
                         ticksStuck = 0;
                     }
+
+                    Debug.WriteLine(ticksStuck);
+
+                    if (ticksStuck >= 30)
+                        alarmsRequested.Add(AlarmType.Stuck);
+
                 }
 
                 if (Globals.ScriptConfig.AlarmStatus)

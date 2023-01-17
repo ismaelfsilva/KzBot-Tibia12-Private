@@ -21,6 +21,8 @@ namespace KzBot.Threads
         public static DateTime lastLureStart = DateTime.MinValue;
         public static int lastCharacterId = 0;
 
+        public static DateTime idleUntil = DateTime.MinValue;
+
         private static void CavebotThread(object state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -187,6 +189,7 @@ namespace KzBot.Threads
 
                         }
                     case WaypointType.Wait:
+                        idleUntil = DateTime.Now.AddMilliseconds(int.Parse(waypoint.Extra));
                         System.Threading.Thread.Sleep(int.Parse(waypoint.Extra));
                         Globals.WaypointId++;
                         break;

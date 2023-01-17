@@ -174,7 +174,7 @@ namespace KzBot.Threads
 
                     int pLevel = Objects.Player.Level;
 
-                    if (Globals.ScriptConfig.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support))
+                    if (Globals.ScriptConfig.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support) && DateTime.Now > Threads.Cavebot.idleUntil)
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Haste_Key);
                 }
                 else if (Globals.ScriptConfig.auto_Reconnect)

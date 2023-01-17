@@ -66,7 +66,6 @@ namespace KzBot.Threads
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.ToString());
                     }
                 }
                 else if (waypoint.Type == WaypointType.Close_Bot)

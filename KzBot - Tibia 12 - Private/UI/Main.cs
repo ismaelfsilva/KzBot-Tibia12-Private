@@ -209,7 +209,7 @@ namespace KzBot
 
         private void Main_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            if (!canCloseForm && MessageBox.Show("Are you sure you want to close KzBot?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (!canCloseForm && MessageBox.Show("Are you sure you want to close KzBot?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly) == DialogResult.No)
             {
                 e.Cancel = true;
                 return;
@@ -450,7 +450,7 @@ namespace KzBot
         private void cavebotLiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CavebotLite.Owner = this;
-             CavebotLite.Show();
+            CavebotLite.Show();
         }
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)

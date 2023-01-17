@@ -42,22 +42,27 @@ namespace KzBot.Threads
                         Globals.Main.ShowInTaskbar = true;
                     });
                 }
-                else if (Globals.Process != null && Globals.Process.HasExited)
+                else if (Globals.Process.HasExited)
                 {
                     Threads.ClientData.UpdateCharacter();
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {
+                        Globals.Main.ShowInTaskbar = true;
                         Globals.Main.canCloseForm = true;
                         Globals.Main.Close();
+                        Application.Exit();
                     });
                     return;
                 }
-                else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle || Globals.Main.OwnedForms.Count(f=> f.Handle == foregroundWindow) > 0)
-                {
+                else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle || Globals.Main.OwnedForms.Any(f=> f.Handle == foregroundWindow))
+                {                    
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {
-                        Globals.Main.TopMost = true;
-                        Globals.Main.ShowInTaskbar = false;
+                        if (!Globals.Main.TopMost)
+                        {
+                            Globals.Main.TopMost = true;
+                            Globals.Main.ShowInTaskbar = false;
+                        }
 
                         if (!botIsHidden)
                             Globals.Main.Show();
@@ -67,13 +72,14 @@ namespace KzBot.Threads
                             Globals.Main.Size = sizeWhenVisible;
                             lockSize = false;
                         }
-                        else if (foregroundWindow == Globals.Process?.MainWindowHandle && Globals.Main.Size != Globals.Main.MinimumSize)
+                        else if (foregroundWindow != mainHandle && Globals.Main.Size != Globals.Main.MinimumSize)
                         {
                             lockSize = true;
                             sizeWhenVisible = Globals.Main.Size;
                             Globals.Main.Size = Globals.Main.MinimumSize;
                         }
                     });
+
                     if (WinApi.GetAsyncKeyState(Keys.Pause))
                     {
                         Globals.Main.checkBox1.Invoke((MethodInvoker)delegate {
@@ -180,7 +186,7 @@ namespace KzBot.Threads
                     WinApi.RECT clientRect = Globals.clientRect;
 
                     // CLICK OK ON SS [TEST]
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + (i * 10));
                         System.Threading.Thread.Sleep(10);
@@ -277,7 +283,6 @@ namespace KzBot.Threads
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
                 Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
                 return;
             }

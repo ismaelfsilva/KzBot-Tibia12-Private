@@ -118,7 +118,7 @@ namespace KzBot.UI
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show("Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly) == DialogResult.No)
                 return;
 
             Globals.ScriptConfig.Refill.Clear();

@@ -974,52 +974,24 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Reset_FPS:
                         {
-                            changedStatus = true;
-
-                            Globals.Main.Invoke((MethodInvoker)delegate {
-                                Globals.Main.checkBox2.Checked = false; // HEALER
-                                Globals.Main.checkBox4.Checked = false; // TARGETING
-                            });
-                            Globals.ScriptConfig.auto_Haste = false;
-
-
-                            bool reconnectStatus = Globals.ScriptConfig.auto_Reconnect;
-                            Globals.ScriptConfig.auto_Reconnect = false;
-
-                            System.Threading.Thread.Sleep(100);
-                            isChatOn = true;
-                            Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(3000);
-                            Client.Say("!fps");
-                            System.Threading.Thread.Sleep(2000);
-
-                            if (Objects.Player.isLoggedIn)
+                            if ((DateTime.Now - Threads.ClientData.lastLoginTime).TotalHours >= 6)
                             {
-                                Globals.ScriptConfig.auto_Reconnect = reconnectStatus;
-                                Globals.WaypointId++;
-                                break;
+                                changedStatus = true;
+
+                                Globals.Main.Invoke((MethodInvoker)delegate {
+                                    Globals.Main.checkBox2.Checked = false; // HEALER
+                                    Globals.Main.checkBox4.Checked = false; // TARGETING
+                                });
+                                Globals.ScriptConfig.auto_Haste = false;
+
+                                isChatOn = true;
+                                Keyboard.PressKey(Keys.F19);
+                                System.Threading.Thread.Sleep(100);
+                                Client.Say("!fps");
+                                System.Threading.Thread.Sleep(2000);
                             }
 
-                            WinApi.RECT clientRect = Globals.clientRect;
-
-                            Objects.Client.leftClick((clientRect.right - clientRect.left) / 2 + 130, (clientRect.bottom - clientRect.top) / 2 + 55);
-                            System.Threading.Thread.Sleep(2000);
-
-                            Keyboard.PressKey(Keys.Enter);
-                            System.Threading.Thread.Sleep(5000);
-
-                            //Keyboard.PressKey(Keys.F3);
-                            //Keyboard.PressKey(Keys.OemQuestion);
-                            //System.Threading.Thread.Sleep(2000);
-
-                            Objects.Client.SetCooldownAddresses();
-                            Globals.ScriptConfig.auto_Reconnect = reconnectStatus;
-
-                            System.Threading.Thread.Sleep(100);
-                            Keyboard.PressKey(Keys.F20);
-
                             Globals.WaypointId++;
-
                             break;
                         }
                     default:

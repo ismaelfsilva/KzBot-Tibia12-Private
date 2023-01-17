@@ -455,7 +455,6 @@ namespace KzBot
 
         private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(Client.Time - Client.LastWalk);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

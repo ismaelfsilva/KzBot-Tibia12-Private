@@ -22,6 +22,8 @@ namespace KzBot.Threads
         public static Size sizeWhenVisible = new Size();
         public static bool lockSize = false;
 
+        public static DateTime lastLoginTime = DateTime.Now;
+
         private async static void ClientDataThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -228,6 +230,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                         {
+                            lastLoginTime = DateTime.Now;
                             Keyboard.PressKey(Keys.F20);
                             return;
                         }

@@ -25,8 +25,8 @@ namespace HUB.Classes
                 listViewItem.Text = id.ToString();
                 listViewItem.SubItems.Add(character.name);
                 listViewItem.SubItems.Add(character.server);
-                listViewItem.SubItems.Add(message);
                 listViewItem.SubItems.Add(time.ToString());
+                listViewItem.SubItems.Add(message);
 
                 return listViewItem;
             }

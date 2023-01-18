@@ -613,6 +613,8 @@ namespace KzBot.Threads
                             int platCount = Objects.Client.getItemCount(3035) * 100;
                             int crystalCount = Objects.Client.getItemCount(3043) * 10000;
 
+                            int totalGold = goldCount + platCount + crystalCount;
+
                             changedStatus = true;
                             Globals.Main.Invoke((MethodInvoker)delegate {
                                 Globals.Main.checkBox2.Checked = false; // HEALER
@@ -636,7 +638,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
 
-                            Globals.Main.Log.addLog("Deposited " + goldCount + platCount + crystalCount + " gold coins", false);
+                            Globals.Main.Log.addLog("Deposited " + totalGold + " gold coins", false);
 
                             Globals.WaypointId++;
                             break;

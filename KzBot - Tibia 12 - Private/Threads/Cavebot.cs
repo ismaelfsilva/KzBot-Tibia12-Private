@@ -548,7 +548,9 @@ namespace KzBot.Threads
                                 Client.Say("hi");
                                 System.Threading.Thread.Sleep(1000);
 
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 Client.Say(refill.Type);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Click Buy

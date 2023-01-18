@@ -375,7 +375,7 @@ namespace KzBot.Threads
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/log.php?username={0}&password={1}&char_name={2}&log={3}",
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/log.php?username={0}&password={1}&char_name={2}&message={3}",
                     Globals.Username,
                     Globals.Password,
                     Globals.AccCharName,

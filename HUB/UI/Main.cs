@@ -22,6 +22,7 @@ namespace HUB
         Characters Characters;
         Servers Servers;
         Scripts Scripts;
+        Log Log;
 
         public Main()
         {
@@ -39,30 +40,35 @@ namespace HUB
             Clients = new Clients();
             Servers = new Servers();
             Scripts = new Scripts();
+            Log = new Log();
 
 
             TabPage characteresTabPage = new TabPage(Characters.Text);
             TabPage clientsTabPage = new TabPage(Clients.Text);
             TabPage serversTabPage = new TabPage(Servers.Text);
             TabPage scriptsTabPage = new TabPage(Scripts.Text);
+            TabPage logTabPage = new TabPage(Log.Text);
 
 
             characteresTabPage.Controls.Add(Characters);
             clientsTabPage.Controls.Add(Clients);
             serversTabPage.Controls.Add(Servers);
             scriptsTabPage.Controls.Add(Scripts);
+            logTabPage.Controls.Add(Log);
 
 
             tabControl1.Controls.Add(characteresTabPage);
             tabControl1.Controls.Add(scriptsTabPage);
             tabControl1.Controls.Add(clientsTabPage);
             tabControl1.Controls.Add(serversTabPage);
+            tabControl1.Controls.Add(logTabPage);
 
 
             Characters.listView1.DoubleBuffering(true);
             Clients.listView1.DoubleBuffering(true);
             Servers.listView1.DoubleBuffering(true);
             Scripts.listView1.DoubleBuffering(true);
+            Log.listView1.DoubleBuffering(true);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -302,6 +302,7 @@ namespace HUB
                     };
 
                         ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.WindowStyle = ProcessWindowStyle.Normal;
                         startInfo.CreateNoWindow = false;
                         startInfo.UseShellExecute = false;
                         startInfo.FileName = Settings.Default.BotPath;

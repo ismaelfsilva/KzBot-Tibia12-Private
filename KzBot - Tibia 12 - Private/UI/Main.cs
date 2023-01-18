@@ -100,9 +100,11 @@ namespace KzBot
                 while (Globals.Process == null)
                 {
                     ProcessStartInfo clientInfo = new ProcessStartInfo();
+                    clientInfo.CreateNoWindow = false;
+                    clientInfo.WindowStyle = ProcessWindowStyle.Normal;
                     clientInfo.FileName = (@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
                     clientInfo.WorkingDirectory = Path.GetDirectoryName(@Path.Combine(Globals.Server.path, "bin", Globals.Client.file));
-                    clientInfo.UseShellExecute = true;
+                    clientInfo.UseShellExecute = false;
                     clientInfo.WindowStyle = ProcessWindowStyle.Maximized;
                     Globals.Process = Process.Start(clientInfo);
                     Globals.Process.WaitForInputIdle();

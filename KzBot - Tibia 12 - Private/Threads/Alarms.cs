@@ -67,6 +67,7 @@ namespace KzBot.Threads
                     if (Globals.ScriptConfig.Alarms[((int)alarm)].Enabled)
                     {
                         // DO LOG MESSAGE
+                        Globals.Main.Log.addLog(alarm.ToString(), true);
 
                         //
                         string actionString = Globals.ScriptConfig.Alarms[((int)alarm)].Action.Replace("()", "");

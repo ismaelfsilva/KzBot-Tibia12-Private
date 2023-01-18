@@ -190,11 +190,13 @@ namespace KzBot.Threads
                         lastReconectStart = DateTime.Now;
                         totalReconnect10Minutes = 1;
                         isReconnecting = true;
+                        Globals.Main.Log.addLog("Character Offline", true);
                     }
                     else if (totalReconnect10Minutes > 3)
                     {
                         if (await BanCharacter())
                         {
+                            Globals.Main.Log.addLog("Banned", true);
                             Threads.ClientData.UpdateCharacter();
                             Globals.Main.Invoke((MethodInvoker)delegate
                             {
@@ -266,6 +268,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                         {
+                            Globals.Main.Log.addLog("Character Online", true);
                             isReconnecting = false;
                             lastLoginTime = DateTime.Now;
                             Keyboard.PressKey(Keys.F20);

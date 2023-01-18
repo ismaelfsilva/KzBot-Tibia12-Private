@@ -33,12 +33,16 @@ namespace KzBot.UI
 
         public void addLog(string message, bool unique = false)
         {
-            bool hasSameMessage = !uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 30);
-
-            if (unique && !hasSameMessage)
+            if (unique)
             {
-                uniqueLogMessages.Add(new logMessage(message));
-                // UPLOAD
+                bool hasSameMessage = !uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 30);
+
+                if (!hasSameMessage)
+                {
+                    uniqueLogMessages.Add(new logMessage(message));
+                    // UPLOAD
+
+                }
             }
             else if (!unique)
             {

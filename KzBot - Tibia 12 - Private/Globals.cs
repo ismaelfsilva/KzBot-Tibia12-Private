@@ -142,6 +142,7 @@ namespace KzBot
                 */
 
                 file.Close();
+                Globals.Main.Log.addLog("Loaded Script " + filePath.Split(@"/").LastOrDefault(), true);
             }
         }
 

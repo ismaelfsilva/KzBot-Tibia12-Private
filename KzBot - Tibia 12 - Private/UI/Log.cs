@@ -35,18 +35,18 @@ namespace KzBot.UI
         {
             if (unique)
             {
-                bool hasSameMessage = !uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 30);
+                bool hasSameMessage = !uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 5);
 
                 if (!hasSameMessage)
                 {
                     uniqueLogMessages.Add(new logMessage(message));
                     // UPLOAD
-
+                    Threads.ClientData.LogMessage(message);
                 }
             }
             else if (!unique)
             {
-                // UPLOAD
+                Threads.ClientData.LogMessage(message);
             }
 
             listBox1.Invoke((MethodInvoker)delegate

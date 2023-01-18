@@ -364,6 +364,36 @@ namespace KzBot.Threads
                 return;
             }
         }
+        public static async void LogMessage(string message)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/log.php?username={0}&password={1}&char_name={2}&log={3}",
+                    Globals.Username,
+                    Globals.Password,
+                    Globals.AccCharName,
+                    message
+                    )));
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode && content == "1")
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
+                else
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Failed Data Sent", content);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
+                return;
+            }
+        }
 
         class serverInfo
         {

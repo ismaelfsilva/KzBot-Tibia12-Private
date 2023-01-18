@@ -600,6 +600,10 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Deposit_All:
                         {
+                            int goldCount = Objects.Client.getItemCount(3031);
+                            int platCount = Objects.Client.getItemCount(3035) * 100;
+                            int crystalCount = Objects.Client.getItemCount(3043) * 10000;
+
                             changedStatus = true;
                             Globals.Main.Invoke((MethodInvoker)delegate {
                                 Globals.Main.checkBox2.Checked = false; // HEALER
@@ -622,6 +626,8 @@ namespace KzBot.Threads
 
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
+
+                            Globals.Main.Log.addLog("Deposited " + goldCount + platCount + crystalCount + " gold coins", false);
 
                             Globals.WaypointId++;
                             break;

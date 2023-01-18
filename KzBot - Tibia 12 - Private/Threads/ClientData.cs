@@ -191,16 +191,6 @@ namespace KzBot.Threads
                         totalReconnect10Minutes = 1;
                         isReconnecting = true;
                     }
-                    else if ((DateTime.Now - lastReconectStart).TotalMinutes >= totalReconnect10Minutes * 10)
-                    {
-                        totalReconnect10Minutes++;
-
-                        if (await getOnlinePlayers() < 50)
-                        {
-                            totalReconnect10Minutes = 1;
-                            lastReconectStart = DateTime.Now;
-                        }
-                    }
                     else if (totalReconnect10Minutes > 3)
                     {
                         if (await BanCharacter())
@@ -212,6 +202,16 @@ namespace KzBot.Threads
                                 Globals.Main.Close();
                             });
                             return;
+                        }
+                    }
+                    else if ((DateTime.Now - lastReconectStart).TotalMinutes >= totalReconnect10Minutes * 10)
+                    {
+                        totalReconnect10Minutes++;
+
+                        if (await getOnlinePlayers() < 50)
+                        {
+                            totalReconnect10Minutes = 1;
+                            lastReconectStart = DateTime.Now;
                         }
                     }
 

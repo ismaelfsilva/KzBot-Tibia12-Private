@@ -376,10 +376,10 @@ namespace HUB
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-                string requestString = string.Format("https://tibia.kzsoft.com.br/status.php?username={0}&password={1}&char_id={2}&status={3}",
+                string requestString = string.Format("https://tibia.kzsoft.com.br/status.php?username={0}&password={1}&char_name={2}&status={3}",
                      Settings.Default.Username,
                      Settings.Default.Password,
-                     character.id,
+                     character.name,
                      character.status != -1 ? -1 : 1
                      );
 

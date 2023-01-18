@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace KzBot.Threads
 {
@@ -190,13 +191,13 @@ namespace KzBot.Threads
                         lastReconectStart = DateTime.Now;
                         totalReconnect10Minutes = 1;
                         isReconnecting = true;
-                        Globals.Main.Log.addLog("Character Offline", true);
+                        Globals.Main.Log.addLog("Character Offline", false);
                     }
                     else if (totalReconnect10Minutes > 3)
                     {
                         if (await BanCharacter())
                         {
-                            Globals.Main.Log.addLog("Banned", true);
+                            Globals.Main.Log.addLog("Banned", false);
                             Threads.ClientData.UpdateCharacter();
                             Globals.Main.Invoke((MethodInvoker)delegate
                             {
@@ -268,7 +269,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                         {
-                            Globals.Main.Log.addLog("Character Online", true);
+                            Globals.Main.Log.addLog("Character Online", false);
                             isReconnecting = false;
                             lastLoginTime = DateTime.Now;
                             Keyboard.PressKey(Keys.F20);
@@ -379,7 +380,7 @@ namespace KzBot.Threads
                     Globals.Username,
                     Globals.Password,
                     Globals.AccCharName,
-                    message
+                    HttpUtility.UrlEncode(message).Replace("+", "%20")
                     )));
                 string content = await response.Content.ReadAsStringAsync();
 

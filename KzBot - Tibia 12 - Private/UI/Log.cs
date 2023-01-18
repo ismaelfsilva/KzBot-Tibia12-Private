@@ -35,7 +35,7 @@ namespace KzBot.UI
         {
             if (unique)
             {
-                bool hasSameMessage = !uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 5);
+                bool hasSameMessage = uniqueLogMessages.Exists(m => m.message == message && (DateTime.Now - m.time).TotalMinutes < 5);
 
                 if (!hasSameMessage)
                 {
@@ -44,7 +44,7 @@ namespace KzBot.UI
                     Threads.ClientData.LogMessage(message);
                 }
             }
-            else if (!unique)
+            else
             {
                 Threads.ClientData.LogMessage(message);
             }

@@ -20,6 +20,7 @@ namespace KzBot.Threads
         public static bool didWaitBecauseOfPlayerOnCombo = false;
         public static DateTime lastLureStart = DateTime.MinValue;
         public static int lastCharacterId = 0;
+        public static string lastStatus = "None";
 
         public static DateTime idleUntil = DateTime.MinValue;
 
@@ -72,7 +73,7 @@ namespace KzBot.Threads
                 }
                 else if (waypoint.Type == WaypointType.Close_Bot)
                 {
-                    Globals.Main.Log.addLog("Closing Bot", true);
+                    Globals.Main.Log.addLog("Closing Bot", false);
                     Threads.ClientData.UpdateCharacter();
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {
@@ -359,7 +360,7 @@ namespace KzBot.Threads
                             else if (foundItem && !hasImbue)
                             {
                                 Threads.ClientData.imbueTime = 0;
-                                Globals.Main.Log.addLog("Imbuement Ended", true);
+                                Globals.Main.Log.addLog("Imbuement Ended", false);
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             }
                             else if (foundItem)
@@ -626,7 +627,7 @@ namespace KzBot.Threads
                             break;
                         }
                     case WaypointType.Transfer:
-                        Globals.Main.Log.addLog("Transfering Cash", true);
+                        Globals.Main.Log.addLog("Transfering Cash", false);
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Balance:
@@ -864,7 +865,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Exit:
-                        Globals.Main.Log.addLog("Exiting Character", true);
+                        Globals.Main.Log.addLog("Exiting Character", false);
                         Threads.ClientData.UpdateCharacter();
                         Globals.Process.Kill(true);
                         Globals.Process = null;
@@ -976,8 +977,10 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Set_Status:
+                        if (waypoint.Extra.Trim() != Threads.ClientData.status)
+                            Globals.Main.Log.addLog(waypoint.Extra.Trim());
+
                         Threads.ClientData.status = waypoint.Extra.Trim();
-                        Globals.Main.Log.addLog(waypoint.Extra.Trim());
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Reset_FPS:

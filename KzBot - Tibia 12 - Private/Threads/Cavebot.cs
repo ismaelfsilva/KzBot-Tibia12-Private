@@ -561,8 +561,9 @@ namespace KzBot.Threads
 
                                 // Search Item
                                 Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
-                                //System.Threading.Thread.Sleep(100);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 Keyboard.Write(refill.Name);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Select Item
@@ -574,11 +575,15 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(500);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 Keyboard.PressKey(Keys.Delete);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 System.Threading.Thread.Sleep(100);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey)) continue;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Buy

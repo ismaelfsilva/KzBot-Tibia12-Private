@@ -82,6 +82,15 @@ namespace KzBot.Threads
                     });
                     return;
                 }
+                else if (waypoint.Type == WaypointType.Exit)
+                {
+                    Globals.Main.Log.addLog("Exiting Character", false);
+                    Threads.ClientData.UpdateCharacter();
+                    Globals.Process.Kill(true);
+                    Globals.Process = null;
+
+                    Globals.WaypointId++;
+                }
 
                 if (!Globals.ScriptConfig.GeneralStatus || !Globals.ScriptConfig.CavebotStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                     return;
@@ -875,6 +884,8 @@ namespace KzBot.Threads
                         Threads.ClientData.UpdateCharacter();
                         Globals.Process.Kill(true);
                         Globals.Process = null;
+
+                        Globals.WaypointId++;
                         break;
                     case WaypointType.Login_Next:
                         break;

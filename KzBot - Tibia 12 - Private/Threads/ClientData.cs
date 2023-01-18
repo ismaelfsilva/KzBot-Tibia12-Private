@@ -1,4 +1,5 @@
 ﻿using KzBot.Objects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,6 +24,10 @@ namespace KzBot.Threads
         public static bool lockSize = false;
 
         public static DateTime lastLoginTime = DateTime.Now;
+
+        public static DateTime lastReconectStart = DateTime.Now;
+        public static bool isReconnecting = false;
+        public static int totalReconnect10Minutes = 1;
 
         private async static void ClientDataThread(object? state)
         {
@@ -173,12 +178,43 @@ namespace KzBot.Threads
                     }
 
                     int pLevel = Objects.Player.Level;
+                    isReconnecting = false;
 
                     if (Globals.ScriptConfig.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support) && DateTime.Now > Threads.Cavebot.idleUntil)
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Haste_Key);
                 }
                 else if (Globals.ScriptConfig.auto_Reconnect)
                 {
+                    if (!isReconnecting)
+                    {
+                        lastReconectStart = DateTime.Now;
+                        totalReconnect10Minutes = 1;
+                        isReconnecting = true;
+                    }
+                    else if ((DateTime.Now - lastReconectStart).TotalMinutes >= totalReconnect10Minutes * 10)
+                    {
+                        totalReconnect10Minutes++;
+
+                        if (await getOnlinePlayers() < 50)
+                        {
+                            totalReconnect10Minutes = 1;
+                            lastReconectStart = DateTime.Now;
+                        }
+                    }
+                    else if (totalReconnect10Minutes > 3)
+                    {
+                        if (await BanCharacter())
+                        {
+                            Threads.ClientData.UpdateCharacter();
+                            Globals.Main.Invoke((MethodInvoker)delegate
+                            {
+                                Globals.Main.canCloseForm = true;
+                                Globals.Main.Close();
+                            });
+                            return;
+                        }
+                    }
+
                     setClient = false;
                     Threads.Alarms.safeMode = false;
 
@@ -230,6 +266,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                         {
+                            isReconnecting = false;
                             lastLoginTime = DateTime.Now;
                             Keyboard.PressKey(Keys.F20);
                             return;
@@ -247,6 +284,40 @@ namespace KzBot.Threads
             {
                 Thread.Change(100, Timeout.Infinite);
             }
+        }
+        public static async Task<bool> BanCharacter()
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/status.php?username={0}&password={1}&char_name={2}&status={3}",
+                    Globals.Username,
+                    Globals.Password,
+                    Globals.AccCharName,
+                    -1
+                    )));
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode && int.Parse(content) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+            }
+
+            return false;
         }
 
         public static async void UpdateCharacter()
@@ -289,6 +360,51 @@ namespace KzBot.Threads
                 Debug.WriteLine("[{0}] {1}", DateTime.Now, ex.Message);
                 return;
             }
+        }
+
+        class serverInfo
+        {
+            public int gamingyoutubestreams { get; set; } = 0;
+            public int gamingyoutubeviewer { get; set; } = 0;
+            public int playersonline { get; set; } = 0;
+            public int twitchstreams { get; set; } = 0;
+            public int twitchviewer { get; set; } = 0;
+        }
+
+        public static async Task<int> getOnlinePlayers()
+        {
+            int onlinePlayers = 0;
+
+            try
+            {
+                var client = new HttpClient();
+
+                var postContent = JsonConvert.SerializeObject(new
+                {
+                    type = "cacheinfo"
+                });
+                var payload = new StringContent(postContent, Encoding.UTF8, "application/json");
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                var response = await client.PostAsync(@Globals.Server.loginServer, payload);
+                string content = await response.Content.ReadAsStringAsync();
+                serverInfo serverInfo = JsonConvert.DeserializeObject<serverInfo>(content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    onlinePlayers = serverInfo.playersonline;
+                }
+            }
+            catch
+            {
+
+            }
+
+            return onlinePlayers;
         }
     }
 }

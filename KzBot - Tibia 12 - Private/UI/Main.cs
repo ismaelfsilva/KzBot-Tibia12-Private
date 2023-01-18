@@ -1,13 +1,17 @@
 using KzBot.Objects;
 using KzBot.UI;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.Http.Json;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using Telegram.Bot;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KzBot
 {
@@ -453,7 +457,7 @@ namespace KzBot
             CavebotLite.Show();
         }
 
-        private void charactersToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
 

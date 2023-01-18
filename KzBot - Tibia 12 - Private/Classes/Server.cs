@@ -13,6 +13,7 @@ namespace KzBot.Classes
         public string version { get; set; } = string.Empty;
         public string path { get; set; } = string.Empty;
         public string website { get; set; } = string.Empty;
+        public string loginServer { get; set; } = string.Empty;
         public int autoLootId { get; set; } = -1;
     }
 }

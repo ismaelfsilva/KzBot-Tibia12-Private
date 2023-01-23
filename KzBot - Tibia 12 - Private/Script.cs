@@ -136,6 +136,7 @@ namespace KzBot
         [XmlAttribute]
         public bool Enabled { get; set; } = false;
 
+        [XmlIgnore]
         public CheckBox CheckBox { get; set; }
 
         public AlarmRule()

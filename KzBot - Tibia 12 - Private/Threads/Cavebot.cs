@@ -813,7 +813,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Disable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
-                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"))].CheckBox.Checked = false;
+                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"), true)].CheckBox.Checked = false;
                         });
                         Globals.WaypointId++;
                         break;
@@ -837,7 +837,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Enable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
-                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"))].CheckBox.Checked = true;
+                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"), true)].CheckBox.Checked = true;
                         });
                         Globals.WaypointId++;
                         break;

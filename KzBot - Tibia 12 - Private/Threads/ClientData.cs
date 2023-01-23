@@ -14,11 +14,12 @@ namespace KzBot.Threads
     {
         public static System.Threading.Timer Thread = new System.Threading.Timer(ClientDataThread, null, Timeout.Infinite, Timeout.Infinite);
         public static bool setClient = false;
-        public static bool firstUpdate = false;
         public static int lastBalance = 0;
+        public static int lastStamina = 0;
+        public static int lastLevel = 0;
         public static string status = "None";
         public static int imbueTime = -1;
-        public static string lastUpdatedCharacter = string.Empty;
+        public static DateTime lastUpdateTime = DateTime.MinValue;
 
         public static bool botIsHidden = false;
         public static Size sizeWhenVisible = new Size();
@@ -154,17 +155,20 @@ namespace KzBot.Threads
                 if (!Globals.ScriptConfig.GeneralStatus)
                     return;
 
-                if (Objects.Player.isLoggedIn)
-                {
-                    Creature playerCreature = Objects.Player.Creature;
 
-                    if (!firstUpdate || (playerCreature.Name != string.Empty && lastUpdatedCharacter != playerCreature.Name) || Math.Round((DateTime.Now - Globals.Process.StartTime).TotalSeconds) % 60 == 0)
+                if (Globals.AccCharName != string.Empty && (DateTime.Now - lastUpdateTime).TotalSeconds >= 60)
+                {
+                    if (Objects.Player.isLoggedIn)
                     {
-                        lastUpdatedCharacter = playerCreature.Name;
-                        UpdateCharacter();
-                        System.Threading.Thread.Sleep(1100);
+                        lastLevel = Objects.Player.Level;
+                        lastStamina = (int)Math.Floor(Objects.Player.Stamina.TotalSeconds);
                     }
 
+                    UpdateCharacter();
+                }
+
+                if (Objects.Player.isLoggedIn)
+                {
                     if (!setClient)
                     {
                         System.Threading.Thread.Sleep(2000);
@@ -181,11 +185,14 @@ namespace KzBot.Threads
                     int pLevel = Objects.Player.Level;
                     isReconnecting = false;
 
+                    Creature playerCreature = Objects.Player.Creature;
+
                     if (Globals.ScriptConfig.auto_Haste && !Globals.ComboStatus && (playerCreature.Speed < Math.Floor((pLevel + 109) * 1.2)) && pLevel >= 14 && Objects.Player.Mana >= 60 && Objects.Client.hasCooldown(CooldownGroup.Support) && DateTime.Now > Threads.Cavebot.idleUntil)
                         Keyboard.PressKey((Keys)Properties.Settings.Default.Haste_Key);
                 }
                 else if (Globals.ScriptConfig.auto_Reconnect)
                 {
+                    status = "Trying to Login";
                     if (!isReconnecting)
                     {
                         lastReconectStart = DateTime.Now;
@@ -198,6 +205,7 @@ namespace KzBot.Threads
                         if (await BanCharacter())
                         {
                             Globals.Main.Log.addLog("Banned", false);
+                            status = "Banned";
                             Threads.ClientData.UpdateCharacter();
                             Globals.Main.Invoke((MethodInvoker)delegate
                             {
@@ -340,9 +348,9 @@ namespace KzBot.Threads
                     Globals.Username,
                     Globals.Password,
                     Globals.AccCharName,
-                    Objects.Player.Level,
+                    lastLevel,
                     lastBalance,
-                    Objects.Player.Stamina.TotalSeconds,
+                    lastStamina,
                     status == string.Empty ? "None" : status,
                     imbueTime
                     )));
@@ -351,7 +359,7 @@ namespace KzBot.Threads
                 if (response.IsSuccessStatusCode && content == "1")
                 {
                     Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
-                    firstUpdate = true;
+                    lastUpdateTime = DateTime.Now;
                 }
                 else
                 {

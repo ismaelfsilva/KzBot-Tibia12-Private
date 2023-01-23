@@ -117,7 +117,6 @@ namespace KzBot
 
                 Threads.Alarms.safeMode = false;
                 Threads.ClientData.setClient = false;
-                Threads.ClientData.firstUpdate = false;
 
                 if (Globals.Server.version == "12.90")
                     Addresses.Version.v1290(Globals.Process);
@@ -273,7 +272,6 @@ namespace KzBot
 
             Threads.Alarms.safeMode = false;
             Threads.ClientData.setClient = false;
-            Threads.ClientData.firstUpdate = false;
 
             if (Globals.Server.version == "12.90")
                 Addresses.Version.v1290(Globals.Process);

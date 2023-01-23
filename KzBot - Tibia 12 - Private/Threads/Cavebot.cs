@@ -811,9 +811,9 @@ namespace KzBot.Threads
                         });
                         Globals.WaypointId++;
                         break;
-                    case WaypointType.Disable_Player_On_Screen_Alert:
+                    case WaypointType.Disable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
-                            Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].CheckBox.Checked = false;
+                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"))].CheckBox.Checked = false;
                         });
                         Globals.WaypointId++;
                         break;
@@ -835,9 +835,9 @@ namespace KzBot.Threads
                         });
                         Globals.WaypointId++;
                         break;
-                    case WaypointType.Enable_Player_On_Screen_Alert:
+                    case WaypointType.Enable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
-                            Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].CheckBox.Checked = true;
+                            Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"))].CheckBox.Checked = true;
                         });
                         Globals.WaypointId++;
                         break;

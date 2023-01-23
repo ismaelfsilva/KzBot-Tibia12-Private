@@ -51,6 +51,8 @@ namespace KzBot.UI
 
                 textBox.TextChanged += (sender, e) => { alarm.Action = textBox.Text; };
 
+                alarm.CheckBox = checkBox;
+
                 tableLayoutPanel1.Controls.Add(checkBox);
                 tableLayoutPanel1.Controls.Add(textBox);
             }

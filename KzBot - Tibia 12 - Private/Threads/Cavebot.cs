@@ -806,8 +806,14 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Disable_Alerts:
-                        Globals.Main.checkBox4.Invoke((MethodInvoker)delegate {
+                        Globals.Main.checkBox5.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox5.Checked = false;
+                        });
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.Disable_Player_On_Screen_Alert:
+                        Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
+                            Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].CheckBox.Checked = false;
                         });
                         Globals.WaypointId++;
                         break;
@@ -826,6 +832,12 @@ namespace KzBot.Threads
                     case WaypointType.Enable_Healer:
                         Globals.Main.checkBox2.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox2.Checked = true;
+                        });
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.Enable_Player_On_Screen_Alert:
+                        Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
+                            Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].CheckBox.Checked = true;
                         });
                         Globals.WaypointId++;
                         break;

@@ -136,6 +136,8 @@ namespace KzBot
         [XmlAttribute]
         public bool Enabled { get; set; } = false;
 
+        public CheckBox CheckBox { get; set; }
+
         public AlarmRule()
         {
         }
@@ -324,9 +326,11 @@ namespace KzBot
         Disable_Healer,
         Disable_Targeting,
         Disable_Alerts,
+        Disable_Player_On_Screen_Alert,
         Enable_Healer,
         Enable_Targeting,
         Enable_Alerts,
+        Enable_Player_On_Screen_Alert,
         Use,
         Use_On,
         Teleport,

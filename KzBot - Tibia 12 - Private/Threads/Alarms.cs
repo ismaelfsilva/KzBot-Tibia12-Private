@@ -46,11 +46,7 @@ namespace KzBot.Threads
                     if (Globals.ScriptConfig.CavebotStatus && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && Objects.Client.TimeStopped >= 10000)
                         ticksStuck++;
                     else
-                    {
                         ticksStuck = 0;
-                    }
-
-                    Debug.WriteLine(ticksStuck);
 
                     if (ticksStuck >= 30)
                         alarmsRequested.Add(AlarmType.Stuck);

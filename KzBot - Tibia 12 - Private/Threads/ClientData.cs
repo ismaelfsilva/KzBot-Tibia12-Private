@@ -164,7 +164,8 @@ namespace KzBot.Threads
                         lastStamina = (int)Math.Floor(Objects.Player.Stamina.TotalSeconds);
                     }
 
-                    UpdateCharacter();
+                    if (lastLevel > 0)
+                        UpdateCharacter();
                 }
 
                 if (Objects.Player.isLoggedIn)

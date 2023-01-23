@@ -204,6 +204,7 @@ namespace KzBot.Threads
                                 Globals.Main.canCloseForm = true;
                                 Globals.Main.Close();
                             });
+                            Application.Exit();
                             return;
                         }
                     }

@@ -14,6 +14,7 @@ namespace HUB.Classes
         public string path { get; set; } = string.Empty;
         public string website { get; set; } = string.Empty;
         public string loginServer { get; set; } = string.Empty;
+        public int staminaRecoveryDelay { get; set; } = 6;
         public int autoLootId { get; set; } = -1;
 
         public Server()

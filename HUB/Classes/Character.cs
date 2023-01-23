@@ -54,7 +54,7 @@ namespace HUB.Classes
                 lvItem.SubItems.Add(balance.ToString());
 
                 DateTime lastOnlineTime = DateTime.Parse(last_online);
-                int recoveredStamina = (int)Math.Floor((DateTime.Now - lastOnlineTime).TotalMinutes / 6);
+                int recoveredStamina = (int)Math.Floor((DateTime.Now - lastOnlineTime).TotalMinutes / Program.Config.Servers.FirstOrDefault(s=> s.name.ToLower().Trim() == server.ToLower().Trim()).staminaRecoveryDelay);
                 TimeSpan actualStamina = TimeSpan.FromMinutes(last_stamina) + TimeSpan.FromMinutes(recoveredStamina);
                 int totalHours = (int)Math.Floor(actualStamina.TotalHours);
                 int minutes = actualStamina.Minutes;

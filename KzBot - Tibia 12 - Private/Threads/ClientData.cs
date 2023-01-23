@@ -193,7 +193,6 @@ namespace KzBot.Threads
                 }
                 else if (Globals.ScriptConfig.auto_Reconnect)
                 {
-                    status = "Trying to Login";
                     if (!isReconnecting)
                     {
                         lastReconectStart = DateTime.Now;
@@ -206,7 +205,6 @@ namespace KzBot.Threads
                         if (await BanCharacter())
                         {
                             Globals.Main.Log.addLog("Banned", false);
-                            status = "Banned";
                             Threads.ClientData.UpdateCharacter();
                             Globals.Main.Invoke((MethodInvoker)delegate
                             {

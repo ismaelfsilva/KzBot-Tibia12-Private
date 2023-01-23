@@ -611,6 +611,12 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);
 
+
+                            Keyboard.PressKey(Keys.F12);
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F12);
+                            System.Threading.Thread.Sleep(100);
+
                             Globals.WaypointId++;
                             break;
                         }

@@ -347,6 +347,7 @@ namespace KzBot
         Exit,
         Logout,
         Close_Bot,
+        Minimize_Client,
         Load,
         Disable_Safe,
         Set_Status,

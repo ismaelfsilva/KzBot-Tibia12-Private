@@ -934,6 +934,10 @@ namespace KzBot.Threads
 
                             break;
                         }
+                    case WaypointType.Minimize_Client:
+                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 6);
+                        Globals.WaypointId++;
+                        break;
                     case WaypointType.Load:
                         Classes.Script script = Program.Config.Scripts.FirstOrDefault(s => s.name.ToLower().Trim() == waypoint.Extra.Trim().ToLower());
                         Globals.WaypointId = 0;

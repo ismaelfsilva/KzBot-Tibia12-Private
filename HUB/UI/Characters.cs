@@ -148,7 +148,9 @@ namespace HUB
                     }
 
 
-                    if (ch.system_warning.Count > 0)
+                    if (ch.status <= -1)
+                        lvItem.BackColor = Color.Gray;
+                    else if (ch.system_warning.Count > 0)
                         lvItem.BackColor = Color.Red;
                     else if (ch.imbuement_time == 0)
                         lvItem.BackColor = Color.Blue;

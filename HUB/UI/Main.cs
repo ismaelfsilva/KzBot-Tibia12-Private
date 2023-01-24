@@ -22,6 +22,7 @@ namespace HUB
         Characters Characters;
         Servers Servers;
         Scripts Scripts;
+        Connections Connections;
         Log Log;
 
         public Main()
@@ -40,6 +41,7 @@ namespace HUB
             Clients = new Clients();
             Servers = new Servers();
             Scripts = new Scripts();
+            Connections = new Connections();
             Log = new Log();
 
 
@@ -47,6 +49,7 @@ namespace HUB
             TabPage clientsTabPage = new TabPage(Clients.Text);
             TabPage serversTabPage = new TabPage(Servers.Text);
             TabPage scriptsTabPage = new TabPage(Scripts.Text);
+            TabPage connectionsTabPage = new TabPage(Connections.Text);
             TabPage logTabPage = new TabPage(Log.Text);
 
 
@@ -54,6 +57,7 @@ namespace HUB
             clientsTabPage.Controls.Add(Clients);
             serversTabPage.Controls.Add(Servers);
             scriptsTabPage.Controls.Add(Scripts);
+            connectionsTabPage.Controls.Add(Connections);
             logTabPage.Controls.Add(Log);
 
 
@@ -61,6 +65,7 @@ namespace HUB
             tabControl1.Controls.Add(scriptsTabPage);
             tabControl1.Controls.Add(clientsTabPage);
             tabControl1.Controls.Add(serversTabPage);
+            tabControl1.Controls.Add(connectionsTabPage);
             tabControl1.Controls.Add(logTabPage);
 
 
@@ -68,6 +73,7 @@ namespace HUB
             Clients.listView1.DoubleBuffering(true);
             Servers.listView1.DoubleBuffering(true);
             Scripts.listView1.DoubleBuffering(true);
+            Connections.listView1.DoubleBuffering(true);
             Log.listView1.DoubleBuffering(true);
         }
 

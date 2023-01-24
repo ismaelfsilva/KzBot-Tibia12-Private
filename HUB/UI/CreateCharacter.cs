@@ -1,4 +1,5 @@
-﻿using HUB.Properties;
+﻿using HUB.Classes;
+using HUB.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -97,7 +98,7 @@ namespace HUB
 
             for (int i = 0; i < 1; i++)
             {
-                taskList.Add(Create());
+                taskList.Add(Create(comboBox1.Text, comboBox2.Text, comboBox3.Text));
             }
 
             for (int i = 0; i < taskList.Count; i++)
@@ -109,7 +110,7 @@ namespace HUB
                     count++;
                 }
                 else
-                    taskList.Add(Create());
+                    taskList.Add(Create(comboBox1.Text, comboBox2.Text, comboBox3.Text));
 
                 if (count >= 1)
                     break;
@@ -123,7 +124,7 @@ namespace HUB
 
             for (int i = 0; i < 5; i++)
             {
-                taskList.Add(Create());
+                taskList.Add(Create(comboBox1.Text, comboBox2.Text, comboBox3.Text));
             }
 
             for (int i = 0; i < taskList.Count; i++)
@@ -133,7 +134,7 @@ namespace HUB
                 if (created)
                     count++;
                 else
-                    taskList.Add(Create());
+                    taskList.Add(Create(comboBox1.Text, comboBox2.Text, comboBox3.Text));
 
                 if (count >= 1)
                     break;
@@ -141,7 +142,7 @@ namespace HUB
         }
 
         #region "Create Character"
-        public async Task<bool> Create()
+        public async Task<bool> Create(string server, string vocation, string script = "")
         {
             Random r = new Random();
             string account = GenerateName(r.Next(6, 12)).ToLower();
@@ -179,14 +180,73 @@ namespace HUB
                 character = new Util.RandomName(r).Generate((Util.Sex)Convert.ToInt32(male), r.Next(0, 1));
             }
 
-            return await Create(account, password, email, character, male, flag) && await addCharacterAsync(Settings.Default.Username,
+            return await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server).website, flag) && await addCharacterAsync(Settings.Default.Username,
                     Settings.Default.Password,
                     character,
                     account,
                     password,
-                    comboBox1.Text,
-                    comboBox2.Text,
-                    comboBox3.Text != string.Empty ? "&char_script=" + comboBox3.Text : string.Empty); ;
+                    server,
+                    vocation,
+                    script != string.Empty ? "&char_script=" + script : string.Empty); ;
+        }
+        public async Task<Character?> CreateGetCharacter(string server, string vocation, string script = "")
+        {
+            Random r = new Random();
+            string account = GenerateName(r.Next(6, 12)).ToLower();
+            string password = new Util.PasswordGenerator().Generate();
+
+            string email = account + "@" + GenerateName(r.Next(3, 5));
+            int emailEndChance = r.Next(120);
+            if (emailEndChance <= 30)
+                email += ".net";
+            else if (emailEndChance <= 60)
+                email += ".pl";
+            else
+                email += ".com";
+
+            bool male = r.Next(100) < 50;
+            string flag = "br";
+            string character = string.Empty;
+
+            int characterNameChance = r.Next(100);
+            if (characterNameChance <= 50)
+            {
+                flag = "pl";
+                if (characterNameChance < 15)
+                    flag = "br";
+
+                character = GenerateName(r.Next(4, 7));
+                if (r.Next(100) > 50)
+                {
+                    character += " " + GenerateName(r.Next(4, 7));
+                }
+            }
+            else
+            {
+                flag = r.Next(100) <= 50 ? "br" : "gb";
+                character = new Util.RandomName(r).Generate((Util.Sex)Convert.ToInt32(male), r.Next(0, 1));
+            }
+
+            bool createCharacter = await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server).website, flag);
+
+            if (createCharacter)
+            {
+                bool insertCharacter = await addCharacterAsync(Settings.Default.Username,
+                        Settings.Default.Password,
+                        character,
+                        account,
+                        password,
+                        server,
+                        vocation,
+                        script != string.Empty ? "&char_script=" + script : string.Empty);
+
+                if (insertCharacter)
+                    return new Character() { account = account, password = password, name = character, script = script, server = server, char_index = 1, vocation = vocation };
+                else
+                    return await CreateGetCharacter(server, vocation, script);
+            }
+            else
+                return await CreateGetCharacter(server, vocation, script);
         }
 
         public string GenerateName(int len)
@@ -209,11 +269,11 @@ namespace HUB
             return Name;
         }
 
-        public async Task<bool> Create(string account, string password, string email, string character, bool male, string flag = "br", bool printError = false)
+        public async Task<bool> Create(string account, string password, string email, string character, bool male, string website, string flag = "br", bool printError = false)
         {
             try
             {
-                var handler = new HttpClientHandler();
+                HttpClientHandler handler = new HttpClientHandler();
                 handler.ClientCertificateOptions = ClientCertificateOption.Manual;
                 handler.ServerCertificateCustomValidationCallback =
                     (httpRequestMessage, cert, cetChain, policyErrors) =>
@@ -221,11 +281,10 @@ namespace HUB
                         return true;
                     };
 
-                var client = new HttpClient(handler);
+                HttpClient client = new HttpClient(handler);
                 string checkCodeStr;
-                string website = Program.Config.Servers.FirstOrDefault(s => s.name == comboBox1.Text).website;
 
-                client.Timeout = TimeSpan.FromSeconds(15);
+                client.Timeout = TimeSpan.FromSeconds(5);
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
@@ -236,7 +295,6 @@ namespace HUB
 
                     var checkCodeResponse = await client.GetAsync(new Uri(website + @"?subtopic=imagebuilder&image_refresher=%27.rand(1,99999).%27"));
                     var resp = await checkCodeResponse.Content.ReadAsStringAsync();
-                    Clipboard.SetText(resp.ToString());
                     if (checkCodeResponse.IsSuccessStatusCode)
                     {
                         Bitmap checkCode = (Bitmap)Bitmap.FromStream(await checkCodeResponse.Content.ReadAsStreamAsync());
@@ -302,54 +360,17 @@ namespace HUB
                 {
                     string content = await response.Content.ReadAsStringAsync();
 
-                    /*
-                    this.textBox5.Invoke((MethodInvoker)delegate {
-                        if (content.Trim() == string.Empty)
-                        {
-                            if (printError)
-                                textBox5.Text += "There was an unexpected error (0)." + Environment.NewLine;
-                        }
-                        else if (content.Contains("There was an error creating your character"))
-                        {
-                            if (printError)
-                                textBox5.Text += "There was an error while creating the character (4)." + Environment.NewLine;
-                        }
-                        else if (content.Contains("Account Created"))
-                        {
-                            textBox5.Text += String.Format("<Account Character=\"{0}\" AccountName=\"{1}\" Password=\"{2}\" Script=\"Leveling.kzTibia\" Vocation=\"None\" Index=\"1\" />", character, account, password) + Environment.NewLine;
-                        }
-                        else
-                        {
-                            if (printError)
-                                textBox5.Text += "There was an error while creating the account (3)." + Environment.NewLine;
-                        }
-                    });
-                    */
-
                     if (content.Contains("Account Created") && !content.Contains("There was an error creating your character"))
                         return true;
                 }
                 else
                 {
-                    /*
-                    if (printError)
-                        this.textBox5.Invoke((MethodInvoker)delegate
-                        {
-                            textBox5.Text += "There was an unexpected error (2)." + Environment.NewLine;
-                        });
-                    */
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                /*
-            if (printError)
-                this.textBox5.Invoke((MethodInvoker)delegate
-                {
-                    textBox5.Text += "There was an unexpected error (1)." + Environment.NewLine;
-                });
-                */
+                Debug.WriteLine(ex.ToString());
                 return false;
             }
 

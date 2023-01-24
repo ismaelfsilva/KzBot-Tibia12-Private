@@ -100,7 +100,7 @@ namespace HUB
                 {
                     DateTime lastOnlineTime = DateTime.Parse(ch.last_online);
 
-                    if (!checkBox1.Checked && (DateTime.Now - lastOnlineTime).TotalMinutes >= 5)
+                    if (!checkBox1.Checked && (DateTime.Now - lastOnlineTime).TotalMinutes >= 2)
                         continue;
 
                     if (!checkBox2.Checked && ch.status < 0)

@@ -607,15 +607,18 @@ namespace KzBot.Threads
                             if (changedFocus)
                                 WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
 
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(300);
+
 
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(300);
 
 
                             Keyboard.PressKey(Keys.F12);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(300);
                             Keyboard.PressKey(Keys.F12);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(300);
 
                             Globals.WaypointId++;
                             break;

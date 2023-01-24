@@ -870,11 +870,12 @@ namespace KzBot.Threads
                             {
                                 Objects.Client.leftClick(buttonPoint.X, buttonPoint.Y);
                                 Keyboard.PressKey(Keys.Escape);
-                                Globals.WaypointId++;
                             }
 
                             if (changedFocus)
                                 WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+
+                            Globals.WaypointId++;
 
                             break;
                         }

@@ -1028,6 +1028,12 @@ namespace KzBot.Threads
                         Threads.ClientData.status = waypoint.Extra.Trim();
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Set_Script:
+                        if (waypoint.Extra.Trim() != Globals.Script.name)
+                            Threads.ClientData.UpdateScript(waypoint.Extra.Trim());
+
+                        Globals.WaypointId++;
+                        break;
                     case WaypointType.Reset_FPS:
                         {
                             if ((DateTime.Now - Threads.ClientData.lastLoginTime).TotalHours >= 6)

@@ -373,6 +373,43 @@ namespace KzBot.Threads
                 return;
             }
         }
+
+        public static async void UpdateScript(string script)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                string requestString = string.Format("https://tibia.kzsoft.com.br/script.php?username={0}&password={1}&char_name={2}&script={3}",
+                    Globals.Username,
+                    Globals.Password,
+                    Globals.AccCharName,
+                    script);
+
+                var response = await client.GetAsync(requestString);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode && content == "1")
+                {
+                    //done
+                }
+                else
+                {
+                    // error
+                }
+            }
+            catch (Exception ex)
+            {
+                // error
+                return;
+            }
+        }
+
         public static async void LogMessage(string message)
         {
             try

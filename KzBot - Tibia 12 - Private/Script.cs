@@ -350,6 +350,7 @@ namespace KzBot
         Load,
         Disable_Safe,
         Set_Status,
+        Set_Script,
         Reset_FPS,
         Alert,
         Nothing,

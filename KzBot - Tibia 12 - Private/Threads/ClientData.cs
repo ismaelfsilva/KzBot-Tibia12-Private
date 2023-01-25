@@ -311,7 +311,7 @@ namespace KzBot.Threads
                 var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/status.php?username={0}&password={1}&char_name={2}&status={3}",
                     Globals.Username,
                     Globals.Password,
-                    Globals.AccCharName,
+                    HttpUtility.UrlEncode(Globals.AccCharName).Replace("+", "%20"),
                     -1
                     )));
                 string content = await response.Content.ReadAsStringAsync();
@@ -346,11 +346,11 @@ namespace KzBot.Threads
                 var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}&script_status={6}&imbue={7}",
                     Globals.Username,
                     Globals.Password,
-                    Globals.AccCharName,
+                    HttpUtility.UrlEncode(Globals.AccCharName).Replace("+", "%20"),
                     lastLevel,
                     lastBalance,
                     lastStamina,
-                    status == string.Empty ? "None" : status,
+                    status == string.Empty ? "None" : HttpUtility.UrlEncode(status).Replace("+", "%20"),
                     imbueTime
                     )));
                 string content = await response.Content.ReadAsStringAsync();
@@ -388,8 +388,9 @@ namespace KzBot.Threads
                 string requestString = string.Format("https://tibia.kzsoft.com.br/script.php?username={0}&password={1}&char_name={2}&script={3}",
                     Globals.Username,
                     Globals.Password,
-                    Globals.AccCharName,
-                    script);
+                    HttpUtility.UrlEncode(Globals.AccCharName).Replace("+", "%20"),
+                    HttpUtility.UrlEncode(script).Replace("+", "%20")
+                    );
 
                 var response = await client.GetAsync(requestString);
                 string content = await response.Content.ReadAsStringAsync();
@@ -424,7 +425,7 @@ namespace KzBot.Threads
                 var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/log.php?username={0}&password={1}&char_name={2}&message={3}",
                     Globals.Username,
                     Globals.Password,
-                    Globals.AccCharName,
+                    HttpUtility.UrlEncode(Globals.AccCharName).Replace("+", "%20"),
                     HttpUtility.UrlEncode(message).Replace("+", "%20")
                     )));
                 string content = await response.Content.ReadAsStringAsync();

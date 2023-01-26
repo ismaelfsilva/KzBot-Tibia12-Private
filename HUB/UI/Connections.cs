@@ -119,7 +119,7 @@ namespace HUB.UI
                     if (isScriptRunning)
                         continue;
 
-                    Character? ch = Program.Characters.Find(c => c.server == lvConn.server && c.script == lvConn.script && c.level < lvConn.levelMax);
+                    Character? ch = Program.Characters.Find(c => c.server == lvConn.server && c.script == lvConn.script && c.level < lvConn.levelMax && c.status >= 0);
 
                     if (lvConn.createCharacter && ch == null)
                     {

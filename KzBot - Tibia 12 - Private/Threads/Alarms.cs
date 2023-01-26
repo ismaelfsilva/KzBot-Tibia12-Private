@@ -26,6 +26,8 @@ namespace KzBot.Threads
         public static bool safeMode = false;
         public static bool hasImbue = true;
 
+        public static string extraInfo = string.Empty;
+
         public static DateTime lastCheckImbueTime = DateTime.MinValue;
 
         private static async void AlarmThread(object? state)
@@ -63,7 +65,7 @@ namespace KzBot.Threads
                     if (Globals.ScriptConfig.Alarms[((int)alarm)].Enabled)
                     {
                         // DO LOG MESSAGE
-                        Globals.Main.Log.addLog(alarm.ToString(), true);
+                        Globals.Main.Log.addLog(alarm.ToString() + " " + extraInfo, true);
 
                         //
                         string actionString = Globals.ScriptConfig.Alarms[((int)alarm)].Action.Replace("()", "");
@@ -184,7 +186,11 @@ namespace KzBot.Threads
                     alarmsRequested.Add(AlarmType.GM_On_Screen);
 
                 if (Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
+                {
                     alarmsRequested.Add(AlarmType.Player_On_Screen);
+                    Creature c = creatures.FirstOrDefault(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address);
+                    extraInfo = c.Name;
+                }
 
                 if (Globals.ScriptConfig.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address))
                     alarmsRequested.Add(AlarmType.PK_On_Screen);

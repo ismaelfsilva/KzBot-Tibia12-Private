@@ -188,8 +188,9 @@ namespace KzBot.Threads
                 if (Globals.ScriptConfig.Alarms[(int)AlarmType.Player_On_Screen].Enabled && creatures.Exists(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address))
                 {
                     alarmsRequested.Add(AlarmType.Player_On_Screen);
-                    Creature c = creatures.FirstOrDefault(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address);
-                    extraInfo = c.Name;
+                    Creature? c = creatures.FirstOrDefault(c => c.Type == CreatureType.Player && c.Address != Player.Creature.Address);
+                    if (c != null)
+                        extraInfo = c.Name;
                 }
 
                 if (Globals.ScriptConfig.Alarms[(int)AlarmType.PK_On_Screen].Enabled && creatures.Exists(c => c.Skull != PlayerSkulls.None && c.Address != Player.Creature.Address))

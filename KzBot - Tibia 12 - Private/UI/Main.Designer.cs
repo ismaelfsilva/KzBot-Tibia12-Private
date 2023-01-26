@@ -29,34 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Character", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Session", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Others", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Character", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Session", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Others", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "Level",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "Health",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "Mana",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "Magic Shield",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "Cap",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "Soul Points",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem(new string[] {
             "Position",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem(new string[] {
             "Stamina",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem(new string[] {
             "Time",
             ""}, -1);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -88,6 +88,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.uiUpdater = new System.Windows.Forms.Timer(this.components);
+            this.trueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.falseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -161,9 +163,12 @@
             // 
             // sendToSafeToolStripMenuItem
             // 
+            this.sendToSafeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trueToolStripMenuItem,
+            this.falseToolStripMenuItem});
             this.sendToSafeToolStripMenuItem.Name = "sendToSafeToolStripMenuItem";
-            this.sendToSafeToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
-            this.sendToSafeToolStripMenuItem.Text = "Send to Safe";
+            this.sendToSafeToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.sendToSafeToolStripMenuItem.Text = "Safe";
             this.sendToSafeToolStripMenuItem.Click += new System.EventHandler(this.sendToSafeToolStripMenuItem_Click);
             // 
             // setVocationToolStripMenuItem
@@ -180,27 +185,27 @@
             // eKToolStripMenuItem
             // 
             this.eKToolStripMenuItem.Name = "eKToolStripMenuItem";
-            this.eKToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.eKToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eKToolStripMenuItem.Text = "EK";
             this.eKToolStripMenuItem.Click += new System.EventHandler(this.eKToolStripMenuItem_Click);
             // 
             // rPToolStripMenuItem
             // 
             this.rPToolStripMenuItem.Name = "rPToolStripMenuItem";
-            this.rPToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.rPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rPToolStripMenuItem.Text = "RP";
             this.rPToolStripMenuItem.Click += new System.EventHandler(this.rPToolStripMenuItem_Click);
             // 
             // eDToolStripMenuItem
             // 
             this.eDToolStripMenuItem.Name = "eDToolStripMenuItem";
-            this.eDToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.eDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eDToolStripMenuItem.Text = "ED";
             // 
             // mSToolStripMenuItem
             // 
             this.mSToolStripMenuItem.Name = "mSToolStripMenuItem";
-            this.mSToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.mSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mSToolStripMenuItem.Text = "MS";
             // 
             // groupBox1
@@ -306,35 +311,35 @@
             this.columnHeader2});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
-            listViewGroup1.Header = "Character";
-            listViewGroup1.Name = "listViewGroup1";
-            listViewGroup2.Header = "Session";
-            listViewGroup2.Name = "listViewGroup2";
-            listViewGroup3.Header = "Others";
-            listViewGroup3.Name = "listViewGroup3";
+            listViewGroup4.Header = "Character";
+            listViewGroup4.Name = "listViewGroup1";
+            listViewGroup5.Header = "Session";
+            listViewGroup5.Name = "listViewGroup2";
+            listViewGroup6.Header = "Others";
+            listViewGroup6.Name = "listViewGroup3";
             this.listView1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
-            listViewItem1.Group = listViewGroup1;
-            listViewItem2.Group = listViewGroup1;
-            listViewItem3.Group = listViewGroup1;
-            listViewItem4.Group = listViewGroup1;
-            listViewItem5.Group = listViewGroup1;
-            listViewItem6.Group = listViewGroup1;
-            listViewItem7.Group = listViewGroup1;
-            listViewItem8.Group = listViewGroup1;
-            listViewItem9.Group = listViewGroup2;
+            listViewGroup4,
+            listViewGroup5,
+            listViewGroup6});
+            listViewItem10.Group = listViewGroup4;
+            listViewItem11.Group = listViewGroup4;
+            listViewItem12.Group = listViewGroup4;
+            listViewItem13.Group = listViewGroup4;
+            listViewItem14.Group = listViewGroup4;
+            listViewItem15.Group = listViewGroup4;
+            listViewItem16.Group = listViewGroup4;
+            listViewItem17.Group = listViewGroup4;
+            listViewItem18.Group = listViewGroup5;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15,
+            listViewItem16,
+            listViewItem17,
+            listViewItem18});
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -396,6 +401,20 @@
             this.uiUpdater.Enabled = true;
             this.uiUpdater.Tick += new System.EventHandler(this.uiUpdater_Tick);
             // 
+            // trueToolStripMenuItem
+            // 
+            this.trueToolStripMenuItem.Name = "trueToolStripMenuItem";
+            this.trueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.trueToolStripMenuItem.Text = "True";
+            this.trueToolStripMenuItem.Click += new System.EventHandler(this.trueToolStripMenuItem_Click);
+            // 
+            // falseToolStripMenuItem
+            // 
+            this.falseToolStripMenuItem.Name = "falseToolStripMenuItem";
+            this.falseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.falseToolStripMenuItem.Text = "False";
+            this.falseToolStripMenuItem.Click += new System.EventHandler(this.falseToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -414,8 +433,8 @@
             this.Text = "KzBot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.Shown += new System.EventHandler(this.Main_Shown);
+            this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -458,5 +477,7 @@
         private ToolStripMenuItem rPToolStripMenuItem;
         private ToolStripMenuItem eDToolStripMenuItem;
         private ToolStripMenuItem mSToolStripMenuItem;
+        private ToolStripMenuItem trueToolStripMenuItem;
+        private ToolStripMenuItem falseToolStripMenuItem;
     }
 }

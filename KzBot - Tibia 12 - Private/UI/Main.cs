@@ -470,7 +470,6 @@ namespace KzBot
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Threads.Alarms.safeMode = true;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -486,6 +485,16 @@ namespace KzBot
         private void rPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Globals.AccVocation = Vocation.RP;
+        }
+
+        private void trueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Threads.Alarms.safeMode = true;
+        }
+
+        private void falseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Threads.Alarms.safeMode = false;
         }
     }
 

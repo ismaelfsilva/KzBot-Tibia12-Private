@@ -298,6 +298,20 @@ namespace HUB.UI
                         startInfo.Arguments = string.Join(" ", argms);
                         Process.Start(startInfo);
 
+
+                        ((Main)this.Parent).Log.listView1.Invoke((MethodInvoker)delegate
+                        {
+                            ListViewItem lvItem = new ListViewItem();
+
+                            lvItem.Text = string.Empty;
+                            lvItem.SubItems.Add(ch.name);
+                            lvItem.SubItems.Add(ch.server);
+                            lvItem.SubItems.Add(DateTime.Now.ToString());
+                            lvItem.SubItems.Add(string.Format("Trying to Run"));
+
+                            listView1.Items.Add(lvItem);
+                        });
+
                         scriptConn.lastConnection = DateTime.Now;
                     }
                     catch (Exception ex)

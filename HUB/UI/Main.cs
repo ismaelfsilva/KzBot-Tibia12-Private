@@ -23,7 +23,7 @@ namespace HUB
         Servers Servers;
         Scripts Scripts;
         Connections Connections;
-        Log Log;
+        public Log Log;
 
         public Main()
         {

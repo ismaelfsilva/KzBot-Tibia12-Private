@@ -13,5 +13,6 @@ namespace HUB
         public List<Client> Clients = new List<Client>();
         public List<Script> Scripts = new List<Script>();
         public List<LevelingConnection> LevelingConnections = new List<LevelingConnection>();
+        public List<ScriptConnection> ScriptConnections = new List<ScriptConnection>();
     }
 }

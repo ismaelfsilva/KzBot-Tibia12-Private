@@ -36,11 +36,23 @@ namespace HUB.UI
                 listView1.Items.Add(lvConn.ListViewItem);
             }
 
+            foreach (ScriptConnection scriptConn in Program.Config.ScriptConnections)
+            {
+                scriptConn.enabled = false;
+                listView2.Items.Add(scriptConn.ListViewItem);
+            }
+
             foreach (Server server in Program.Config.Servers)
+            {
                 comboBox3.Items.Add(server.name);
+                comboBox1.Items.Add(server.name);
+            }
 
             foreach (Script script in Program.Config.Scripts)
+            {
                 comboBox2.Items.Add(script.name);
+                comboBox4.Items.Add(script.name);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -166,14 +178,134 @@ namespace HUB.UI
             }
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        #region "Scripts"
+        #endregion
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            using (CreateCharacter createCharacter = new CreateCharacter())
-            {
-                Character ch = await createCharacter.CreateGetCharacter("Hades", "RP", "Leveling 1");
-            }
+            ScriptConnection scriptConnection = new ScriptConnection();
+            Program.Config.ScriptConnections.Add(scriptConnection);
+            listView2.Items.Add(scriptConnection.ListViewItem);
+        }
 
-            Debug.WriteLine(1);
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool hasSelectedItem = listView2.SelectedItems.Count > 0;
+
+            checkBox1.Enabled = hasSelectedItem;
+            comboBox1.Enabled = hasSelectedItem;
+            comboBox4.Enabled = hasSelectedItem;
+
+            if (hasSelectedItem)
+            {
+                ScriptConnection conn = Program.Config.ScriptConnections[listView2.SelectedIndices[0]];
+
+                checkBox1.Checked = conn.requiresImbuement;
+                comboBox1.Text = conn.script;
+                comboBox4.Text = conn.server;
+            }
+        }
+
+        private void listView2_CheckedChanged(object sender, ItemCheckedEventArgs e)
+        {
+            ScriptConnection conn = Program.Config.ScriptConnections[e.Item.Index];
+            conn.enabled = e.Item.Checked;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            ListViewItem lvItem = listView2.SelectedItems[0];
+            if (lvItem != null)
+            {
+                Program.Config.ScriptConnections[lvItem.Index].requiresImbuement = checkBox1.Checked;
+                lvItem.SubItems[1].Text = checkBox1.Checked.ToString();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem lvItem = listView2.SelectedItems[0];
+            if (lvItem != null)
+            {
+                Program.Config.ScriptConnections[lvItem.Index].server = comboBox1.Text;
+                lvItem.SubItems[2].Text = comboBox1.Text;
+            }
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem lvItem = listView2.SelectedItems[0];
+            if (lvItem != null)
+            {
+                Program.Config.ScriptConnections[lvItem.Index].script = comboBox4.Text;
+                lvItem.SubItems[3].Text = comboBox4.Text;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Interval = 60000;
+
+            new Thread(async () =>
+            {
+                foreach (ScriptConnection scriptConn in Program.Config.ScriptConnections)
+                {
+                    try
+                    {
+                        if (!scriptConn.enabled)
+                            continue;
+
+                        if ((DateTime.Now - scriptConn.lastConnection).TotalMinutes < scriptConn.minMinutesBetweenScripts)
+                            continue;
+
+                        bool isScriptRunning = Program.Characters.Exists(c => c.server == scriptConn.server && c.script == scriptConn.script && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes <= 2);
+                        if (isScriptRunning)
+                            continue;
+
+                        bool wasBannedRecently = Program.Characters.Exists(c => c.status == -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < scriptConn.minutesToWaitOnBan);
+
+                        if (wasBannedRecently)
+                            continue;
+
+                        Character? ch = Program.Characters.OrderByDescending(c=> c.actual_stamina).ToList().Find(c => c.server == scriptConn.server && c.script == scriptConn.script && c.status >= 0 && (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14)));
+
+                        if (ch == null)
+                            continue;
+
+                        Script script = Program.Config.Scripts.FirstOrDefault(s => s.name == scriptConn.script);
+                        Client client = Program.Config.Clients.FirstOrDefault(c => script.client == c.name);
+                        Server server = Program.Config.Servers.FirstOrDefault(s => s.name == scriptConn.server);
+                        string clientPath = Path.Combine(server.path, "bin", client.file);
+
+                        List<string> argms = new List<string>()
+                    {
+                        script.id,
+                        Settings.Default.Username,
+                        Settings.Default.Password,
+                        string.Format("\"{0}\"", ch.name),
+                        ch.account,
+                        ch.password,
+                        ch.char_index.ToString(),
+                        ch.vocation,
+                        server.id,
+                        client.id,
+                    };
+
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.WindowStyle = ProcessWindowStyle.Normal;
+                        startInfo.CreateNoWindow = false;
+                        startInfo.UseShellExecute = false;
+                        startInfo.FileName = Settings.Default.BotPath;
+                        startInfo.Arguments = string.Join(" ", argms);
+                        Process.Start(startInfo);
+
+                        scriptConn.lastConnection = DateTime.Now;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.ToString());
+                    }
+                }
+            }).Start();
         }
     }
 }

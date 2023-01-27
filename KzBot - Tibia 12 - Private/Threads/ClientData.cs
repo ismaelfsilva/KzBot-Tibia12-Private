@@ -63,6 +63,15 @@ namespace KzBot.Threads
                     });
                     return;
                 }
+                else if (Globals.Process.MainWindowHandle == IntPtr.Zero)
+                {
+                    Globals.Process.Kill(true);
+                    Globals.Main.ShowInTaskbar = true;
+                    Globals.Main.canCloseForm = true;
+                    Globals.Main.Close();
+                    Application.Exit();
+                    return;
+                }
                 else if (foregroundWindow == Globals.Process?.MainWindowHandle || foregroundWindow == mainHandle || Globals.Main.OwnedForms.Any(f=> f.Handle == foregroundWindow))
                 {                    
                     Globals.Main.Invoke((MethodInvoker)delegate

@@ -402,5 +402,14 @@ namespace HUB
                 return;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<string> charNames = new List<string>();
+            foreach (ListViewItem lvItem in listView1.Items)
+                charNames.Add(lvItem.SubItems[1].Text);
+
+            Clipboard.SetText(string.Join(Environment.NewLine, charNames));
+        }
     }
 }

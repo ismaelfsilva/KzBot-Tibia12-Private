@@ -57,7 +57,9 @@ namespace HUB.UI
 
                                     foreach (LogMessage msg in LogMessages)
                                     {
-                                        lastId = msg.id;
+                                        if (msg.id > lastId)
+                                            lastId = msg.id;
+
                                         listView1.Invoke((MethodInvoker)delegate
                                         {
                                             listView1.Items.Add(msg.ListViewItem);

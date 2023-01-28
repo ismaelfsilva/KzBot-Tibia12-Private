@@ -321,6 +321,7 @@ namespace KzBot
         Take_Out_Equip,
         Setup_Config,
         Setup_Bag,
+        Randomize_Outfit,
         Set_Offensive,
         Travel,
         Wait_PZ,

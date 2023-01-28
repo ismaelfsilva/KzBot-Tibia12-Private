@@ -782,6 +782,53 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         }
                         break;
+                    case WaypointType.Randomize_Outfit:
+                        {
+                            Random rand = new Random();
+                            WinApi.RECT clientRect = Globals.clientRect;
+
+                            List<string> outfitList = new List<string> { "citizen", "hunter", "mage", "knight", "noble", "summoner", "warrior", "barbarian", "druid", "wizard", "oriental", "pirate", "shaman", "norse", "demon hunter", "warmaster", "jersey"};
+
+                            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+
+                            Point outfitNamePoint = new Point(middleScreenPoint.X + 265, middleScreenPoint.Y - 165);
+                            Point firstOutfitPoint = new Point(middleScreenPoint.X + 185, middleScreenPoint.Y - 90);
+
+                            Point firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 152);
+                            int pieceDist = 63;
+
+                            Point firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 169);
+                            int colorDist = 14;
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.O);
+                            System.Threading.Thread.Sleep(1000);
+
+                            Keyboard.Write(outfitList[rand.Next(0, outfitList.Count - 1)]);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(firstOutfitPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            for (int pieces = 0; pieces < 4; pieces++)
+                            {
+                                Client.leftClick(firstPieceOnOutfits.X + (pieces * pieceDist), firstPieceOnOutfits.Y);
+                                System.Threading.Thread.Sleep(500);
+
+                                Client.leftClick(firstColorOnOutfits.X + (rand.Next(0, 18) * colorDist), firstColorOnOutfits.Y + (rand.Next(0, 6) * colorDist));
+                                System.Threading.Thread.Sleep(500);
+                            }
+
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.PressKey(Keys.Escape);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Set_Offensive:
                         {
                             Keyboard.PressKey(Keys.Oemplus);

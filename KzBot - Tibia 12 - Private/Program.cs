@@ -48,6 +48,9 @@ namespace KzBot
             if (args.Length >= 10)
                 Globals.Client = Config.Clients.FirstOrDefault(c => c.id == args[9]);
 
+            if (args.Length >= 11)
+                Globals.AccMaxBalance = int.Parse(args[10]);
+
 
             Main main = new Main();
             Application.Run(main);

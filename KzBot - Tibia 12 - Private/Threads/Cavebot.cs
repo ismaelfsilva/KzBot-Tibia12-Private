@@ -299,8 +299,8 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Balance:
-                        if (Threads.ClientData.lastBalance > 0 && Threads.ClientData.lastBalance < int.Parse(extraData[0]))
-                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
+                        if (Globals.AccMaxBalance != -1 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance)
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;

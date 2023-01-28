@@ -215,6 +215,7 @@ namespace KzBot.Threads
                         {
                             Globals.Main.Log.addLog("Banned", false);
                             Threads.ClientData.UpdateCharacter();
+                            Globals.Process.Kill(true);
                             Globals.Main.Invoke((MethodInvoker)delegate
                             {
                                 Globals.Main.canCloseForm = true;

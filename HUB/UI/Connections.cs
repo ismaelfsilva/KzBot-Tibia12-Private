@@ -283,7 +283,7 @@ namespace HUB.UI
                         ch.vocation,
                         server.id,
                         client.id,
-                        scriptConn.maxBalance,
+                        scriptConn.maxBalance.ToString(),
                     };
 
                         ProcessStartInfo startInfo = new ProcessStartInfo();

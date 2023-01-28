@@ -17,6 +17,7 @@ namespace KzBot.Threads
         public static int lastBalance = 0;
         public static int lastStamina = 0;
         public static int lastLevel = 0;
+        public static string statusBeforeReconnecting = "None";
         public static string status = "None";
         public static int imbueTime = -1;
         public static DateTime lastUpdateTime = DateTime.MinValue;
@@ -204,6 +205,8 @@ namespace KzBot.Threads
                 {
                     if (!isReconnecting)
                     {
+                        statusBeforeReconnecting = status;
+                        status = "Reconnecting";
                         lastReconectStart = DateTime.Now;
                         totalReconnect10Minutes = 1;
                         isReconnecting = true;
@@ -213,6 +216,7 @@ namespace KzBot.Threads
                     {
                         if (await BanCharacter())
                         {
+                            status = statusBeforeReconnecting;
                             Globals.Main.Log.addLog("Banned", false);
                             Threads.ClientData.UpdateCharacter();
                             Globals.Process.Kill(true);
@@ -287,6 +291,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Escape);
                         else if (Objects.Player.isLoggedIn || !Globals.ScriptConfig.GeneralStatus)
                         {
+                            status = statusBeforeReconnecting;
                             Globals.Main.Log.addLog("Character Online", false);
                             isReconnecting = false;
                             lastLoginTime = DateTime.Now;

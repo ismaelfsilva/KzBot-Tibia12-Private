@@ -216,16 +216,10 @@ namespace KzBot.Threads
                     {
                         if (await BanCharacter())
                         {
-                            status = statusBeforeReconnecting;
-                            Globals.Main.Log.addLog("Banned", false);
-                            Threads.ClientData.UpdateCharacter();
                             Globals.Process.Kill(true);
-                            Globals.Main.Invoke((MethodInvoker)delegate
-                            {
-                                Globals.Main.canCloseForm = true;
-                                Globals.Main.Close();
-                            });
-                            Application.Exit();
+                            status = statusBeforeReconnecting;
+                            Globals.Main.Log.addLog("Banned", true);
+                            Threads.ClientData.UpdateCharacter();
                             return;
                         }
                     }

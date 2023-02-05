@@ -254,6 +254,9 @@ namespace HUB.UI
                         if (!scriptConn.enabled)
                             continue;
 
+                        if ((DateTime.Now - Program.lastSuccessfulUpdate).TotalMinutes > 2)
+                            continue;
+
                         if ((DateTime.Now - scriptConn.lastConnection).TotalMinutes < scriptConn.minMinutesBetweenScripts)
                             continue;
 

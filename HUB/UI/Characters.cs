@@ -184,6 +184,9 @@ namespace HUB
                             {
                                 using (HttpResponseMessage response = _httpClient.GetAsync(string.Format("http://tibia.kzsoft.com.br/index.php?username={0}&password={1}&banned=true&json=true", Settings.Default.Username, Settings.Default.Password)).Result)
                                 {
+                                    if (response.IsSuccessStatusCode)
+                                        Program.lastSuccessfulUpdate = DateTime.Now;
+
                                     using (HttpContent content = response.Content)
                                     {
                                         string result = content.ReadAsStringAsync().Result;

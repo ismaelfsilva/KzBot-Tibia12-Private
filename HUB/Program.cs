@@ -8,6 +8,7 @@ namespace HUB
     {
         public static Config Config = new Config();
         public static List<Character> Characters = new List<Character>();
+        public static DateTime lastSuccessfulUpdate = DateTime.Now;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

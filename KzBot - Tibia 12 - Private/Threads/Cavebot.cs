@@ -724,6 +724,8 @@ namespace KzBot.Threads
 
                             Client.Say("hi");
                             System.Threading.Thread.Sleep(500);
+                            Client.Say("bank");
+                            System.Threading.Thread.Sleep(500);
                             Client.Say("balance");
                             System.Threading.Thread.Sleep(2000);
 

@@ -1038,6 +1038,11 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Load:
                         Classes.Script script = Program.Config.Scripts.FirstOrDefault(s => s.name.ToLower().Trim() == waypoint.Extra.Trim().ToLower());
+
+                        if (script == null && waypoint.Extra.Trim() == string.Empty && Globals.Script != null)
+                            script = Globals.Script;
+
+
                         Globals.WaypointId = 0;
                         Thread.Change(Timeout.Infinite, Timeout.Infinite);
                         Globals.ScriptConfig.GeneralStatus = false;

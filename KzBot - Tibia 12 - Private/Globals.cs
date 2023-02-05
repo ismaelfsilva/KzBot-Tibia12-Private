@@ -43,9 +43,9 @@ namespace KzBot
         public static int AccMaxBalance { get; set; } = -1;
         public static Vocation AccVocation { get; set; } = Vocation.None;
 
-        public static Classes.Client Client { get; set; }
-        public static Classes.Server Server { get; set; }
-        public static Classes.Script Script { get; set; }
+        public static Classes.Client Client { get; set; } = null;
+        public static Classes.Server Server { get; set; } = null;
+        public static Classes.Script Script { get; set; } = null;
 
         // END SETUP AREA
 

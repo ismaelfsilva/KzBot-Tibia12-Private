@@ -34,6 +34,7 @@ namespace KzBot.Threads
             bool hasteStatus = Globals.ScriptConfig.auto_Haste;
             bool changedStatus = false;
             bool isChatOn = false;
+            bool changedFocus = false;
 
             try
             {
@@ -499,7 +500,6 @@ namespace KzBot.Threads
 
                             WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                             WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
-                            bool changedFocus = false;
 
                             if (placement.showCmd == 2)
                             {
@@ -548,9 +548,9 @@ namespace KzBot.Threads
                                 Client.Say("hi");
                                 System.Threading.Thread.Sleep(1000);
 
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Client.Say(refill.Type);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Click Buy
@@ -563,9 +563,9 @@ namespace KzBot.Threads
 
                                 // Search Item
                                 Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.Write(refill.Name);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Select Item
@@ -577,26 +577,27 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(500);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.PressKey(Keys.Delete);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 System.Threading.Thread.Sleep(100);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
-                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) break;
+                                if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 System.Threading.Thread.Sleep(1000);
 
                                 // Buy
                                 Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
                                 System.Threading.Thread.Sleep(1000);
 
+
+                                if (itemCount <= Objects.Client.getItemCount(refill.Id))
+                                    return;
+
                                 if (!Globals.ScriptConfig.GeneralStatus)
                                 {
-                                    if (changedFocus)
-                                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
-
                                     Keyboard.PressKey(Keys.F20);
                                     System.Threading.Thread.Sleep(100);
 
@@ -604,8 +605,6 @@ namespace KzBot.Threads
                                 }
                             }
 
-                            if (changedFocus)
-                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
 
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(300);
@@ -646,6 +645,8 @@ namespace KzBot.Threads
 
                             Client.Say("hi");
                             System.Threading.Thread.Sleep(500);
+                            Client.Say("bank");
+                            System.Threading.Thread.Sleep(100);
                             Client.Say("deposit all");
                             System.Threading.Thread.Sleep(100);
                             Client.Say("yes");
@@ -952,7 +953,6 @@ namespace KzBot.Threads
                         {
                             WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                             WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
-                            bool changedFocus = false;
 
                             if (placement.showCmd == 2)
                             {
@@ -968,9 +968,6 @@ namespace KzBot.Threads
                                 Objects.Client.leftClick(buttonPoint.X, buttonPoint.Y);
                                 Keyboard.PressKey(Keys.Escape);
                             }
-
-                            if (changedFocus)
-                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
 
                             Globals.WaypointId++;
 
@@ -1167,6 +1164,9 @@ namespace KzBot.Threads
             }
             finally
             {
+                if (changedFocus)
+                    WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+
                 if (changedStatus)
                 {
                     Globals.Main.Invoke((MethodInvoker)delegate {

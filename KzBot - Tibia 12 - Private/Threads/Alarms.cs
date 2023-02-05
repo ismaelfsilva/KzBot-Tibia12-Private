@@ -124,6 +124,9 @@ namespace KzBot.Threads
                                 case "safe":
                                     safeMode = true;
                                     break;
+                                case "status":
+                                    Threads.ClientData.status = action.Trim();
+                                    break;
                                 default:
                                     break;
                             }
@@ -155,6 +158,8 @@ namespace KzBot.Threads
         private static List<AlarmType> CheckAlarms()
         {
             List<AlarmType> alarmsRequested = new List<AlarmType>();
+
+            extraInfo = string.Empty;
 
             if (Globals.Process == null || Globals.Process.HasExited)
                 return alarmsRequested;

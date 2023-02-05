@@ -663,6 +663,44 @@ namespace KzBot.Threads
                         Globals.Main.Log.addLog("Transfering Cash", false);
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Withdraw:
+                        {
+                            int amountToWithdraw = 0;
+                            int.TryParse(waypoint.Extra.Trim(), out amountToWithdraw);
+                            if (amountToWithdraw < 0)
+                                amountToWithdraw += Threads.ClientData.lastBalance;
+
+                            amountToWithdraw = Math.Min(10000000, amountToWithdraw);
+
+                            changedStatus = true;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
+                            Globals.ScriptConfig.auto_Haste = false;
+
+
+                            isChatOn = true;
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(100);
+                            Keyboard.PressKey(Keys.F22);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.Say("hi");
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("bank");
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("withdraw " + amountToWithdraw);
+                            System.Threading.Thread.Sleep(500);
+                            Client.Say("yes");
+                            System.Threading.Thread.Sleep(500);
+
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(100);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Balance:
                         {
                             changedStatus = true;
@@ -728,6 +766,13 @@ namespace KzBot.Threads
                     case WaypointType.Take_Out_Equip:
                         {
                             Client.takeOut((Equipment)Enum.Parse(typeof(Equipment), waypoint.Extra.Trim()), waypoint.Position);
+                            //System.Threading.Thread.Sleep(500);
+                            Globals.WaypointId++;
+                        }
+                        break;
+                    case WaypointType.Take_In_Equip:
+                        {
+                            Client.takeIn((Equipment)Enum.Parse(typeof(Equipment), waypoint.Extra.Trim()), waypoint.Position);
                             //System.Threading.Thread.Sleep(500);
                             Globals.WaypointId++;
                         }

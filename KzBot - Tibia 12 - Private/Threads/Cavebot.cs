@@ -1167,6 +1167,7 @@ namespace KzBot.Threads
                     case WaypointType.Reset_Imbue:
                         {
                             Threads.ClientData.imbueTime = -1;
+                            Globals.WaypointId++;
                             break;
                         }
                     default:

@@ -356,6 +356,7 @@ namespace KzBot
         Set_Status,
         Set_Script,
         Reset_FPS,
+        Reset_Imbue,
         Alert,
         Nothing,
     }

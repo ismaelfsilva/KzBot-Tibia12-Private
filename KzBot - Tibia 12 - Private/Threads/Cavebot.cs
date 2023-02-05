@@ -696,9 +696,11 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
 
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(50000);
 
-                            Globals.WaypointId++;
+                            if (amountToWithdraw < 10000000)
+                                Globals.WaypointId++;
+
                             break;
                         }
                     case WaypointType.Balance:

@@ -697,12 +697,13 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
 
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(5000);
 
                             Threads.ClientData.lastBalance -= amountToWithdraw;
 
                             if (amountToWithdraw < 10000000)
                                 Globals.WaypointId++;
+                            else
+                                System.Threading.Thread.Sleep(5000);
 
                             break;
                         }

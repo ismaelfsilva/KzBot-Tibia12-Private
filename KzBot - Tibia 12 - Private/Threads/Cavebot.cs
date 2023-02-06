@@ -679,6 +679,12 @@ namespace KzBot.Threads
 
                             amountToWithdraw = Math.Min(10000000, amountToWithdraw);
 
+                            if (amountToWithdraw <= 0)
+                            {
+                                Globals.WaypointId++;
+                                break;
+                            }
+
                             changedStatus = true;
                             Globals.Main.Invoke((MethodInvoker)delegate {
                                 Globals.Main.checkBox2.Checked = false; // HEALER

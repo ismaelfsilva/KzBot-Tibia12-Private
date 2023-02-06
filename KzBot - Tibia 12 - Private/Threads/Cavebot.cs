@@ -833,7 +833,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.Enter);
                             System.Threading.Thread.Sleep(500);
 
-                            // CLICK ASSIGN
+                            /*/ CLICK ASSIGN
                             Client.leftClick(assignPoint);
                             System.Threading.Thread.Sleep(500);
 
@@ -842,6 +842,7 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.Enter);
                             System.Threading.Thread.Sleep(500);
+                            /*/
 
                             Keyboard.PressKey(Keys.Escape);
                             Globals.WaypointId++;

@@ -860,11 +860,19 @@ namespace KzBot.Threads
                             Point outfitNamePoint = new Point(middleScreenPoint.X + 265, middleScreenPoint.Y - 165);
                             Point firstOutfitPoint = new Point(middleScreenPoint.X + 185, middleScreenPoint.Y - 90);
 
-                            Point firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 130);
+                            int pLevel = Objects.Player.Level;
+
+                            Point firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 152);
                             int pieceDist = 63;
 
-                            Point firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 149);
+                            Point firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 169);
                             int colorDist = 14;
+
+                            if (pLevel < 200)
+                            {
+                                firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 130);
+                                firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 149);
+                            }
 
                             Keyboard.PressKey(Keys.Escape);
                             System.Threading.Thread.Sleep(500);

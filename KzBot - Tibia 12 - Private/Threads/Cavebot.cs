@@ -599,7 +599,7 @@ namespace KzBot.Threads
                                 System.Threading.Thread.Sleep(1000);
 
 
-                                if (itemCount <= Objects.Client.getItemCount(refill.Id))
+                                if (itemCount >= Objects.Client.getItemCount(refill.Id))
                                     return;
 
                                 if (!Globals.ScriptConfig.GeneralStatus)
@@ -860,10 +860,10 @@ namespace KzBot.Threads
                             Point outfitNamePoint = new Point(middleScreenPoint.X + 265, middleScreenPoint.Y - 165);
                             Point firstOutfitPoint = new Point(middleScreenPoint.X + 185, middleScreenPoint.Y - 90);
 
-                            Point firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 152);
+                            Point firstPieceOnOutfits = new Point(middleScreenPoint.X - 182, middleScreenPoint.Y + 130);
                             int pieceDist = 63;
 
-                            Point firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 169);
+                            Point firstColorOnOutfits = new Point(middleScreenPoint.X - 198, middleScreenPoint.Y + 149);
                             int colorDist = 14;
 
                             Keyboard.PressKey(Keys.Escape);

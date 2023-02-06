@@ -76,6 +76,9 @@ namespace KzBot.Threads
                 {
                     Globals.Main.Log.addLog("Closing Bot", false);
                     Threads.ClientData.UpdateCharacter();
+
+                    System.Threading.Thread.Sleep(5000);
+
                     Globals.Main.Invoke((MethodInvoker)delegate
                     {
                         Globals.Main.canCloseForm = true;
@@ -87,6 +90,9 @@ namespace KzBot.Threads
                 {
                     Globals.Main.Log.addLog("Exiting Character", false);
                     Threads.ClientData.UpdateCharacter();
+
+                    System.Threading.Thread.Sleep(5000);
+
                     Globals.Process.Kill(true);
                     Globals.Process = null;
 

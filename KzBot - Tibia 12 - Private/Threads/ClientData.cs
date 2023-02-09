@@ -32,6 +32,8 @@ namespace KzBot.Threads
         public static bool isReconnecting = false;
         public static int totalReconnect10Minutes = 1;
 
+        public static bool changedFocus = false;
+
         private async static void ClientDataThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
@@ -144,7 +146,6 @@ namespace KzBot.Threads
                 {
                     WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
                     WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
-                    bool changedFocus = false;
 
                     if (placement.showCmd == 2)
                     {
@@ -156,9 +157,6 @@ namespace KzBot.Threads
                         Globals.clientRect = cRect;
                     else
                         return;
-
-                    if (changedFocus)
-                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
                 }
 
 
@@ -182,6 +180,15 @@ namespace KzBot.Threads
                 {
                     if (!setClient)
                     {
+                        WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                        WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+
+                        if (placement.showCmd == 2)
+                        {
+                            changedFocus = true;
+                            WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                        }
+
                         System.Threading.Thread.Sleep(2000);
 
                         //Objects.ClientData.FindPositions();
@@ -303,6 +310,12 @@ namespace KzBot.Threads
             }
             finally
             {
+                if (changedFocus)
+                {
+                    WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+                    changedFocus = false;
+                }
+
                 Thread.Change(100, Timeout.Infinite);
             }
         }

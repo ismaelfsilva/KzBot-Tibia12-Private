@@ -365,7 +365,7 @@ namespace KzBot.Threads
                 client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
                 client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
 
-                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}&script_status={6}&imbue={7}&sliver={8}&has_autoloot={9}",
+                var response = await client.GetAsync(new Uri(string.Format("https://tibia.kzsoft.com.br/character.php?username={0}&password={1}&char_name={2}&char_level={3}&char_balance={4}&char_stamina={5}&script_status={6}&imbue={7}&sliver={8}",
                     Globals.Username,
                     Globals.Password,
                     HttpUtility.UrlEncode(Globals.AccCharName).Replace("+", "%20"),
@@ -374,8 +374,7 @@ namespace KzBot.Threads
                     lastStamina,
                     status == string.Empty ? "None" : HttpUtility.UrlEncode(status).Replace("+", "%20"),
                     imbueTime,
-                    Objects.Client.getItemCount(37109).ToString(),
-                    Globals.HasAutoLoot.ToString()
+                    Objects.Client.getItemCount(37109).ToString()
                     )));
                 string content = await response.Content.ReadAsStringAsync();
 

@@ -25,6 +25,7 @@ namespace HUB.Classes
         public string script { get; set; } = string.Empty;
         public string warning { get; set; } = string.Empty;
         public int imbuement_time { get; set; } = 0;
+        public int sliver_qty { get; set; } = 0;
         public string status_update_time { get; set; } = DateTime.MinValue.ToString();
         public string script_status { get; set; } = string.Empty;
         public List<string> system_warning { get; set; } = new List<string>();
@@ -51,7 +52,7 @@ namespace HUB.Classes
                 lvItem.SubItems.Add(level.ToString());
                 lvItem.SubItems.Add(vocation);
                 lvItem.SubItems.Add(script.ToString());
-                lvItem.SubItems.Add(balance.ToString());
+                lvItem.SubItems.Add(string.Format("{0} ({1} sliver(s))", balance.ToString(), sliver_qty.ToString()));
 
                 DateTime lastOnlineTime = DateTime.Parse(last_online);
                 int recoveredStamina = (int)Math.Floor((DateTime.Now - lastOnlineTime).TotalMinutes / Program.Config.Servers.FirstOrDefault(s=> s.name.ToLower().Trim() == server.ToLower().Trim()).staminaRecoveryDelay);

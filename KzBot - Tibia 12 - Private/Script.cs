@@ -323,6 +323,7 @@ namespace KzBot
         Take_In_Equip,
         Setup_Config,
         Setup_Bag,
+        Buy_AutoLoot,
         Randomize_Outfit,
         Set_Offensive,
         Travel,

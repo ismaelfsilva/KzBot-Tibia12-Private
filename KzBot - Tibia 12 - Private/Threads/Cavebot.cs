@@ -851,6 +851,48 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                         }
                         break;
+                    case WaypointType.Buy_AutoLoot:
+                        {
+                            WinApi.RECT clientRect = Globals.clientRect;
+                            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+
+                            Point storeButton = new Point(clientRect.right - 105, 320);
+                            Point tournamentButton = new Point(middleScreenPoint.X - 275, middleScreenPoint.Y);
+                            Point extrasButton = new Point(middleScreenPoint.X - 275, middleScreenPoint.Y + 82);
+                            Point hadesLootButton = new Point(middleScreenPoint.X, middleScreenPoint.Y - 75);
+                            Point buyButton = new Point(middleScreenPoint.X + 300, middleScreenPoint.Y - 170);
+
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(storeButton);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(tournamentButton);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(extrasButton);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(hadesLootButton);
+                            System.Threading.Thread.Sleep(500);
+
+                            Client.leftClick(buyButton);
+                            System.Threading.Thread.Sleep(500);
+
+                            Keyboard.PressKey(Keys.Enter);
+                            System.Threading.Thread.Sleep(500);
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(2000);
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(2000);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Randomize_Outfit:
                         {
                             Random rand = new Random();

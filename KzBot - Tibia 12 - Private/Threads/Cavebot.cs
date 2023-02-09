@@ -685,6 +685,8 @@ namespace KzBot.Threads
                                 break;
                             }
 
+                            amountToWithdraw = Convert.ToInt32(Math.Floor(Convert.ToDouble(amountToWithdraw) / 10000) * 10000);
+
                             changedStatus = true;
                             Globals.Main.Invoke((MethodInvoker)delegate {
                                 Globals.Main.checkBox2.Checked = false; // HEALER
@@ -711,6 +713,7 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
 
                             Threads.ClientData.lastBalance -= amountToWithdraw;
+                            Globals.Main.Log.addLog("Withdrawing: " + amountToWithdraw.ToString());
 
                             if (amountToWithdraw < 10000000)
                                 Globals.WaypointId++;

@@ -11,7 +11,7 @@ namespace HUB.Classes
     {
         public bool enabled { get; set; } = false;
         public bool requiresImbuement { get; set; } = true;
-        public int maxBalance { get; set; } = 10000000;
+        public int maxBalance { get; set; } = -1;
         public int minutesToWaitOnBan { get; set; } = 120;
         public int minMinutesBetweenScripts { get; set; } = 5;
         public string server { get; set; } = string.Empty;

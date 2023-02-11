@@ -223,10 +223,13 @@ namespace KzBot.Threads
                     {
                         if (await BanCharacter())
                         {
-                            Globals.Process.Kill(true);
                             status = statusBeforeReconnecting;
                             Globals.Main.Log.addLog("Banned", true);
                             Threads.ClientData.UpdateCharacter();
+
+                            System.Threading.Thread.Sleep(5000);
+
+                            Globals.Process.Kill(true);
                             return;
                         }
                     }

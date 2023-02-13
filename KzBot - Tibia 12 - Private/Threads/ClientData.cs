@@ -17,6 +17,7 @@ namespace KzBot.Threads
         public static int lastBalance = 0;
         public static int lastStamina = 0;
         public static int lastLevel = 0;
+        public static int lastSliverCount = 0;
         public static string statusBeforeReconnecting = "None";
         public static string status = "None";
         public static int imbueTime = -1;
@@ -377,7 +378,7 @@ namespace KzBot.Threads
                     lastStamina,
                     status == string.Empty ? "None" : HttpUtility.UrlEncode(status).Replace("+", "%20"),
                     imbueTime,
-                    Objects.Client.getItemCount(37109).ToString()
+                    lastSliverCount
                     )));
                 string content = await response.Content.ReadAsStringAsync();
 

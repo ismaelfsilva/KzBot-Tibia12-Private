@@ -763,7 +763,7 @@ namespace KzBot.Threads
                             }
 
                             Threads.ClientData.lastBalance = balance;
-                            Threads.ClientData.lastSliverCount = Objects.Client.getItemCount(37109).ToString();
+                            Threads.ClientData.lastSliverCount = Objects.Client.getItemCount(37109);
 
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);

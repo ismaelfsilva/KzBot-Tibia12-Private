@@ -405,6 +405,10 @@ namespace KzBot.Threads
                                     break;
                                 }
                             }
+
+                            int sliverCount = Objects.Client.getItemCount(37109);
+                            Threads.ClientData.lastSliverCount = sliverCount;
+
                             if (needRefill)
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             else
@@ -763,7 +767,6 @@ namespace KzBot.Threads
                             }
 
                             Threads.ClientData.lastBalance = balance;
-                            Threads.ClientData.lastSliverCount = Objects.Client.getItemCount(37109);
 
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(100);

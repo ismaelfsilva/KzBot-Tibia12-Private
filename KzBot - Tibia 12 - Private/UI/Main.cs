@@ -124,6 +124,8 @@ namespace KzBot
                     Addresses.Version.v1305(Globals.Process);
                 else if (Globals.Server.version == "13.10")
                     Addresses.Version.v1310(Globals.Process);
+                else if (Globals.Server.version == "13.12")
+                    Addresses.Version.v1312(Globals.Process);
 
                 Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
@@ -279,6 +281,8 @@ namespace KzBot
                 Addresses.Version.v1305(Globals.Process);
             else if (Globals.Server.version == "13.10")
                 Addresses.Version.v1310(Globals.Process);
+            else if (Globals.Server.version == "13.12")
+                Addresses.Version.v1312(Globals.Process);
 
             Globals.clientRect = new WinApi.RECT() { left = 0, top = 0, right = 0, bottom = 0 };
 
@@ -466,7 +470,6 @@ namespace KzBot
 
         private async void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

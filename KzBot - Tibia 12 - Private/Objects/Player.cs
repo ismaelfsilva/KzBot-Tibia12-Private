@@ -133,7 +133,7 @@ namespace KzBot.Objects
         {
             get
             {
-                return WinApi.ReadOffsetInt16(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.soul);
+                return WinApi.ReadOffsetByte(Globals.Handle, Addresses.Player.Pointer, Addresses.Player.soul);
             }
         }
 

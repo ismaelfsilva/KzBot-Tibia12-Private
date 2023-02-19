@@ -40,7 +40,7 @@ namespace KzBot.Threads
 
                 List<AlarmType> alarmsRequested = new List<AlarmType>();
 
-                if (Globals.Process == null || Globals.Process.HasExited || Globals.Process.MainWindowTitle == "Tibia")
+                if (Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
                 { }
                 else if (Globals.ScriptConfig.Alarms[(int)AlarmType.Stuck].Enabled)
                 {

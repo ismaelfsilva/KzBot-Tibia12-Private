@@ -36,6 +36,8 @@ namespace KzBot.Threads
             bool isChatOn = false;
             bool changedFocus = false;
 
+            bool instantSkip = false;
+
             try
             {
                 if (Globals.ScriptConfig.Waypoints.Count <= 0)
@@ -159,14 +161,18 @@ namespace KzBot.Threads
                 switch (waypoint.Type)
                 {
                     case WaypointType.Stand:
-                        if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
+                        if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
+                            instantSkip = true;
                             if (waypoint.rangeX == 1 && waypoint.rangeY == 1)
                                 Keyboard.PressKey(Keys.Escape);
                         }
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
+                        {
                             Globals.WaypointId++;
+                            instantSkip = true;
+                        }
                         else
                         {
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
@@ -174,10 +180,16 @@ namespace KzBot.Threads
                         }
                         break;
                     case WaypointType.Node:
-                        if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX  && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
+                        if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY || playerPos.Z != waypoint.Z)
+                        {
                             Globals.WaypointId++;
+                            instantSkip = true;
+                        }
                         else if (Math.Abs(playerPos.X - waypoint.X) > 200 || Math.Abs(playerPos.Y - waypoint.Y) > 200)
+                        {
                             Globals.WaypointId++;
+                            instantSkip = true;
+                        }
                         else
                         {
                             Player.Goto(waypoint.X + new Random().Next(waypoint.rangeX * -1 + 1, waypoint.rangeX - 1), waypoint.Y + new Random().Next(waypoint.rangeY * -1 + 1, waypoint.rangeY - 1), waypoint.Z);
@@ -240,17 +252,20 @@ namespace KzBot.Threads
                             {
                                 Globals.ComboStatus = false;
                                 didWaitBecauseOfPlayerOnCombo = false;
+                                instantSkip = true;
                                 Globals.WaypointId++;
                             }
                             else if (Globals.ComboStatus && creatures.Count <= Globals.ScriptConfig.creature_Count_To_End_Lure - creatures.Where(c => c.HealthPc <= Globals.ScriptConfig.creatures_Left_Health_To_End_Lure).Count())
                             {
                                 Globals.ComboStatus = false;
                                 didWaitBecauseOfPlayerOnCombo = false;
+                                instantSkip = true;
                                 Globals.WaypointId++;
                             }
                             else if (!Globals.ComboStatus)
                             {
                                 Globals.WaypointId++;
+                                instantSkip = true;
                                 didWaitBecauseOfPlayerOnCombo = false;
                                 if (Globals.ScriptConfig.Waypoints[Globals.WaypointId].Type == WaypointType.Loot)
                                     Globals.WaypointId++;
@@ -286,44 +301,53 @@ namespace KzBot.Threads
                         }
                         else
                             Keyboard.PressKey((Keys)Properties.Settings.Default.Loot_Key);
+
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Goto_Label:
                         Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
+                        instantSkip = true;
                         break;
                     case WaypointType.Check_Cap:
+                        instantSkip = true;
                         if (Objects.Player.Level < Globals.ScriptConfig.min_Level_To_Check_Cap)
                             Globals.WaypointId++;
                         else if (Objects.Player.Cap < int.Parse(extraData[0]))
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
-                            Globals.WaypointId++;   
+                            Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Level:
+                        instantSkip = true;
                         if (Objects.Player.Level < int.Parse(extraData[0]))
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Balance:
+                        instantSkip = true;
                         if (Globals.AccMaxBalance != -1 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance)
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Stamina:
+                        instantSkip = true;
                         if (Objects.Player.Stamina.TotalSeconds < int.Parse(extraData[0]) * 60)
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[1].Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_Safe:
+                        instantSkip = true;
                         if (Threads.Alarms.safeMode)
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;
                         break;
                     case WaypointType.Check_PZ:
+                        instantSkip = true;
                         if (Objects.Player.Creature.Skull != PlayerSkulls.White)
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
@@ -331,6 +355,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Check_Imbue:
                         {
+                            instantSkip = true;
                             bool foundItem = false;
                             bool hasImbue = false;
                             Objects.Client.lookAt(Equipment.Weapon);
@@ -348,7 +373,7 @@ namespace KzBot.Threads
                                 if (msg.Contains("imbuements:"))
                                 {
                                     foundItem = true;
-                                    
+
                                     if (match.Success)
                                     {
                                         hasImbue = true;
@@ -362,7 +387,7 @@ namespace KzBot.Threads
                                     break;
                                 }
                             }
-                                                     
+
 
                             if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
                             {
@@ -388,6 +413,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Check_Refill:
                         {
+                            instantSkip = true;
                             Globals.HasAutoLoot = Globals.Server.autoLootId != -1 && Objects.Client.getItemCount(Globals.Server.autoLootId) > 0;
                             bool needRefill = false;
                             int playerLevel = Objects.Player.Level;
@@ -673,6 +699,7 @@ namespace KzBot.Threads
                     case WaypointType.Transfer:
                         Globals.Main.Log.addLog("Transfering Cash", false);
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Withdraw:
                         {
@@ -902,7 +929,7 @@ namespace KzBot.Threads
                             Random rand = new Random();
                             WinApi.RECT clientRect = Globals.clientRect;
 
-                            List<string> outfitList = new List<string> { "citizen", "hunter", "mage", "knight", "noble", "summoner", "warrior", "barbarian", "druid", "wizard", "oriental", "pirate", "shaman", "norse", "demon hunter", "warmaster", "jersey"};
+                            List<string> outfitList = new List<string> { "citizen", "hunter", "mage", "knight", "noble", "summoner", "warrior", "barbarian", "druid", "wizard", "oriental", "pirate", "shaman", "norse", "demon hunter", "warmaster", "jersey" };
 
                             Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
 
@@ -960,7 +987,10 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)
+                        { 
                             Globals.WaypointId++;
+                            instantSkip = true;
+                        }
                         else
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
                         break;
@@ -977,48 +1007,56 @@ namespace KzBot.Threads
                             Globals.Main.checkBox2.Checked = false;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Disable_Targeting:
                         Globals.Main.checkBox4.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox4.Checked = false;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Disable_Alerts:
                         Globals.Main.checkBox5.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox5.Checked = false;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Disable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
                             Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"), true)].CheckBox.Checked = false;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Enable_Targeting:
                         Globals.Main.checkBox4.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox4.Checked = true;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Enable_Alerts:
                         Globals.Main.checkBox5.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox5.Checked = true;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Enable_Healer:
                         Globals.Main.checkBox2.Invoke((MethodInvoker)delegate {
                             Globals.Main.checkBox2.Checked = true;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Enable_Alert:
                         Globals.Main.Alerts.Invoke((MethodInvoker)delegate {
                             Globals.ScriptConfig.Alarms[(int)Enum.Parse(typeof(AlarmType), waypoint.Extra.Trim().Replace(" ", "_"), true)].CheckBox.Checked = true;
                         });
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Press:
                         Keyboard.PressKey((Keys)Enum.Parse(typeof(Keys), waypoint.Extra.Trim()));
@@ -1106,6 +1144,7 @@ namespace KzBot.Threads
                     case WaypointType.Minimize_Client:
                         WinApi.ShowWindow(Globals.Process.MainWindowHandle, 6);
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.Load:
                         Classes.Script script = Program.Config.Scripts.FirstOrDefault(s => s.name.ToLower().Trim() == waypoint.Extra.Trim().ToLower());
@@ -1131,12 +1170,14 @@ namespace KzBot.Threads
                         System.Threading.Thread.Sleep(3000);
                         break;
                     case WaypointType.Not_Location_Goto_Label:
+                        instantSkip = true;
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == playerPos.Z))
                             Globals.WaypointId++;
                         else
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.Not_Location_Goback:
+                        instantSkip = true;
                         if (Math.Abs(playerPos.X - waypoint.X) < waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) < waypoint.rangeY && (waypoint.Z == 0 || waypoint.Z == playerPos.Z))
                             Globals.WaypointId++;
                         else if (Globals.WaypointId <= 0)
@@ -1145,12 +1186,14 @@ namespace KzBot.Threads
                             Globals.WaypointId--;
                         break;
                     case WaypointType.If_Location_Goto_Label:
+                        instantSkip = true;
                         if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
                             Globals.WaypointId++;
                         else
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == waypoint.Extra.Trim());
                         break;
                     case WaypointType.If_Location_Goback:
+                        instantSkip = true;
                         if (Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX || Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY || (waypoint.Z != 0 && waypoint.Z != playerPos.Z))
                             Globals.WaypointId++;
                         else if (Globals.WaypointId <= 0)
@@ -1188,18 +1231,22 @@ namespace KzBot.Threads
                         Keyboard.PressKey(Keys.F22);
                         System.Threading.Thread.Sleep(1000);
                         Globals.WaypointId++;
+                        instantSkip = true;
                         break;
                     case WaypointType.If_Vocation_Goto_Label:
+                        instantSkip = true;
                         if (Globals.AccVocation.ToString().ToLower() != extraData[0].Trim().ToLower())
                             Globals.WaypointId++;
                         else
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label.Trim() == extraData[1].Trim());
                         break;
                     case WaypointType.Disable_Safe:
+                        instantSkip = true;
                         Threads.Alarms.safeMode = false;
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Set_Status:
+                        instantSkip = true;
                         if (waypoint.Extra.Trim() != Threads.ClientData.status)
                             Globals.Main.Log.addLog(waypoint.Extra.Trim());
 
@@ -1207,6 +1254,7 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Set_Script:
+                        instantSkip = true;
                         if (waypoint.Extra.Trim() != Globals.Script.name)
                             Threads.ClientData.UpdateScript(waypoint.Extra.Trim());
 
@@ -1236,6 +1284,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Reset_Imbue:
                         {
+                            instantSkip = true;
                             Threads.ClientData.imbueTime = -1;
                             Globals.WaypointId++;
                             break;
@@ -1268,7 +1317,10 @@ namespace KzBot.Threads
 
                 if (Globals.ScriptConfig.GeneralStatus && Globals.ScriptConfig.CavebotStatus)
                 {
-                    Thread.Change(100, Timeout.Infinite);
+                    if (instantSkip)
+                        Thread.Change(0, Timeout.Infinite);
+                    else
+                        Thread.Change(100, Timeout.Infinite);
                 }
             }
         }

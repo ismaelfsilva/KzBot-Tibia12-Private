@@ -193,10 +193,12 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                             instantSkip = true;
                         }
-                        else
+                        else if (Math.Abs(playerPos.X - Objects.Player.GotoX) >= waypoint.rangeX || Math.Abs(playerPos.Y - Objects.Player.GotoY) >= waypoint.rangeY)
                         {
-                            Player.Goto(waypoint.X + new Random().Next(waypoint.rangeX * -1 + 1, waypoint.rangeX - 1), waypoint.Y + new Random().Next(waypoint.rangeY * -1 + 1, waypoint.rangeY - 1), waypoint.Z);
-                            System.Threading.Thread.Sleep(Math.Min(500, 100 * (waypoint.Position.distanceTo(playerPos) - 1)));
+                            int gotoX = waypoint.X + new Random().Next(waypoint.rangeX * -1 + 1, waypoint.rangeX - 1);
+                            int gotoY = waypoint.Y + new Random().Next(waypoint.rangeY * -1 + 1, waypoint.rangeY - 1);
+                            Player.Goto(gotoX, gotoY, waypoint.Z);
+                            System.Threading.Thread.Sleep(Math.Min(500, 100 * (new Position() { X = gotoX, Y=gotoY, Z=waypoint.Z} .distanceTo(playerPos) - 1)));
                         }
                         break;
                     case WaypointType.Say:

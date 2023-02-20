@@ -457,49 +457,48 @@ namespace KzBot.Threads
                             });
                             Globals.ScriptConfig.auto_Haste = false;
 
-                            System.Threading.Thread.Sleep(500);
                             isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             Keyboard.PressKey(Keys.F22);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             Client.Say("hi");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             WinApi.RECT clientRect = Globals.clientRect;
                             Point closeWindow = new Point(clientRect.right - 8, 510);
 
-                            for (int i = 0; i < 10; i++)
+                            for (int i = 0; i < 20; i++)
                             {
                                 Client.leftClick(closeWindow.X, closeWindow.Y);
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(10);
                             }
 
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("trade");
                             System.Threading.Thread.Sleep(500);
 
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
 
                             Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 40);
-                            System.Threading.Thread.Sleep(200);
+                            System.Threading.Thread.Sleep(100);
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 5)
+                            while (itemSoldWithoutCapChange <= 20)
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(200);
+                                System.Threading.Thread.Sleep(10);
 
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
-                                System.Threading.Thread.Sleep(200);
+                                System.Threading.Thread.Sleep(10);
 
                                 itemSoldWithoutCapChange++;
 
@@ -519,10 +518,11 @@ namespace KzBot.Threads
                                     return;
                                 }
                             }
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F20);
 
                             Globals.WaypointId++;
+                            instantSkip = true;
                             break;
                         }
                     case WaypointType.Buy_Refill:

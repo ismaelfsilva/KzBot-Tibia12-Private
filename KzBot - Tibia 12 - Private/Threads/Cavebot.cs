@@ -495,7 +495,7 @@ namespace KzBot.Threads
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 10)
+                            while (itemSoldWithoutCapChange <= 20)
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
@@ -506,7 +506,7 @@ namespace KzBot.Threads
 
                                 itemSoldWithoutCapChange++;
 
-                                if (itemSoldWithoutCapChange == 5)
+                                if (itemSoldWithoutCapChange == 20)
                                 {
                                     int playerCap = Objects.Player.Cap;
                                     if (lastCap != playerCap)

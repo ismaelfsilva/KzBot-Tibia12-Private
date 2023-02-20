@@ -45,7 +45,13 @@ namespace KzBot.Threads
                 else if (Globals.ScriptConfig.Alarms[(int)AlarmType.Stuck].Enabled)
                 {
                     Waypoint waypoint = Globals.ScriptConfig.Waypoints[Globals.WaypointId];
-                    if (Globals.ScriptConfig.CavebotStatus && (waypoint.Type != WaypointType.Sell_All && waypoint.Type != WaypointType.Wait_PZ && waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Buy_Refill) && !Globals.ComboStatus && Objects.Client.TimeStopped >= 10000)
+                    if (Globals.ScriptConfig.CavebotStatus && 
+                        (waypoint.Type == WaypointType.Stand || waypoint.Type==WaypointType.Node || waypoint.Type == WaypointType.Step || waypoint.Type == WaypointType.Not_Location_Goback || waypoint.Type == WaypointType.Not_Location_Goto_Label || waypoint.Type == WaypointType.If_Location_Goback || waypoint.Type == WaypointType.If_Location_Goto_Label)
+                        && !Globals.ComboStatus && Objects.Client.TimeStopped >= 10000)
+                        ticksStuck++;
+                    else if (Globals.ScriptConfig.CavebotStatus &&
+                        (waypoint.Type != WaypointType.Wait && waypoint.Type != WaypointType.Wait_PZ)
+                        && !Globals.ComboStatus && Objects.Client.TimeStopped >= 120000)
                         ticksStuck++;
                     else
                         ticksStuck = 0;

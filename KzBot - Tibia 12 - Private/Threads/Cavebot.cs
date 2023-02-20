@@ -546,10 +546,10 @@ namespace KzBot.Threads
                             WinApi.RECT clientRect = Globals.clientRect;
                             Point closeWindow = new Point(clientRect.right - 8, 510);
 
-                            for (int i = 0; i < 10; i++)
+                            for (int i = 0; i < 20; i++)
                             {
                                 Client.leftClick(closeWindow.X, closeWindow.Y);
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(10);
                             }
 
                             Point tradeWindow = new Point(clientRect.right - 155, 507);
@@ -557,10 +557,10 @@ namespace KzBot.Threads
 
                             isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(1000);
+                            System.Threading.Thread.Sleep(50);
 
                             Keyboard.PressKey(Keys.F22);
-                            System.Threading.Thread.Sleep(1000);
+                            System.Threading.Thread.Sleep(50);
 
                             foreach (RefillRule refill in Globals.ScriptConfig.Refill)
                             {
@@ -577,56 +577,55 @@ namespace KzBot.Threads
                                     continue;
                                 }
 
-                                System.Threading.Thread.Sleep(1000);
-                                Objects.Client.leftClick(Objects.ClientData.GameMapRect.Left, clientRect.bottom - 23);
-                                System.Threading.Thread.Sleep(1000);
+                                Keyboard.PressKey(Keys.Escape);
+                                System.Threading.Thread.Sleep(50);
 
                                 Client.Say("hi");
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(50);
 
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Client.Say(refill.Type);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(50);
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(50);
 
                                 // Reset Item
                                 Client.leftClick(tradeWindow.X + 140, tradeWindow.Y + 105);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(100);
 
                                 // Search Item
                                 Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.Write(refill.Name);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Select Item
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(100);
 
                                 // Set Count
                                 Keyboard.PressKey(Keys.Escape);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(50);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.PressKey(Keys.Delete);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(50);
                                 Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
                                 //System.Threading.Thread.Sleep(100);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(50);
 
                                 // Buy
                                 Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
-                                System.Threading.Thread.Sleep(1000);
+                                System.Threading.Thread.Sleep(500);
 
 
                                 if (itemCount >= Objects.Client.getItemCount(refill.Id))
@@ -643,17 +642,17 @@ namespace KzBot.Threads
 
 
                             Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(50);
 
 
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(50);
 
 
                             Keyboard.PressKey(Keys.F12);
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F12);
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(50);
 
                             Globals.WaypointId++;
                             break;

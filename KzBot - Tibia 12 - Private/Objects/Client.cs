@@ -301,7 +301,7 @@ namespace KzBot.Objects
             Keyboard.PressKey(Keys.F22);
             Keyboard.PressKey(Keys.F23);
             Keyboard.PressKey(Keys.F24);
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(50);
 
 
             Globals.Main.Invoke((MethodInvoker)delegate
@@ -312,10 +312,6 @@ namespace KzBot.Objects
                 if (clipboard != String.Empty)
                     Clipboard.SetText(clipboard);
             });
-
-
-            System.Threading.Thread.Sleep(1000);
-
 
             using (StringReader reader = new StringReader(serverLogText))
             {

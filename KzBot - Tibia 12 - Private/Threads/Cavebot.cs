@@ -501,10 +501,10 @@ namespace KzBot.Threads
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
-                                System.Threading.Thread.Sleep(10);
+                                System.Threading.Thread.Sleep(100);
 
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(10);
 
                                 itemSoldWithoutCapChange++;
 

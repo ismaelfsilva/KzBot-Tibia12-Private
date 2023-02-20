@@ -132,6 +132,7 @@ namespace KzBot.Threads
                         if (playerPos.Z != waypoint.Z)
                         {
                             Globals.WaypointId++;
+                            instantSkip = true;
                             return;
                         }
                         break;
@@ -140,6 +141,7 @@ namespace KzBot.Threads
                         if (Math.Abs(playerPos.X - waypoint.X) >= 200 && Math.Abs(playerPos.Y - waypoint.Y) >= 200)
                         {
                             Globals.WaypointId++;
+                            instantSkip = true;
                             return;
                         }
                         break;
@@ -147,6 +149,7 @@ namespace KzBot.Threads
                         if (!(waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) && Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY)
                         {
                             Globals.WaypointId++;
+                            instantSkip = true;
                             return;
                         }
                         break;
@@ -176,7 +179,7 @@ namespace KzBot.Threads
                         else
                         {
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(Math.Min(500, 100 * (waypoint.Position.distanceTo(playerPos) - 1)));
                         }
                         break;
                     case WaypointType.Node:
@@ -193,7 +196,7 @@ namespace KzBot.Threads
                         else
                         {
                             Player.Goto(waypoint.X + new Random().Next(waypoint.rangeX * -1 + 1, waypoint.rangeX - 1), waypoint.Y + new Random().Next(waypoint.rangeY * -1 + 1, waypoint.rangeY - 1), waypoint.Z);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(Math.Min(500, 100 * (waypoint.Position.distanceTo(playerPos) - 1)));
                         }
                         break;
                     case WaypointType.Say:
@@ -491,14 +494,14 @@ namespace KzBot.Threads
 
                             int itemSoldWithoutCapChange = 0;
                             int lastCap = 0;
-                            while (itemSoldWithoutCapChange <= 20)
+                            while (itemSoldWithoutCapChange <= 10)
                             {
                                 // CLICK FIRST
                                 Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
                                 System.Threading.Thread.Sleep(10);
 
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 170);
-                                System.Threading.Thread.Sleep(10);
+                                System.Threading.Thread.Sleep(100);
 
                                 itemSoldWithoutCapChange++;
 
@@ -621,14 +624,14 @@ namespace KzBot.Threads
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Keyboard.Write((refill.ToBuy - itemCount).ToString());
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Buy
                                 Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
                                 System.Threading.Thread.Sleep(500);
 
-
-                                if (itemCount >= Objects.Client.getItemCount(refill.Id))
+                                int newItemCount = Objects.Client.getItemCount(refill.Id);
+                                if (itemCount >= newItemCount || newItemCount < refill.ToLeave)
                                     return;
 
                                 if (!Globals.ScriptConfig.GeneralStatus)
@@ -807,6 +810,11 @@ namespace KzBot.Threads
                                 Objects.Client.buyItem(extraData[0], int.Parse(extraData[2]) - itemCount, waypoint.Position);
                             else
                                 Globals.WaypointId++;
+                        }
+                        break;
+                    case WaypointType.Sell_Market:
+                        {
+                            // TO DO
                         }
                         break;
                     case WaypointType.Imbue:

@@ -318,6 +318,7 @@ namespace KzBot
         Withdraw,
         Balance,
         Buy_Market,
+        Sell_Market,
         Imbue,
         Take_Out_Equip,
         Take_In_Equip,

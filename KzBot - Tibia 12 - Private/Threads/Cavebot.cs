@@ -840,18 +840,6 @@ namespace KzBot.Threads
                             Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
                             Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
 
-                            // CLOSE WINDOWS
-                            for (int i = 0; i < 10; i++)
-                            {
-                                Client.leftClick(closeWindow.X, closeWindow.Y);
-                                System.Threading.Thread.Sleep(100);
-                            }
-                            System.Threading.Thread.Sleep(1000);
-
-                            // OPEN BACKPACK
-                            Client.rightClickPos(backpackPoint);
-                            System.Threading.Thread.Sleep(500);
-
                             // OPEN CONTAINERS WINDOW
                             Keyboard.PressKey(Keys.OemMinus);
                             System.Threading.Thread.Sleep(500);
@@ -865,17 +853,6 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
                             Keyboard.PressKey(Keys.Enter);
                             System.Threading.Thread.Sleep(500);
-
-                            /*/ CLICK ASSIGN
-                            Client.leftClick(assignPoint);
-                            System.Threading.Thread.Sleep(500);
-
-                            // SET TO FIRST SLOT IN BP
-                            Client.leftClick(backpackFirstItemPoint);
-                            System.Threading.Thread.Sleep(500);
-                            Keyboard.PressKey(Keys.Enter);
-                            System.Threading.Thread.Sleep(500);
-                            /*/
 
                             Keyboard.PressKey(Keys.Escape);
                             Globals.WaypointId++;
@@ -950,9 +927,9 @@ namespace KzBot.Threads
                             }
 
                             Keyboard.PressKey(Keys.Escape);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.O);
                             System.Threading.Thread.Sleep(1000);
 
@@ -960,19 +937,19 @@ namespace KzBot.Threads
                             System.Threading.Thread.Sleep(500);
 
                             Client.leftClick(firstOutfitPoint);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             for (int pieces = 0; pieces < 4; pieces++)
                             {
                                 Client.leftClick(firstPieceOnOutfits.X + (pieces * pieceDist), firstPieceOnOutfits.Y);
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(50);
 
                                 Client.leftClick(firstColorOnOutfits.X + (rand.Next(0, 18) * colorDist), firstColorOnOutfits.Y + (rand.Next(0, 6) * colorDist));
-                                System.Threading.Thread.Sleep(500);
+                                System.Threading.Thread.Sleep(50);
                             }
 
                             Keyboard.PressKey(Keys.Enter);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.Escape);
 
                             Globals.WaypointId++;
@@ -1228,7 +1205,7 @@ namespace KzBot.Threads
                         }
                     case WaypointType.Open_Npc:
                         Keyboard.PressKey(Keys.F22);
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(50);
                         Globals.WaypointId++;
                         instantSkip = true;
                         break;

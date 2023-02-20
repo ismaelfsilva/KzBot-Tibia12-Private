@@ -30,9 +30,15 @@ namespace KzBot.Threads
 
         public static DateTime lastCheckImbueTime = DateTime.MinValue;
 
+        public static string lastStatusMessage = string.Empty;
+        public static string lastAlarmStatusMessage = string.Empty;
+
         private static async void AlarmThread(object? state)
         {
             Thread.Change(Timeout.Infinite, Timeout.Infinite);
+
+            bool changedStatus = false;
+
             try
             {
                 if (!Globals.ScriptConfig.GeneralStatus)
@@ -131,7 +137,10 @@ namespace KzBot.Threads
                                     safeMode = true;
                                     break;
                                 case "status":
-                                    Threads.ClientData.status = action.Trim();
+                                    changedStatus = true;
+                                    lastStatusMessage = Threads.ClientData.status;
+                                    lastAlarmStatusMessage = alarm.ToString().Trim();
+                                    Threads.ClientData.status = alarm.ToString().Trim();
                                     break;
                                 default:
                                     break;
@@ -155,6 +164,9 @@ namespace KzBot.Threads
             }
             finally
             {
+                if (!changedStatus && Threads.ClientData.status == lastAlarmStatusMessage)
+                    Threads.ClientData.status = lastStatusMessage;
+
                 if (Globals.ScriptConfig.GeneralStatus)
                     Thread.Change(1000, Timeout.Infinite);
             }

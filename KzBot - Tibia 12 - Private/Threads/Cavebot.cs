@@ -294,12 +294,12 @@ namespace KzBot.Threads
                                 }
                             }
 
-                            for (int tries = 0; tries < 1; tries++)
+                            for (int tries = 0; tries < 3; tries++)
                             {
                                 foreach (Point p in lootPointList)
                                 {
                                     Objects.Client.rightClickPos(p);
-                                    System.Threading.Thread.Sleep(250);
+                                    System.Threading.Thread.Sleep(10);
                                 }
                             }
                         }

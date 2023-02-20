@@ -727,18 +727,18 @@ namespace KzBot.Threads
 
                             isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F22);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             Client.Say("hi");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("bank");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("withdraw " + amountToWithdraw);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("yes");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             Keyboard.PressKey(Keys.F20);
 

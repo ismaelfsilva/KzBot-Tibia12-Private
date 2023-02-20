@@ -301,6 +301,7 @@ namespace KzBot.Threads
                             isReconnecting = false;
                             lastLoginTime = DateTime.Now;
                             Keyboard.PressKey(Keys.F20);
+                            Keyboard.PressKey(Keys.F22);
                             return;
                         }
                         else

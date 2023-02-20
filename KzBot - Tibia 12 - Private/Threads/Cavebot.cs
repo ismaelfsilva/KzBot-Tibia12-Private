@@ -764,21 +764,21 @@ namespace KzBot.Threads
 
                             isChatOn = true;
                             Keyboard.PressKey(Keys.F19);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F22);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             Client.Say("hi");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("bank");
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Client.Say("balance");
                             System.Threading.Thread.Sleep(2000);
 
                             Keyboard.PressKey(Keys.F23);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
                             Keyboard.PressKey(Keys.F24);
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(50);
 
                             string balanceMessage = Objects.Client.getNpcMessages().LastOrDefault();
                             int balance = Threads.ClientData.lastBalance;
@@ -795,7 +795,7 @@ namespace KzBot.Threads
                             Threads.ClientData.lastBalance = balance;
 
                             Keyboard.PressKey(Keys.F20);
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(50);
 
                             Globals.WaypointId++;
                             break;

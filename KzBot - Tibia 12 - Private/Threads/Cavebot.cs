@@ -1394,10 +1394,25 @@ namespace KzBot.Threads
                             break;
                         }
                     case WaypointType.Minimize_Client:
-                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 6);
+                        WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
                         Globals.WaypointId++;
                         instantSkip = true;
                         break;
+                    case WaypointType.Restore_Client:
+                        {
+                            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+
+                            if (placement.showCmd == 2)
+                            {
+                                changedFocus = true;
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                            }
+
+                            Globals.WaypointId++;
+                            instantSkip = true;
+                            break;
+                        }
                     case WaypointType.Load:
                         Classes.Script script = Program.Config.Scripts.FirstOrDefault(s => s.name.ToLower().Trim() == waypoint.Extra.Trim().ToLower());
 

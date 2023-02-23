@@ -362,6 +362,7 @@ namespace KzBot
         Exit,
         Logout,
         Close_Bot,
+        Restore_Client,
         Minimize_Client,
         Load,
         Enable_Safe,

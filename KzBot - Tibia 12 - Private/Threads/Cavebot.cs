@@ -1404,10 +1404,7 @@ namespace KzBot.Threads
                             WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
 
                             if (placement.showCmd == 2)
-                            {
-                                changedFocus = true;
                                 WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
-                            }
 
                             Globals.WaypointId++;
                             instantSkip = true;

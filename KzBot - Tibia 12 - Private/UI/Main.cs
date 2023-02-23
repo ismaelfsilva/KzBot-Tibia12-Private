@@ -45,6 +45,7 @@ namespace KzBot
 
             Globals.telegramBotToken = Properties.Settings.Default.TelegramBotToken;
             Globals.telegramUserId = Properties.Settings.Default.TelegramUserId;
+            Globals.CharToTransfer = Properties.Settings.Default.CharToTransfer;
 
             Globals.TelegramBot = new TelegramBotClient(Globals.telegramBotToken);
 
@@ -470,6 +471,37 @@ namespace KzBot
 
         private async void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            WinApi.RECT clientRect = Globals.clientRect;
+            Point closeWindow = new Point(clientRect.right - 8, 510);
+
+            for (int i = 0; i < 20; i++)
+            {
+                Client.leftClick(closeWindow.X, closeWindow.Y);
+                System.Threading.Thread.Sleep(10);
+            }
+
+            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+            Client.rightClickPos(backpackPoint);
+            System.Threading.Thread.Sleep(500);
+
+            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+
+            for (int y = 5; y > 0; y--)
+            {
+                for (int x = 4; x > 0; x--)
+                {
+                    Point slotPoint = new Point(firstSlotPoint.X + (x - 1) * 38, firstSlotPoint.Y + (y - 1) * 38);
+
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        Client.dragMouse(firstSlotPoint, slotPoint);
+                        System.Threading.Thread.Sleep(100);
+                    }
+
+                }
+            }
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

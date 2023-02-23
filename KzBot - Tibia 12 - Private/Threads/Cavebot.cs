@@ -1,4 +1,5 @@
 ﻿using KzBot.Objects;
+using KzBot.UI;
 using KzBot.Util;
 using System;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ namespace KzBot.Threads
                     case WaypointType.Node:
                     case WaypointType.Use:
                     case WaypointType.Use_On:
-                    case WaypointType.Buy_Market:
+                    case WaypointType.Throw_First_Slot:
                     case WaypointType.Imbue:
                     case WaypointType.Go_Near:
                     case WaypointType.Teleport:
@@ -592,7 +593,7 @@ namespace KzBot.Threads
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
                                 Client.Say(refill.Type);
                                 if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
-                                System.Threading.Thread.Sleep(50);
+                                System.Threading.Thread.Sleep(500);
 
                                 // Click Buy
                                 Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
@@ -663,6 +664,102 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                             break;
                         }
+                    case WaypointType.Buy_Item:
+                        {
+                            changedStatus = true;
+                            Globals.Main.Invoke((MethodInvoker)delegate {
+                                Globals.Main.checkBox2.Checked = false; // HEALER
+                                Globals.Main.checkBox4.Checked = false; // TARGETING
+                            });
+                            Globals.ScriptConfig.auto_Haste = false;
+
+                            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+                            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+
+                            if (placement.showCmd == 2)
+                            {
+                                changedFocus = true;
+                                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+                            }
+
+                            WinApi.RECT clientRect = Globals.clientRect;
+                            Point closeWindow = new Point(clientRect.right - 8, 510);
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(10);
+                            }
+
+                            Point tradeWindow = new Point(clientRect.right - 155, 507);
+                            int playerLevel = Objects.Player.Level;
+
+                            isChatOn = true;
+                            Keyboard.PressKey(Keys.F19);
+                            System.Threading.Thread.Sleep(50);
+
+                            Keyboard.PressKey(Keys.F22);
+                            System.Threading.Thread.Sleep(50);
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(50);
+
+                            Client.Say("hi");
+                            System.Threading.Thread.Sleep(50);
+
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            Client.Say(extraData[0]);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            System.Threading.Thread.Sleep(500);
+
+                            // Click Buy
+                            Client.leftClick(tradeWindow.X + 125, tradeWindow.Y + 20);
+                            System.Threading.Thread.Sleep(50);
+
+                            // Reset Item
+                            Client.leftClick(tradeWindow.X + 140, tradeWindow.Y + 105);
+                            System.Threading.Thread.Sleep(100);
+
+                            // Search Item
+                            Client.leftClick(tradeWindow.X + 30, tradeWindow.Y + 105);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            Keyboard.Write(extraData[1]);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            System.Threading.Thread.Sleep(500);
+
+                            // Select Item
+                            Client.leftClick(tradeWindow.X + 25, tradeWindow.Y + 75);
+                            System.Threading.Thread.Sleep(100);
+
+                            // Set Count
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(50);
+                            Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
+                            //System.Threading.Thread.Sleep(100);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            Keyboard.PressKey(Keys.Delete);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            System.Threading.Thread.Sleep(50);
+                            Client.leftClick(tradeWindow.X + 95, tradeWindow.Y + 140);
+                            //System.Threading.Thread.Sleep(100);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            Keyboard.Write(extraData[2]);
+                            if (WinApi.GetAsyncKeyState(Keys.ControlKey) || WinApi.GetAsyncKeyState(Keys.ShiftKey) || WinApi.GetAsyncKeyState(Keys.Alt)) return;
+                            System.Threading.Thread.Sleep(500);
+
+                            // Buy
+                            Client.leftClick(tradeWindow.X + 130, tradeWindow.Y + 170);
+                            System.Threading.Thread.Sleep(500);
+
+                            Keyboard.PressKey(Keys.Escape);
+                            System.Threading.Thread.Sleep(50);
+
+                            Keyboard.PressKey(Keys.F20);
+                            System.Threading.Thread.Sleep(50);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Deposit_All:
                         {
                             int goldCount = Objects.Client.getItemCount(3031);
@@ -721,7 +818,8 @@ namespace KzBot.Threads
                                 break;
                             }
 
-                            amountToWithdraw = Convert.ToInt32(Math.Floor(Convert.ToDouble(amountToWithdraw) / 10000) * 10000);
+                            if (amountToWithdraw > 100)
+                                amountToWithdraw = Convert.ToInt32(Math.Floor(Convert.ToDouble(amountToWithdraw) / 10000) * 10000);
 
                             changedStatus = true;
                             Globals.Main.Invoke((MethodInvoker)delegate {
@@ -806,6 +904,124 @@ namespace KzBot.Threads
                             Globals.WaypointId++;
                             break;
                         }
+                    case WaypointType.Throw_Items_Last_Bp:
+                        {
+                            WinApi.RECT clientRect = Globals.clientRect;
+                            Point closeWindow = new Point(clientRect.right - 8, 510);
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(10);
+                            }
+
+                            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+                            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+                            Client.rightClickPos(backpackPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+
+                            for (int y = 5; y > 0; y--)
+                            {
+                                for (int x = 4; x > 0; x--)
+                                {
+                                    Console.WriteLine(x + " - " + y);
+                                    Point slotPoint = new Point(firstSlotPoint.X + (x - 1) * 38, firstSlotPoint.Y + (y - 1) * 38);
+
+                                    for (int i = 1; i <= 3; i++)
+                                    {
+                                        Client.dragMouse(firstSlotPoint, slotPoint);
+                                        System.Threading.Thread.Sleep(200);
+                                    }
+
+                                }
+                            }
+
+                            Globals.WaypointId++;
+                            break;
+                        }
+                    case WaypointType.Set_Label:
+                        {
+                            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+                            Point okButtonPoint = new Point(middleScreenPoint.X + 70, middleScreenPoint.Y + 200);
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+                            Point secondSlotPoint = new Point(Globals.clientRect.right - 112, 535);
+
+                            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+                            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+                            Client.rightClickPos(backpackPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Objects.Client.rightClickPos(firstSlotPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Keyboard.Write(Globals.CharToTransfer);
+                            System.Threading.Thread.Sleep(500);
+                            Objects.Client.leftClick(okButtonPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Objects.Client.dragMouse(firstSlotPoint, secondSlotPoint);
+                            System.Threading.Thread.Sleep(500);
+                            Objects.Client.dragMouse(secondSlotPoint, firstSlotPoint);
+
+
+                            Globals.WaypointId++;
+                            break;
+                        }
+                    case WaypointType.Open_First_Slot:
+                        {
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+                            Objects.Client.rightClickPos(firstSlotPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
+                    case WaypointType.Throw_First_Slot:
+                        {
+                            System.Threading.Thread.Sleep(500);
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+
+                            Point sqmPosition = new Point();
+                            sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((waypoint.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
+                            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((waypoint.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
+
+                            Objects.Client.dragMouse(firstSlotPoint, sqmPosition);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
+                    case WaypointType.Grab_Bp_From_Slot:
+                        {
+                            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+                            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150 , 535);
+                            if (waypoint.Extra.Length > 0)
+                                firstSlotPoint.X += (int.Parse(waypoint.Extra) - 1) * 38;
+
+                            Objects.Client.dragMouse(firstSlotPoint, backpackPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
+                    case WaypointType.Throw_Bp_On_Slot:
+                        {
+                            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
+                            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
+
+                            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
+                            if (waypoint.Extra.Length > 0)
+                                firstSlotPoint.X += (int.Parse(waypoint.Extra) - 1) * 38;
+
+                            Objects.Client.dragMouse(backpackPoint, firstSlotPoint);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Buy_Market:
                         {
                             int itemCount = Objects.Client.getItemCount(int.Parse(extraData[1]));
@@ -813,16 +1029,24 @@ namespace KzBot.Threads
                                 Objects.Client.buyItem(extraData[0], int.Parse(extraData[2]) - itemCount, waypoint.Position);
                             else
                                 Globals.WaypointId++;
+
+                            break;
                         }
-                        break;
                     case WaypointType.Sell_Market:
                         {
-                            // TO DO
+                            if (extraData.Length > 1)
+                                Objects.Client.sellItem(extraData[0], int.Parse(extraData[1]));
+                            else
+                                Objects.Client.sellItem(extraData[0]);
+
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
                         }
-                        break;
                     case WaypointType.Imbue:
                         {
-                            Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[1].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
+                            Client.doImbue((Equipment)Enum.Parse(typeof(Equipment), extraData[0].Trim()), waypoint.Position, int.Parse(extraData[1]), int.Parse(extraData[2]));
                             System.Threading.Thread.Sleep(500);
                             Globals.WaypointId++;
                         }
@@ -974,13 +1198,24 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Teleport:
                         if (Math.Abs(playerPos.X - waypoint.X) > 2 || Math.Abs(playerPos.Y - waypoint.Y) > 2)
-                        { 
+                        {
                             Globals.WaypointId++;
                             instantSkip = true;
                         }
                         else
                             Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
                         break;
+                    case WaypointType.Teleport_South_East:
+                        {
+                            Player.Goto(playerPos.X + 1, playerPos.Y + 1, playerPos.Z);
+                            System.Threading.Thread.Sleep(500);
+
+                            Position newPos = Objects.Player.Position;
+                            if (newPos.X != playerPos.X || newPos.Y != playerPos.Y || newPos.Z != playerPos.Z)
+                                Globals.WaypointId++;
+
+                            break;
+                        }
                     case WaypointType.Step:
                         Player.Goto(waypoint.X, waypoint.Y, waypoint.Z);
                         Globals.WaypointId++;
@@ -1049,6 +1284,20 @@ namespace KzBot.Threads
                         Keyboard.PressKey((Keys)Enum.Parse(typeof(Keys), waypoint.Extra.Trim()));
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Close_Windows:
+                        {
+                            WinApi.RECT clientRect = Globals.clientRect;
+                            Point closeWindow = new Point(clientRect.right - 8, 510);
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(10);
+                            }
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Click_Ok:
                         {
                             WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
@@ -1089,18 +1338,31 @@ namespace KzBot.Threads
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Use:
-                        System.Threading.Thread.Sleep(300);
+                        System.Threading.Thread.Sleep(500);
                         if (Math.Abs(waypoint.X - playerPos.X) <= 7 && Math.Abs(waypoint.Y - playerPos.Y) <= 5)
                         {
                             Point sqmPosition = new Point();
                             sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((waypoint.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
                             sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((waypoint.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
                             Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(500);
                         }
 
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Use_North:
+                        {
+                            System.Threading.Thread.Sleep(500);
+
+                            Point sqmPosition = new Point();
+                            sqmPosition.X = Objects.ClientData.GameMapCenter.X;
+                            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y - Objects.ClientData.SqmSize.Height;
+                            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Exit:
                         Globals.Main.Log.addLog("Exiting Character", false);
                         Threads.ClientData.UpdateCharacter();
@@ -1230,6 +1492,11 @@ namespace KzBot.Threads
                     case WaypointType.Disable_Safe:
                         instantSkip = true;
                         Threads.Alarms.safeMode = false;
+                        Globals.WaypointId++;
+                        break;
+                    case WaypointType.Enable_Safe:
+                        instantSkip = true;
+                        Threads.Alarms.safeMode = true;
                         Globals.WaypointId++;
                         break;
                     case WaypointType.Set_Status:

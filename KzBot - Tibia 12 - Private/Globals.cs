@@ -31,6 +31,7 @@ namespace KzBot
         public static string telegramBotToken { get; set; } = string.Empty;
         public static TelegramBotClient TelegramBot;
 
+        public static string CharToTransfer { get; set; } = string.Empty;
 
         // SETUP AREA
         public static string Username { get; set; } = string.Empty;

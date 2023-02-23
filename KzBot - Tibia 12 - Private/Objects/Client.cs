@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -98,27 +99,12 @@ namespace KzBot.Objects
                 WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
             }
 
-            // CLOSE ALL WINDOWS AFTER BATTLELIST
-            Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
-            for (int i = 0; i < 10; i++)
-            {
-                Client.leftClick(closeWindow.X, closeWindow.Y);
-                System.Threading.Thread.Sleep(100);
-            }
-            System.Threading.Thread.Sleep(1000);
-
-            // OPEN DEPOT
-            Position playerPos = Objects.Player.Position;
-            Point sqmPosition = new Point();
-            sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
-            sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
-            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
-            System.Threading.Thread.Sleep(1000);
 
             // GET POINTS
             Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
-            Point marketPoint = new Point(Globals.clientRect.right - 40,535);
+            Point marketPoint = new Point(Globals.clientRect.right - 40, 535);
             Point mailBoxPoint = new Point(Globals.clientRect.right - 75, 535);
+            Point openParentPoint = new Point(Globals.clientRect.right - 35, 510);
             Point mailBoxFirstItemPoint = new Point(Globals.clientRect.right - 145, 535);
             Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
             Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
@@ -159,6 +145,68 @@ namespace KzBot.Objects
             System.Threading.Thread.Sleep(1000);
             Client.dragMouse(mailBoxFirstItemPoint, backpackPoint);
             System.Threading.Thread.Sleep(1000);
+            Client.leftClick(openParentPoint);
+            System.Threading.Thread.Sleep(1000);
+
+            // MINIMIZE WINDOW IF IT HAS TO
+            if (changedFocus)
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 2);
+        }
+
+        public static void sellItem(string itemName, int tries = 1)
+        {
+            if (!Globals.ScriptConfig.GeneralStatus || Globals.Process == null || Globals.Process.HasExited || !Objects.Player.isLoggedIn || !Objects.Player.isAlive())
+                return;
+
+            // MAKE SURE CAN TYPE ON WINDOW
+            WinApi.WindowPlacement placement = new WinApi.WindowPlacement();
+            WinApi.GetWindowPlacement(Globals.Process.MainWindowHandle, ref placement);
+            bool changedFocus = false;
+
+            if (placement.showCmd == 2)
+            {
+                changedFocus = true;
+                WinApi.ShowWindow(Globals.Process.MainWindowHandle, 4);
+            }
+
+            // GET POINTS
+            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
+            Point marketPoint = new Point(Globals.clientRect.right - 40, 535);
+
+            Point resetTextButtonPoint = new Point(middleScreenPoint.X - 205, middleScreenPoint.Y + 205);
+            Point enterTextButtonPoint = new Point(middleScreenPoint.X - 300, middleScreenPoint.Y + 205);
+
+            Point firstItemPoint = new Point(middleScreenPoint.X - 300, middleScreenPoint.Y - 55);
+            Point firstOfferPoint = new Point(middleScreenPoint.X, middleScreenPoint.Y);
+
+            Point increaseMinPoint = new Point(middleScreenPoint.X + 40, middleScreenPoint.Y - 40);
+            Point increaseMaxPoint = new Point(middleScreenPoint.X + 160, middleScreenPoint.Y - 40);
+            Point accepButtonPoint = new Point(middleScreenPoint.X + 335, middleScreenPoint.Y - 40);
+
+            // DO STUFF
+            Client.rightClickPos(marketPoint.X, marketPoint.Y);
+            System.Threading.Thread.Sleep(500);
+            Client.leftClick(resetTextButtonPoint.X, resetTextButtonPoint.Y);
+            System.Threading.Thread.Sleep(50);
+            Client.leftClick(enterTextButtonPoint.X, enterTextButtonPoint.Y);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.Write(itemName);
+            System.Threading.Thread.Sleep(500);
+            Client.leftClick(firstItemPoint.X, firstItemPoint.Y);
+            System.Threading.Thread.Sleep(500);
+
+            for (int i = 1; i <= tries; i++)
+            {
+                Client.leftClick(firstOfferPoint.X, firstOfferPoint.Y);
+                System.Threading.Thread.Sleep(50);
+
+                Client.dragMouse(increaseMinPoint, increaseMaxPoint);
+                System.Threading.Thread.Sleep(500);
+
+                Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
+                System.Threading.Thread.Sleep(500);
+            }
+            Keyboard.PressKey(Keys.Escape);
 
             // MINIMIZE WINDOW IF IT HAS TO
             if (changedFocus)
@@ -203,20 +251,19 @@ namespace KzBot.Objects
 
             // CLOSE ALL WINDOWS AFTER BATTLELIST
             Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Client.leftClick(closeWindow.X, closeWindow.Y);
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(10);
             }
-            System.Threading.Thread.Sleep(1000);
 
             // PUT ITEM IN BACKPACK
             Client.dragMouse(itemPoint, backpackPoint);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // OPEN BACKPACK
             Client.rightClickPos(backpackPoint);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // OPEN IMBUE WINDOW
             Position playerPos = Objects.Player.Position;
@@ -224,47 +271,54 @@ namespace KzBot.Objects
             sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
             sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
             Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Objects.Client.leftClick(backpackFirstItemPoint);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // SELECT SLOT
             Client.leftClick(slotPoints[slot-1]);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
 
             // SELECT TYPE
             Client.leftClick(imbueTypeList);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             for (int i = 1; i < imbueId; i++)
             {
                 Keyboard.PressKey(Keys.Down);
-                System.Threading.Thread.Sleep(250);
+                System.Threading.Thread.Sleep(50);
             }
-            System.Threading.Thread.Sleep(750);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // SELECT TIER
             Client.leftClick(imbueTierList);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             for (int i = 1; i < imbueTier; i++)
             {
                 Keyboard.PressKey(Keys.Down);
-                System.Threading.Thread.Sleep(250);
+                System.Threading.Thread.Sleep(50);
             }
-            System.Threading.Thread.Sleep(750);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // IMPROVE CHANCE
             Client.leftClick(improveChance);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // DO IMBUE
             Client.leftClick(doImbue);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(50);
+
+
+            // PUT ITEM IN SLOT
+            Client.dragMouse(backpackFirstItemPoint, itemPoint);
+            System.Threading.Thread.Sleep(500);
 
             // MINIMIZE WINDOW IF IT HAS TO
             if (changedFocus)

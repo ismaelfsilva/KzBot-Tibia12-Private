@@ -88,6 +88,31 @@ namespace KzBot.UI
 
                 tableLayoutPanel1.Controls.Add(textBox);
             }
+            {
+                Label label = new Label();
+                label.Text = "Character to Transfer";
+                label.Dock = DockStyle.Fill;
+
+                tableLayoutPanel1.Controls.Add(label);
+                ///
+                TextBox textBox = new TextBox();
+                textBox.PlaceholderText = "Character to Transfer";
+
+                if (Globals.CharToTransfer != String.Empty)
+                    textBox.Text = Globals.CharToTransfer;
+
+                textBox.TextAlign = HorizontalAlignment.Center;
+                textBox.Dock = DockStyle.Fill;
+
+                textBox.TextChanged += (sender, EventArgs) => {
+                    Globals.CharToTransfer = textBox.Text;
+
+                    Properties.Settings.Default.CharToTransfer = textBox.Text;
+                    Properties.Settings.Default.Save();
+                };
+
+                tableLayoutPanel1.Controls.Add(textBox);
+            }
 
             foreach (PropertyInfo prop in Globals.ScriptConfig.GetType().GetProperties())
             {

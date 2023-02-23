@@ -204,9 +204,17 @@ namespace KzBot.Objects
                 System.Threading.Thread.Sleep(500);
 
                 Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
+                System.Threading.Thread.Sleep(500);
+
+                Keyboard.PressKey(Keys.Enter);
                 System.Threading.Thread.Sleep(5000);
             }
             Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(500);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(500);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(500);
 
             // MINIMIZE WINDOW IF IT HAS TO
             if (changedFocus)

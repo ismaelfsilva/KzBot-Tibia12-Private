@@ -471,37 +471,30 @@ namespace KzBot
 
         private async void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WinApi.RECT clientRect = Globals.clientRect;
-            Point closeWindow = new Point(clientRect.right - 8, 510);
+            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
 
-            for (int i = 0; i < 20; i++)
+            Point imbueTypeList = new Point(middleScreenPoint.X - 50, middleScreenPoint.Y - 85);
+            Point imbueTierList = new Point(middleScreenPoint.X + 50, middleScreenPoint.Y - 85);
+
+            // SELECT TYPE
+            Client.leftClick(imbueTypeList);
+            System.Threading.Thread.Sleep(10);
+            for (int i = 1; i < 7; i++)
             {
-                Client.leftClick(closeWindow.X, closeWindow.Y);
-                System.Threading.Thread.Sleep(10);
+                Keyboard.PressKey(Keys.Down);
             }
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(50);
 
-            Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
-            Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
-
-            Client.rightClickPos(backpackPoint);
-            System.Threading.Thread.Sleep(500);
-
-            Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
-
-            for (int y = 5; y > 0; y--)
+            // SELECT TIER
+            Client.leftClick(imbueTierList);
+            System.Threading.Thread.Sleep(10);
+            for (int i = 1; i < 3; i++)
             {
-                for (int x = 4; x > 0; x--)
-                {
-                    Point slotPoint = new Point(firstSlotPoint.X + (x - 1) * 38, firstSlotPoint.Y + (y - 1) * 38);
-
-                    for (int i = 1; i <= 3; i++)
-                    {
-                        Client.dragMouse(firstSlotPoint, slotPoint);
-                        System.Threading.Thread.Sleep(100);
-                    }
-
-                }
+                Keyboard.PressKey(Keys.Down);
             }
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(50);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

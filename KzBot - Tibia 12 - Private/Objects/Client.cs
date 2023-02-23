@@ -120,33 +120,33 @@ namespace KzBot.Objects
 
             // DO STUFF
             Client.rightClickPos(marketPoint.X, marketPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             Client.leftClick(resetTextButtonPoint.X, resetTextButtonPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Client.leftClick(enterTextButtonPoint.X, enterTextButtonPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Keyboard.Write(itemName);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             Client.leftClick(firstItemPoint.X, firstItemPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             Client.leftClick(firstOfferPoint.X, firstOfferPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             for (int i = 1; i < qty; i++)
             {
                 Client.leftClick(increaseQtyPoint.X, increaseQtyPoint.Y);
                 System.Threading.Thread.Sleep(250);
             }
-            System.Threading.Thread.Sleep(750);
+            System.Threading.Thread.Sleep(250);
             Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Escape);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Client.rightClickPos(mailBoxPoint.X, mailBoxPoint.Y);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             Client.dragMouse(mailBoxFirstItemPoint, backpackPoint);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(50);
             Client.leftClick(openParentPoint);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // MINIMIZE WINDOW IF IT HAS TO
             if (changedFocus)
@@ -281,27 +281,23 @@ namespace KzBot.Objects
 
             // SELECT TYPE
             Client.leftClick(imbueTypeList);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(10);
             for (int i = 1; i < imbueId; i++)
             {
                 Keyboard.PressKey(Keys.Down);
-                System.Threading.Thread.Sleep(50);
             }
-            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(50);
 
             // SELECT TIER
             Client.leftClick(imbueTierList);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(10);
             for (int i = 1; i < imbueTier; i++)
             {
                 Keyboard.PressKey(Keys.Down);
-                System.Threading.Thread.Sleep(50);
             }
-            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(50);
 
             // IMPROVE CHANCE
             Client.leftClick(improveChance);
@@ -309,7 +305,7 @@ namespace KzBot.Objects
 
             // DO IMBUE
             Client.leftClick(doImbue);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
             System.Threading.Thread.Sleep(50);
             Keyboard.PressKey(Keys.Escape);

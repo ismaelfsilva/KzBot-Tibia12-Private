@@ -204,7 +204,7 @@ namespace KzBot.Objects
                 System.Threading.Thread.Sleep(500);
 
                 Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(5000);
             }
             Keyboard.PressKey(Keys.Escape);
 

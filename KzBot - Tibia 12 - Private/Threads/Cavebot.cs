@@ -1287,6 +1287,24 @@ namespace KzBot.Threads
                         Keyboard.PressKey((Keys)Enum.Parse(typeof(Keys), waypoint.Extra.Trim()));
                         Globals.WaypointId++;
                         break;
+                    case WaypointType.Reset_Windows:
+                        {
+                            WinApi.RECT clientRect = Globals.clientRect;
+                            Point closeWindow = new Point(clientRect.right - 8, 450);
+                            Point battleList = new Point(clientRect.right - 135, 345);
+
+                            for (int i = 0; i < 20; i++)
+                            {
+                                Client.leftClick(closeWindow.X, closeWindow.Y);
+                                System.Threading.Thread.Sleep(10);
+                            }
+
+                            Client.leftClick(battleList);
+                            System.Threading.Thread.Sleep(500);
+
+                            Globals.WaypointId++;
+                            break;
+                        }
                     case WaypointType.Close_Windows:
                         {
                             WinApi.RECT clientRect = Globals.clientRect;

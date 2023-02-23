@@ -139,6 +139,12 @@ namespace KzBot.Objects
             System.Threading.Thread.Sleep(250);
             Client.leftClick(accepButtonPoint.X, accepButtonPoint.Y);
             System.Threading.Thread.Sleep(500);
+            Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(50);
             Keyboard.PressKey(Keys.Escape);
             System.Threading.Thread.Sleep(50);
             Client.rightClickPos(mailBoxPoint.X, mailBoxPoint.Y);
@@ -315,6 +321,10 @@ namespace KzBot.Objects
             Client.leftClick(doImbue);
             System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Enter);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.PressKey(Keys.Escape);
+            System.Threading.Thread.Sleep(50);
+            Keyboard.PressKey(Keys.Escape);
             System.Threading.Thread.Sleep(50);
             Keyboard.PressKey(Keys.Escape);
             System.Threading.Thread.Sleep(50);

@@ -356,6 +356,7 @@ namespace KzBot
         If_Location_Goback,
         If_Vocation_Goto_Label,
         Press,
+        Reset_Windows,
         Close_Windows,
         Click_Ok,
         Login_Next,

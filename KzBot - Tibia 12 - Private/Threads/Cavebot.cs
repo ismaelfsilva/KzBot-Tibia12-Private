@@ -793,6 +793,9 @@ namespace KzBot.Threads
                             Keyboard.PressKey(Keys.F20);
                             System.Threading.Thread.Sleep(50);
 
+                            int sliverCount = Objects.Client.getItemCount(37109);
+                            Threads.ClientData.lastSliverCount = sliverCount;
+
                             Globals.Main.Log.addLog("Deposited " + totalGold + " gold coins", false);
 
                             Globals.WaypointId++;

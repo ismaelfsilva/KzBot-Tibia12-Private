@@ -141,7 +141,9 @@ namespace KzBot.Threads
                                     break;
                                 case "status":
                                     changedStatus = true;
-                                    lastStatusMessage = Threads.ClientData.status;
+                                    if (lastStatusMessage == string.Empty)
+                                        lastStatusMessage = Threads.ClientData.status;
+
                                     lastAlarmStatusMessage = alarm.ToString().Trim();
                                     Threads.ClientData.status = alarm.ToString().Trim();
                                     break;
@@ -168,7 +170,10 @@ namespace KzBot.Threads
             finally
             {
                 if (!changedStatus && Threads.ClientData.status == lastAlarmStatusMessage)
+                {
                     Threads.ClientData.status = lastStatusMessage;
+                    lastStatusMessage = string.Empty;
+                }
 
                 if (Globals.ScriptConfig.GeneralStatus)
                     Thread.Change(1000, Timeout.Infinite);

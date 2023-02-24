@@ -346,14 +346,12 @@ namespace KzBot.Objects
             // DO IMBUE
             Client.leftClick(doImbue);
             System.Threading.Thread.Sleep(500);
-            Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(50);
             Keyboard.PressKey(Keys.Escape);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Escape);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(500);
             Keyboard.PressKey(Keys.Escape);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(500);
 
 
             // PUT ITEM IN SLOT

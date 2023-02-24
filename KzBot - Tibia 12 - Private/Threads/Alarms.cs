@@ -137,7 +137,8 @@ namespace KzBot.Threads
                                     safeMode = true;
                                     break;
                                 case "antibug":
-                                    Objects.Player.Goto(Objects.Player.Position);
+                                    Keyboard.PressKey(Keys.Escape);
+                                    Client.leftClick(Objects.ClientData.GameMapCenter);
                                     break;
                                 case "status":
                                     changedStatus = true;

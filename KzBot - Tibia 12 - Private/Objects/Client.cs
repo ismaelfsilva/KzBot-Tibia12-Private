@@ -100,6 +100,32 @@ namespace KzBot.Objects
             }
 
 
+            // CLOSE ALL WINDOWS AFTER BATTLELIST
+            Point closeWindow = new Point(Globals.clientRect.right - 8, 510);
+            for (int i = 0; i < 20; i++)
+            {
+                Client.leftClick(closeWindow.X, closeWindow.Y);
+                System.Threading.Thread.Sleep(10);
+            }
+
+
+            // OPEN DEPOT
+            Position playerPos = Objects.Player.Position;
+            Point sqmPosition = new Point();
+            if (pos.X > 7 && pos.Y > 5)
+            {
+                sqmPosition.X = Objects.ClientData.GameMapCenter.X + ((pos.X - playerPos.X) * Objects.ClientData.SqmSize.Width);
+                sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + ((pos.Y - playerPos.Y) * Objects.ClientData.SqmSize.Height);
+            }
+            else
+            {
+                sqmPosition.X = Objects.ClientData.GameMapCenter.X + (pos.X  * Objects.ClientData.SqmSize.Width);
+                sqmPosition.Y = Objects.ClientData.GameMapCenter.Y + (pos.Y * Objects.ClientData.SqmSize.Height);
+            }
+            Objects.Client.rightClickPos(sqmPosition.X, sqmPosition.Y);
+            System.Threading.Thread.Sleep(500);
+
+
             // GET POINTS
             Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
             Point marketPoint = new Point(Globals.clientRect.right - 40, 535);
@@ -150,7 +176,7 @@ namespace KzBot.Objects
             Client.rightClickPos(mailBoxPoint.X, mailBoxPoint.Y);
             System.Threading.Thread.Sleep(500);
             Client.dragMouse(mailBoxFirstItemPoint, backpackPoint);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(500);
             Client.leftClick(openParentPoint);
             System.Threading.Thread.Sleep(500);
 

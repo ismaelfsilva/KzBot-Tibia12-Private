@@ -147,7 +147,7 @@ namespace KzBot.Threads
                         }
                         break;
                     default:
-                        if (!(waypoint.X == 0 && waypoint.Y == 0 && waypoint.Z == 0) && Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY)
+                        if (!(waypoint.X <= 7 && waypoint.Y <= 5 && waypoint.Z == 0) && Math.Abs(playerPos.X - waypoint.X) >= waypoint.rangeX && Math.Abs(playerPos.Y - waypoint.Y) >= waypoint.rangeY)
                         {
                             Globals.WaypointId++;
                             instantSkip = true;
@@ -1029,7 +1029,11 @@ namespace KzBot.Threads
                         {
                             int itemCount = Objects.Client.getItemCount(int.Parse(extraData[1]));
                             if (itemCount < int.Parse(extraData[2]))
+                            {
                                 Objects.Client.buyItem(extraData[0], int.Parse(extraData[2]) - itemCount, waypoint.Position);
+                                //NEED TO GOTO LABEL OR USE MARKET AGAIN IF FAIL (MARKET WAS CLOSED)
+                                // CHECK THE QTY AND SEND TO A LABEL || USE RELATIVE WAYPOINT POSITION IF X<=7 AND Y<=5
+                            }
                             else
                                 Globals.WaypointId++;
 

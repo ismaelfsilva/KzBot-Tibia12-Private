@@ -951,6 +951,7 @@ namespace KzBot.Threads
                             Point okButtonPoint = new Point(middleScreenPoint.X + 70, middleScreenPoint.Y + 200);
                             Point firstSlotPoint = new Point(Globals.clientRect.right - 150, 535);
                             Point secondSlotPoint = new Point(Globals.clientRect.right - 112, 535);
+                            Point thirdSlotPoint = new Point(Globals.clientRect.right - 74, 535);
 
                             Point backpackRelativePoint = Objects.Client.equipmentPoints[(int)Equipment.Backpack];
                             Point backpackPoint = new Point(Globals.clientRect.right - Globals.clientRect.left + backpackRelativePoint.X, backpackRelativePoint.Y);
@@ -962,10 +963,18 @@ namespace KzBot.Threads
                             Keyboard.Write(Globals.CharToTransfer);
                             System.Threading.Thread.Sleep(500);
                             Objects.Client.leftClick(okButtonPoint);
-                            System.Threading.Thread.Sleep(500);
-                            Objects.Client.dragMouse(firstSlotPoint, secondSlotPoint);
-                            System.Threading.Thread.Sleep(500);
-                            Objects.Client.dragMouse(secondSlotPoint, firstSlotPoint);
+
+                            for (int i = 0; i < 3; i++)
+                            {
+                                System.Threading.Thread.Sleep(500);
+                                Objects.Client.dragMouse(thirdSlotPoint, secondSlotPoint);
+                            }
+
+                            for (int i = 0; i < 3; i++)
+                            {
+                                System.Threading.Thread.Sleep(500);
+                                Objects.Client.dragMouse(firstSlotPoint, secondSlotPoint);
+                            }
 
 
                             Globals.WaypointId++;

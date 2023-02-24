@@ -136,6 +136,9 @@ namespace KzBot.Threads
                                 case "safe":
                                     safeMode = true;
                                     break;
+                                case "antibug":
+                                    Objects.Player.Goto(Objects.Player.Position);
+                                    break;
                                 case "status":
                                     changedStatus = true;
                                     lastStatusMessage = Threads.ClientData.status;

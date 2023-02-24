@@ -471,30 +471,7 @@ namespace KzBot
 
         private async void charactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Point middleScreenPoint = new Point((Globals.clientRect.right - Globals.clientRect.left) / 2, (Globals.clientRect.bottom - Globals.clientRect.top) / 2);
-
-            Point imbueTypeList = new Point(middleScreenPoint.X - 50, middleScreenPoint.Y - 85);
-            Point imbueTierList = new Point(middleScreenPoint.X + 50, middleScreenPoint.Y - 85);
-
-            // SELECT TYPE
-            Client.leftClick(imbueTypeList);
-            System.Threading.Thread.Sleep(10);
-            for (int i = 1; i < 7; i++)
-            {
-                Keyboard.PressKey(Keys.Down);
-            }
-            Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(50);
-
-            // SELECT TIER
-            Client.leftClick(imbueTierList);
-            System.Threading.Thread.Sleep(10);
-            for (int i = 1; i < 3; i++)
-            {
-                Keyboard.PressKey(Keys.Down);
-            }
-            Keyboard.PressKey(Keys.Enter);
-            System.Threading.Thread.Sleep(50);
+            Objects.Player.Goto(Objects.Player.Position);
         }
 
         private void sendToSafeToolStripMenuItem_Click(object sender, EventArgs e)

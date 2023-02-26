@@ -260,7 +260,7 @@ namespace HUB.UI
                         if ((DateTime.Now - scriptConn.lastConnection).TotalMinutes < scriptConn.minMinutesBetweenScripts)
                             continue;
 
-                        bool isScriptRunning = Program.Characters.Exists(c => c.server == scriptConn.server && c.script == scriptConn.script && ((c.status != -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes <= 2) || (c.status == -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < scriptConn.minutesToWaitOnBan)));
+                        bool isScriptRunning = Program.Characters.Exists(c => c.server == scriptConn.server && c.level >= scriptConn.minLevel && ((c.status != -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes <= 2) || (c.status == -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < scriptConn.minutesToWaitOnBan)));
                         if (isScriptRunning)
                             continue;
 

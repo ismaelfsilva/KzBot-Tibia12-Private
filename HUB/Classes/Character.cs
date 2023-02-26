@@ -52,7 +52,7 @@ namespace HUB.Classes
                 lvItem.SubItems.Add(level.ToString());
                 lvItem.SubItems.Add(vocation);
                 lvItem.SubItems.Add(script.ToString());
-                lvItem.SubItems.Add(string.Format("{0} ({1} sliver(s))", balance.ToString(), sliver_qty.ToString()));
+                lvItem.SubItems.Add(string.Format("{0:N0} ({1} sliver(s))", balance, sliver_qty.ToString()));
 
                 DateTime lastOnlineTime = DateTime.Parse(last_online);
                 int recoveredStamina = (int)Math.Floor((DateTime.Now - lastOnlineTime).TotalMinutes / Program.Config.Servers.FirstOrDefault(s=> s.name.ToLower().Trim() == server.ToLower().Trim()).staminaRecoveryDelay);

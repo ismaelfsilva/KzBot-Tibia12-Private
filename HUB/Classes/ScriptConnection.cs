@@ -14,7 +14,7 @@ namespace HUB.Classes
         public int maxBalance { get; set; } = -1;
         public int minutesToWaitOnBan { get; set; } = 120;
         public int minMinutesBetweenScripts { get; set; } = 5;
-        public int minLevel { get; set; } = 5;
+        public int minLevel { get; set; } = 0;
         public string server { get; set; } = string.Empty;
         public string script { get; set; } = string.Empty;
 

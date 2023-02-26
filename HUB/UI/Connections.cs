@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
@@ -297,6 +298,7 @@ namespace HUB.UI
                         startInfo.Arguments = string.Join(" ", argms);
                         Process.Start(startInfo);
 
+                        UpdateScript(ch.name, script.name);
 
                         ((Main)this.Parent).Log.listView1.Invoke((MethodInvoker)delegate
                         {
@@ -319,6 +321,43 @@ namespace HUB.UI
                     }
                 }
             }).Start();
+        }
+
+        public static async void UpdateScript(string charName, string script)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+                client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
+                client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
+
+                string requestString = string.Format("https://tibia.kzsoft.com.br/script.php?username={0}&password={1}&char_name={2}&script={3}",
+                    Settings.Default.Username,
+                    Settings.Default.Password,
+                    HttpUtility.UrlEncode(charName).Replace("+", "%20"),
+                    HttpUtility.UrlEncode(script).Replace("+", "%20")
+                    );
+
+                var response = await client.GetAsync(requestString);
+                string content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode && content == "1")
+                {
+                    //done
+                }
+                else
+                {
+                    // error
+                }
+            }
+            catch (Exception ex)
+            {
+                // error
+                return;
+            }
         }
     }
 }

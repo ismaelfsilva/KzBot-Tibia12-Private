@@ -265,7 +265,7 @@ namespace HUB.UI
                         if (isScriptRunning)
                             continue;
 
-                        Character? ch = Program.Characters.OrderByDescending(c=> c.actual_stamina).ThenBy(c=> c.level).ToList().Find(c => c.server == scriptConn.server && c.level >= scriptConn.minLevel && c.status >= 0 && (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14)));
+                        Character? ch = Program.Characters.OrderByDescending(c=> c.actual_stamina).ThenBy(c=> c.level).ToList().Find(c => c.server == scriptConn.server && c.level >= scriptConn.minLevel && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes > 5 && c.status >= 0 && (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14)));
 
                         if (ch == null)
                             continue;

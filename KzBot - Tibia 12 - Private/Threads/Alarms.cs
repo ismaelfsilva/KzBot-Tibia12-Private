@@ -125,6 +125,7 @@ namespace KzBot.Threads
                                 case "resetwpt":
                                     Globals.ComboStatus = false;
                                     Globals.WaypointId = 0;
+                                    Globals.ComboStatus = false;
                                     break;
                                 case "target":
                                     if ((DateTime.Now - lastTarget).TotalMilliseconds > 5000)

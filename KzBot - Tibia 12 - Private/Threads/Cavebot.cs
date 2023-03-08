@@ -1458,6 +1458,7 @@ namespace KzBot.Threads
                         else
                             Globals.Load(script.path);
 
+
                         return;
                     case WaypointType.Alert:
                         WinApi.FlashWindow(Globals.Process.MainWindowHandle, true);

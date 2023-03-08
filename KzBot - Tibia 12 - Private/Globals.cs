@@ -115,6 +115,8 @@ namespace KzBot
                     Main.Alerts.AddAlarms();
                     Main.Settings.Reload();
 
+                    Globals.WaypointId = 0;
+
                     Main.checkBox2.Checked = Globals.ScriptConfig.HealerStatus;
                     Main.checkBox3.Checked = Globals.ScriptConfig.CavebotStatus;
                     Main.checkBox4.Checked = Globals.ScriptConfig.TargetingStatus;

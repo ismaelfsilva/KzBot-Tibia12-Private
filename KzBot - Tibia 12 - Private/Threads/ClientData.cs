@@ -246,7 +246,6 @@ namespace KzBot.Threads
                     }
 
                     setClient = false;
-                    Threads.Alarms.safeMode = false;
 
                     Keyboard.PressKey(Keys.Escape);
                     System.Threading.Thread.Sleep(10);

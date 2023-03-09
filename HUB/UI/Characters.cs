@@ -219,6 +219,7 @@ namespace HUB
 
                                         if (charList.Count > 0)
                                             Program.lastSuccessfulUpdate = DateTime.Now;
+
                                         UpdateCharacteres();
                                     }
                                 }

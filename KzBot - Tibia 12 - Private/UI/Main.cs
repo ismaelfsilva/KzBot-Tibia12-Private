@@ -502,6 +502,16 @@ namespace KzBot
         {
             Threads.Alarms.safeMode = false;
         }
+
+        private void trueToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Threads.Alarms.exitMode = true;
+        }
+
+        private void falseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Threads.Alarms.exitMode = false;
+        }
     }
 
     public static class ControlExtensions

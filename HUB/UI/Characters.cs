@@ -86,7 +86,13 @@ namespace HUB
                         break;
                     case 7:
                         if (descendingOrder)
-                            Program.Characters = Program.Characters.OrderByDescending(c => c.last_online).ToList();
+                        {
+                            List<Character> newCharList = new List<Character>();
+                            newCharList = Program.Characters.Where(c => (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < 5).OrderBy(c => c.id).ToList();
+                            newCharList.AddRange(Program.Characters.Where(c => (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes >= 5).OrderByDescending(c => c.last_online).ToList());
+
+                            Program.Characters = newCharList;
+                        }
                         else
                             Program.Characters = Program.Characters.OrderBy(c => c.last_online).ToList();
                         break;

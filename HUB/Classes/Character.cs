@@ -74,9 +74,40 @@ namespace HUB.Classes
                 else
                     lvItem.SubItems.Add("Unknown");
 
-                lvItem.SubItems.Add(lastOnlineTime.ToString());
+                TimeSpan lastOnlineTimespan = (DateTime.Now - lastOnlineTime);
+                if (lastOnlineTimespan.TotalHours >= 24)
+                    lvItem.SubItems.Add(lastOnlineTime.ToString());
+                else if (lastOnlineTimespan.TotalMinutes < 5)
+                    lvItem.SubItems.Add("Now");
+                else
+                {
+                    int lastOnlineHours = (int)Math.Floor(lastOnlineTimespan.TotalHours);
+                    int lastOnlineMinutes = lastOnlineTimespan.Minutes;
+                    string timeSpanString = string.Format("{0:D2}m", lastOnlineMinutes);
+
+                    if (lastOnlineHours > 0)
+                        timeSpanString = string.Format("{0:D2}h {1}", lastOnlineHours, timeSpanString);
+
+                    lvItem.SubItems.Add(timeSpanString.ToString());
+                }
+
                 DateTime lastStatusUpdateTime = DateTime.Parse(status_update_time);
-                lvItem.SubItems.Add(string.Format("[{0}] {1}", lastStatusUpdateTime, script_status.ToString()));
+                TimeSpan lastUpdateTimespan = DateTime.Now - lastStatusUpdateTime;
+                if (lastUpdateTimespan.TotalHours >= 24)
+                    lvItem.SubItems.Add(string.Format("[{0}] {1}", lastStatusUpdateTime, script_status.ToString()));
+                else if (lastUpdateTimespan.TotalSeconds < 60)
+                    lvItem.SubItems.Add(string.Format("[{0:D2}s] {1}", (int)Math.Floor(lastUpdateTimespan.TotalSeconds), script_status.ToString()));
+                else
+                {
+                    int lastUpdateHours = (int)Math.Floor(lastUpdateTimespan.TotalHours);
+                    int lastUpdateMinutes = lastUpdateTimespan.Minutes;
+                    string timeSpanString = string.Format("{0:D2}m", lastUpdateMinutes);
+
+                    if (lastUpdateHours > 0)
+                        timeSpanString = string.Format("{0:D2}h {1}", lastUpdateHours, timeSpanString);
+
+                    lvItem.SubItems.Add(string.Format("[{0}] {1}", timeSpanString, script_status.ToString()));
+                }
 
                 return lvItem;
             }

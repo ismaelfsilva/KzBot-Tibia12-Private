@@ -197,7 +197,8 @@ namespace HUB
                                     {
                                         string result = content.ReadAsStringAsync().Result;
 
-                                        Program.Characters = JsonSerializer.Deserialize<List<Character>>(result);
+                                        List<Character> charList = JsonSerializer.Deserialize<List<Character>>(result);
+                                        Program.Characters = charList;
 
                                         string selectedServer = comboBox2.Text;
                                         comboBox2.Items.Clear();

@@ -411,6 +411,11 @@ namespace KzBot.Threads
                                 Globals.Main.Log.addLog("Imbuement Ended", false);
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             }
+                            else if (extraData.Length >= 2 && foundItem && hasImbue && (int)Math.Floor(((double)Threads.ClientData.imbueTime/60)) < int.Parse(extraData[1]))
+                            {
+                                Globals.Main.Log.addLog("Low Imbuement", false);
+                                Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == extraData[0]);
+                            }
                             else if (foundItem)
                             {
                                 Globals.WaypointId++;

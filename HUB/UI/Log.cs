@@ -63,6 +63,7 @@ namespace HUB.UI
                                         listView1.Invoke((MethodInvoker)delegate
                                         {
                                             listView1.Items.Add(msg.ListViewItem);
+                                            listView1.EnsureVisible(listView1.Items.Count - 1);
                                         });
                                     }
                                 }

@@ -217,7 +217,8 @@ namespace HUB
                                                 character.system_warning.Add("Server not found.");
                                         }
 
-                                        Program.lastSuccessfulUpdate = DateTime.Now;
+                                        if (charList.Count > 0)
+                                            Program.lastSuccessfulUpdate = DateTime.Now;
                                         UpdateCharacteres();
                                     }
                                 }

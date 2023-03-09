@@ -24,6 +24,7 @@ namespace KzBot.Threads
         private static DateTime lastTelegramMessage = DateTime.MinValue;
 
         public static bool safeMode = false;
+        public static bool exitMode = false;
         public static bool hasImbue = true;
 
         public static string extraInfo = string.Empty;

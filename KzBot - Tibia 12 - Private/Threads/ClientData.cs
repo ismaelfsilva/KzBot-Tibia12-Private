@@ -387,6 +387,18 @@ namespace KzBot.Threads
                     Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
                     lastUpdateTime = DateTime.Now;
                 }
+                else if (response.IsSuccessStatusCode && content == "2")
+                {
+                    Alarms.safeMode = true;
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
+                    lastUpdateTime = DateTime.Now;
+                }
+                else if (response.IsSuccessStatusCode && content == "3")
+                {
+                    Alarms.exitMode = true;
+                    Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Successful Data Sent", content);
+                    lastUpdateTime = DateTime.Now;
+                }
                 else
                 {
                     Debug.WriteLine("[{0}] {1}: {2}", DateTime.Now, "Failed Data Sent", content);

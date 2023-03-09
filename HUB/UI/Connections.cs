@@ -261,11 +261,16 @@ namespace HUB.UI
                         if ((DateTime.Now - scriptConn.lastConnection).TotalMinutes < scriptConn.minMinutesBetweenScripts)
                             continue;
 
-                        bool isScriptRunning = Program.Characters.Exists(c => c.server == scriptConn.server && c.script == scriptConn.script && ((c.status != -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes <= 2) || (c.status == -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < scriptConn.minutesToWaitOnBan)));
+                        bool isScriptRunning = Program.Characters.Exists(c => c.server == scriptConn.server && c.script == scriptConn.script && ((c.status != -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes <= 5) || (c.status == -1 && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes < scriptConn.minutesToWaitOnBan)));
                         if (isScriptRunning)
                             continue;
 
-                        Character? ch = Program.Characters.OrderByDescending(c=> c.actual_stamina).ThenBy(c=> c.level).ToList().Find(c => c.server == scriptConn.server && ((scriptConn.minLevel != -1 && c.level >= scriptConn.minLevel) || (scriptConn.minLevel == -1 && c.script == scriptConn.script)) && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes > 5 && c.status >= 0 && (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14)));
+                        Character? ch = null;
+
+                        if (scriptConn.prioritizeLowerLevel)
+                            ch = Program.Characters.Where(c=> (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14))).OrderBy(c=> c.level).ThenByDescending(c=> c.actual_stamina).ToList().Find(c => c.server == scriptConn.server && ((scriptConn.minLevel != -1 && c.level >= scriptConn.minLevel) || (scriptConn.minLevel == -1 && c.script == scriptConn.script)) && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes > 5 && c.status >= 0);
+                        else
+                            ch = Program.Characters.Where(c => (!scriptConn.requiresImbuement || (c.imbuement_time != 0 && (c.actual_stamina - TimeSpan.FromMinutes(c.imbuement_time > 0 ? c.imbuement_time : 20 * 60)).TotalHours > 14))).OrderByDescending(c => c.actual_stamina).ToList().Find(c => c.server == scriptConn.server && ((scriptConn.minLevel != -1 && c.level >= scriptConn.minLevel) || (scriptConn.minLevel == -1 && c.script == scriptConn.script)) && (DateTime.Now - DateTime.Parse(c.last_online)).TotalMinutes > 5 && c.status >= 0);
 
                         if (ch == null)
                             continue;

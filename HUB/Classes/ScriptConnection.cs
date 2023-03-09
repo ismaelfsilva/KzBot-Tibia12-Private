@@ -15,6 +15,7 @@ namespace HUB.Classes
         public int minutesToWaitOnBan { get; set; } = 120;
         public int minMinutesBetweenScripts { get; set; } = 5;
         public int minLevel { get; set; } = -1;
+        public bool prioritizeLowerLevel { get; set; } = false;
         public string server { get; set; } = string.Empty;
         public string script { get; set; } = string.Empty;
 

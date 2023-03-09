@@ -14,6 +14,7 @@ namespace HUB.Classes
         public int char_id { get; set; }
         public string message { get; set; } = string.Empty;
         public string time { get; set; } = string.Empty;
+        public int gravity { get; set; } = 0;
 
         public ListViewItem ListViewItem
         {
@@ -27,6 +28,13 @@ namespace HUB.Classes
                 listViewItem.SubItems.Add(character.server);
                 listViewItem.SubItems.Add(time.ToString());
                 listViewItem.SubItems.Add(message);
+
+                if (gravity == 1)
+                    listViewItem.BackColor = Color.Green;
+                else if (gravity == 2)
+                    listViewItem.BackColor = Color.Yellow;
+                else if (gravity == 3)
+                    listViewItem.BackColor = Color.Red;
 
                 return listViewItem;
             }

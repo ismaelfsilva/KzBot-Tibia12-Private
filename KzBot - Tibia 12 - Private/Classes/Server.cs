@@ -15,5 +15,6 @@ namespace KzBot.Classes
         public string website { get; set; } = string.Empty;
         public string loginServer { get; set; } = string.Empty;
         public int autoLootId { get; set; } = -1;
+        public int imbuementPrice { get; set; } = 3000000;
     }
 }

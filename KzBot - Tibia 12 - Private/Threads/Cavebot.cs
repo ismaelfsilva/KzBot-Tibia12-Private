@@ -334,7 +334,7 @@ namespace KzBot.Threads
                         break;
                     case WaypointType.Check_Balance:
                         instantSkip = true;
-                        if (Globals.AccMaxBalance != -1 && ((Threads.ClientData.imbueTime < 5 * 60 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance + Globals.AccImbuementValue) || (Threads.ClientData.imbueTime >= 5 * 60 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance)))
+                        if (Globals.AccMaxBalance != -1 && ((Threads.ClientData.imbueTime < 5 * 60 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance + Globals.Server.imbuementPrice) || (Threads.ClientData.imbueTime >= 5 * 60 && Threads.ClientData.lastBalance >= Globals.AccMaxBalance)))
                             Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                         else
                             Globals.WaypointId++;

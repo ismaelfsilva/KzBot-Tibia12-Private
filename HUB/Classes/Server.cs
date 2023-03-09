@@ -16,6 +16,7 @@ namespace HUB.Classes
         public string loginServer { get; set; } = string.Empty;
         public int staminaRecoveryDelay { get; set; } = 6;
         public int autoLootId { get; set; } = -1;
+        public int imbuementPrice { get; set; } = 3000000;
 
         public Server()
         {

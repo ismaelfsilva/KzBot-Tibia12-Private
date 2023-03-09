@@ -796,7 +796,8 @@ namespace KzBot.Threads
                             int sliverCount = Objects.Client.getItemCount(37109);
                             Threads.ClientData.lastSliverCount = sliverCount;
 
-                            Globals.Main.Log.addLog("Deposited " + totalGold + " gold coins", false);
+                            if (totalGold > 1000)
+                                Globals.Main.Log.addLog("Deposited " + totalGold + " gold coins", false);
 
                             Globals.WaypointId++;
                             break;

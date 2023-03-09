@@ -38,7 +38,7 @@ namespace HUB
 
         private void Characters_Load(object sender, EventArgs e)
         {
-
+            _httpClient.Timeout = 5000;
         }
 
         public void UpdateCharacteres()

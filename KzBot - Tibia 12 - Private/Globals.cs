@@ -42,6 +42,7 @@ namespace KzBot
         public static string AccPass { get; set; } = string.Empty;
         public static int AccCharIndex { get; set; } = 0;
         public static int AccMaxBalance { get; set; } = -1;
+        public static int AccImbuementValue { get; set; } = 3000000;
         public static Vocation AccVocation { get; set; } = Vocation.None;
 
         public static Classes.Client Client { get; set; } = null;

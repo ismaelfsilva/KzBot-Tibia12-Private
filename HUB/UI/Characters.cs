@@ -190,8 +190,10 @@ namespace HUB
                             {
                                 using (HttpResponseMessage response = _httpClient.GetAsync(string.Format("http://tibia.kzsoft.com.br/index.php?username={0}&password={1}&banned=true&json=true", Settings.Default.Username, Settings.Default.Password)).Result)
                                 {
-                                    if (response.IsSuccessStatusCode)
-                                        Program.lastSuccessfulUpdate = DateTime.Now;
+                                    if (!response.IsSuccessStatusCode)
+                                    {
+                                        UpdateCharacteres();
+                                    }
 
                                     using (HttpContent content = response.Content)
                                     {
@@ -215,6 +217,7 @@ namespace HUB
                                                 character.system_warning.Add("Server not found.");
                                         }
 
+                                        Program.lastSuccessfulUpdate = DateTime.Now;
                                         UpdateCharacteres();
                                     }
                                 }

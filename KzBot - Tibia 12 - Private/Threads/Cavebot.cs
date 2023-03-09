@@ -353,6 +353,13 @@ namespace KzBot.Threads
                         else
                             Globals.WaypointId++;
                         break;
+                    case WaypointType.Check_Exit:
+                        instantSkip = true;
+                        if (Threads.Alarms.exitMode)
+                            Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
+                        else
+                            Globals.WaypointId++;
+                        break;
                     case WaypointType.Check_PZ:
                         instantSkip = true;
                         if (Objects.Player.Creature.Skull != PlayerSkulls.White)

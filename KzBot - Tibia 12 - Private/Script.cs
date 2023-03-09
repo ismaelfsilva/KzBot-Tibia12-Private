@@ -306,6 +306,7 @@ namespace KzBot
         Check_Level,
         Check_Refill,
         Check_Safe,
+        Check_Exit,
         Check_PZ,
         Check_Imbue,
         Check_Balance,

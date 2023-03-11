@@ -138,7 +138,12 @@ namespace HUB.UI
                     {
                         using (CreateCharacter createCharacter = new CreateCharacter())
                         {
+                            Debug.WriteLine("Creating Character");
+
+                            timer1.Interval = 60000 * 5;
+
                             ch = await createCharacter.CreateGetCharacter(lvConn.server, lvConn.vocation, lvConn.script);
+
                         }
                     }
 

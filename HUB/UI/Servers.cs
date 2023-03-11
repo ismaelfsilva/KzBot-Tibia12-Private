@@ -36,7 +36,7 @@ namespace HUB
                 lvItem.SubItems.Add(server.name);
                 lvItem.SubItems.Add(server.version);
                 lvItem.SubItems.Add(server.path);
-                lvItem.SubItems.Add(server.website);
+                lvItem.SubItems.Add(server.websiteNoCF);
                 lvItem.SubItems.Add(server.autoLootId.ToString());
 
                 listView1.Items.Add(lvItem);
@@ -54,7 +54,7 @@ namespace HUB
             lvItem.SubItems.Add(server.name);
             lvItem.SubItems.Add(server.version);
             lvItem.SubItems.Add(server.path);
-            lvItem.SubItems.Add(server.website);
+            lvItem.SubItems.Add(server.websiteNoCF);
             lvItem.SubItems.Add(server.autoLootId.ToString());
 
             listView1.Items.Add(lvItem);
@@ -77,7 +77,7 @@ namespace HUB
                 textBox1.Text = server.name;
                 textBox2.Text = server.version;
                 textBox3.Text = server.path;
-                textBox4.Text = server.website;
+                textBox4.Text = server.websiteNoCF;
                 textBox5.Text = server.autoLootId.ToString();
             }
         }
@@ -121,7 +121,7 @@ namespace HUB
 
             if (lvItem != null)
             {
-                Program.Config.Servers.FirstOrDefault(c => c.id == lvItem.Text).website = textBox4.Text;
+                Program.Config.Servers.FirstOrDefault(c => c.id == lvItem.Text).websiteNoCF = textBox4.Text;
                 lvItem.SubItems[4].Text = textBox4.Text;
             }
         }

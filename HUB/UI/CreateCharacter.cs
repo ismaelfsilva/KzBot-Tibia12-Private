@@ -1,4 +1,7 @@
-﻿using HUB.Classes;
+﻿using CapSolver.Models.Responses;
+using CapSolver.Tasks;
+using CapSolver;
+using HUB.Classes;
 using HUB.Properties;
 using System;
 using System.Collections.Generic;
@@ -18,6 +21,9 @@ namespace HUB
 {
     public partial class CreateCharacter : Form
     {
+
+        public bool isCreatingCharacter = false;
+
         public CreateCharacter()
         {
             InitializeComponent();
@@ -180,7 +186,7 @@ namespace HUB
                 character = new Util.RandomName(r).Generate((Util.Sex)Convert.ToInt32(male), r.Next(0, 1));
             }
 
-            return await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server).website, flag) && await addCharacterAsync(Settings.Default.Username,
+            return await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server), flag) && await addCharacterAsync(Settings.Default.Username,
                     Settings.Default.Password,
                     character,
                     account,
@@ -191,6 +197,7 @@ namespace HUB
         }
         public async Task<Character?> CreateGetCharacter(string server, string vocation, string script = "")
         {
+            isCreatingCharacter = true;
             Random r = new Random();
             string account = GenerateName(r.Next(6, 12)).ToLower();
             string password = new Util.PasswordGenerator().Generate();
@@ -227,7 +234,7 @@ namespace HUB
                 character = new Util.RandomName(r).Generate((Util.Sex)Convert.ToInt32(male), r.Next(0, 1));
             }
 
-            bool createCharacter = await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server).website, flag);
+            bool createCharacter = await Create(account, password, email, character, male, Program.Config.Servers.FirstOrDefault(s => s.name == server), flag);
 
             if (createCharacter)
             {
@@ -241,7 +248,10 @@ namespace HUB
                         script != string.Empty ? "&char_script=" + script : string.Empty);
 
                 if (insertCharacter)
+                {
+                    isCreatingCharacter = false;
                     return new Character() { account = account, password = password, name = character, script = script, server = server, char_index = 1, vocation = vocation };
+                }
                 else
                     return await CreateGetCharacter(server, vocation, script);
             }
@@ -269,7 +279,7 @@ namespace HUB
             return Name;
         }
 
-        public async Task<bool> Create(string account, string password, string email, string character, bool male, string website, string flag = "br", bool printError = false)
+        public async Task<bool> Create(string account, string password, string email, string character, bool male, Server server, string flag = "br", bool printError = false)
         {
             try
             {
@@ -293,7 +303,7 @@ namespace HUB
                 {
                     engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 
-                    var checkCodeResponse = await client.GetAsync(new Uri(website + @"?subtopic=imagebuilder&image_refresher=%27.rand(1,99999).%27"));
+                    var checkCodeResponse = await client.GetAsync(new Uri(server.websiteNoCF + @"?subtopic=imagebuilder&image_refresher=%27.rand(1,99999).%27"));
                     var resp = await checkCodeResponse.Content.ReadAsStringAsync();
                     if (checkCodeResponse.IsSuccessStatusCode)
                     {
@@ -335,6 +345,24 @@ namespace HUB
 
                 }
 
+                // GET CAPTCHA ANSWER
+
+                string captchaAnswer = string.Empty;
+
+                if (server.solveCaptcha)
+                {
+                    var solverClient = new CapSolverClient("CAI-58520A57A7C3759C745ED63A4131147D", false);
+
+                    var task = new ReCaptchaV2Task(new Uri(server.website + @" ? account/create").AbsoluteUri, "6LdqJO8kAAAAAEYh-iSJrZhT21NzQnsf9PKha5og");
+                    string id = await solverClient.CreateTask(task);
+                    var solverResponse = await solverClient.JoinTaskResult<ReCaptchaV2Response>(id);
+
+                    captchaAnswer = solverResponse.GReCaptchaResponse;
+                }
+
+                // SEND REQUEST
+
+
                 var pairs = new List<KeyValuePair<string, string>>
     {
         new KeyValuePair<string, string>("account", account),
@@ -343,6 +371,7 @@ namespace HUB
         new KeyValuePair<string, string>("country", flag),
         new KeyValuePair<string, string>("password", password),
         new KeyValuePair<string, string>("password2", password),
+        new KeyValuePair<string, string>("g-recaptcha-response", captchaAnswer),
         new KeyValuePair<string, string>("name", character),
         new KeyValuePair<string, string>("sex", Convert.ToInt32(male).ToString()),
         new KeyValuePair<string, string>("world", "0"),
@@ -354,7 +383,7 @@ namespace HUB
 
                 var postContent = new FormUrlEncodedContent(pairs);
 
-                var response = await client.PostAsync(new Uri(website + @"?account/create"), postContent);
+                var response = await client.PostAsync(new Uri(server.websiteNoCF + @"?account/create"), postContent);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -374,6 +403,7 @@ namespace HUB
                 return false;
             }
 
+            Debug.WriteLine("End");
             return false;
         }
         #endregion

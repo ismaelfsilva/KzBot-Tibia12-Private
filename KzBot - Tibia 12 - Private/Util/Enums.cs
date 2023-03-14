@@ -115,13 +115,20 @@ namespace KzBot
     {	
         public int X, Y, Z;
 
-		public int distanceTo(Position p)
+		public int distanceTo(Position p, bool absolute = false)
         {
             int distX = (p.X) - (X);
             int distY = (p.Y) - (Y);
 
-            double result = Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(distY, 2));
-            return (int)result;
+            if (absolute)
+            {
+                return (Math.Abs(distX) + Math.Abs(distY));
+            }
+            else
+            {
+                double result = Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(distY, 2));
+                return (int)result;
+            }
         }
 
 

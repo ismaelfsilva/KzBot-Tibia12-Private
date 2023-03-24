@@ -406,6 +406,13 @@ namespace KzBot.Threads
                             if (foundItem && !hasImbue && waypoint.Extra.Trim().ToLower() == "audio")
                             {
                                 Threads.ClientData.imbueTime = 0;
+
+                                if (Threads.ClientData.lastBalance <= Globals.Server.imbuementPrice)
+                                {
+                                    Globals.WaypointId++;
+                                    break;
+                                }
+
                                 using (var soundPlayer = new SoundPlayer(@"Sounds\Siren.wav"))
                                 {
                                     soundPlayer.Play();
@@ -415,6 +422,12 @@ namespace KzBot.Threads
                             else if (foundItem && !hasImbue)
                             {
                                 Threads.ClientData.imbueTime = 0;
+                                if (Threads.ClientData.lastBalance <= Globals.Server.imbuementPrice)
+                                {
+                                    Globals.WaypointId++;
+                                    break;
+                                }
+
                                 Globals.Main.Log.addLog("Imbuement Ended", false);
                                 Globals.WaypointId = Globals.ScriptConfig.Waypoints.FindIndex(w => w.Label == waypoint.Extra.Trim());
                             }
@@ -433,7 +446,8 @@ namespace KzBot.Threads
                     case WaypointType.Check_Refill:
                         {
                             instantSkip = true;
-                            Globals.HasAutoLoot = Globals.Server.autoLootId != -1 && Objects.Client.getItemCount(Globals.Server.autoLootId) > 0;
+                            if (!Globals.HasAutoLoot)
+                                Globals.HasAutoLoot = Globals.Server.autoLootId != -1 && Objects.Client.getItemCount(Globals.Server.autoLootId) > 0;
                             bool needRefill = false;
                             int playerLevel = Objects.Player.Level;
                             foreach (RefillRule refill in Globals.ScriptConfig.Refill)

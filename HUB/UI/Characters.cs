@@ -316,7 +316,7 @@ namespace HUB
                         ch.vocation,
                         server.id,
                         client.id,
-                        (10000000).ToString()
+                        (2000000).ToString()
                     };
 
                         ProcessStartInfo startInfo = new ProcessStartInfo();

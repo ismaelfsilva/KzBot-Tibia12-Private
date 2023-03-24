@@ -512,6 +512,16 @@ namespace KzBot
         {
             Threads.Alarms.exitMode = false;
         }
+
+        private void trueToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Globals.HasAutoLoot = true;
+        }
+
+        private void falseToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Globals.HasAutoLoot = false;
+        }
     }
 
     public static class ControlExtensions

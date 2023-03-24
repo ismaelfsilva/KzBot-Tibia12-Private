@@ -482,13 +482,13 @@ namespace KzBot.Objects
                 if (Globals.ScriptConfig.ignore_List.Contains(playerTarget?.Name))
                     playerTarget = null;
 
-                int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos, true) : 50;
+                int distToTarget = playerTarget != null ? playerTarget.Position.distanceTo(playerPos, Globals.ScriptConfig.focus_target_on_side) : 50;
                 Creature creatureToTarget = null;
                 if (distToTarget > 1)
                 {
                     foreach (Creature cr in creatures)
                     {
-                        int distToCreature = cr.Position.distanceTo(playerPos, true);
+                        int distToCreature = cr.Position.distanceTo(playerPos, Globals.ScriptConfig.focus_target_on_side);
 
                         if (distToCreature < distToTarget)
                         {
@@ -501,7 +501,7 @@ namespace KzBot.Objects
                     {
                         for (int i = 0; i < 50; i++)
                         {
-                            if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos, true) <= distToTarget))
+                            if (Player.TargetId == creatureToTarget.Id || (Player.TargetId != 0 && creatures.Find(c => c.Id == Player.TargetId)?.Position.distanceTo(playerPos, Globals.ScriptConfig.focus_target_on_side) <= distToTarget))
                             {
                                 if (!Globals.ScriptConfig.ignore_List.Contains(creatures.Find(c => c.Id == Player.TargetId)?.Name))
                                     break;

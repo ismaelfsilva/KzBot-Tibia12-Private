@@ -70,6 +70,9 @@
             this.sendToSafeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.falseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.trueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.falseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.setVocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,9 +93,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.uiUpdater = new System.Windows.Forms.Timer(this.components);
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.trueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.falseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hasAutoLootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trueToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.falseToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -107,7 +110,8 @@
             this.charactersToolStripMenuItem,
             this.sendToSafeToolStripMenuItem,
             this.exitToolStripMenuItem1,
-            this.setVocationToolStripMenuItem});
+            this.setVocationToolStripMenuItem,
+            this.hasAutoLootToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(796, 24);
@@ -178,16 +182,39 @@
             // trueToolStripMenuItem
             // 
             this.trueToolStripMenuItem.Name = "trueToolStripMenuItem";
-            this.trueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.trueToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.trueToolStripMenuItem.Text = "True";
             this.trueToolStripMenuItem.Click += new System.EventHandler(this.trueToolStripMenuItem_Click);
             // 
             // falseToolStripMenuItem
             // 
             this.falseToolStripMenuItem.Name = "falseToolStripMenuItem";
-            this.falseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.falseToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.falseToolStripMenuItem.Text = "False";
             this.falseToolStripMenuItem.Click += new System.EventHandler(this.falseToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trueToolStripMenuItem1,
+            this.falseToolStripMenuItem1});
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(38, 20);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            // 
+            // trueToolStripMenuItem1
+            // 
+            this.trueToolStripMenuItem1.Name = "trueToolStripMenuItem1";
+            this.trueToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.trueToolStripMenuItem1.Text = "True";
+            this.trueToolStripMenuItem1.Click += new System.EventHandler(this.trueToolStripMenuItem1_Click);
+            // 
+            // falseToolStripMenuItem1
+            // 
+            this.falseToolStripMenuItem1.Name = "falseToolStripMenuItem1";
+            this.falseToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.falseToolStripMenuItem1.Text = "False";
+            this.falseToolStripMenuItem1.Click += new System.EventHandler(this.falseToolStripMenuItem1_Click);
             // 
             // setVocationToolStripMenuItem
             // 
@@ -419,28 +446,28 @@
             this.uiUpdater.Enabled = true;
             this.uiUpdater.Tick += new System.EventHandler(this.uiUpdater_Tick);
             // 
-            // exitToolStripMenuItem1
+            // hasAutoLootToolStripMenuItem
             // 
-            this.exitToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.trueToolStripMenuItem1,
-            this.falseToolStripMenuItem1});
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(38, 20);
-            this.exitToolStripMenuItem1.Text = "Exit";
+            this.hasAutoLootToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trueToolStripMenuItem2,
+            this.falseToolStripMenuItem2});
+            this.hasAutoLootToolStripMenuItem.Name = "hasAutoLootToolStripMenuItem";
+            this.hasAutoLootToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.hasAutoLootToolStripMenuItem.Text = "Has Auto Loot";
             // 
-            // trueToolStripMenuItem1
+            // trueToolStripMenuItem2
             // 
-            this.trueToolStripMenuItem1.Name = "trueToolStripMenuItem1";
-            this.trueToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.trueToolStripMenuItem1.Text = "True";
-            this.trueToolStripMenuItem1.Click += new System.EventHandler(this.trueToolStripMenuItem1_Click);
+            this.trueToolStripMenuItem2.Name = "trueToolStripMenuItem2";
+            this.trueToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.trueToolStripMenuItem2.Text = "True";
+            this.trueToolStripMenuItem2.Click += new System.EventHandler(this.trueToolStripMenuItem2_Click);
             // 
-            // falseToolStripMenuItem1
+            // falseToolStripMenuItem2
             // 
-            this.falseToolStripMenuItem1.Name = "falseToolStripMenuItem1";
-            this.falseToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.falseToolStripMenuItem1.Text = "False";
-            this.falseToolStripMenuItem1.Click += new System.EventHandler(this.falseToolStripMenuItem1_Click);
+            this.falseToolStripMenuItem2.Name = "falseToolStripMenuItem2";
+            this.falseToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.falseToolStripMenuItem2.Text = "False";
+            this.falseToolStripMenuItem2.Click += new System.EventHandler(this.falseToolStripMenuItem2_Click);
             // 
             // Main
             // 
@@ -509,5 +536,8 @@
         private ToolStripMenuItem exitToolStripMenuItem1;
         private ToolStripMenuItem trueToolStripMenuItem1;
         private ToolStripMenuItem falseToolStripMenuItem1;
+        private ToolStripMenuItem hasAutoLootToolStripMenuItem;
+        private ToolStripMenuItem trueToolStripMenuItem2;
+        private ToolStripMenuItem falseToolStripMenuItem2;
     }
 }
